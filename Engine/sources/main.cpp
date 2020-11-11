@@ -8,23 +8,25 @@
 #include <iostream>
 #include "Engine/Window.hpp"
 #include "Engine/Shapes/2d/Triangle.hpp"
-#include "Engine/Shapes/3d/ModelMatrix.hpp"
-#include "Engine/Shapes/3d/TestTexture.hpp"
+#include "Engine/Shapes/3d/Cube.hpp"
+#include "Engine/Camera.hpp"
+#include "Engine/Clock.hpp"
 
 int main()
 {
     try {
         engine::Window window;
-        engine::Shader shaderProgram("data/shaders/vertexes/base", "data/shaders/fragments/base");
-        // engine::shape3d::ModelMatrix model(shaderProgram);
-        engine::shape3d::TestTexture model(shaderProgram);
+        engine::Shader shaderProgram("data/shaders/vertexes/camera", "data/shaders/fragments/camera");
+        engine::shape3d::Cube cube(shaderProgram);
+        engine::Camera camera(5);
+        engine::Clock clock;
 
-        while (!window.shouldClose()) {
-            window.processInput();
+        for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getDeltaTime()) {
+            window.processInput(camera, deltaTime);
 
             glClear(GL_COLOR_BUFFER_BIT);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            model.draw();
+            cube.draw(camera);
 
             window.pollEvents();
             window.swapBuffers();

@@ -5,13 +5,13 @@
 ** test
 */
 
+#include <iostream>
 #include <string.h>
 #include <sstream>
 #include <fstream>
 #include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "debugMacros.hpp"
 #include "Shader.hpp"
 
 static std::string readFile(const std::string& filepath);

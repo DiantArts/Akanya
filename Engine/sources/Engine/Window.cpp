@@ -74,10 +74,18 @@ void Window::pollEvents()
     glfwPollEvents();
 }
 
-void Window::processInput()
+void Window::processInput(engine::Camera& camera, const float deltaTime)
 {
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->m_Window.get(), true);
+    } else if (glfwGetKey(this->m_Window.get(), GLFW_KEY_W) == GLFW_PRESS) {
+        camera.moveForward(deltaTime);
+    } else if (glfwGetKey(this->m_Window.get(), GLFW_KEY_S) == GLFW_PRESS) {
+        camera.moveBackward(deltaTime);
+    } else if (glfwGetKey(this->m_Window.get(), GLFW_KEY_A) == GLFW_PRESS) {
+        camera.moveLeft(deltaTime);
+    } else if (glfwGetKey(this->m_Window.get(), GLFW_KEY_D) == GLFW_PRESS) {
+        camera.moveRight(deltaTime);
     }
 }
 

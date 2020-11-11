@@ -5,23 +5,24 @@
 ** triangle
 */
 
-#ifndef TESTTEXTURE_HPP
-#define TESTTEXTURE_HPP
+#ifndef SHAPE3D_CUBE_HPP
+#define SHAPE3D_CUBE_HPP
 
 #include "Engine/Vertexes/Vao.hpp"
 #include "Engine/Vertexes/Vbo.hpp"
 #include "Engine/Shader.hpp"
+#include "Engine/Camera.hpp"
 
 namespace engine::shape3d {
 
 class Vao;
 
-class TestTexture {
+class Cube {
 public:
-    TestTexture(engine::Shader &shaderProgram);
-    ~TestTexture();
+    Cube(engine::Shader &shaderProgram);
+    ~Cube();
 
-    void draw();
+    void draw(const engine::Camera& camera);
 
 private:
     void transform();
@@ -29,16 +30,16 @@ private:
     GLuint genTexture(char const * const filepath, bool isRGBA = false);
 
 private:
-    engine::Shader &m_ShaderProgram;
+    engine::Shader& m_Shader;
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
     GLuint m_Ebo;
     GLuint m_Texture1;
     GLuint m_Texture2;
 
-    glm::vec3 cubePositions[10];
+    glm::vec3 cubePositions[10]; // tmp
 };
 
 } // namespace engine::shape3d
 
-#endif // TESTTEXTURE_HPP
+#endif // SHAPE3D_CUBE_HPP

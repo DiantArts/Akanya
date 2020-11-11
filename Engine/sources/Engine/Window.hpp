@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <glad/glad.h>
+#include "Engine/Camera.hpp"
 
 struct GLFWwindow;
 
@@ -31,7 +32,7 @@ public:
     void swapBuffers();
     void pollEvents();
 
-    void processInput();
+    void processInput(engine::Camera& camera, const float deltaTime);
 
     static constexpr GLuint width = 1920;
     static constexpr GLuint height = 1080;
