@@ -5,42 +5,36 @@
 ** test
 */
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include "DiEngine/Window.hpp"
-#include "DiEngine/Shapes/Triangle.hpp"
-#include "DiEngine/Shapes/Rectangle.hpp"
-#include "DiEngine/Shapes/TestTexture.hpp"
-#include "debugMacros.hpp"
+#include <iostream>
+#include "Engine/Window.hpp"
+#include "Engine/Shapes/2d/Triangle.hpp"
+#include "Engine/Shapes/3d/ModelMatrix.hpp"
+#include "Engine/Shapes/3d/TestTexture.hpp"
 
 int main()
 {
-    // init a window + every OpenGL's extentions
-    DiEngine::Window window;
-    // DiEngine::Shader shaderProgram("data/shaders/vertex", "data/shaders/fragment");
-    DiEngine::Shader shaderProgramTexture("data/shaders/vertex_texture", "data/shaders/fragment_texture");
+    try {
+        engine::Window window;
+        engine::Shader shaderProgram("data/shaders/vertexes/base", "data/shaders/fragments/base");
+        // engine::shape3d::ModelMatrix model(shaderProgram);
+        engine::shape3d::TestTexture model(shaderProgram);
 
-    DiEngine::Triangle triangle(shaderProgramTexture);
-    // DiEngine::Rectangle rectangle(shaderProgram);
-    // DiEngine::TestTexture testTexture(shaderProgramTexture);
+        while (!window.shouldClose()) {
+            window.processInput();
 
-    while (!window.shouldClose()) {
-        window.processInput();
+            glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            model.draw();
 
-        // clear the window using glClearColor's value
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        triangle.draw();
-        // rectangle.draw();
-        // testTexture.draw();
-
-        window.swapBuffers();
-        glfwPollEvents();
+            window.pollEvents();
+            window.swapBuffers();
+        }
+        return EXIT_SUCCESS;
+    } catch (const std::exception& e) {
+        std::cerr << "ERROR: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    } catch (...) {
+        std::cerr << "ERROR: unknown" << std::endl;
+        return EXIT_FAILURE;
     }
-
-    DEBUG_MSG("exiting correctly");
-    return 0;
 }
-
-// glUniform4f(glGetUniformLocation(this->id, "ourColor"),
-        // 0.0f, (std::sin(glfwGetTime()) / 2.0f) + 0.5f, 0.0f, 1.0f);

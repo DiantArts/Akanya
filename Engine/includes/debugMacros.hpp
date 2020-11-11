@@ -148,7 +148,6 @@ private:
 #define DEBUG_PRETTY_FUNC
 #define DEBUG_TIME
 
-
 #endif // DEBUG > 0
 
 

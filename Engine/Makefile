@@ -2,99 +2,265 @@
 ## EPITECH PROJECT, 2020
 ## Makefile
 ## File description:
-## Makefile of the entire project
+## C/Cpp makefile
 ##
 
-ARGV		:=
-BINDIR		:=	binary
+# =================================================================================================
+# = DECLARATION ===================================================================================
+# =================================================================================================
 
-CFLAGS		+=	-Wpedantic -Wall -Wextra -std=c++17
-CPPFLAGS	+=	-Iincludes -Ilibraries -Isources
-LDFLAGS		+=	-L$(CURDIR) -L$(BINDIR)
-LDLIBS		+=	-lglfw -lGL -lGLEW -lGLU -lglut -lX11 -lpthread -lXrandr -lXi -ldl
+# ============================================================================= Basics
 
-ifeq (debug,$(findstring debug, $(MAKECMDGOALS)))
-NAME		:=	engine_debug
-CFLAGS		+=	-Ofast -pipe -DDEBUG=2
-OBJDIR		:=	.objects/debug
-LIBEXT		:=	_debug.a
-LDLIBS		+=	$(foreach libname,$(patsubst ./libraries/%,%_debug,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries)),-l$(libname))
-else ifeq (auto_gdb,$(findstring auto_gdb, $(MAKECMDGOALS)))
-NAME		:=	engine_gdb
-CFLAGS		+=	-Ofast -pipe -DDEBUG=2
-OBJDIR		:=	.objects/gdb
-LIBEXT		:=	_gdb.a
-LDLIBS		+=	$(foreach libname,$(patsubst ./libraries/%,%_gdb,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries)),-l$(libname))
-else ifeq (auto_valgrind,$(findstring auto_valgrind, $(MAKECMDGOALS)))
-NAME		:=	engine_valgrind
-CFLAGS		+=	-g3 -Og -pipe -DDEBUG=1
-OBJDIR		:=	.objects/valgrind
-LIBEXT		:=	_valgrind.a
-LDLIBS		+=	$(foreach libname,$(patsubst ./libraries/%,%_valgrind,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries)),-l$(libname))
-else ifeq (tests_run,$(findstring tests_run, $(MAKECMDGOALS)))
-NAME		:=	unit_tests
-CFLAGS		+=	-Ofast -pipe --coverage
-OBJDIR		:=	.objects/tests
-LDLIBS		+=	-lcriterion
-LIBEXT		:=	.a
-LDLIBS		+=	$(foreach libname,$(patsubst ./libraries/%,%,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries)),-l$(libname))
+ARGV				:=
+BINNAME			:=	engine
+
+# Directories
+BINDIR				:=	binary
+SRCDIR				:=	sources
+LIBDIR				:=	libraries
+TSTDIR				:=	tests
+OBJDIR				:=	.objects
+DEPDIR				:=	.dependencies
+
+# Libraries
+LIBNAME				:=	glfw GL GLEW GLU glut X11 pthread Xrandr Xi dl
+LIBLOCATION			:=
+
+# C
+CC					:=	gcc
+C_EXT				:=	.c
+C_INCDIR			:=
+C_FLAGS				:=
+
+# CPP
+CXX					:=	g++
+CPP_EXT				:=	.cpp
+CPP_INCDIR			:=	sources
+CPP_FLAGS			:=	-Wpedantic -std=c++2a -Wno-volatile
+
+# COMMON FLAGS
+COMMON_INCDIR		:=	includes libraries
+COMMON_WFLAGS		:=	all extra abi=11
+COMMON_FLAGS		:=	
+
+# Extentions
+OBJEXT				:=	.o
+DEPEXT				:=	.d
+S_LIBEXT		:=	.a
+D_LIBEXT		:=	.so
+
+# ============================================================================= AutoDecleration
+
+MODE_EXT			=	$(RELEASE_EXT)
+
+# Directories
+BINDIR				?=	.
+SRCDIR				?=	sources
+LIBDIR				?=	libraries
+TSTDIR				?=	tests
+
+# C
+CFLAGS				+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag))) $(C_FLAGS) $(COMMON_FLAGS)
+C_CPPFLAGS			:=	$(foreach inc, $(C_INCDIR), $(addprefix -I,$(inc)))
+C_SRC				!=	find $(SRCDIR) -type f -name \*$(C_EXT)
+
+# CPP
+CXXFLAGS			+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag))) $(CPP_FLAGS) $(COMMON_FLAGS)
+CXX_CPPFLAGS		:=	$(foreach inc, $(CPP_INCDIR), $(addprefix -I,$(inc)))
+CXX_SRC				!=	find $(SRCDIR) -type f -name \*$(CPP_EXT)
+
+# COMMON
+LIB_DIR				!=	mkdir -p $(LIBDIR); find $(LIBDIR)/ -maxdepth 1 -type d ! -path $(LIBDIR)/
+LDFLAGS				+=	-L$(CURDIR) -L$(BINDIR) $(foreach lib, $(LIBLOCATION),$(addprefix -L,$(lib)))
+LDLIBS				+=	$(foreach lib, $(LIBNAME),$(addprefix -l,$(lib)))
+CPPFLAGS			+=	$(foreach inc, $(COMMON_INCDIR), $(addprefix -I,$(inc)))
+
+
+# ============================================================================= Mode debug
+ifeq (debug,$(findstring debug,$(MAKECMDGOALS)))
+
+MODE_EXT			:=	_debug
+CFLAGS				+=	-g3 -Og -pipe -DDEBUG=2
+CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=2
+MOD_OBJDIR				:=	$(addsuffix /debug,$(OBJDIR))
+
+
+# ============================================================================= Mode valgrind
+else ifeq (auto_valgrind,$(findstring auto_valgrind,$(MAKECMDGOALS)))
+
+MODE_EXT			:=	_valgrind
+CFLAGS				+=	-g3 -Og -pipe -DDEBUG=1
+CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=1
+MOD_OBJDIR				:=	$(addsuffix /valgrind,$(OBJDIR))
+
+
+# ============================================================================= Mode gdb
+else ifeq (auto_gdb,$(findstring auto_gdb,$(MAKECMDGOALS)))
+
+MODE_EXT			:=	_gdb
+CFLAGS				+=	-g3 -Og -pipe
+CXXFLAGS			+=	-g3 -Og -pipe
+MOD_OBJDIR				:=	$(addsuffix /gdb,$(OBJDIR))
+
+# ============================================================================= Mode release
 else
-NAME		:=	engine
-CFLAGS		+=	-Ofast -pipe
-OBJDIR		:=	.objects/release
-LIBEXT		:=	.a
-LDLIBS		+=	$(foreach libname,$(patsubst ./libraries/%,%,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries)),-l$(libname))
-endif
-NAME		:=	$(BINDIR)/$(NAME)
 
-all : $(NAME)
+MODE_EXT			:=
+CFLAGS				+=	-Ofast -pipe
+CXXFLAGS			+=	-Ofast -pipe
+MOD_OBJDIR				:=	$(addsuffix /release,$(OBJDIR))
 
-ifeq (tests_run,$(findstring tests_run, $(MAKECMDGOALS)))
-$(NAME) : $(patsubst ./%cpp,$(OBJDIR)/%o,$(shell find ./sources -type f -name \*.cpp ! -path ./sources/main.cpp) ./tests/tests.cpp) $(foreach libdir,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries),$(patsubst ./libraries/%,$(BINDIR)/lib%$(LIBEXT),$(libdir))) | $(BINDIR)
-	$(CXX) $(OUTPUT_OPTION) --coverage $(patsubst ./%cpp,$(OBJDIR)/%o,$(shell find ./sources -type f -name \*.cpp ! -path ./sources/main.cpp) ./tests/tests.cpp) $(LDFLAGS) $(LDLIBS)
-	@echo -e "$(LRED)[Linkage]$(NORMAL) $@"
-else
-$(NAME) : $(patsubst ./%cpp,$(OBJDIR)/%o,$(shell find ./sources -type f -name \*.cpp)) $(foreach libdir,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries),$(patsubst ./libraries/%,$(BINDIR)/lib%$(LIBEXT),$(libdir))) | $(BINDIR)
-	$(CXX) $(OUTPUT_OPTION) $(patsubst ./%cpp,$(OBJDIR)/%o,$(shell find ./sources -type f -name \*.cpp)) $(LDFLAGS) $(LDLIBS)
-	@echo -e "$(LRED)[Linkage]$(NORMAL) $@"
 endif
-$(BINDIR)/lib%$(LIBEXT) : $(patsubst ./%cpp,$(OBJDIR)/%o,$(shell find ./libraries/$% -type f -name \*.cpp))
+
+# ============================================================================= Mode dependent
+
+LDLIBS				+=	$(patsubst $(LIBDIR)/%,-l%$(MODE_EXT),$(LIB_DIR))
+LIBBIN				:=	$(foreach libdir,$(LIB_DIR),$(patsubst $(LIBDIR)/%,$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT),$(libdir)))
+
+NAME				:=	$(BINDIR)/$(BINNAME)$(MODE_EXT)
+DYNAMIC_LIB_NAME	:=	$(BINDIR)/lib$(BINNAME)$(D_LIBEXT)
+
+SRC					:=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(C_SRC))
+SRC					+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(CXX_SRC))
+
+SRC_LIB				:=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(CPP_EXT)))
+SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(C_EXT)))
+
+ifneq "$(wildcard $(DEPDIR) )" ""
+include $(shell find $(DEPDIR) -type f -name \*$(DEPEXT))
+endif
+.PRECIOUS: $(MOD_OBJDIR)/%$(OBJEXT)
+
+# ============================================================================= UI
+
+# display
+PRINTF				:=	@printf
+
+NORMAL				:=	\e[0m
+BLACK				:=	\e[0;30m
+DARKGRAY			:=	\e[1;30m
+RED 				:=	\e[0;31m
+LRED				:=	\e[1;31m
+GREEN				:=	\e[0;32m
+LGREEN				:=	\e[1;32m
+BROWN				:=	\e[0;33m
+YELLOW				:=	\e[1;33m
+BLUE				:=	\e[0;34m
+LBLUE				:=	\e[1;34m
+PURPLE				:=	\e[0;35m
+LPURPLE				:=	\e[1;35m
+CYAN				:=	\e[0;36m
+LCYAN				:=	\e[1;36m
+LIGHT				:=	\e[0;37m
+WHITE				:=	\e[1;37m
+
+SPOS				:=	tput sc
+CLEAR_LINE			:=	tput hpa 0; tput el
+
+MAKEFLAGS			+=	--silent --no-print-directory
+
+# =================================================================================================
+# = RULES =========================================================================================
+# =================================================================================================
+
+# basics
+
+all : $(NAME) | $(BINDIR)
+
+$(NAME) : $(SRC) $(LIBBIN) # ================================================= Linkage
+	$(CXX) $(OUTPUT_OPTION) $(SRC) $(LDFLAGS) $(LDLIBS)
+	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
+
+$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB) # =========================== Static lib
 	ar -rc $@ $^
-	@echo -e "$(LRED)[Linkage]$(NORMAL) $@"
+	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
-$(OBJDIR)/%o : %cpp
-	mkdir -p $(@D) $(patsubst .objects%,.dependencies%,$(@D))
-	$(CXX) -c $(OUTPUT_OPTION) $(CFLAGS) $(CPPFLAGS) $< -MT $@ -MMD -MP -MF $(patsubst .objects%o,.dependencies/%d,$@)
-	@echo -e "$(LRED)[Compilation]$(NORMAL) $<"
+ifneq ($(MAKECMDGOALS), count) # ============================================== C compilation
+$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
+	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
+	$(CC) -c $(OUTPUT_OPTION) $(CFLAGS) $(CPPFLAGS) $(C_CPPFLAGS) $< \
+		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $<\n"
+endif
 
-$(BINDIR) :; mkdir -p $@
+ifneq ($(MAKECMDGOALS), count) # ============================================== Cpp compilation
+$(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
+	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
+	$(CXX) -c $(OUTPUT_OPTION) $(CXXFLAGS) $(CPPFLAGS) $(CXX_CPPFLAGS) \
+		$< -MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< %s\n" $(I)
+endif
 
-include $(shell find . -type f -name \*.d)
+$(BINDIR): # ================================================================== Creating $(BINDIR)
+	mkdir -p $@
 
-clean :
+# cleaning
+
+clean	:
 	rm -rf .objects .dependencies vgcore.*
-	@echo -e "$(DARKGRAY)[Clean]$(NORMAL) done"
+	$(PRINTF) "$(DARKGRAY)[Clean]$(NORMAL) done\n"
 
-fclean : clean
-	rm -f $(NAME) $(NAME)_debug $(NAME)_valgrind $(BINDIR)/unit_tests $(foreach libdir,$(shell find ./libraries -maxdepth 1 -type d ! -path ./libraries),$(patsubst ./libraries/%,$(BINDIR)/lib%$(LIBEXT),$(libdir) $(libdir)_debug $(libdir)_valgrind))
-	if [[ "$(BINDIR)" != "." && "$(BINDIR)" != "" ]]; then rm -df ./$(BINDIR); fi
-	@echo -e "$(DARKGRAY)[Fclean]$(NORMAL) done"
+fclean				: clean
+	rm -f $(BINDIR)/$(BINNAME) $(BINDIR)/$(BINNAME)_* $(DYNAMIC_LIB_NAME)
+	$(foreach lib,$(LIBBIN),rm -f $(lib) $(patsubst %.a,%_*.a,$(lib)))
+	if [[ -d $(BINDIR) ]]; then rmdir $(BINDIR); fi
+	$(PRINTF) "$(DARKGRAY)[FClean]$(NORMAL) done\n"
 
-re :
+re					:
 	$(MAKE) fclean
 	$(MAKE) all
 
-auto			: all ; @echo -e "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)"					; ./$(NAME) $(ARGV)
-debug			: all ; @echo -e "$(YELLOW)[Binary]$(NORMAL) debug $(ARGV)"					; ./$(NAME) $(ARGV)
-auto_valgrind	: all ; @echo -e "$(YELLOW)[Binary]$(NORMAL) auto valgrind $(ARGV)"			; valgrind ./$(NAME) $(ARGV)
-auto_gdb		: all ; @echo -e "$(YELLOW)[Binary]$(NORMAL) auto gdb $(ARGV)"				; gdb --args $(NAME) $(ARGV)
-tests_run		: all ; @echo -e "$(YELLOW)[Binary]$(NORMAL) tests_run"						; ./$(NAME) ; gcovr -be tests
+# auto
 
-NORMAL			:=	\e[0m
-DARKGRAY		:=	\e[1;30m
-LRED			:=	\e[1;31m
-YELLOW			:=	\e[1;33m
+auto				: all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
+	./$(NAME) $(ARGV)
 
-MAKEFLAGS		+=	--silent --no-print-directory
-.PHONY: all clean fclean re $(NAME) $(NAME)_debug $(NAME)_valgrind $(NAME)_gdb unit_tests auto debug auto_valgrind auto_gdb tests_run
-.PRECIOUS: $(OBJDIR)/%o
+debug				: all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
+	./$(NAME) $(ARGV)
+
+auto_valgrind		: all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
+	valgrind ./$(NAME) $(ARGV)
+
+auto_gdb			: all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
+	gdb --args $(NAME) $(ARGV)
+
+# =================================================================================================
+# = Options =======================================================================================
+# =================================================================================================
+
+cat					:
+	cat Makefile
+
+extractDynamicLib: $(DYNAMIC_LIB_NAME) | $(BINDIR)
+
+$(DYNAMIC_LIB_NAME)	: CFLAGS += -fPIC
+$(DYNAMIC_LIB_NAME)	: CXXFLAGS += -fPIC
+$(DYNAMIC_LIB_NAME)	: $(SRC) $(LIBBIN) | $(BINDIR)
+	$(CXX) $(OUTPUT_OPTION) -shared -Wl,-soname,$(DYNAMIC_LIB_NAME) $(SRC) $(LDFLAGS) $(LDLIBS)
+	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
+
+# =================================================================================================
+# = UI - uncompleted ==============================================================================
+# =================================================================================================
+count:	$(SRC) $(SRC_LIB)
+	$(PRINTF) "$(COUNTER)\n"
+
+getCount:
+	$(eval COUNT := $(shell $(MAKE) count))
+
+display:
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) -$(patsubst display%,%,$(MAKECMDGOALS))"
+
+ifeq ($(MAKECMDGOALS), count) # =============================================== C counting
+$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
+	$(eval COUNTER = $(shell printf "$$(($(COUNTER)+1))"))
+endif
+
+ifeq ($(MAKECMDGOALS), count) # =============================================== Cpp counting
+$(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
+	$(eval COUNTER = $(shell printf "$$(($(COUNTER)+1))"))
+endif
