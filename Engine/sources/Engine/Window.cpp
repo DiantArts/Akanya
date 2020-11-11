@@ -5,14 +5,18 @@
 ** test
 */
 
+#include <functional>
 #include "Window.hpp" // need to be included before <GLFW/glfw3.h>
 #include <GLFW/glfw3.h>
 #include "debugMacros.hpp"
 
-static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 static void initGLWF();
 static void initGLAD();
-static void GLAPIENTRY messageCallback( GLenum source, GLenum type, GLuint id, GLenum severity,
+
+static void mouseDirectionCallback(GLFWwindow* window, double xPos, double yPos);
+static void mouseScrollcallback(GLFWwindow* window, double xPos, double yPos);
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
         GLsizei length, const GLchar* message, const void* userParam);
 
 namespace engine {
@@ -25,6 +29,7 @@ void WindowDeleter::operator()(GLFWwindow* window)
     DEBUG_MSG("Window destroyed");
 }
 
+engine::Camera engine::Window::camera; // static member
 Window::Window()
 {
     initGLWF();
@@ -39,7 +44,7 @@ Window::Window()
     // specifies the affine transformation of x and y from normalized devices
     // coordinates to window coordinates.
     glfwMakeContextCurrent(this->m_Window.get());
-    glfwSetFramebufferSizeCallback(this->m_Window.get(), framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(this->m_Window.get(), framebufferSizeCallback);
 
     // GLAD
     initGLAD();
@@ -51,6 +56,11 @@ Window::Window()
     // glClearColor(0.f, 0.f, 0.f, 1.0f); // clear black
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // clear weird blue
 
+    // mouse events
+    glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(this->m_Window.get(), mouseDirectionCallback);
+    glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
+
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(messageCallback, 0);
@@ -58,7 +68,8 @@ Window::Window()
     DEBUG_MSG("window created");
 }
 
-// OpenGL stuff
+// ---------------------------------------------------------------------------- OpenGL stuff
+
 bool Window::shouldClose() const
 {
     return glfwWindowShouldClose(this->m_Window.get());
@@ -74,26 +85,30 @@ void Window::pollEvents()
     glfwPollEvents();
 }
 
-void Window::processInput(engine::Camera& camera, const float deltaTime)
+// ---------------------------------------------------------------------------- input
+
+void Window::processInput(const float deltaTime)
 {
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->m_Window.get(), true);
     }
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_W) == GLFW_PRESS) {
-        camera.moveForward(deltaTime);
+        this->camera.moveForward(deltaTime);
     }
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_S) == GLFW_PRESS) {
-        camera.moveBackward(deltaTime);
+        this->camera.moveBackward(deltaTime);
     }
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_A) == GLFW_PRESS) {
-        camera.moveLeft(deltaTime);
+        this->camera.moveLeft(deltaTime);
     }
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_D) == GLFW_PRESS) {
-        camera.moveRight(deltaTime);
+        this->camera.moveRight(deltaTime);
     }
 }
 
 } // namespace engine
+
+// ---------------------------------------------------------------------------- init helpers
 
 // provides a simple API for creating windows, contexts and surfaces,
 // receiving input and events. (compatible window, X, wayland)
@@ -123,23 +138,52 @@ static void initGLAD()
     DEBUG_MSG("glad inited");
 }
 
+// ---------------------------------------------------------------------------- callbacks
+
+static void mouseDirectionCallback(GLFWwindow* window [[ gnu::unused ]], double xPos, double yPos)
+{
+    static float lastX;
+    static float lastY;
+    static bool firstMouse = true;
+
+    if (firstMouse) {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+
+    float xOffset = xPos - lastX;
+    float yOffset = lastY - yPos; // reversed since y-coordinates go from bottom to top
+    lastX = xPos;
+    lastY = yPos;
+
+    engine::Window::camera.adjustDirection(xOffset, yOffset);
+}
+
+static void mouseScrollcallback(GLFWwindow* window [[ gnu::unused ]], double xOffset [[ gnu::unused ]],
+        double yOffset)
+{
+    engine::Window::camera.adjustZoom(yOffset);
+}
+
 // glfw: whenever the window size changed (by OS or user resize) this callback
 // function executes
-static void framebuffer_size_callback(GLFWwindow* window [[ gnu::unused ]],
-int width, int height)
+static void framebufferSizeCallback(GLFWwindow* window [[ gnu::unused ]],
+        int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
 
-void GLAPIENTRY messageCallback(GLenum source,
-                                GLenum type,
-                                GLuint id [[ gnu::unused ]],
-                                GLenum severity,
-                                GLsizei length [[gnu::unused]],
-                                const GLchar* message,
-                                const void* userParam [[gnu::unused]])
+// GLAPIENTRY: Windows compatibility tool
+static void GLAPIENTRY messageCallback(GLenum source,
+                                       GLenum type,
+                                       GLuint id [[ gnu::unused ]],
+                                       GLenum severity,
+                                       GLsizei length [[gnu::unused]],
+                                       const GLchar* message,
+                                       const void* userParam [[gnu::unused]])
 {
     std::cerr << "ERROR (GL): " << message;
     std::cerr << " (src: " << source << ", type: " << type;

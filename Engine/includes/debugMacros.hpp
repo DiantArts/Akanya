@@ -14,6 +14,22 @@
 
 #if DEBUG > 0
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+inline std::ostream& operator<<(std::ostream& os, const glm::vec2& vec)
+{
+    os << "[" << vec.x << ", " << vec.y << "]";
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const glm::vec3& vec)
+{
+    os << "[" << vec.x << ", " << vec.y << ", " << vec.z <<"]";
+    return os;
+}
+
 inline std::recursive_mutex debugClogMutex;
 inline int isDebugClogMutexLocked = 0;
 inline std::string str;

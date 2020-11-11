@@ -22,20 +22,22 @@ struct WindowDeleter {
 
 class Window {
 public:
-    // Create the window and init OpenGL stuff
     Window();
-    // Destroy the window and terminate OpenGL stuff
     ~Window() = default;
 
+// ---------------------------------------------------------------------------- OpenGL stuff
     bool shouldClose() const;
-    // OpenGL stuff: have to be call inside the main loop
     void swapBuffers();
     void pollEvents();
 
-    void processInput(engine::Camera& camera, const float deltaTime);
+// ---------------------------------------------------------------------------- input
+    void processInput(const float deltaTime);
 
+public:
     static constexpr GLuint width = 1920;
     static constexpr GLuint height = 1080;
+
+    static engine::Camera camera;
 
 private:
     std::unique_ptr<GLFWwindow, WindowDeleter> m_Window;

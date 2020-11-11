@@ -87,9 +87,6 @@ Cube::Cube(engine::Shader &shaderProgram)
     this->m_Shader.use();
     this->m_Shader.set("texture1", 0);
     this->m_Shader.set("texture2", 1);
-
-    this->m_Shader.set("projection", glm::perspective(glm::radians(45.0f),
-                (float)Window::width / (float)Window::height, 0.1f, 100.0f));
 }
 
 Cube::~Cube()
@@ -99,10 +96,12 @@ void Cube::draw(const engine::Camera& camera)
 {
     this->bindTextures();
     this->m_Shader.use();
+
     this->m_Shader.set("view", camera.getView());
+    this->m_Shader.set("projection", glm::perspective(glm::radians(camera.zoom),
+                (float)Window::width / (float)Window::height, 0.1f, 100.0f));
+
     this->m_Vao.bind();
-    this->transform();
-    // glDrawArrays(GL_TRIANGLES, 0, 36);
 
     for (unsigned int i = 0; i < 10; i++) {
         this->m_Shader.set("model", glm::rotate(glm::translate(glm::mat4(1.0f), cubePositions[i]),
@@ -110,15 +109,6 @@ void Cube::draw(const engine::Camera& camera)
                     glm::vec3(1.0f, 0.3f, 0.5f)));
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
-}
-
-void Cube::transform()
-{
-    // glUniformMatrix4fv(glGetUniformLocation(this->m_Shader.get(), "model"), 1, GL_FALSE,
-            // glm::value_ptr(glm::rotate(glm::mat4(1.0f), 0.5f, glm::vec3(0.5f, 1.0f, 0.0f))));
-
-    // auto view  = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-    // glUniformMatrix4fv(glGetUniformLocation(this->m_Shader.get(), "view"), 1, GL_FALSE, &view[0][0]);
 }
 
 void Cube::bindTextures()

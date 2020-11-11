@@ -15,7 +15,7 @@ public:
     Clock();
     ~Clock();
 
-    float getDeltaTime();
+    float getElapsedTime();
 
 private:
     float m_LastFrameTime = 0.0f;

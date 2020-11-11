@@ -17,7 +17,7 @@ Clock::Clock()
 Clock::~Clock()
 {}
 
-float Clock::getDeltaTime()
+float Clock::getElapsedTime()
 {
     float currentFrameTime = glfwGetTime();
     float deltaTime = currentFrameTime - this->m_LastFrameTime;

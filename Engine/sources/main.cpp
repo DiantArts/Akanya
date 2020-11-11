@@ -5,11 +5,11 @@
 ** test
 */
 
+#include <functional>
 #include <iostream>
 #include "Engine/Window.hpp"
 #include "Engine/Shapes/2d/Triangle.hpp"
 #include "Engine/Shapes/3d/Cube.hpp"
-#include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
 
 int main()
@@ -18,15 +18,15 @@ int main()
         engine::Window window;
         engine::Shader shaderProgram("data/shaders/vertexes/camera", "data/shaders/fragments/camera");
         engine::shape3d::Cube cube(shaderProgram);
-        engine::Camera camera(5);
         engine::Clock clock;
 
-        for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getDeltaTime()) {
-            window.processInput(camera, deltaTime);
+        window.camera.speed = 5;
+        for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getElapsedTime()) {
+            window.processInput(deltaTime);
 
             glClear(GL_COLOR_BUFFER_BIT);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            cube.draw(camera);
+            cube.draw(window.camera);
 
             window.pollEvents();
             window.swapBuffers();
