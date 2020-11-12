@@ -168,7 +168,7 @@ static void mouseScrollcallback(GLFWwindow*, double, double yOffset)
 
 // glfw: whenever the window size changed (by OS or user resize) this callback
 // function executes
-static void framebufferSizeCallback(GLFWwindow* window, int width, int height)
+static void framebufferSizeCallback(GLFWwindow*, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.

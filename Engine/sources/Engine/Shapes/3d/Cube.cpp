@@ -70,9 +70,9 @@ Cube::Cube(engine::Shader &shaderProgram)
     cubePositions[8] = glm::vec3( 1.5f,  0.2f, -1.5f);
     cubePositions[9] = glm::vec3(-1.3f,  1.0f, -1.5f);
 
-    this->m_Vao.bind();
+    // this->m_Vao.bind();
 
-    this->m_Vbo.bind();
+    // this->m_Vbo.bind();
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);

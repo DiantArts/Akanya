@@ -19,9 +19,7 @@ Vertices::Vertices(const std::string_view filepath)
     this->m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);
     while (std::getline(iss, str)) {
-        if (!str.empty()) {
-            this->m_Vertices.push_back(std::stof(str));
-        }
+        this->m_Vertices.push_back(std::stof(str));
     }
 }
 
