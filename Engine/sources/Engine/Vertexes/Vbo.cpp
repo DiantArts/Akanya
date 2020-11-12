@@ -14,6 +14,7 @@ namespace engine {
 Vbo::Vbo()
 {
     glGenBuffers(1, &this->m_Vbo);
+    this->bind();
 }
 
 Vbo::~Vbo()

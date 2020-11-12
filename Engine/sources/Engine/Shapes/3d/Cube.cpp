@@ -84,7 +84,6 @@ Cube::Cube(engine::Shader &shaderProgram)
     this->m_Texture1 = this->genTexture("data/textures/wall.jpg");
     this->m_Texture2 = this->genTexture("data/textures/awesomeface.png", true);
 
-    this->m_Shader.use();
     this->m_Shader.set("texture1", 0);
     this->m_Shader.set("texture2", 1);
 }

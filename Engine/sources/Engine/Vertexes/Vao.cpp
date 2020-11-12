@@ -13,6 +13,7 @@ namespace engine {
 Vao::Vao()
 {
     glGenVertexArrays(1, &this->m_Vao);
+    this->bind();
 }
 
 Vao::~Vao()

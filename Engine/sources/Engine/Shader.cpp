@@ -12,9 +12,9 @@
 #include <cmath>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Tools/File.hpp"
 #include "Shader.hpp"
 
-static std::string readFile(const std::string& filepath);
 static GLuint compileShader(GLenum shaderType, const std::string filepath);
 static void checkCompilationStatus(GLuint shader);
 static void checkLinkageStatus(GLuint shader);
@@ -125,7 +125,7 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
     GLuint vertex = glCreateShader(shaderType);
 
     try {
-        const std::string readenFile(readFile(filepath));
+        const std::string readenFile(tools::file::read(filepath));
         const char* shaderCode = readenFile.c_str();
         glShaderSource(vertex, 1, &shaderCode, nullptr);
     } catch(const std::ifstream::failure& e) {
@@ -137,18 +137,6 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
     checkCompilationStatus(vertex);
 
     return vertex;
-}
-
-static std::string readFile(const std::string& filepath)
-{
-    std::stringstream shaderStream;
-    {
-        std::ifstream shaderFile;
-        shaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        shaderFile.open(std::string(filepath).c_str());
-        shaderStream << shaderFile.rdbuf();
-    }
-    return shaderStream.str();
 }
 
 static void checkCompilationStatus(GLuint shader)

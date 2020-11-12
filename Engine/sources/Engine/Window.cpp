@@ -140,7 +140,7 @@ static void initGLAD()
 
 // ---------------------------------------------------------------------------- callbacks
 
-static void mouseDirectionCallback(GLFWwindow* window [[ gnu::unused ]], double xPos, double yPos)
+static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
 {
     static float lastX;
     static float lastY;
@@ -150,6 +150,7 @@ static void mouseDirectionCallback(GLFWwindow* window [[ gnu::unused ]], double 
         lastX = xPos;
         lastY = yPos;
         firstMouse = false;
+        engine::Window::camera.adjustDirection(0, 0);
     }
 
     float xOffset = xPos - lastX;
@@ -160,16 +161,14 @@ static void mouseDirectionCallback(GLFWwindow* window [[ gnu::unused ]], double 
     engine::Window::camera.adjustDirection(xOffset, yOffset);
 }
 
-static void mouseScrollcallback(GLFWwindow* window [[ gnu::unused ]], double xOffset [[ gnu::unused ]],
-        double yOffset)
+static void mouseScrollcallback(GLFWwindow*, double, double yOffset)
 {
     engine::Window::camera.adjustZoom(yOffset);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback
 // function executes
-static void framebufferSizeCallback(GLFWwindow* window [[ gnu::unused ]],
-        int width, int height)
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
@@ -177,13 +176,8 @@ static void framebufferSizeCallback(GLFWwindow* window [[ gnu::unused ]],
 }
 
 // GLAPIENTRY: Windows compatibility tool
-static void GLAPIENTRY messageCallback(GLenum source,
-                                       GLenum type,
-                                       GLuint id [[ gnu::unused ]],
-                                       GLenum severity,
-                                       GLsizei length [[gnu::unused]],
-                                       const GLchar* message,
-                                       const void* userParam [[gnu::unused]])
+static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint, GLenum severity, GLsizei,
+        const GLchar* message, const void*)
 {
     std::cerr << "ERROR (GL): " << message;
     std::cerr << " (src: " << source << ", type: " << type;
