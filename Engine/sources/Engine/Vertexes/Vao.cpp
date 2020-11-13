@@ -5,7 +5,6 @@
 ** s
 */
 
-#include <glad/glad.h>
 #include "Vao.hpp"
 
 namespace engine {

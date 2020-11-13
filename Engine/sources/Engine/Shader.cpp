@@ -5,15 +5,10 @@
 ** test
 */
 
-#include <iostream>
-#include <string.h>
-#include <sstream>
-#include <fstream>
-#include <cmath>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include "Tools/File.hpp"
-#include "Shader.hpp"
+#include <iostream>          // std::clog
+#include <fstream>           // std::ifstream::failure
+#include "Tools/File.hpp"    // tools::file::read
+#include "Engine/Shader.hpp" // std::string_view, glad.h, glm.h
 
 static GLuint compileShader(GLenum shaderType, const std::string filepath);
 static void checkCompilationStatus(GLuint shader);

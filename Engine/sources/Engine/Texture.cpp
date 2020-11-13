@@ -5,12 +5,12 @@
 ** Texture
 */
 
-#include <Engine/Shader.hpp>
-#include <stb/stb_image.h>
-#include <glad/glad.h>
+#include <glad/glad.h>       // GLuint, glBindTexture(), glTexParameteri
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include "Texture.hpp"
+#include <stb/stb_image.h>   // stbi_load(), stdbi_image_free()
+#include <iostream>          // std::clog
+#include "Engine/Shader.hpp"
+#include "Texture.hpp"       // std::string_view, std::vector
 
 namespace engine {
 

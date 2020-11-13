@@ -5,9 +5,10 @@
 ** file tools to help easier code
 */
 
-#include <fstream>
-#include <sstream>
-#include "File.hpp"
+#include <string>   // std::string
+#include <fstream>  // std::ifstream
+#include <sstream>  // std::stringstream
+#include "File.hpp" // std::string_view
 
 namespace tools::file {
 

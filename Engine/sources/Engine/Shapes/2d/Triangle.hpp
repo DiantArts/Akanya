@@ -8,14 +8,14 @@
 #ifndef TRIANGLE_HPP
 #define TRIANGLE_HPP
 
-#include <GLFW/glfw3.h>
 #include "Engine/Vertexes/Vbo.hpp"
 #include "Engine/Vertexes/Vao.hpp"
-#include "Engine/Shader.hpp"
 
-namespace engine::shape2d {
+namespace engine {
 
-class Vao;
+class Shader;
+
+namespace shape2d {
 
 class Triangle {
 public:
@@ -30,6 +30,7 @@ private:
     engine::Vao m_Vao;
 };
 
-} // namespace engine::shape2d
+} // namespace shape2d
+} // namespace engine
 
 #endif // TRIANGLE_HPP

@@ -8,6 +8,7 @@
 #ifndef VBO_HPP
 #define VBO_HPP
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace engine {

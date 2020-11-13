@@ -12,7 +12,7 @@
 # ============================================================================= Basics
 
 ARGV				:=
-BINNAME			:=	engine
+BINNAME				:=	engine
 
 # Directories
 BINDIR				:=	binary
@@ -82,7 +82,7 @@ ifeq (debug,$(findstring debug,$(MAKECMDGOALS)))
 MODE_EXT			:=	_debug
 CFLAGS				+=	-g3 -Og -pipe -DDEBUG=2
 CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=2
-MOD_OBJDIR				:=	$(addsuffix /debug,$(OBJDIR))
+MOD_OBJDIR			:=	$(addsuffix /debug,$(OBJDIR))
 
 
 # ============================================================================= Mode valgrind
@@ -126,7 +126,7 @@ SRC					+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(CXX_SRC))
 SRC_LIB				:=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(CPP_EXT)))
 SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(C_EXT)))
 
-ifneq "$(wildcard $(DEPDIR) )" ""
+ifneq "$(wildcard $(DEPDIR))" ""
 include $(shell find $(DEPDIR) -type f -name \*$(DEPEXT))
 endif
 .PRECIOUS: $(MOD_OBJDIR)/%$(OBJEXT)
@@ -264,3 +264,5 @@ ifeq ($(MAKECMDGOALS), count) # =============================================== 
 $(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
 	$(eval COUNTER = $(shell printf "$$(($(COUNTER)+1))"))
 endif
+
+.PHONY: all clean fclean re auto debug auto_valgrind auto_gdb cat extractDynamicLib count getCount Display

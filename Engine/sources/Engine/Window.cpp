@@ -5,10 +5,10 @@
 ** test
 */
 
-#include <functional>
-#include "Window.hpp" // need to be included before <GLFW/glfw3.h>
-#include <GLFW/glfw3.h>
-#include "debugMacros.hpp"
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <iostream>   // std::clog
+#include "Window.hpp" // std::unique_ptr
 
 static void initGLWF();
 static void initGLAD();
@@ -23,10 +23,8 @@ namespace engine {
 
 void WindowDeleter::operator()(GLFWwindow* window)
 {
-    DEBUG_MSG("glfw terminated");
     glfwTerminate();
     glfwDestroyWindow(window);
-    DEBUG_MSG("Window destroyed");
 }
 
 engine::Camera engine::Window::camera; // static member
@@ -64,8 +62,6 @@ Window::Window()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(messageCallback, 0);
-
-    DEBUG_MSG("window created");
 }
 
 // ---------------------------------------------------------------------------- OpenGL stuff
@@ -125,8 +121,6 @@ static void initGLWF()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif // __APPLE__
-
-    DEBUG_MSG("glfw inited");
 }
 
 static void initGLAD()
@@ -135,7 +129,6 @@ static void initGLAD()
         glfwTerminate();
         std::runtime_error("glad initialization failed");
     }
-    DEBUG_MSG("glad inited");
 }
 
 // ---------------------------------------------------------------------------- callbacks
@@ -179,14 +172,14 @@ static void framebufferSizeCallback(GLFWwindow*, int width, int height)
 static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint, GLenum severity, GLsizei,
         const GLchar* message, const void*)
 {
-    std::cerr << "ERROR (GL): " << message;
-    std::cerr << " (src: " << source << ", type: " << type;
-    std::cerr << ", severity: ";
+    std::clog << "ERROR (GL): " << message;
+    std::clog << " (src: " << source << ", type: " << type;
+    std::clog << ", severity: ";
     switch (severity) {
-    case GL_DEBUG_SEVERITY_HIGH:         std::cerr << "high";         break;
-    case GL_DEBUG_SEVERITY_MEDIUM:       std::cerr << "medium";       break;
-    case GL_DEBUG_SEVERITY_LOW:          std::cerr << "low";          break;
-    case GL_DEBUG_SEVERITY_NOTIFICATION: std::cerr << "notification"; break;
+    case GL_DEBUG_SEVERITY_HIGH:         std::clog << "high";         break;
+    case GL_DEBUG_SEVERITY_MEDIUM:       std::clog << "medium";       break;
+    case GL_DEBUG_SEVERITY_LOW:          std::clog << "low";          break;
+    case GL_DEBUG_SEVERITY_NOTIFICATION: std::clog << "notification"; break;
     }
-    std::cerr << ")" << std::endl;
+    std::clog << ")" << std::endl;
 }

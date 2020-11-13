@@ -8,38 +8,42 @@
 #ifndef SHAPE3D_CUBE_HPP
 #define SHAPE3D_CUBE_HPP
 
+#include <vector>
+#include "Engine/Texture.hpp"
 #include "Engine/Vertexes/Vao.hpp"
 #include "Engine/Vertexes/Vbo.hpp"
-#include "Engine/Shader.hpp"
-#include "Engine/Camera.hpp"
 
-namespace engine::shape3d {
+namespace engine {
 
-class Vao;
+class Shader;
+class Camera;
+
+namespace shape3d {
 
 class Cube {
 public:
     Cube(engine::Shader &shaderProgram);
     ~Cube();
 
+    void addPosition(float x = 0, float y = 0, float z = 0);
+    void addPosition(glm::vec3& vec);
+
     void draw(const engine::Camera& camera);
 
-private:
-    void transform();
-    void bindTextures();
-    GLuint genTexture(char const * const filepath, bool isRGBA = false);
+public:
+    static constexpr size_t numberOfArrayToDraw = 36;
 
 private:
     engine::Shader& m_Shader;
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
-    GLuint m_Ebo;
-    GLuint m_Texture1;
-    GLuint m_Texture2;
+    engine::Texture m_Textures;
 
-    glm::vec3 cubePositions[10]; // tmp
+    GLuint m_Ebo;
+    std::vector<glm::vec3> m_Positions;
 };
 
-} // namespace engine::shape3d
+} // namespace shape3d
+} // namespace engine
 
 #endif // SHAPE3D_CUBE_HPP

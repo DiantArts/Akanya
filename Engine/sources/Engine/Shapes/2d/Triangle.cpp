@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Engine/Shader.hpp"
 #include "Triangle.hpp"
 
 int getShaderProgram();

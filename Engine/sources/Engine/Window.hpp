@@ -8,8 +8,7 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-#include <memory>
-#include <glad/glad.h>
+#include <memory>            // std::unique_ptr
 #include "Engine/Camera.hpp"
 
 struct GLFWwindow;

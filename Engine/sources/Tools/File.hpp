@@ -8,7 +8,6 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include <string>
 #include <string_view>
 
 namespace tools::file {

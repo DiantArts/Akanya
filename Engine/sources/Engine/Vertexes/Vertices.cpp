@@ -5,11 +5,10 @@
 ** coordonate to create a shape
 */
 
-#include <sstream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include "Tools/File.hpp"
-#include "Vertices.hpp"
+#include <sstream>        // std::istringstream
+#include <glad/glad.h>    // glBufferData
+#include "Tools/File.hpp" // tools::file::read()
+#include "Vertices.hpp"   // std::vector, std::string_view
 
 namespace engine {
 

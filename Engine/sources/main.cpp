@@ -9,7 +9,9 @@
 #include <iostream>
 #include "Engine/Window.hpp"
 #include "Engine/Shapes/2d/Triangle.hpp"
-#include "Engine/Shapes/3d/ImprovedCube.hpp"
+#include "Engine/Shapes/3d/Cube.hpp"
+#include "Engine/Camera.hpp"
+#include "Engine/Shader.hpp" // std::string_view, glad.h, glm.h
 #include "Engine/Clock.hpp"
 
 int main()
@@ -17,7 +19,7 @@ int main()
     try {
         engine::Window window;
         engine::Shader shaderProgram("data/shaders/vertexes/camera", "data/shaders/fragments/camera");
-        engine::shape3d::ImprovedCube cube(shaderProgram);
+        engine::shape3d::Cube cube(shaderProgram);
         engine::Clock clock;
 
         window.camera.speed = 5;
