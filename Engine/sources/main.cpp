@@ -15,15 +15,17 @@
 #include "Engine/Shapes/3d/EnlightenedCube.hpp"
 #include "Engine/Shapes/3d/LightSourceCube.hpp"
 
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
 int main()
 {
     try {
         engine::Window window;
         engine::Clock clock;
 
-        engine::Shader shader("camera", "camera");
-        engine::shape3d::Cube cube(shader);
-        cube.addPosition(-5, 0, -5);
+        // engine::Shader shader("camera", "camera");
+        // engine::shape3d::Cube cube(shader);
+        // cube.addPosition(-5, 0, -5);
 
         engine::Shader shaderEnlightened("enlightened", "enlightened");
         engine::shape3d::EnlightenedCube enlightenedCube(shaderEnlightened);
@@ -31,14 +33,13 @@ int main()
 
         engine::Shader shaderLightSource("lightSource", "lightSource");
         engine::shape3d::LightSourceCube lightSourceCube(shaderLightSource);
-        lightSourceCube.addPosition(5, 2, -5);
+        lightSourceCube.addPosition(1.2f, 1.0f, 2.0f);
 
         window.camera.speed = 5;
         for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getElapsedTime()) {
             window.processInput(deltaTime);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            cube.draw(window.camera);
             enlightenedCube.draw(window.camera);
             lightSourceCube.draw(window.camera);
 

@@ -5,7 +5,7 @@
 ** test
 */
 
-#include <glm/gtc/matrix_transform.hpp> // glm::perspective, glm::rotate, glm:::translate
+#include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Window.hpp"            // glad.h, glfw3.h, engine::Camera
 #include "Drawable.hpp"                 // std::vector
 
@@ -52,13 +52,9 @@ void Drawable::draw(const engine::Camera& camera)
                 (float)Window::width / (float)Window::height, 0.1f, 100.0f));
 
     this->m_Vao.bind();
-
-    float rotation = 140.0f;
     for (const auto& position : this->m_Positions) {
-        auto model = glm::rotate(glm::translate(glm::mat4(1.0f), position), glm::radians(rotation += 20.0f),
-                    glm::vec3(1.0f, 0.3f, 0.5f));
-        this->m_Shader.set("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, this->numberOfArrayToDraw);
+        this->m_Shader.set("model", this->getModel(position));
+        glDrawArrays(GL_TRIANGLES, 0, this->getNumberOfArrayToDraw());
     }
 }
 

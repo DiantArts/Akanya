@@ -5,6 +5,7 @@
 ** test
 */
 
+#include <glm/gtc/matrix_transform.hpp> // glm::perspective, glm::rotate, glm:::translate
 #include "Engine/Vertexes/Vertices.hpp"
 #include "Engine/Shapes/3d/Cube.hpp"
 
@@ -32,5 +33,16 @@ Cube::~Cube()
 
 void Cube::setAllIntoShader()
 {}
+
+glm::mat4 Cube::getModel(const glm::vec3& position)
+{
+    return glm::rotate(glm::translate(glm::mat4(1.0f), position), glm::radians(20.0f),
+            glm::vec3(1.0f, 0.3f, 0.5f));
+}
+
+size_t Cube::getNumberOfArrayToDraw()
+{
+    return this->numberOfArrayToDraw;
+}
 
 } // namespace engine::shape3d

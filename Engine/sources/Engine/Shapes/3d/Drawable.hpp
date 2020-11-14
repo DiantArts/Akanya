@@ -33,13 +33,14 @@ public:
 
     void draw(const engine::Camera& camera);
 
+protected:
     virtual void setAllIntoShader() = 0;
-
-public:
-    static constexpr size_t numberOfArrayToDraw = 36;
+    virtual glm::mat4 getModel(const glm::vec3& position) = 0;
+    virtual size_t getNumberOfArrayToDraw() = 0;
 
 protected:
     engine::Shader& m_Shader;
+    std::vector<glm::vec3> m_Positions;
 
 private:
     engine::Vao m_Vao;
@@ -47,7 +48,6 @@ private:
     engine::texture::Vector m_TextureVector;
 
     GLuint m_Ebo;
-    std::vector<glm::vec3> m_Positions;
 };
 
 } // namespace shape3d

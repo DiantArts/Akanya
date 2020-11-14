@@ -18,6 +18,11 @@ public:
     ~EnlightenedCube();
 
     void setAllIntoShader() override;
+    glm::mat4 getModel(const glm::vec3& position) override;
+    size_t getNumberOfArrayToDraw() override;
+
+public:
+    constexpr static size_t numberOfArrayToDraw = 36;
 };
 
 } // namespace engine::shape3d
