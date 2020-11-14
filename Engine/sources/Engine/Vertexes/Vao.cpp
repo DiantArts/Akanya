@@ -12,7 +12,6 @@ namespace engine {
 Vao::Vao()
 {
     glGenVertexArrays(1, &this->m_Vao);
-    this->bind();
 }
 
 Vao::~Vao()
@@ -25,12 +24,12 @@ GLuint Vao::get() const
     return this->m_Vao;
 }
 
-void Vao::bind()
+void Vao::bind() const
 {
     glBindVertexArray(this->m_Vao);
 }
 
-void Vao::unbind()
+void Vao::unbind() const
 {
     glBindVertexArray(0);
 }

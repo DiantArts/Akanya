@@ -12,7 +12,6 @@ namespace engine {
 Vbo::Vbo()
 {
     glGenBuffers(1, &this->m_Vbo);
-    this->bind();
 }
 
 Vbo::~Vbo()
@@ -25,9 +24,14 @@ GLuint Vbo::get()
     return this->m_Vbo;
 }
 
-void Vbo::bind()
+void Vbo::bind() const
 {
     glBindBuffer(GL_ARRAY_BUFFER, this->m_Vbo);
+}
+
+void Vbo::unbind() const
+{
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 } // namespace engine

@@ -19,7 +19,9 @@ public:
     ~Vbo();
 
     GLuint get();
-    void bind();
+
+    void bind() const;
+    void unbind() const;
 
 private:
     GLuint m_Vbo;

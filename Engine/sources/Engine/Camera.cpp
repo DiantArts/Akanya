@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp> // glm::lookAt()
 #include "debugMacros.hpp"
 #include "Camera.hpp"
 
@@ -51,6 +52,18 @@ void Camera::moveRight(const float deltaTime)
 {
     this->adjustLocalSpeed(deltaTime);
     this->m_Position += glm::normalize(glm::cross(this->m_Front, this->m_Up)) * this->m_Velocity;
+}
+
+void Camera::moveTop(const float deltaTime)
+{
+    this->adjustLocalSpeed(deltaTime);
+    this->m_Position.y += this->m_Velocity;
+}
+
+void Camera::moveBot(const float deltaTime)
+{
+    this->adjustLocalSpeed(deltaTime);
+    this->m_Position.y -= this->m_Velocity;
 }
 
 // ---------------------------------------------------------------------------- mouse events

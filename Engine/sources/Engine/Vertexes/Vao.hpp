@@ -20,8 +20,8 @@ public:
 
     GLuint get() const;
 
-    void bind();
-    void unbind();
+    void bind() const;
+    void unbind() const;
 
 private:
     GLuint m_Vao;

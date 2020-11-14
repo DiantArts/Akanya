@@ -6,7 +6,6 @@
 */
 
 #include <glad/glad.h>
-#include <glm/glm.hpp>
 #include <iostream>   // std::clog
 #include "Window.hpp" // std::unique_ptr
 
@@ -51,8 +50,7 @@ Window::Window()
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // specifies the color values used by glClear to clear the color buffers
-    // glClearColor(0.f, 0.f, 0.f, 1.0f); // clear black
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // clear weird blue
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // clear black
 
     // mouse events
     glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -100,6 +98,12 @@ void Window::processInput(const float deltaTime)
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_D) == GLFW_PRESS) {
         this->camera.moveRight(deltaTime);
     }
+    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
+        this->camera.moveTop(deltaTime);
+    }
+    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_X) == GLFW_PRESS) {
+        this->camera.moveBot(deltaTime);
+    }
 }
 
 } // namespace engine
@@ -137,12 +141,12 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
 {
     static float lastX;
     static float lastY;
-    static bool firstMouse = true;
+    static short numberOfEmptyCAll = 2;
 
-    if (firstMouse) {
+    if (numberOfEmptyCAll) {
         lastX = xPos;
         lastY = yPos;
-        firstMouse = false;
+        numberOfEmptyCAll--;
         engine::Window::camera.adjustDirection(0, 0);
     }
 
@@ -150,6 +154,7 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
     float yOffset = lastY - yPos; // reversed since y-coordinates go from bottom to top
     lastX = xPos;
     lastY = yPos;
+
 
     engine::Window::camera.adjustDirection(xOffset, yOffset);
 }

@@ -1,22 +1,22 @@
 /*
 ** EPITECH PROJECT, 2020
-** main
+** LightCube
 ** File description:
-** test
+** Light source as cube
 */
 
-#include "Engine/Shapes/3d/Cube.hpp"
+#include "Engine/Shapes/3d/LightCube.hpp"
 
 namespace engine::shape3d {
 
-Cube::Cube(engine::Shader& shader)
+LightCube::LightCube(engine::Shader& shader)
     : Drawable(shader, 1)
 {}
 
-Cube::~Cube()
+LightCube::~LightCube()
 {}
 
-void Cube::setAllIntoShader()
+void LightCube::setAllIntoShader()
 {
     // this->m_Shader.set("lightColor", this->m_Light.getColor());
 }

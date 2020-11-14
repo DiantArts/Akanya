@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** Texture
+** TextureVector
 ** File description:
-** Texture
+** TextureVector
 */
 
 #include <glad/glad.h>       // GLuint, glBindTexture(), glTexParameteri
@@ -10,20 +10,20 @@
 #include <stb/stb_image.h>   // stbi_load(), stdbi_image_free()
 #include <iostream>          // std::clog
 #include "Engine/Shader.hpp"
-#include "Texture.hpp"       // std::string_view, std::vector
+#include "TextureVector.hpp"       // std::string_view, std::vector
 
 namespace engine {
 
-Texture::Texture(engine::Shader& shader, size_t sizeToAlloc)
+TextureVector::TextureVector(engine::Shader& shader, size_t sizeToAlloc)
     : m_Shader(shader)
 {
     this->reserve(sizeToAlloc);
 }
 
-Texture::~Texture()
+TextureVector::~TextureVector()
 {}
 
-void Texture::bindThemAll()
+void TextureVector::bindThemAll()
 {
     auto enumValue = GL_TEXTURE0;
     for (const auto& texture : this->m_Texture) {
@@ -33,13 +33,18 @@ void Texture::bindThemAll()
     }
 }
 
+void TextureVector::unbindThemAll()
+{
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 // ---------------------------------------------------------------------------- std::vector things
-void Texture::reserve(size_t size)
+void TextureVector::reserve(size_t size)
 {
     this->m_Texture.reserve(size);
 }
 
-void Texture::push_back(const std::string_view filepath, const std::string_view name, int value)
+void TextureVector::push_back(const std::string_view filepath, const std::string_view name, int value)
 {
     this->m_Texture.emplace_back();
     glGenTextures(1, &this->m_Texture.back());
@@ -51,7 +56,7 @@ void Texture::push_back(const std::string_view filepath, const std::string_view 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load(std::string(filepath).c_str(), &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load(std::string(filepath).c_str(), &width, &height, &nrChannels, 0);
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
                 (this->endsWith(filepath, ".png") ? GL_RGBA : GL_RGB), GL_UNSIGNED_BYTE, data);
@@ -65,29 +70,29 @@ void Texture::push_back(const std::string_view filepath, const std::string_view 
     this->m_Shader.set(name, value);
 }
 
-std::vector<GLuint>::const_iterator Texture::cbegin() const
+std::vector<GLuint>::const_iterator TextureVector::cbegin() const
 {
     return this->m_Texture.cbegin();
 }
 
-std::vector<GLuint>::const_iterator Texture::cend() const
+std::vector<GLuint>::const_iterator TextureVector::cend() const
 {
     return this->m_Texture.cend();
 }
 
-std::vector<GLuint>::iterator Texture::begin()
+std::vector<GLuint>::iterator TextureVector::begin()
 {
     return this->m_Texture.begin();
 }
 
-std::vector<GLuint>::iterator Texture::end()
+std::vector<GLuint>::iterator TextureVector::end()
 {
     return this->m_Texture.end();
 }
 
 // ---------------------------------------------------------------------------- private
 
-bool Texture::endsWith(const std::string_view a, const std::string_view b)
+bool TextureVector::endsWith(const std::string_view a, const std::string_view b)
 {
     return std::equal(a.begin() + a.size() - b.size(), a.end(), b.begin());
 }

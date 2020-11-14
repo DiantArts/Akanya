@@ -1,13 +1,14 @@
 /*
 ** EPITECH PROJECT, 2020
-** Texture
+** TextureVector
 ** File description:
-** Texture
+** TextureVector
 */
 
-#ifndef TEXTURE_HPP
-#define TEXTURE_HPP
+#ifndef TEXTUREVECTOR_HPP
+#define TEXTUREVECTOR_HPP
 
+#include <glad/glad.h>
 #include <vector>
 #include <string_view>
 
@@ -15,12 +16,13 @@ namespace engine {
 
 class Shader;
 
-class Texture {
+class TextureVector {
 public:
-    Texture(engine::Shader& shader, size_t sizeToAlloc);
-    ~Texture();
+    TextureVector(engine::Shader& shader, size_t sizeToAlloc);
+    ~TextureVector();
 
     void bindThemAll();
+    void unbindThemAll();
 
 // ---------------------------------------------------------------------------- std::vector things
     void reserve(size_t size);
@@ -40,4 +42,4 @@ private:
 
 } // namespace engine
 
-#endif // TEXTURE_HPP
+#endif // TEXTUREVECTOR_HPP

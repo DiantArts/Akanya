@@ -10,9 +10,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
 
 namespace engine {
 
@@ -23,10 +22,13 @@ public:
 
 // ---------------------------------------------------------------------------- movement
     void adjustLocalSpeed(const float deltaTime);
+
     void moveForward(const float deltaTime);
     void moveBackward(const float deltaTime);
     void moveLeft(const float deltaTime);
     void moveRight(const float deltaTime);
+    void moveTop(const float deltaTime);
+    void moveBot(const float deltaTime);
 
 // ---------------------------------------------------------------------------- mouse events
     void adjustDirection(float xPos, float yPos);
