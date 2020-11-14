@@ -1,19 +1,19 @@
 /*
 ** EPITECH PROJECT, 2020
-** LightSourceCube
+** UpdatedCube
 ** File description:
 ** Light source as cube
 */
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Vertexes/Vertices.hpp"
-#include "Engine/Shapes/3d/LightSourceCube.hpp"
+#include "Engine/Shapes/3d/UpdatedCube.hpp"
 
 extern glm::vec3 lightPos;
 
 namespace engine::shape3d {
 
-LightSourceCube::LightSourceCube(engine::Shader& shader)
+UpdatedCube::UpdatedCube(engine::Shader& shader)
     : Drawable(shader, 1)
 {
     engine::Vertices("updatedCube").createBuffer();
@@ -27,13 +27,13 @@ LightSourceCube::LightSourceCube(engine::Shader& shader)
     glEnableVertexAttribArray(1);
 }
 
-LightSourceCube::~LightSourceCube()
+UpdatedCube::~UpdatedCube()
 {}
 
-void LightSourceCube::setAllIntoShader()
+void UpdatedCube::setAllIntoShader()
 {}
 
-glm::mat4 LightSourceCube::getModel(const glm::vec3&)
+glm::mat4 UpdatedCube::getModel(const glm::vec3&)
 {
     auto model(glm::mat4(1.0f));
     model = glm::translate(model, lightPos);
@@ -41,7 +41,7 @@ glm::mat4 LightSourceCube::getModel(const glm::vec3&)
     return model;
 }
 
-size_t LightSourceCube::getNumberOfArrayToDraw()
+size_t UpdatedCube::getNumberOfArrayToDraw()
 {
     return this->numberOfArrayToDraw;
 }
