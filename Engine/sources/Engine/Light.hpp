@@ -15,10 +15,10 @@ namespace engine {
 
 class Light : public engine::Vao {
 public:
-    Light(glm::vec3& position, glm::vec3&& color = glm::vec3(0.1f, 0.1f, 0.1f));
+    Light(const glm::vec3& position, glm::vec3&& color = glm::vec3(0.1f, 0.1f, 0.1f));
+    Light(const glm::vec3& position, const glm::vec3& color);
     Light(glm::vec3&& position, glm::vec3&& color = glm::vec3(0.1f, 0.1f, 0.1f));
-    Light(glm::vec3& position, glm::vec3& color);
-    Light(glm::vec3&& position, glm::vec3& color);
+    Light(glm::vec3&& position, const glm::vec3& color);
     ~Light();
 
     const glm::vec3& getColor() const;

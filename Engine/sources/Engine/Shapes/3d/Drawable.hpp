@@ -10,13 +10,13 @@
 
 #include <vector>
 #include <glm/vec3.hpp>
-#include "Engine/TextureVector.hpp"
+#include "Engine/Shader.hpp"
+#include "Engine/Texture/Vector.hpp"
 #include "Engine/Vertexes/Vao.hpp"
 #include "Engine/Vertexes/Vbo.hpp"
 
 namespace engine {
 
-class Shader;
 class Camera;
 
 namespace shape3d {
@@ -28,7 +28,7 @@ public:
 
     void changeShader(engine::Shader& shader);
     void addPosition(float x = 0, float y = 0, float z = 0);
-    void addPosition(glm::vec3& vec);
+    void addPosition(glm::vec3 vec);
     void addTexture(const std::string_view filepath, const std::string_view name, int index);
 
     void draw(const engine::Camera& camera);
@@ -44,7 +44,7 @@ protected:
 private:
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
-    engine::TextureVector m_TextureVector;
+    engine::texture::Vector m_TextureVector;
 
     GLuint m_Ebo;
     std::vector<glm::vec3> m_Positions;

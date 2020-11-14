@@ -26,8 +26,6 @@ public:
     Shader(const std::string_view vertexPath, const std::string_view fragmentPath);
     ~Shader();
 
-    GLuint get() const { return this->m_ShaderId; };
-
 // ---------------------------------------------------------------------------- Use
     void use() const;
 
@@ -44,6 +42,9 @@ public:
     void set(const std::string_view name, const glm::mat2& mat) const;
     void set(const std::string_view name, const glm::mat3& mat) const;
     void set(const std::string_view name, const glm::mat4& mat) const;
+
+public:
+    constexpr static auto directoryPath = "./data/shaders/";
 
 private:
     GLuint m_ShaderId;

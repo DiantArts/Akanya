@@ -18,11 +18,18 @@ namespace engine {
 
 // ---------------------------------------------------------------------------- *structors
 
-Shader::Shader(const std::string_view vertexPath, const std::string_view fragmentPath)
+Shader::Shader(const std::string_view vertexFileName, const std::string_view fragmentFileName)
     : m_ShaderId(glCreateProgram())
 {
-    GLuint vertex = compileShader(GL_VERTEX_SHADER, std::string(vertexPath));
-    GLuint fragment = compileShader(GL_FRAGMENT_SHADER, std::string(fragmentPath));
+    std::string vertexFilepath(engine::Shader::directoryPath);
+    vertexFilepath += "vertexes/";
+    vertexFilepath += vertexFileName;
+    GLuint vertex = compileShader(GL_VERTEX_SHADER, vertexFilepath);
+
+    std::string fragmentFilepath(engine::Shader::directoryPath);
+    fragmentFilepath += "fragments/";
+    fragmentFilepath += fragmentFileName;
+    GLuint fragment = compileShader(GL_FRAGMENT_SHADER, fragmentFilepath);
 
     if (vertex && fragment) {
         glAttachShader(this->m_ShaderId, vertex);
@@ -124,7 +131,7 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
         const char* shaderCode = readenFile.c_str();
         glShaderSource(vertex, 1, &shaderCode, nullptr);
     } catch(const std::ifstream::failure& e) {
-        std::clog << "Shader file unsuccesfully read\n";
+        std::clog << "Shader file '"<< filepath << "' unsuccesfully read\n";
         return 0;
     }
 

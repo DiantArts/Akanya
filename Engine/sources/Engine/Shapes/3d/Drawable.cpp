@@ -6,8 +6,6 @@
 */
 
 #include <glm/gtc/matrix_transform.hpp> // glm::perspective, glm::rotate, glm:::translate
-#include "Engine/Vertexes/Vertices.hpp" // std::string_view
-#include "Engine/Shader.hpp"            // glad.h, glm.h
 #include "Engine/Window.hpp"            // glad.h, glfw3.h, engine::Camera
 #include "Drawable.hpp"                 // std::vector
 
@@ -17,14 +15,7 @@ Drawable::Drawable(engine::Shader& shader, size_t numberOfTextures /* = 1 */)
     : m_Shader(shader), m_TextureVector(shader, numberOfTextures)
 {
     this->m_Vbo.bind();
-    engine::Vertices("data/vertices/cube").createBuffer();
-
     this->m_Vao.bind();
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
 }
 
 Drawable::~Drawable()
@@ -39,9 +30,10 @@ void Drawable::addPosition(float x /* = 0 */, float y /* = 0 */, float z /* = 0 
 {
     this->m_Positions.push_back(glm::vec3(x, y, z));
 }
-void Drawable::addPosition(glm::vec3& vec)
+
+void Drawable::addPosition(glm::vec3 vec)
 {
-    this->m_Positions.push_back(vec);
+    this->m_Positions.push_back(std::move(vec));
 }
 
 void Drawable::addTexture(const std::string_view filepath, const std::string_view name, int index)

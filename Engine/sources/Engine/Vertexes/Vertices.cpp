@@ -10,11 +10,14 @@
 #include "Tools/File.hpp" // tools::file::read()
 #include "Vertices.hpp"   // std::vector, std::string_view
 
+#include <iostream>
 namespace engine {
 
 Vertices::Vertices(const std::string_view filepath)
 {
-    auto str = tools::file::read(filepath);
+    std::string str(engine::Vertices::directoryPath);
+    str += filepath;
+    str = tools::file::read(std::move(str));
     this->m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);
     while (std::getline(iss, str)) {

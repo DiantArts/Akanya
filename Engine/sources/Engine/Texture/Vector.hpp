@@ -16,17 +16,19 @@ namespace engine {
 
 class Shader;
 
-class TextureVector {
+namespace texture {
+
+class Vector {
 public:
-    TextureVector(engine::Shader& shader, size_t sizeToAlloc);
-    ~TextureVector();
+    Vector(engine::Shader& shader, size_t sizeToAlloc);
+    ~Vector();
 
     void bindThemAll();
     void unbindThemAll();
 
 // ---------------------------------------------------------------------------- std::vector things
     void reserve(size_t size);
-    void push_back(const std::string_view filepath, const std::string_view name, int val);
+    void push_back(const std::string_view textureFileName, const std::string_view name, int val);
     std::vector<GLuint>::const_iterator cbegin() const;
     std::vector<GLuint>::const_iterator cend() const;
     std::vector<GLuint>::iterator begin();
@@ -40,6 +42,9 @@ private:
     engine::Shader& m_Shader;
 };
 
+constexpr auto directoryPath = "./data/textures/";
+
+} // namespace texture
 } // namespace engine
 
 #endif // TEXTUREVECTOR_HPP
