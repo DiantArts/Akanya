@@ -5,8 +5,7 @@
 ** TextureVector
 */
 
-#ifndef TEXTUREVECTOR_HPP
-#define TEXTUREVECTOR_HPP
+#pragma once
 
 #include <glad/glad.h>
 #include <vector>
@@ -46,5 +45,3 @@ constexpr auto directoryPath = "./data/textures/";
 
 } // namespace texture
 } // namespace engine
-
-#endif // TEXTUREVECTOR_HPP

@@ -8,14 +8,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp> // glm::lookAt()
+#include "optimizationBuiltins.hpp"
 #include "debugMacros.hpp"
 #include "Camera.hpp"
 
 namespace engine {
-
-float Camera::speed = 2.5f;
-float Camera::zoom = 45.0f;
-glm::vec3 Camera::sensitivity = glm::vec3{0.1f, 0.1f, 1.0f};
 
 Camera::Camera()
 {}
@@ -27,7 +24,41 @@ Camera::~Camera()
 
 void Camera::adjustLocalSpeed(const float deltaTime)
 {
-    this->m_Velocity = speed * deltaTime;
+    this->m_Velocity = this->m_Speed * deltaTime;
+}
+
+void Camera::setSpeed(const float value)
+{
+    this->m_Speed = value;
+}
+
+float Camera::getSpeed() const
+{
+    return this->m_Speed;
+}
+
+void Camera::move(const float xOffset, const float yOffset, const float zOffset)
+{
+    this->m_Position.x += xOffset;
+    this->m_Position.y += yOffset;
+    this->m_Position.z += zOffset;
+}
+
+void Camera::move(const glm::vec3& offset)
+{
+    this->m_Position += offset;
+}
+
+void Camera::setPosition(const float xOffset, const float yOffset, const float zOffset)
+{
+    this->m_Position.x = xOffset;
+    this->m_Position.y = yOffset;
+    this->m_Position.z = zOffset;
+}
+
+void Camera::setPosition(const glm::vec3& offset)
+{
+    this->m_Position = offset;
 }
 
 void Camera::moveForward(const float deltaTime)
@@ -66,13 +97,18 @@ void Camera::moveBot(const float deltaTime)
     this->m_Position.y -= this->m_Velocity;
 }
 
-// ---------------------------------------------------------------------------- mouse events
-void Camera::adjustDirection(float xOffset, float yOffset)
+const glm::vec3& Camera::getPosition() const
 {
-    this->m_Yaw += xOffset * this->sensitivity.x;
-    this->m_Pitch += yOffset * this->sensitivity.y;
+    return this->m_Position;
+}
 
-    if (m_Yaw >= 360) {
+// ---------------------------------------------------------------------------- Orientation
+void Camera::oriente(const float xOffset, const float yOffset)
+{
+    this->m_Yaw += xOffset * this->m_Sensitivity.x;
+    this->m_Pitch += yOffset * this->m_Sensitivity.y;
+
+    if (this->m_Yaw >= 360) {
         this->m_Yaw -= 360;
     }
     if (this->m_Pitch > this->maxPitch) {
@@ -80,21 +116,75 @@ void Camera::adjustDirection(float xOffset, float yOffset)
     } else if (this->m_Pitch < this->minPitch) {
         this->m_Pitch = this->minPitch;
     }
+    this->adjustDirection();
+}
 
+void Camera::oriente(const glm::vec2& offset)
+{
+    this->m_Yaw += offset.x * this->m_Sensitivity.x;
+    this->m_Pitch += offset.y * this->m_Sensitivity.y;
+
+    if (this->m_Yaw >= 360) {
+        this->m_Yaw -= 360;
+    }
+    if (this->m_Pitch > this->maxPitch) {
+        this->m_Pitch = this->maxPitch;
+    } else if (this->m_Pitch < this->minPitch) {
+        this->m_Pitch = this->minPitch;
+    }
+    this->adjustDirection();
+}
+
+void Camera::setOrientation(const float xOffset, const float yOffset)
+{
+    if (unlikely(xOffset >= 360 || yOffset > this->maxPitch || yOffset < this->minPitch)) {
+        throw std::logic_error("invalid orientation");
+    }
+    this->m_Yaw = xOffset;
+    this->m_Pitch = yOffset;
+    this->adjustDirection();
+}
+
+void Camera::setOrientation(const glm::vec2& offset)
+{
+    if (unlikely(offset.x >= 360 || offset.y > this->maxPitch || offset.y < this->minPitch)) {
+        throw std::logic_error("invalid orientation");
+    }
+    this->m_Yaw = offset.x;
+    this->m_Pitch = offset.y;
+    this->adjustDirection();
+}
+
+void Camera::adjustDirection()
+{
     this->m_ReversedDirection.x = cos(glm::radians(this->m_Yaw)) * cos(glm::radians(this->m_Pitch));
     this->m_ReversedDirection.y = sin(glm::radians(this->m_Pitch));
     this->m_ReversedDirection.z = sin(glm::radians(this->m_Yaw)) * cos(glm::radians(this->m_Pitch));
     this->m_Front = glm::normalize(this->m_ReversedDirection);
 }
 
-void Camera::adjustZoom(float offset)
+// ---------------------------------------------------------------------------- Orientation
+void Camera::zoom(const float value)
 {
-    this->zoom -= offset;
-    if (this->zoom > this->maxZoom) {
-        this->zoom = this->maxZoom;
-    } else if (this->zoom > this->maxZoom) {
-        this->zoom = this->minZoom;
+    this->m_Zoom -= value;
+    if (this->m_Zoom > this->maxZoom) {
+        this->m_Zoom = this->maxZoom;
+    } else if (this->m_Zoom > this->maxZoom) {
+        this->m_Zoom = this->minZoom;
     }
+}
+
+void Camera::setZoom(const float value)
+{
+    if (unlikely(value > this->maxZoom || value > this->maxZoom)) {
+        throw std::logic_error("invalid zoom");
+    }
+    this->m_Zoom = value;
+}
+
+float Camera::getZoom() const
+{
+    return this->m_Zoom;
 }
 
 // ---------------------------------------------------------------------------- view

@@ -147,7 +147,7 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
         lastX = xPos;
         lastY = yPos;
         numberOfEmptyCAll--;
-        engine::Window::camera.adjustDirection(0, 0);
+        engine::Window::camera.oriente(0, 0);
     }
 
     float xOffset = xPos - lastX;
@@ -156,12 +156,12 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
     lastY = yPos;
 
 
-    engine::Window::camera.adjustDirection(xOffset, yOffset);
+    engine::Window::camera.oriente(xOffset, yOffset);
 }
 
 static void mouseScrollcallback(GLFWwindow*, double, double yOffset)
 {
-    engine::Window::camera.adjustZoom(yOffset);
+    engine::Window::camera.zoom(yOffset);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback

@@ -5,8 +5,7 @@
 ** window
 */
 
-#ifndef WINDOW_HPP
-#define WINDOW_HPP
+#pragma once
 
 #include <memory>            // std::unique_ptr
 #include "Engine/Camera.hpp"
@@ -43,5 +42,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // WINDOW_HPP

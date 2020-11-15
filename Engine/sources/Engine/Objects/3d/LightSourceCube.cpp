@@ -9,18 +9,16 @@
 #include "Engine/Vertexes/Vertices.hpp"
 #include "Engine/Objects/3d/LightSourceCube.hpp"
 
-extern glm::vec3 lightPos;
-
 namespace engine::object3d {
 
-LightSourceCube::LightSourceCube(engine::Shader& shader)
-    : UpdatedCube(shader)
+LightSourceCube::LightSourceCube(engine::Shader& shader, glm::vec3 position /* = glm::vec3(0, 0, 0) */)
+    : UpdatedCube(shader, position)
 {}
 
 LightSourceCube::~LightSourceCube()
 {}
 
-void LightSourceCube::setAllIntoShader()
+void LightSourceCube::setAllIntoShader(const engine::Camera&)
 {}
 
 } // namespace engine::object3d

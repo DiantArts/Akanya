@@ -5,8 +5,7 @@
 ** coordonate to create a shape
 */
 
-#ifndef VERTICES_HPP
-#define VERTICES_HPP
+#pragma once
 
 #include <vector>
 #include <string_view>
@@ -28,5 +27,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // VERTICES_HPP

@@ -5,8 +5,7 @@
 ** vaos
 */
 
-#ifndef VAO_HPP
-#define VAO_HPP
+#pragma once
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -28,5 +27,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // VAO_HPP

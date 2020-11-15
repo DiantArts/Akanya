@@ -5,8 +5,7 @@
 ** opengl time abstraction
 */
 
-#ifndef CLOCK_HPP
-#define CLOCK_HPP
+#pragma once
 
 namespace engine {
 
@@ -22,5 +21,3 @@ private:
 };
 
 } // engine
-
-#endif // CLOCK_HPP

@@ -5,8 +5,7 @@
 ** triangle
 */
 
-#ifndef TRIANGLE_HPP
-#define TRIANGLE_HPP
+#pragma once
 
 #include "Engine/Vertexes/Vbo.hpp"
 #include "Engine/Vertexes/Vao.hpp"
@@ -32,5 +31,3 @@ private:
 
 } // namespace shape2d
 } // namespace engine
-
-#endif // TRIANGLE_HPP

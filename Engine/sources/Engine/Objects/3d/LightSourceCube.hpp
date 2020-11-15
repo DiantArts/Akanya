@@ -5,8 +5,7 @@
 ** Light source as cube
 */
 
-#ifndef LIGHTSOURCECUBE_HPP
-#define LIGHTSOURCECUBE_HPP
+#pragma once
 
 #include <Engine/Shapes/3d/UpdatedCube.hpp>
 
@@ -14,12 +13,10 @@ namespace engine::object3d {
 
 class LightSourceCube : public engine::shape3d::UpdatedCube {
 public:
-    LightSourceCube(engine::Shader& shaderProgram);
+    LightSourceCube(engine::Shader& shaderProgram, glm::vec3 position = glm::vec3(0, 0, 0));
     ~LightSourceCube();
 
-    void setAllIntoShader() override;
+    void setAllIntoShader(const engine::Camera&) override;
 };
 
 } // namespace engine::object3d
-
-#endif // LIGHTSOURCECUBE_HPP

@@ -11,8 +11,8 @@
 
 namespace engine::shape3d {
 
-Cube::Cube(engine::Shader& shader)
-    : Drawable(shader, 1)
+Cube::Cube(engine::Shader& shader, glm::vec3 position /* = glm::vec3(0, 0, 0) */)
+    : Drawable(shader, position)
 {
     engine::Vertices("cube").createBuffer();
 
@@ -31,7 +31,7 @@ Cube::Cube(engine::Shader& shader)
 Cube::~Cube()
 {}
 
-void Cube::setAllIntoShader()
+void Cube::setAllIntoShader(const engine::Camera&)
 {}
 
 glm::mat4 Cube::getModel(const glm::vec3& position)

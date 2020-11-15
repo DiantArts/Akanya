@@ -5,8 +5,7 @@
 ** Camera
 */
 
-#ifndef CAMERA_HPP
-#define CAMERA_HPP
+#pragma once
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -22,6 +21,14 @@ public:
 
 // ---------------------------------------------------------------------------- movement
     void adjustLocalSpeed(const float deltaTime);
+    void setSpeed(const float value);
+    float getSpeed() const;
+
+    void move(const float xOffset, const float yOffset, const float zOffset);
+    void move(const glm::vec3& offset);
+    void setPosition(const float xOffset, const float yOffset, const float zOffset);
+    void setPosition(const glm::vec3& offset);
+    const glm::vec3& getPosition() const;
 
     void moveForward(const float deltaTime);
     void moveBackward(const float deltaTime);
@@ -30,26 +37,35 @@ public:
     void moveTop(const float deltaTime);
     void moveBot(const float deltaTime);
 
-// ---------------------------------------------------------------------------- mouse events
-    void adjustDirection(float xPos, float yPos);
-    void adjustZoom(float offset);
+// ---------------------------------------------------------------------------- Orientation
+    void oriente(const float xOffset, const float yOffset);
+    void oriente(const glm::vec2& offset);
+    void setOrientation(const float xOffset, const float yOffset);
+    void setOrientation(const glm::vec2& offset);
+    glm::vec3 getOrientation() const;
+
+    void adjustDirection();
+
+// ---------------------------------------------------------------------------- Orientation
+    void zoom(const float value);
+    void setZoom(const float value);
+    float getZoom() const;
 
 // ---------------------------------------------------------------------------- view
     glm::mat4 getView() const;
 
 public:
 // ---------------------------------------------------------------------------- mouse config
-    static float speed;
-    static float zoom;
-
-    static glm::vec3 sensitivity;
-
     constexpr static float minPitch = -89.999f;
     constexpr static float maxPitch = 89.999f;
     constexpr static float minZoom = 1.0f;
     constexpr static float maxZoom = 45.0f;
 
 private:
+    float m_Speed = 2.5f;
+    float m_Zoom = 45.0f;
+    glm::vec3 m_Sensitivity = glm::vec3{0.1f, 0.1f, 1.0f};
+
     glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
     glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 m_Up = glm::vec3(0.0f, 1.0f,  0.0f);
@@ -64,5 +80,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // CAMERA_HPP

@@ -12,10 +12,15 @@
 #include "Engine/Shader.hpp"
 #include "Engine/Clock.hpp"
 #include "Engine/Shapes/3d/Cube.hpp"
-#include "Engine/Objects/3d/EnlightenedCube.hpp"
+#include "Engine/Objects/3d/Multiple/EnlightenedCube.hpp"
 #include "Engine/Objects/3d/LightSourceCube.hpp"
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+engine::object3d::LightSourceCube& getLamp()
+{
+    static engine::Shader shaderLightSource("lightSource", "lightSource");
+    static engine::object3d::LightSourceCube lamp(shaderLightSource);
+    return lamp;
+}
 
 int main()
 {
@@ -28,20 +33,21 @@ int main()
         // cube.addPosition(-5, 0, -5);
 
         engine::Shader shaderEnlightened("enlightened", "enlightened");
-        engine::object3d::EnlightenedCube enlightenedCube(shaderEnlightened);
-        enlightenedCube.addPosition(0, 0, -5);
+        engine::object3d::multiple::EnlightenedCube enlightenedCubes(shaderEnlightened);
+        enlightenedCubes.addPosition(0.6, 0, -1.0f);
+        enlightenedCubes.addPosition(-0.6, 0, -1.5f);
 
-        engine::Shader shaderLightSource("lightSource", "lightSource");
-        engine::object3d::LightSourceCube lightSourceCube(shaderLightSource);
-        lightSourceCube.addPosition(lightPos);
-
-        window.camera.speed = 5;
+        window.camera.setSpeed(5);
+        window.camera.setPosition(0.5, 1.5f, 3.0f);
+        window.camera.setOrientation(-90, -15);
         for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getElapsedTime()) {
             window.processInput(deltaTime);
 
+            getLamp().setPosition(glm::vec3(cos(glfwGetTime() * 2) * 2.0f, 0, -1.1 + sin(glfwGetTime() * 2) * 2.0f));
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            enlightenedCube.draw(window.camera);
-            lightSourceCube.draw(window.camera);
+            enlightenedCubes.draw(window.camera);
+            getLamp().draw(window.camera);
 
             window.pollEvents();
             window.swapBuffers();

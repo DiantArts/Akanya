@@ -5,8 +5,7 @@
 ** Vbo
 */
 
-#ifndef VBO_HPP
-#define VBO_HPP
+#pragma once
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -28,5 +27,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // VBO_HPP

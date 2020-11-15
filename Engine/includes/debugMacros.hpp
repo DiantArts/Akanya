@@ -5,8 +5,7 @@
 ** macros of the program
 */
 
-#ifndef MACROS_HPP
-#define MACROS_HPP
+#pragma once
 
 #include <mutex>
 #include <chrono>
@@ -172,5 +171,3 @@ private:
 
 #define THROW_MSG(throwMsg) std::cerr << "[" << __FILE__ << ':' << __LINE__ << ']' << std::endl, \
     throw throwMsg,
-
-#endif // MACROS_HPP

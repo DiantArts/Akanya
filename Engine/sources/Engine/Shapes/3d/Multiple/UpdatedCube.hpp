@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include <Engine/Shapes/3d/Drawable.hpp>
+#include "Engine/Shapes/3d/Multiple/Drawable.hpp"
 
-namespace engine::shape3d {
+namespace engine::shape3d::multiple {
 
-class UpdatedCube : public engine::shape3d::Drawable {
+class UpdatedCube : public engine::shape3d::multiple::Drawable {
 public:
-    UpdatedCube(engine::Shader& shaderProgram, glm::vec3 position = glm::vec3(0, 0, 0));
+    UpdatedCube(engine::Shader& shaderProgram);
     virtual ~UpdatedCube();
 
     size_t getNumberOfArrayToDraw() override final;
@@ -25,4 +25,4 @@ protected:
     constexpr static size_t numberOfArrayToDraw = 36;
 };
 
-} // namespace engine::shape3d
+} // namespace engine::shape3d::multiple

@@ -5,8 +5,7 @@
 ** file tools to help easier code
 */
 
-#ifndef FILE_HPP
-#define FILE_HPP
+#pragma once
 
 #include <string_view>
 
@@ -17,5 +16,3 @@ extern std::string read(const std::string& filepath);
 extern std::string read(const std::string&& filepath);
 
 } // namespace tools::file
-
-#endif // FILE_HPP

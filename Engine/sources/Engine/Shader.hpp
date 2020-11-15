@@ -6,8 +6,7 @@
 ** tasks
 */
 
-#ifndef SHADERS_HPP
-#define SHADERS_HPP
+#pragma once
 
 #include <string_view>
 #include <glad/glad.h>
@@ -51,5 +50,3 @@ private:
 };
 
 } // namespace engine
-
-#endif // SHADERS_HPP
