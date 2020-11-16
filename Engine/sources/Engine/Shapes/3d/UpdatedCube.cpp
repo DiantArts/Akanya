@@ -14,18 +14,14 @@ extern engine::object3d::LightSourceCube& getLamp();
 
 namespace engine::shape3d {
 
-UpdatedCube::UpdatedCube(engine::Shader& shader, glm::vec3 position /* = glm::vec3(0, 0, 0)) */)
-    : Drawable(shader, position)
+UpdatedCube::UpdatedCube(engine::Shader& shader, const glm::vec3& position /* = glm::vec3(0, 0, 0)) */,
+        const std::string_view verticesFileName /* = "updatedCube" */,
+        const std::function<void()>& attributesSetter /* []{ ... } */,
+        const size_t numberOfTextures /* = 1 */)
+
+    : Drawable(shader, position, attributesSetter, numberOfTextures)
 {
-    engine::Vertices("updatedCube").createBuffer();
-
-    // vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    engine::Vertices(verticesFileName).createBuffer();
 }
 
 UpdatedCube::~UpdatedCube()
@@ -38,7 +34,6 @@ glm::mat4 UpdatedCube::getModel(const glm::vec3&)
 {
     auto model(glm::mat4(1.0f));
     model = glm::translate(model, getLamp().getPosition());
-    model = glm::scale(model, glm::vec3(0.2f));
     return model;
 }
 

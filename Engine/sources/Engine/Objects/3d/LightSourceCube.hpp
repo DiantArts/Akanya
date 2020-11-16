@@ -21,7 +21,7 @@ namespace object3d {
 
 class LightSourceCube : public engine::shape3d::UpdatedCube {
 public:
-    LightSourceCube(engine::Shader& shaderProgram, glm::vec3 position = glm::vec3(0, 0, 0));
+    LightSourceCube(engine::Shader& shaderProgram, const glm::vec3& position = glm::vec3(0, 0, 0));
     ~LightSourceCube();
 
     void setAllIntoShader(const engine::Camera&) override;

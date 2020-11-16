@@ -13,7 +13,7 @@ namespace engine::object3d::multiple {
 
 class EnlightenedCube : public engine::shape3d::multiple::UpdatedCube {
 public:
-    EnlightenedCube(engine::Shader& shaderProgram);
+    EnlightenedCube(engine::Shader& shader);
     ~EnlightenedCube();
 
     void setAllIntoShader(const engine::Camera& camera) override;

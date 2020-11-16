@@ -11,9 +11,12 @@
 
 namespace engine::object3d {
 
-LightSourceCube::LightSourceCube(engine::Shader& shader, glm::vec3 position /* = glm::vec3(0, 0, 0) */)
+LightSourceCube::LightSourceCube(engine::Shader& shader,
+        const glm::vec3& position /* = glm::vec3(0, 0, 0) */)
     : UpdatedCube(shader, position)
-{}
+{
+    this->setScale(0.2, 0.2, 0.2);
+}
 
 LightSourceCube::~LightSourceCube()
 {}

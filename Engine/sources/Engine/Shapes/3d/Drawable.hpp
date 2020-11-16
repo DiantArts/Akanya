@@ -8,6 +8,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <functional>
 #include "Engine/Shader.hpp"
 #include "Engine/Camera.hpp"
 #include "Engine/Texture/Vector.hpp"
@@ -18,8 +19,13 @@ namespace engine::shape3d {
 
 class Drawable {
 public:
-    Drawable(engine::Shader& shader, glm::vec3 position, size_t numberOfTextures = 1);
+    Drawable(engine::Shader& shader, const glm::vec3& position, const std::function<void()>& setAttributes,
+            const size_t numberOfTextures = 1);
     virtual ~Drawable();
+
+    void setScale(const float scaleX, const float scaleY, const float scaleZ);
+    void setScale(const glm::vec3& scale);
+    void setScale(glm::vec3&& scale);
 
     void changeShader(engine::Shader& shader);
     void addTexture(const std::string_view filepath, const std::string_view name, int index);
@@ -41,11 +47,12 @@ protected:
     glm::vec3 m_Position;
 
 private:
+    engine::texture::Vector m_TextureVector;
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
-    engine::texture::Vector m_TextureVector;
-
     GLuint m_Ebo;
+
+    glm::vec3 m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 };
 
 } // namespace engine::shape3d

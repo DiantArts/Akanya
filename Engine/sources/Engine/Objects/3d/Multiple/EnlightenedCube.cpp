@@ -15,7 +15,19 @@ extern engine::object3d::LightSourceCube& getLamp();
 namespace engine::object3d::multiple {
 
 EnlightenedCube::EnlightenedCube(engine::Shader& shader)
-    : UpdatedCube(shader)
+    : UpdatedCube(shader, "lightningMap", []{
+            // vertex attribute
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
+            glEnableVertexAttribArray(0);
+
+            // normal attribute
+            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+            glEnableVertexAttribArray(1);
+
+            // normal attribute
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+            glEnableVertexAttribArray(2);
+        })
 {}
 
 EnlightenedCube::~EnlightenedCube()

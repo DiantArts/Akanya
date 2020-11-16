@@ -14,30 +14,13 @@ extern engine::object3d::LightSourceCube& getLamp();
 
 namespace engine::shape3d::multiple {
 
-UpdatedCube::UpdatedCube(engine::Shader& shader)
-    : Drawable(shader, 1)
+UpdatedCube::UpdatedCube(engine::Shader& shader,
+        const std::string_view verticesFileName /* = "updateCube" */,
+        const std::function<void()>& attributesSetter /* []{ ... } */,
+        const size_t numberOfTextures /* = 1 */)
+    : Drawable(shader, attributesSetter, numberOfTextures)
 {
-    // engine::Vertices("updatedCube").createBuffer();
-    // vertex attribute
-    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
-    // glEnableVertexAttribArray(0);
-    // normal attribute
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    // glEnableVertexAttribArray(1);
-
-    engine::Vertices("lightningMap").createBuffer();
-
-    // vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // normal attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    engine::Vertices(verticesFileName).createBuffer();
 }
 
 UpdatedCube::~UpdatedCube()
@@ -50,13 +33,12 @@ glm::mat4 UpdatedCube::getModel(const glm::vec3&)
 {
     auto model(glm::mat4(1.0f));
     model = glm::translate(model, getLamp().getPosition());
-    model = glm::scale(model, glm::vec3(0.2f));
     return model;
 }
 
 size_t UpdatedCube::getNumberOfArrayToDraw()
 {
-    return this->numberOfArrayToDraw;
+    return this->m_NumberOfArrayToDraw;
 }
 
 } // namespace engine::shape3d::multiple

@@ -11,19 +11,13 @@
 
 namespace engine::shape3d {
 
-Cube::Cube(engine::Shader& shader, glm::vec3 position /* = glm::vec3(0, 0, 0) */)
-    : Drawable(shader, position)
+Cube::Cube(engine::Shader& shader, const glm::vec3& position /* = glm::vec3(0, 0, 0) */,
+        const std::string_view verticesFileName /* = "updateCube" */,
+        const std::function<void()>& attributesSetter /* []{ ... } */,
+        const size_t numberOfTextures /* = 1 */)
+    : Drawable(shader, position, attributesSetter, numberOfTextures)
 {
-    engine::Vertices("cube").createBuffer();
-
-    // position corrd attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    // texture corrd attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
+    engine::Vertices(verticesFileName).createBuffer();
     this->addTexture("wall.jpg", "texture1", 0);
     this->addTexture("awesomeface.png", "texture2", 1);
 }

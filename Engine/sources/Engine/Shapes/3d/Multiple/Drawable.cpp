@@ -7,20 +7,39 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "debugMacros.hpp"
-#include "Engine/Window.hpp"            // glad.h, glfw3.h
-#include "Drawable.hpp"                 // std::vector
+#include "Engine/Window.hpp"
+#include "Drawable.hpp"
 
 namespace engine::shape3d::multiple {
 
-Drawable::Drawable(engine::Shader& shader, size_t numberOfTextures /* = 1 */)
+Drawable::Drawable(engine::Shader& shader, const std::function<void()>& setAttributes,
+                   const size_t numberOfTextures /* = 1 */)
     : m_Shader(shader), m_TextureVector(shader, numberOfTextures)
 {
     this->m_Vbo.bind();
     this->m_Vao.bind();
+    setAttributes();
 }
 
 Drawable::~Drawable()
 {}
+
+void Drawable::setScale(const float scaleX, const float scaleY, const float scaleZ)
+{
+    this->m_Scale.x = scaleX;
+    this->m_Scale.y = scaleY;
+    this->m_Scale.z = scaleZ;
+}
+
+void Drawable::setScale(const glm::vec3& scale)
+{
+    this->m_Scale = scale;
+}
+
+void Drawable::setScale(glm::vec3&& scale)
+{
+    this->m_Scale = std::move(scale);
+}
 
 void Drawable::changeShader(engine::Shader& shader)
 {
@@ -44,7 +63,7 @@ void Drawable::draw(const engine::Camera& camera)
 
     this->m_Vao.bind();
     for (const auto& position : this->m_PositionVector) {
-        this->m_Shader.set("model", this->getModel(position));
+        this->m_Shader.set("model", glm::scale(this->getModel(position), this->m_Scale));
         glDrawArrays(GL_TRIANGLES, 0, this->getNumberOfArrayToDraw());
     }
 }

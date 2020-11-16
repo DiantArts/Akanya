@@ -12,15 +12,34 @@
 
 namespace engine::shape3d {
 
-Drawable::Drawable(engine::Shader& shader, glm::vec3 position, size_t numberOfTextures /* = 1 */)
+Drawable::Drawable(engine::Shader& shader, const glm::vec3& position,
+        const std::function<void()>& setAttributes, const size_t numberOfTextures /* = 1 */)
     : m_Shader(shader), m_Position(position), m_TextureVector(shader, numberOfTextures)
 {
     this->m_Vbo.bind();
     this->m_Vao.bind();
+    setAttributes();
 }
 
 Drawable::~Drawable()
 {}
+
+void Drawable::setScale(const float scaleX, const float scaleY, const float scaleZ)
+{
+    this->m_Scale.x = scaleX;
+    this->m_Scale.y = scaleY;
+    this->m_Scale.z = scaleZ;
+}
+
+void Drawable::setScale(const glm::vec3& scale)
+{
+    this->m_Scale = scale;
+}
+
+void Drawable::setScale(glm::vec3&& scale)
+{
+    this->m_Scale = std::move(scale);
+}
 
 void Drawable::changeShader(engine::Shader& shader)
 {
@@ -43,7 +62,7 @@ void Drawable::draw(const engine::Camera& camera)
                 (float)Window::width / (float)Window::height, 0.1f, 100.0f));
 
     this->m_Vao.bind();
-    this->m_Shader.set("model", this->getModel(this->m_Position));
+    this->m_Shader.set("model", glm::scale(this->getModel(this->m_Position), this->m_Scale));
     glDrawArrays(GL_TRIANGLES, 0, this->getNumberOfArrayToDraw());
 }
 
