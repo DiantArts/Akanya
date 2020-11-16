@@ -23,10 +23,14 @@ EnlightenedCube::~EnlightenedCube()
 
 void EnlightenedCube::setAllIntoShader(const engine::Camera& camera)
 {
-    this->m_Shader.set("objectColor", 1.0f, 0.5f, 0.31f);
-    this->m_Shader.set("lightColor",  1.0f, 1.0f, 1.0f);
-    this->m_Shader.set("lightPos", getLamp().getPosition());
     this->m_Shader.set("viewPos", camera.getPosition());
+
+    this->m_Shader.set("material.shininess", 64.0f);
+
+    this->m_Shader.set("light.position", getLamp().getPosition());
+    this->m_Shader.set("light.ambient",  getLamp().getLightParameters().ambient);
+    this->m_Shader.set("light.diffuse",  getLamp().getLightParameters().diffuse);
+    this->m_Shader.set("light.specular", getLamp().getLightParameters().specular);
 }
 
 glm::mat4 EnlightenedCube::getModel(const glm::vec3& position)

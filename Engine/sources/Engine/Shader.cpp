@@ -11,7 +11,7 @@
 #include "Engine/Shader.hpp" // std::string_view, glad.h, glm.h
 
 static GLuint compileShader(GLenum shaderType, const std::string filepath);
-static void checkCompilationStatus(GLuint shader);
+static void checkCompilationStatus(GLuint shader, const std::string_view filepath);
 static void checkLinkageStatus(GLuint shader);
 
 namespace engine {
@@ -136,19 +136,19 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
     }
 
     glCompileShader(vertex);
-    checkCompilationStatus(vertex);
+    checkCompilationStatus(vertex, filepath);
 
     return vertex;
 }
 
-static void checkCompilationStatus(GLuint shader)
+static void checkCompilationStatus(GLuint shader, const std::string_view filepath)
 {
     GLint status = 0;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     if (status == GL_FALSE) {
         GLchar infoLog[512] = { 0 };
         glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-        std::clog << "Shader compilation failed: " << infoLog << "\n";
+        std::clog << "Shader '" << filepath << "' compilation failed: " << infoLog << "\n";
     }
 }
 

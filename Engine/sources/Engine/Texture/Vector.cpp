@@ -27,9 +27,8 @@ void Vector::bindThemAll()
 {
     auto enumValue = GL_TEXTURE0;
     for (const auto& texture : this->m_Texture) {
-        glActiveTexture(enumValue);
+        glActiveTexture(enumValue++);
         glBindTexture(GL_TEXTURE_2D, texture);
-        enumValue++;
     }
 }
 
@@ -46,23 +45,28 @@ void Vector::reserve(size_t size)
 
 void Vector::push_back(const std::string_view textureFileName, const std::string_view name, int value)
 {
-    this->m_Texture.emplace_back();
-    glGenTextures(1, &this->m_Texture.back());
-
-    glBindTexture(GL_TEXTURE_2D, this->m_Texture.back());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    int width, height, nrChannels;
-    std::string textureFilepath(engine::texture::directoryPath);
-    textureFilepath += textureFileName;
-    unsigned char* data = stbi_load(textureFilepath.c_str(), &width, &height, &nrChannels, 0);
+    int width, height, nrComponents;
+    std::string textureFilepath(engine::texture::directoryPath); textureFilepath += textureFileName;
+    unsigned char* data = stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0);
     if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,
-            (this->endsWith(std::move(textureFileName), ".png") ? GL_RGBA : GL_RGB), GL_UNSIGNED_BYTE, data);
+        GLenum format;
+        switch (nrComponents) {
+        case 1: format = GL_RED;  break;
+        case 3: format = GL_RGB;  break;
+        default: format = GL_RGBA; break;
+        }
+
+        this->m_Texture.emplace_back();
+        glGenTextures(1, &this->m_Texture.back());
+        glBindTexture(GL_TEXTURE_2D, this->m_Texture.back());
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     } else {
         std::clog << "ERROR: Failed to load '" << textureFilepath << "' texture\n";
     }
