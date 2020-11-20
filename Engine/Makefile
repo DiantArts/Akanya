@@ -19,6 +19,7 @@ BINDIR				:=	binary
 SRCDIR				:=	sources
 LIBDIR				:=	libraries
 TSTDIR				:=	tests
+INCDIR				:=	includes
 OBJDIR				:=	.objects
 DEPDIR				:=	.dependencies
 
@@ -39,22 +40,25 @@ CPP_INCDIR			:=	sources
 CPP_FLAGS			:=	-Wpedantic -std=c++2a -Wno-volatile
 
 # COMMON FLAGS
-COMMON_INCDIR		:=	includes libraries
+COMMON_INCDIR		:=	$(INCDIR) libraries
 COMMON_WFLAGS		:=	all extra abi=11
 COMMON_FLAGS		:=	
 
 # Extentions
 OBJEXT				:=	.o
 DEPEXT				:=	.d
-S_LIBEXT		:=	.a
-D_LIBEXT		:=	.so
+S_LIBEXT			:=	.a
+D_LIBEXT			:=	.so
+
+# Percentage (disable to optimise compilation)
+# PERCENTAGE_PRINTING	:=	false
 
 # ============================================================================= AutoDecleration
 
 MODE_EXT			=	$(RELEASE_EXT)
 
 # Directories
-BINDIR				?=	.
+BINDIR				?=	./
 SRCDIR				?=	sources
 LIBDIR				?=	libraries
 TSTDIR				?=	tests
@@ -91,7 +95,7 @@ else ifeq (auto_valgrind,$(findstring auto_valgrind,$(MAKECMDGOALS)))
 MODE_EXT			:=	_valgrind
 CFLAGS				+=	-g3 -Og -pipe -DDEBUG=1
 CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=1
-MOD_OBJDIR				:=	$(addsuffix /valgrind,$(OBJDIR))
+MOD_OBJDIR			:=	$(addsuffix /valgrind,$(OBJDIR))
 
 
 # ============================================================================= Mode gdb
@@ -100,7 +104,7 @@ else ifeq (auto_gdb,$(findstring auto_gdb,$(MAKECMDGOALS)))
 MODE_EXT			:=	_gdb
 CFLAGS				+=	-g3 -Og -pipe
 CXXFLAGS			+=	-g3 -Og -pipe
-MOD_OBJDIR				:=	$(addsuffix /gdb,$(OBJDIR))
+MOD_OBJDIR			:=	$(addsuffix /gdb,$(OBJDIR))
 
 # ============================================================================= Mode release
 else
@@ -108,7 +112,7 @@ else
 MODE_EXT			:=
 CFLAGS				+=	-Ofast -pipe
 CXXFLAGS			+=	-Ofast -pipe
-MOD_OBJDIR				:=	$(addsuffix /release,$(OBJDIR))
+MOD_OBJDIR			:=	$(addsuffix /release,$(OBJDIR))
 
 endif
 
@@ -125,11 +129,6 @@ SRC					+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(CXX_SRC))
 
 SRC_LIB				:=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(CPP_EXT)))
 SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(C_EXT)))
-
-ifneq "$(wildcard $(DEPDIR))" ""
-include $(shell find $(DEPDIR) -type f -name \*$(DEPEXT))
-endif
-.PRECIOUS: $(MOD_OBJDIR)/%$(OBJEXT)
 
 # ============================================================================= UI
 
@@ -154,9 +153,6 @@ LCYAN				:=	\e[1;36m
 LIGHT				:=	\e[0;37m
 WHITE				:=	\e[1;37m
 
-SPOS				:=	tput sc
-CLEAR_LINE			:=	tput hpa 0; tput el
-
 MAKEFLAGS			+=	--silent --no-print-directory
 
 # =================================================================================================
@@ -165,34 +161,42 @@ MAKEFLAGS			+=	--silent --no-print-directory
 
 # basics
 
-all : $(NAME) | $(BINDIR)
+all : $(NAME)
 
-$(NAME) : $(SRC) $(LIBBIN) # ================================================= Linkage
+$(NAME) : $(SRC) $(LIBBIN)
 	$(CXX) $(OUTPUT_OPTION) $(SRC) $(LDFLAGS) $(LDLIBS)
 	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
-$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB) # =========================== Static lib
+ifneq ($(MAKECMDGOALS), count)
+$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB) | $(BINDIR)
 	ar -rc $@ $^
 	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
-ifneq ($(MAKECMDGOALS), count) # ============================================== C compilation
 $(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
 	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
 	$(CC) -c $(OUTPUT_OPTION) $(CFLAGS) $(CPPFLAGS) $(C_CPPFLAGS) $< \
 		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
+ifeq ($(PERCENTAGE_PRINTING), true)
+	$(eval INDEX = $(shell printf "$$(($(INDEX)+1))"))
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< (%.2f%c)\n" "$$((10000*$(INDEX)/$(COUNT)))e-2" '%'
+else
 	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $<\n"
 endif
 
-ifneq ($(MAKECMDGOALS), count) # ============================================== Cpp compilation
 $(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
 	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
 	$(CXX) -c $(OUTPUT_OPTION) $(CXXFLAGS) $(CPPFLAGS) $(CXX_CPPFLAGS) \
 		$< -MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< %s\n" $(I)
+ifeq ($(PERCENTAGE_PRINTING), true)
+	$(eval INDEX = $(shell printf "$$(($(INDEX)+1))"))
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< (%.2f%c)\n" "$$((10000*$(INDEX)/$(COUNT)))e-2" '%'
+else
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $<\n"
+endif
 endif
 
-$(BINDIR): # ================================================================== Creating $(BINDIR)
-	mkdir -p $@
+
+$(BINDIR):; mkdir -p $@
 
 # cleaning
 
@@ -228,6 +232,12 @@ auto_gdb			: all
 	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
 	gdb --args $(NAME) $(ARGV)
 
+
+ifneq "$(wildcard $(DEPDIR))" ""
+include $(shell find $(DEPDIR) -type f -name \*$(DEPEXT))
+endif
+.PRECIOUS: $(MOD_OBJDIR)/%$(OBJEXT)
+
 # =================================================================================================
 # = Options =======================================================================================
 # =================================================================================================
@@ -244,25 +254,36 @@ $(DYNAMIC_LIB_NAME)	: $(SRC) $(LIBBIN) | $(BINDIR)
 	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
 # =================================================================================================
-# = UI - uncompleted ==============================================================================
+# = UI  (uncompleted) =============================================================================
 # =================================================================================================
-count:	$(SRC) $(SRC_LIB)
-	$(PRINTF) "$(COUNTER)\n"
 
-getCount:
-	$(eval COUNT := $(shell $(MAKE) count))
+ifeq ($(PERCENTAGE_PRINTING), true)
 
-display:
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) -$(patsubst display%,%,$(MAKECMDGOALS))"
-
-ifeq ($(MAKECMDGOALS), count) # =============================================== C counting
-$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
-	$(eval COUNTER = $(shell printf "$$(($(COUNTER)+1))"))
+.NOTPARALLEL:
+ifneq ($(MAKECMDGOALS), count)
+ifneq ($(MAKECMDGOALS), fclean)
+ifneq ($(MAKECMDGOALS), clean)
+COUNT				!=	$(MAKE) count
+INDEX				=	0
+endif
+endif
+else
+FILE_COUNTER		=	0
 endif
 
-ifeq ($(MAKECMDGOALS), count) # =============================================== Cpp counting
+count:	$(SRC) $(LIBBIN)
+	$(PRINTF) "$(FILE_COUNTER)\n"
+
+ifeq ($(MAKECMDGOALS), count)
+$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB);
+
+$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
+	$(eval FILE_COUNTER = $(shell printf "$$(($(FILE_COUNTER)+1))"))
+
 $(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
-	$(eval COUNTER = $(shell printf "$$(($(COUNTER)+1))"))
+	$(eval FILE_COUNTER = $(shell printf "$$(($(FILE_COUNTER)+1))"))
+endif
+
 endif
 
 .PHONY: all clean fclean re auto debug auto_valgrind auto_gdb cat extractDynamicLib count getCount Display

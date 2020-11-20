@@ -34,9 +34,6 @@ public:
     std::vector<GLuint>::iterator end();
 
 private:
-    bool endsWith(const std::string_view a, const std::string_view b);
-
-private:
     std::vector<GLuint> m_Texture; // possible that cannot contain more than 42 textures
     engine::Shader& m_Shader;
 };

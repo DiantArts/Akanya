@@ -96,11 +96,4 @@ std::vector<GLuint>::iterator Vector::end()
     return this->m_Texture.end();
 }
 
-// ---------------------------------------------------------------------------- private
-
-bool Vector::endsWith(const std::string_view a, const std::string_view b)
-{
-    return std::equal(a.begin() + a.size() - b.size(), a.end(), b.begin());
-}
-
 } // namespace engine::texture
