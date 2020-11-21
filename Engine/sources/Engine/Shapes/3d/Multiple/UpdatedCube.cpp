@@ -5,40 +5,60 @@
 ** Light source as cube
 */
 
-#include <glm/gtc/matrix_transform.hpp>
-#include "Engine/Vertexes/Vertices.hpp"
-#include "Engine/Shapes/3d/Multiple/UpdatedCube.hpp"
+#include "UpdatedCube.hpp"
 
-#include "Engine/Objects/3d/LightSourceCube.hpp" // tmp
-extern engine::object3d::LightSourceCube& getLamp();
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "../../../Vertexes/Vertices.hpp"
+
+
+
+// clang-format off
+
+#include "../../../Objects/3d/Single/LightSourceCube.hpp" // tmp
+extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
+
+// clang-format on
+
+
 
 namespace engine::shape3d::multiple {
 
-UpdatedCube::UpdatedCube(engine::Shader& shader,
-        const std::string_view verticesFileName /* = "updateCube" */,
-        const std::function<void()>& attributesSetter /* []{ ... } */,
-        const size_t numberOfTextures /* = 1 */)
+
+
+// ---------------------------------------------------------------------------- *structors
+
+UpdatedCube::UpdatedCube(engine::Shader&              shader,
+                         const std::string_view       verticesFileName /* = "updateCube" */,
+                         const std::function<void()>& attributesSetter /* [] { ... } */,
+                         const size_t                 numberOfTextures /* = 1 */)
     : Drawable(shader, attributesSetter, numberOfTextures)
 {
     engine::Vertices(verticesFileName).createBuffer();
 }
 
-UpdatedCube::~UpdatedCube()
-{}
+
+
+// ---------------------------------------------------------------------------- virtuals
+
+glm::mat4 UpdatedCube::getModel(const glm::vec3& position)
+{
+    glm::mat4 model { glm::mat4(1.0f) };
+    return glm::translate(model, position);
+}
 
 void UpdatedCube::setAllIntoShader(const engine::Camera&)
 {}
 
-glm::mat4 UpdatedCube::getModel(const glm::vec3&)
-{
-    auto model(glm::mat4(1.0f));
-    model = glm::translate(model, getLamp().getPosition());
-    return model;
-}
+
+
+// ---------------------------------------------------------------------------- final
 
 size_t UpdatedCube::getNumberOfArrayToDraw()
 {
     return this->m_NumberOfArrayToDraw;
 }
+
+
 
 } // namespace engine::shape3d::multiple

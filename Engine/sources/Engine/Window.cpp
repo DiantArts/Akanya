@@ -5,26 +5,43 @@
 ** test
 */
 
-#include <glad/glad.h>
-#include <iostream>   // std::clog
 #include "Window.hpp" // std::unique_ptr
+
+#include <iostream> // std::clog
+
+#include <glad/glad.h>
+
+
 
 static void initGLWF();
 static void initGLAD();
 
-static void mouseDirectionCallback(GLFWwindow* window, double xPos, double yPos);
-static void mouseScrollcallback(GLFWwindow* window, double xPos, double yPos);
-static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
-        GLsizei length, const GLchar* message, const void* userParam);
+static void            mouseDirectionCallback(GLFWwindow* window, double xPos, double yPos);
+static void            mouseScrollcallback(GLFWwindow* window, double xPos, double yPos);
+static void            framebufferSizeCallback(GLFWwindow* window, int width, int height);
+static void GLAPIENTRY messageCallback(GLenum        source,
+                                       GLenum        type,
+                                       GLuint        id,
+                                       GLenum        severity,
+                                       GLsizei       length,
+                                       const GLchar* message,
+                                       const void*   userParam);
+
+
 
 namespace engine {
+
+
 
 void WindowDeleter::operator()(GLFWwindow* window)
 {
     glfwTerminate();
     glfwDestroyWindow(window);
 }
+
+
+
+// ---------------------------------------------------------------------------- *structors
 
 engine::Camera engine::Window::camera; // static member
 Window::Window()
@@ -62,6 +79,8 @@ Window::Window()
     glDebugMessageCallback(messageCallback, 0);
 }
 
+
+
 // ---------------------------------------------------------------------------- OpenGL stuff
 
 bool Window::shouldClose() const
@@ -78,6 +97,8 @@ void Window::pollEvents()
 {
     glfwPollEvents();
 }
+
+
 
 // ---------------------------------------------------------------------------- input
 
@@ -106,7 +127,11 @@ void Window::processInput(const float deltaTime)
     }
 }
 
+
+
 } // namespace engine
+
+
 
 // ---------------------------------------------------------------------------- init helpers
 
@@ -135,6 +160,8 @@ static void initGLAD()
     }
 }
 
+
+
 // ---------------------------------------------------------------------------- callbacks
 
 static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
@@ -152,8 +179,8 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
 
     float xOffset = xPos - lastX;
     float yOffset = lastY - yPos; // reversed since y-coordinates go from bottom to top
-    lastX = xPos;
-    lastY = yPos;
+    lastX         = xPos;
+    lastY         = yPos;
 
 
     engine::Window::camera.oriente(xOffset, yOffset);
@@ -174,16 +201,21 @@ static void framebufferSizeCallback(GLFWwindow*, int width, int height)
 }
 
 // GLAPIENTRY: Windows compatibility tool
-static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint, GLenum severity, GLsizei,
-        const GLchar* message, const void*)
+static void GLAPIENTRY messageCallback(GLenum source,
+                                       GLenum type,
+                                       GLuint,
+                                       GLenum severity,
+                                       GLsizei,
+                                       const GLchar* message,
+                                       const void*)
 {
     std::clog << "ERROR (GL): " << message;
     std::clog << " (src: " << source << ", type: " << type;
     std::clog << ", severity: ";
     switch (severity) {
-    case GL_DEBUG_SEVERITY_HIGH:         std::clog << "high";         break;
-    case GL_DEBUG_SEVERITY_MEDIUM:       std::clog << "medium";       break;
-    case GL_DEBUG_SEVERITY_LOW:          std::clog << "low";          break;
+    case GL_DEBUG_SEVERITY_HIGH: std::clog << "high"; break;
+    case GL_DEBUG_SEVERITY_MEDIUM: std::clog << "medium"; break;
+    case GL_DEBUG_SEVERITY_LOW: std::clog << "low"; break;
     case GL_DEBUG_SEVERITY_NOTIFICATION: std::clog << "notification"; break;
     }
     std::clog << ")" << std::endl;

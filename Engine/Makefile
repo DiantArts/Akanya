@@ -37,10 +37,10 @@ C_FLAGS				:=
 CXX					:=	g++
 CPP_EXT				:=	.cpp
 CPP_INCDIR			:=	sources
-CPP_FLAGS			:=	-Wpedantic -std=c++2a -Wno-volatile
+CPP_FLAGS			:=	-Wpedantic -std=c++20 -Wno-volatile
 
 # COMMON FLAGS
-COMMON_INCDIR		:=	$(INCDIR) libraries
+COMMON_INCDIR		:=	$(INCDIR) $(LIBDIR) externs
 COMMON_WFLAGS		:=	all extra abi=11
 COMMON_FLAGS		:=	
 
@@ -75,6 +75,7 @@ CXX_SRC				!=	find $(SRCDIR) -type f -name \*$(CPP_EXT)
 
 # COMMON
 LIB_DIR				!=	mkdir -p $(LIBDIR); find $(LIBDIR)/ -maxdepth 1 -type d ! -path $(LIBDIR)/
+EXTERN_DIR			!=	find ./externs/ -maxdepth 1 -type d ! -path ./externs/
 LDFLAGS				+=	-L$(CURDIR) -L$(BINDIR) $(foreach lib, $(LIBLOCATION),$(addprefix -L,$(lib)))
 LDLIBS				+=	$(foreach lib, $(LIBNAME),$(addprefix -l,$(lib)))
 CPPFLAGS			+=	$(foreach inc, $(COMMON_INCDIR), $(addprefix -I,$(inc)))
@@ -121,6 +122,9 @@ endif
 LDLIBS				+=	$(patsubst $(LIBDIR)/%,-l%$(MODE_EXT),$(LIB_DIR))
 LIBBIN				:=	$(foreach libdir,$(LIB_DIR),$(patsubst $(LIBDIR)/%,$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT),$(libdir)))
 
+LDLIBS				+=	$(patsubst ./externs/%,-l%$(MODE_EXT),$(EXTERN_DIR))
+EXTERNBIN			+=	$(foreach libdir,$(EXTERN_DIR),$(patsubst ./externs/%,$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT),$(libdir)))
+
 NAME				:=	$(BINDIR)/$(BINNAME)$(MODE_EXT)
 DYNAMIC_LIB_NAME	:=	$(BINDIR)/lib$(BINNAME)$(D_LIBEXT)
 
@@ -129,6 +133,9 @@ SRC					+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(CXX_SRC))
 
 SRC_LIB				:=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(CPP_EXT)))
 SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(C_EXT)))
+
+SRC_LIB				+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find externs/$% -type f -name \*$(CPP_EXT)))
+SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find externs/$% -type f -name \*$(C_EXT)))
 
 # ============================================================================= UI
 
@@ -163,7 +170,7 @@ MAKEFLAGS			+=	--silent --no-print-directory
 
 all : $(NAME)
 
-$(NAME) : $(SRC) $(LIBBIN)
+$(NAME) : $(SRC) $(LIBBIN) $(EXTERNBIN)
 	$(CXX) $(OUTPUT_OPTION) $(SRC) $(LDFLAGS) $(LDLIBS)
 	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
@@ -207,6 +214,7 @@ clean	:
 fclean				: clean
 	rm -f $(BINDIR)/$(BINNAME) $(BINDIR)/$(BINNAME)_* $(DYNAMIC_LIB_NAME)
 	$(foreach lib,$(LIBBIN),rm -f $(lib) $(patsubst %.a,%_*.a,$(lib)))
+	$(foreach lib,$(EXTERNBIN),rm -f $(lib) $(patsubst %.a,%_*.a,$(lib)))
 	if [[ -d $(BINDIR) ]]; then rmdir $(BINDIR); fi
 	$(PRINTF) "$(DARKGRAY)[FClean]$(NORMAL) done\n"
 
@@ -249,7 +257,7 @@ extractDynamicLib: $(DYNAMIC_LIB_NAME) | $(BINDIR)
 
 $(DYNAMIC_LIB_NAME)	: CFLAGS += -fPIC
 $(DYNAMIC_LIB_NAME)	: CXXFLAGS += -fPIC
-$(DYNAMIC_LIB_NAME)	: $(SRC) $(LIBBIN) | $(BINDIR)
+$(DYNAMIC_LIB_NAME)	: $(SRC) $(LIBBIN) $(EXTERNBIN) | $(BINDIR)
 	$(CXX) $(OUTPUT_OPTION) -shared -Wl,-soname,$(DYNAMIC_LIB_NAME) $(SRC) $(LDFLAGS) $(LDLIBS)
 	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
 
@@ -271,7 +279,7 @@ else
 FILE_COUNTER		=	0
 endif
 
-count:	$(SRC) $(LIBBIN)
+count:	$(SRC) $(LIBBIN) $(EXTERNBIN)
 	$(PRINTF) "$(FILE_COUNTER)\n"
 
 ifeq ($(MAKECMDGOALS), count)

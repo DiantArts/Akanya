@@ -5,31 +5,37 @@
 ** test
 */
 
-#include <iostream>          // std::clog
-#include <fstream>           // std::ifstream::failure
-#include "Tools/File.hpp"    // tools::file::read
-#include "Engine/Shader.hpp" // std::string_view, glad.h, glm.h
+#include "Shader.hpp"
+
+#include <fstream>
+#include <iostream>
+
+#include "Tools/File.hpp"
+
+
 
 static GLuint compileShader(GLenum shaderType, const std::string filepath);
-static void checkCompilationStatus(GLuint shader, const std::string_view filepath);
-static void checkLinkageStatus(GLuint shader);
+static void   checkCompilationStatus(GLuint shader, const std::string_view filepath);
+static void   checkLinkageStatus(GLuint shader);
+
+
 
 namespace engine {
+
+
 
 // ---------------------------------------------------------------------------- *structors
 
 Shader::Shader(const std::string_view vertexFileName, const std::string_view fragmentFileName)
     : m_ShaderId(glCreateProgram())
 {
-    std::string vertexFilepath(engine::Shader::directoryPath);
-    vertexFilepath += "vertexes/";
-    vertexFilepath += vertexFileName;
-    GLuint vertex = compileShader(GL_VERTEX_SHADER, vertexFilepath);
+    std::string vertexFilepath { engine::Shader::directoryPath };
+    vertexFilepath += "vertexes/"; vertexFilepath += vertexFileName;
+    GLuint vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
 
-    std::string fragmentFilepath(engine::Shader::directoryPath);
-    fragmentFilepath += "fragments/";
-    fragmentFilepath += fragmentFileName;
-    GLuint fragment = compileShader(GL_FRAGMENT_SHADER, fragmentFilepath);
+    std::string fragmentFilepath { engine::Shader::directoryPath };
+    fragmentFilepath += "fragments/"; fragmentFilepath += fragmentFileName;
+    GLuint fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
 
     if (vertex && fragment) {
         glAttachShader(this->m_ShaderId, vertex);
@@ -47,12 +53,16 @@ Shader::~Shader()
     glDeleteProgram(this->m_ShaderId);
 }
 
+
+
 // ---------------------------------------------------------------------------- Use
 
 void Shader::use() const
 {
     glUseProgram(this->m_ShaderId);
 }
+
+
 
 // ---------------------------------------------------------------------------- Set
 
@@ -70,6 +80,8 @@ void Shader::set(const std::string_view name, float value) const
 {
     glUniform1f(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), value);
 }
+
+
 
 void Shader::set(const std::string_view name, const glm::vec2& value) const
 {
@@ -96,42 +108,52 @@ void Shader::set(const std::string_view name, const glm::vec4& value) const
     glUniform4fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), 1, &value[0]);
 }
 
-void Shader::set(const std::string_view name, const float x, const float y, const float z, const float w) const
+void Shader::set(const std::string_view name,
+                 const float            x,
+                 const float            y,
+                 const float            z,
+                 const float            w) const
 {
     glUniform4f(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), x, y, z, w);
 }
 
+
+
 void Shader::set(const std::string_view name, const glm::mat2& mat) const
 {
-    glUniformMatrix2fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()),
-            1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix2fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), 1, GL_FALSE,
+                       &mat[0][0]);
 }
 void Shader::set(const std::string_view name, const glm::mat3& mat) const
 {
-    glUniformMatrix3fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()),
-            1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix3fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), 1, GL_FALSE,
+                       &mat[0][0]);
 }
 
 void Shader::set(const std::string_view name, const glm::mat4& mat) const
 {
-    glUniformMatrix4fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()),
-            1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(this->m_ShaderId, std::string(name).c_str()), 1, GL_FALSE,
+                       &mat[0][0]);
 }
 
+
+
 } // namespace engine
+
+
 
 // ---------------------------------------------------------------------------- Static
 
 static GLuint compileShader(GLenum shaderType, const std::string filepath)
 {
-    GLuint vertex = glCreateShader(shaderType);
+    GLuint vertex { glCreateShader(shaderType) };
 
     try {
-        const std::string readenFile(tools::file::read(filepath));
-        const char* shaderCode = readenFile.c_str();
+        const std::string readenFile { tools::file::read(filepath) };
+        const char*       shaderCode { readenFile.c_str() };
         glShaderSource(vertex, 1, &shaderCode, nullptr);
-    } catch(const std::ifstream::failure& e) {
-        std::clog << "Shader file '"<< filepath << "' unsuccesfully read\n";
+    } catch (const std::ifstream::failure& e) {
+        std::clog << "Shader file '" << filepath << "' unsuccesfully read\n";
         return 0;
     }
 
@@ -143,7 +165,7 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
 
 static void checkCompilationStatus(GLuint shader, const std::string_view filepath)
 {
-    GLint status = 0;
+    GLint status { 0 };
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     if (status == GL_FALSE) {
         GLchar infoLog[512] = { 0 };
@@ -155,7 +177,7 @@ static void checkCompilationStatus(GLuint shader, const std::string_view filepat
 // Display program linkage's errors if needed
 static void checkLinkageStatus(GLuint shader)
 {
-    GLint status = 0;
+    GLint status { 0 };
     glGetProgramiv(shader, GL_LINK_STATUS, &status);
     if (status == GL_FALSE) {
         GLchar infoLog[1024] = { 0 };

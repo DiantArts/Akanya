@@ -7,10 +7,18 @@
 
 #pragma once
 
+
+
 #include <string_view>
+
+
 
 namespace tools::string {
 
+
+
 extern bool endsWith(const std::string_view a, const std::string_view b);
+
+
 
 } // namespace tools::string

@@ -7,29 +7,24 @@
 
 #include <functional>
 #include <iostream>
-#include "Engine/Window.hpp"
-#include "Engine/Camera.hpp"
-#include "Engine/Shader.hpp"
-#include "Engine/Clock.hpp"
-#include "Engine/Shapes/3d/Cube.hpp"
-#include "Engine/Objects/3d/Multiple/EnlightenedCube.hpp"
-#include "Engine/Objects/3d/LightSourceCube.hpp"
 
-engine::object3d::LightSourceCube& getLamp()
-{
-    static engine::Shader shaderLightSource("lightSource", "lightSource");
-    static engine::object3d::LightSourceCube lamp(shaderLightSource, glm::vec3(2.0f, 0.8f, 0.0f));
-    return lamp;
-}
+#include "Engine/Camera.hpp"
+#include "Engine/Clock.hpp"
+#include "Engine/Objects/3d/Multiple/EnlightenedCube.hpp"
+#include "Engine/Objects/3d/Single/LightSourceCube.hpp"
+#include "Engine/Shader.hpp"
+#include "Engine/Window.hpp"
+
+extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
 
 int main()
 {
     try {
         engine::Window window;
-        engine::Clock clock;
+        engine::Clock  clock;
 
-        engine::Shader shaderEnlightened("enlightened", "enlightened");
-        engine::object3d::multiple::EnlightenedCube enlightenedCubes(shaderEnlightened);
+        engine::Shader                              enlightenedShader("enlightened", "enlightened");
+        engine::object3d::multiple::EnlightenedCube enlightenedCubes(enlightenedShader);
         enlightenedCubes.addTexture("container.png", "material.diffuse", 0);
         enlightenedCubes.addTexture("containerBorders.png", "material.specular", 1);
         enlightenedCubes.addPosition(0.6, 0, -1.0f);
@@ -41,10 +36,11 @@ int main()
         for (float deltaTime = 0; !window.shouldClose(); deltaTime = clock.getElapsedTime()) {
             window.processInput(deltaTime);
 
-            // glm::vec3 lightColor(sin(glfwGetTime() * 2.0f), sin(glfwGetTime() * 0.7f), sin(glfwGetTime() * 1.3f));
-            // getLamp().setLightDiffuse(lightColor * glm::vec3(0.5f));
+            // glm::vec3 lightColor(sin(glfwGetTime() * 2.0f), sin(glfwGetTime() * 0.7f), sin(glfwGetTime()
+            // * 1.3f)); getLamp().setLightDiffuse(lightColor * glm::vec3(0.5f));
             // getLamp().setLightAmbient(lightColor * glm::vec3(0.5f) * glm::vec3(0.2f));
-            getLamp().setPosition(glm::vec3(cos(glfwGetTime() * 2) * 10.0f, 5, -1 + sin(glfwGetTime() * 2) * 10.0f));
+            getLamp().setPosition(
+                glm::vec3(cos(glfwGetTime() * 2) * 10.0f, 5, -1 + sin(glfwGetTime() * 2) * 10.0f));
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             enlightenedCubes.draw(window.camera);

@@ -7,23 +7,36 @@
 
 #pragma once
 
-#include <vector>
+
+
 #include <string_view>
+#include <vector>
+
+
 
 namespace engine {
 
+
+
 class Vertices {
 public:
-    Vertices(const std::string_view filepath);
-    ~Vertices();
+    // ---------------------------------------------------------------------------- *structors
+    explicit Vertices(const std::string_view filepath);
+    ~Vertices() = default;
+
+
+    // ---------------------------------------------------------------------------- buffer
 
     void createBuffer();
 
 public:
-    constexpr static auto directoryPath = "./data/vertices/";
+    constexpr static auto directoryPath { "./data/vertices/" };
+
 
 private:
     std::vector<float> m_Vertices;
 };
+
+
 
 } // namespace engine

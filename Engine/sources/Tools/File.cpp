@@ -5,14 +5,18 @@
 ** file tools to help easier code
 */
 
-#include <string>   // std::string
-#include <fstream>  // std::ifstream
-#include <sstream>  // std::stringstream
 #include "File.hpp" // std::string_view
 
+#include <fstream> // std::ifstream
 #include <iostream>
+#include <sstream> // std::stringstream
+#include <string>  // std::string
+
+
 
 namespace tools::file {
+
+
 
 std::string read(const std::string_view filepath)
 {
@@ -26,28 +30,6 @@ std::string read(const std::string_view filepath)
     return shaderStream.str();
 }
 
-std::string read(const std::string& filepath)
-{
-    std::stringstream shaderStream;
-    {
-        std::ifstream shaderFile;
-        shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-        shaderFile.open(filepath.c_str());
-        shaderStream << shaderFile.rdbuf();
-    }
-    return shaderStream.str();
-}
 
-std::string read(const std::string&& filepath)
-{
-    std::stringstream shaderStream;
-    {
-        std::ifstream shaderFile;
-        shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-        shaderFile.open(filepath.c_str());
-        shaderStream << shaderFile.rdbuf();
-    }
-    return shaderStream.str();
-}
 
 } // namespace tools::file

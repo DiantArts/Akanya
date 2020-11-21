@@ -5,7 +5,5 @@
 *.txt*
 *.o
 *.d
-*.a
-#*#
-*~
-binary/*
+tests
+tests_*

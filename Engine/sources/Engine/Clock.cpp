@@ -5,8 +5,13 @@
 ** opengl time abstraction
 */
 
+// clang-format off
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+// clang-format on
+
 #include "Clock.hpp"
 
 namespace engine {
@@ -20,9 +25,9 @@ Clock::~Clock()
 float Clock::getElapsedTime()
 {
     float currentFrameTime = glfwGetTime();
-    float deltaTime = currentFrameTime - this->m_LastFrameTime;
-    this->m_LastFrameTime = currentFrameTime;
+    float deltaTime        = currentFrameTime - this->m_LastFrameTime;
+    this->m_LastFrameTime  = currentFrameTime;
     return deltaTime;
 }
 
-} // engine
+} // namespace engine
