@@ -9,7 +9,8 @@
 #pragma once
 
 
-
+#include <string>
+#include <unordered_map>
 #include <string_view>
 
 #include <glm/mat2x2.hpp>
@@ -39,20 +40,52 @@ public:
 
 
     // ---------------------------------------------------------------------------- Set
-    void set(const std::string_view name, bool value) const;
-    void set(const std::string_view name, int value) const;
-    void set(const std::string_view name, float value) const;
+    void set(const std::string& name, bool value) const;
+    void set(std::string&& name, bool value) const;
 
-    void set(const std::string_view name, const glm::vec2& value) const;
-    void set(const std::string_view name, const float x, const float y) const;
-    void set(const std::string_view name, const glm::vec3& value) const;
-    void set(const std::string_view name, const float x, const float y, const float z) const;
-    void set(const std::string_view name, const glm::vec4& value) const;
-    void set(const std::string_view name, const float x, const float y, const float z, const float w) const;
+    void set(const std::string& name, int value) const;
+    void set(std::string&& name, int value) const;
 
-    void set(const std::string_view name, const glm::mat2& mat) const;
-    void set(const std::string_view name, const glm::mat3& mat) const;
-    void set(const std::string_view name, const glm::mat4& mat) const;
+    void set(const std::string& name, float value) const;
+    void set(std::string&& name, float value) const;
+
+
+
+    void set(const std::string& name, const glm::vec2& value) const;
+    void set(std::string&& name, const glm::vec2& value) const;
+
+    void set(const std::string& name, const float x, const float y) const;
+    void set(std::string&& name, const float x, const float y) const;
+
+    void set(const std::string& name, const glm::vec3& value) const;
+    void set(std::string&& name, const glm::vec3& value) const;
+
+    void set(const std::string& name, const float x, const float y, const float z) const;
+    void set(std::string&& name, const float x, const float y, const float z) const;
+
+    void set(const std::string& name, const glm::vec4& value) const;
+    void set(std::string&& name, const glm::vec4& value) const;
+
+    void set(const std::string& name, const float x, const float y, const float z, const float w) const;
+    void set(std::string&& name, const float x, const float y, const float z, const float w) const;
+
+
+
+    void set(const std::string& name, const glm::mat2& mat) const;
+    void set(std::string&& name, const glm::mat2& mat) const;
+
+    void set(const std::string& name, const glm::mat3& mat) const;
+    void set(std::string&& name, const glm::mat3& mat) const;
+
+    void set(const std::string& name, const glm::mat4& mat) const;
+    void set(std::string&& name, const glm::mat4& mat) const;
+
+
+
+private:
+    // ---------------------------------------------------------------------------- Opti
+    GLint getOrCacheUniformLocation(const std::string& uniformId) const;
+    GLint getOrCacheUniformLocation(std::string&& uniformId) const;
 
 
 public:
@@ -60,7 +93,8 @@ public:
 
 
 private:
-    GLuint m_ShaderId;
+    GLint m_ShaderId;
+    mutable std::unordered_map<std::string, GLuint> m_UniformsLocationCache;
 };
 
 } // namespace engine

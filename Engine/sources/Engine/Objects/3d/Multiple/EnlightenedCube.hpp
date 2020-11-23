@@ -25,7 +25,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- override
-    void setAllIntoShader(const engine::Camera& camera) override;
+    void      setAllIntoShader(const engine::Camera& camera) override;
     glm::mat4 getModel(const glm::vec3& position) override;
 };
 

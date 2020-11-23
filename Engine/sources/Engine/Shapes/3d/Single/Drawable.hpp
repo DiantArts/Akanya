@@ -23,9 +23,9 @@ class Drawable {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Drawable(engine::Shader&              shader,
-             const glm::vec3&             position,
-             const std::function<void()>& setAttributes,
-             const size_t                 numberOfTextures = 1);
+                      const glm::vec3&             position,
+                      const std::function<void()>& setAttributes,
+                      const size_t                 numberOfTextures = 1);
     virtual ~Drawable() = 0;
 
 
@@ -54,9 +54,9 @@ public:
 
 
     // ---------------------------------------------------------------------------- Position
-    void             setPosition(float positionX = 0, float positionY = 0, float positionZ = 0);
-    void             setPosition(const glm::vec3& position);
-    void             setPosition(glm::vec3&& position);
+    void setPosition(float positionX = 0, float positionY = 0, float positionZ = 0);
+    void setPosition(const glm::vec3& position);
+    void setPosition(glm::vec3&& position);
 
     const glm::vec3& getPosition() const;
 

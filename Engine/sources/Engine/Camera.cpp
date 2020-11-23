@@ -99,7 +99,6 @@ void Camera::moveBot(const float deltaTime)
 
 
 
-
 // ---------------------------------------------------------------------------- Position
 
 void Camera::setPosition(const float xOffset, const float yOffset, const float zOffset)

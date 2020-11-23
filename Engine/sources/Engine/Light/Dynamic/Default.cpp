@@ -18,12 +18,10 @@ namespace engine::light::dynamic {
 
 // ---------------------------------------------------------------------------- *structors
 
-Default::Default(const light::dynamic::Parameters& parameters)
-    : m_Parameters(parameters)
+Default::Default(const light::dynamic::Parameters& parameters) : m_Parameters(parameters)
 {}
 
-Default::Default(light::dynamic::Parameters&& parameters)
-    : m_Parameters(std::move(parameters))
+Default::Default(light::dynamic::Parameters&& parameters) : m_Parameters(std::move(parameters))
 {}
 
 Default::~Default()
@@ -105,4 +103,4 @@ const engine::light::dynamic::Parameters& Default::getParameters() const
 }
 
 
-} // namespace engine::object3d::single
+} // namespace engine::light::dynamic

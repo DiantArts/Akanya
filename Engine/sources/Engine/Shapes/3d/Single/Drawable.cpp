@@ -110,7 +110,6 @@ const glm::vec3& Drawable::getScale() const
 
 
 
-
 // ---------------------------------------------------------------------------- Position
 
 void Drawable::setPosition(float positionX /* = 0 */, float positionY /* = 0 */, float positionZ /* = 0 */)

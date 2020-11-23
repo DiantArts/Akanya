@@ -60,8 +60,9 @@ void Vector::reserve(size_t size)
 void Vector::push_back(const std::string_view textureFileName, const std::string_view name, const int value)
 {
     int         width, height, nrComponents;
-    std::string textureFilepath { engine::texture::directoryPath }; textureFilepath += textureFileName;
-    const unsigned char *const data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
+    std::string textureFilepath { engine::texture::directoryPath };
+    textureFilepath += textureFileName;
+    const unsigned char* const data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
 
     if (data) {
         GLenum format;
@@ -88,7 +89,7 @@ void Vector::push_back(const std::string_view textureFileName, const std::string
     stbi_image_free(const_cast<unsigned char*>(data));
 
     this->m_Shader.use();
-    this->m_Shader.set(name, value);
+    this->m_Shader.set(std::string { name }, value);
 }
 
 

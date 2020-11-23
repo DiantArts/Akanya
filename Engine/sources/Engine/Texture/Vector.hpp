@@ -45,8 +45,8 @@ public:
     std::vector<GLuint>::const_iterator cbegin() const;
     std::vector<GLuint>::const_iterator cend() const;
 
-    std::vector<GLuint>::iterator       begin();
-    std::vector<GLuint>::iterator       end();
+    std::vector<GLuint>::iterator begin();
+    std::vector<GLuint>::iterator end();
 
 private:
     std::vector<GLuint> m_Texture; // possible that cannot contain more than 42 textures

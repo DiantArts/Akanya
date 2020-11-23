@@ -5,6 +5,7 @@
 ** test
 */
 
+#include <SFML/Audio.hpp>
 #include <functional>
 #include <iostream>
 
@@ -24,8 +25,6 @@ extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
 int main()
 {
     try {
-
-
         engine::Window window;
         engine::Clock  clock;
 
@@ -36,16 +35,16 @@ int main()
         // enlightenedCubes.addPosition(0.6, 0, -1.0F);
         // enlightenedCubes.addPosition(-0.6, 0, -1.5F);
 
-        enlightenedCubes.addPosition( 0.0F,  0.0F,  0.0F);
-        enlightenedCubes.addPosition( 2.0F,  5.0F, -15.0F);
+        enlightenedCubes.addPosition(0.0F, 0.0F, 0.0F);
+        enlightenedCubes.addPosition(2.0F, 5.0F, -15.0F);
         enlightenedCubes.addPosition(-1.5F, -2.2F, -2.5F);
         enlightenedCubes.addPosition(-3.8F, -2.0F, -12.3F);
-        enlightenedCubes.addPosition( 2.4F, -0.4F, -3.5F);
-        enlightenedCubes.addPosition(-1.7F,  3.0F, -7.5F);
-        enlightenedCubes.addPosition( 1.3F, -2.0F, -2.5F);
-        enlightenedCubes.addPosition( 1.5F,  2.0F, -2.5F);
-        enlightenedCubes.addPosition( 1.5F,  0.2F, -1.5F);
-        enlightenedCubes.addPosition(-1.3F,  1.0F, -1.5F);
+        enlightenedCubes.addPosition(2.4F, -0.4F, -3.5F);
+        enlightenedCubes.addPosition(-1.7F, 3.0F, -7.5F);
+        enlightenedCubes.addPosition(1.3F, -2.0F, -2.5F);
+        enlightenedCubes.addPosition(1.5F, 2.0F, -2.5F);
+        enlightenedCubes.addPosition(1.5F, 0.2F, -1.5F);
+        enlightenedCubes.addPosition(-1.3F, 1.0F, -1.5F);
 
 
         window.camera.setSpeed(5);

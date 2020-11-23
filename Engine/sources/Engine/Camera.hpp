@@ -31,20 +31,20 @@ class Camera {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Camera() = default;
-    ~Camera() = default;
+    ~Camera()         = default;
 
 
     // ---------------------------------------------------------------------------- speed
-    void  adjustLocalSpeed(const float deltaTime);
+    void adjustLocalSpeed(const float deltaTime);
 
-    void  setSpeed(const float value);
+    void setSpeed(const float value);
 
     float getSpeed() const;
 
 
     // ---------------------------------------------------------------------------- move
-    void             move(const float xOffset, const float yOffset, const float zOffset);
-    void             move(const glm::vec3& offset);
+    void move(const float xOffset, const float yOffset, const float zOffset);
+    void move(const glm::vec3& offset);
 
     void moveForward(const float deltaTime);
     void moveBackward(const float deltaTime);
@@ -57,18 +57,18 @@ public:
 
 
     // ---------------------------------------------------------------------------- Position
-    void             setPosition(const float xOffset, const float yOffset, const float zOffset);
-    void             setPosition(const glm::vec3& offset);
+    void setPosition(const float xOffset, const float yOffset, const float zOffset);
+    void setPosition(const glm::vec3& offset);
 
     const glm::vec3& getPosition() const;
 
 
     // ---------------------------------------------------------------------------- Orientation
-    void      oriente(const float xOffset, const float yOffset);
-    void      oriente(const glm::vec2& offset);
+    void oriente(const float xOffset, const float yOffset);
+    void oriente(const glm::vec2& offset);
 
-    void      setOrientation(const float xOffset, const float yOffset);
-    void      setOrientation(const glm::vec2& offset);
+    void setOrientation(const float xOffset, const float yOffset);
+    void setOrientation(const glm::vec2& offset);
 
     glm::vec3 getOrientation() const;
 
@@ -93,7 +93,7 @@ public:
 
 private:
     float     m_Speed { 2.5F };
-    float     m_Zoom  { 45.0F };
+    float     m_Zoom { 45.0F };
     glm::vec3 m_Sensitivity { 0.1F, 0.1F, 1.0F };
 
     glm::vec3 m_Position { 0.0F, 0.0F, 3.0F };

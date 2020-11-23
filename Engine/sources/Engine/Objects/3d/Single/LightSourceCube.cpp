@@ -5,10 +5,11 @@
 ** Light source as cube
 */
 
-#include "debugMacros.hpp"
 #include "LightSourceCube.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+
+#include "debugMacros.hpp"
 
 #include "../../../Vertexes/Vertices.hpp"
 

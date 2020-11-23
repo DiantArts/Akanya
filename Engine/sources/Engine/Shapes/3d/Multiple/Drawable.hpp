@@ -30,8 +30,8 @@ class Drawable {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Drawable(engine::Shader&              shader,
-             const std::function<void()>& setAttributes,
-             const size_t                 numberOfTextures = 1);
+                      const std::function<void()>& setAttributes,
+                      const size_t                 numberOfTextures = 1);
     virtual ~Drawable() = 0;
 
 
