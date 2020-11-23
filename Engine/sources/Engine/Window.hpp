@@ -36,6 +36,7 @@ public:
 
     // ---------------------------------------------------------------------------- OpenGL stuff
     bool shouldClose() const;
+    void clear() const;
     void swapBuffers();
     void pollEvents();
 

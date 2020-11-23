@@ -5,7 +5,7 @@
 ** Light source as cube
 */
 
-
+#include "debugMacros.hpp"
 #include "LightSourceCube.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -45,7 +45,9 @@ void LightSourceCube::setAllIntoShader(const engine::Camera&)
 
 glm::mat4 LightSourceCube::getModel(const glm::vec3& position)
 {
-    this->setPosition({ cos(glfwGetTime() * 2) * 10.0F, 5, -1 + sin(glfwGetTime() * 2) * 10.0F });
+    auto lampYMouvement = -pow(abs(cos(glfwGetTime() * 2) * 5), 3);
+
+    this->setPosition({ 0, 4 + lampYMouvement / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
 
     glm::mat4 model { 1.0F };
     return glm::translate(model, position);
