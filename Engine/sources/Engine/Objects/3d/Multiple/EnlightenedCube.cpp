@@ -52,14 +52,30 @@ void EnlightenedCube::setAllIntoShader(const engine::Camera& camera)
 {
     this->m_Shader.set("viewPos", camera.getPosition());
 
-    this->m_Shader.set("material.shininess", 64.0f);
+    this->m_Shader.set("material.shininess", 32.0F);
 
     this->m_Shader.set("light.position", getLamp().getPosition());
-    this->m_Shader.set("light.ambient", getLamp().getLightParameters().ambient);
-    this->m_Shader.set("light.diffuse", getLamp().getLightParameters().diffuse);
-    this->m_Shader.set("light.specular", getLamp().getLightParameters().specular);
+    // this->m_Shader.set("light.direction", -0.2F, -1.0F, -0.3F);
+    this->m_Shader.set("light.ambient", getLamp().getParameters().ambient);
+    this->m_Shader.set("light.diffuse", getLamp().getParameters().diffuse);
+    this->m_Shader.set("light.specular", getLamp().getParameters().specular);
+
+    this->m_Shader.set("light.constant", getLamp().getParameters().constant);
+    this->m_Shader.set("light.linear", getLamp().getParameters().linear);
+    this->m_Shader.set("light.quadratic", getLamp().getParameters().quadratic);
 }
 
+glm::mat4 EnlightenedCube::getModel(const glm::vec3& position)
+{
+    // static size_t i { 0 };
+    // float angle = 20.0F * i;
+    // i = (i + 1) % 10;
+    // model = glm::translate(model, position);
+    // model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0F, 0.3F, 0.5F));
+
+    glm::mat4 model { 1.0F };
+    return glm::translate(model, position);
+}
 
 
 } // namespace engine::object3d::multiple

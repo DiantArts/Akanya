@@ -40,8 +40,8 @@ void Cube::setAllIntoShader(const engine::Camera&)
 
 glm::mat4 Cube::getModel(const glm::vec3& position)
 {
-    return glm::rotate(glm::translate(glm::mat4(1.0f), position), glm::radians(20.0f),
-                       glm::vec3(1.0f, 0.3f, 0.5f));
+    return glm::rotate(glm::translate(glm::mat4(1.0F), position), glm::radians(20.0F),
+                       glm::vec3(1.0F, 0.3F, 0.5F));
 }
 
 size_t Cube::getNumberOfArrayToDraw()

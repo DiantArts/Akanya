@@ -67,7 +67,7 @@ Window::Window()
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // specifies the color values used by glClear to clear the color buffers
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // clear black
+    glClearColor(0.1F, 0.1F, 0.1F, 1.0F); // clear black
 
     // mouse events
     glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);

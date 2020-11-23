@@ -12,7 +12,7 @@
 # ============================================================================= Basics
 
 ARGV				:=
-BINNAME				:=	engine
+BINNAME				:=	akanya
 
 # Directories
 BINDIR				:=	binary

@@ -13,15 +13,6 @@
 
 
 
-// clang-format off
-
-#include "../../../Objects/3d/Single/LightSourceCube.hpp" // tmp
-extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
-
-// clang-format on
-
-
-
 namespace engine::shape3d::single {
 
 
@@ -50,10 +41,10 @@ void UpdatedCube::setAllIntoShader(const engine::Camera&)
 
 // ---------------------------------------------------------------------------- virtual
 
-glm::mat4 UpdatedCube::getModel(const glm::vec3&)
+glm::mat4 UpdatedCube::getModel(const glm::vec3& position)
 {
-    glm::mat4 model { 1.0f };
-    return glm::translate(model, getLamp().getPosition());
+    glm::mat4 model { 1.0F };
+    return glm::translate(model, position);
 }
 
 size_t UpdatedCube::getNumberOfArrayToDraw()

@@ -44,7 +44,7 @@ void Drawable::draw(const engine::Camera& camera)
     this->m_Shader.set("view", camera.getView());
     this->m_Shader.set("projection",
                        glm::perspective(glm::radians(camera.getZoom()),
-                                        (float)Window::width / (float)Window::height, 0.1f, 100.0f));
+                                        (float)Window::width / (float)Window::height, 0.1F, 100.0F));
 
     this->m_Vao.bind();
     this->m_Shader.set("model", glm::scale(this->getModel(this->m_Position), this->m_Scale));

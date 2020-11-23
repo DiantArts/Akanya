@@ -17,7 +17,7 @@ public:
     float getElapsedTime();
 
 private:
-    float m_LastFrameTime = 0.0f;
+    float m_LastFrameTime { 0.0F };
 };
 
 } // namespace engine

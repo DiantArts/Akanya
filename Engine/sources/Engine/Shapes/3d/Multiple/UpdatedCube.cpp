@@ -13,15 +13,6 @@
 
 
 
-// clang-format off
-
-#include "../../../Objects/3d/Single/LightSourceCube.hpp" // tmp
-extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
-
-// clang-format on
-
-
-
 namespace engine::shape3d::multiple {
 
 
@@ -43,7 +34,7 @@ UpdatedCube::UpdatedCube(engine::Shader&              shader,
 
 glm::mat4 UpdatedCube::getModel(const glm::vec3& position)
 {
-    glm::mat4 model { glm::mat4(1.0f) };
+    glm::mat4 model { 1.0F };
     return glm::translate(model, position);
 }
 

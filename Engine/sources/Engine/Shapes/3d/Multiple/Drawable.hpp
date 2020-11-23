@@ -32,7 +32,7 @@ public:
     explicit Drawable(engine::Shader&              shader,
              const std::function<void()>& setAttributes,
              const size_t                 numberOfTextures = 1);
-    virtual ~Drawable() = default;
+    virtual ~Drawable() = 0;
 
 
     // ---------------------------------------------------------------------------- Draw
@@ -84,7 +84,7 @@ private:
     engine::Vbo             m_Vbo;
     GLuint                  m_Ebo;
 
-    glm::vec3 m_Scale { 1.0f, 1.0f, 1.0f };
+    glm::vec3 m_Scale { 1.0F, 1.0F, 1.0F };
 };
 
 
