@@ -1,9 +1,0 @@
-.obj*
-.dep*
-.vscode*
-*.pdf*
-*.txt*
-*.o
-*.d
-timeControlled
-timeControlled_*

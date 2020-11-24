@@ -29,11 +29,6 @@ struct WindowDeleter {
 
 class Window {
 public:
-    // ---------------------------------------------------------------------------- *structors
-    Window();
-    ~Window() = default;
-
-
     // ---------------------------------------------------------------------------- OpenGL stuff
     bool shouldClose() const;
     void clear() const;
@@ -54,6 +49,16 @@ public:
 
 private:
     std::unique_ptr<GLFWwindow, WindowDeleter> m_Window;
+
+
+
+// ---------------------------------------------------------------------------- singleton
+public:
+    static Window& get();
+
+private:
+    Window();
+    static Window m_SingleInstance;
 };
 
 

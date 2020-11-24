@@ -104,9 +104,6 @@ void Shader::set(std::string&& name, float value) const
 
 
 
-
-
-
 void Shader::set(const std::string& name, const glm::vec2& value) const
 {
     glUniform2fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
@@ -179,9 +176,6 @@ void Shader::set(std::string&& name, const float x, const float y, const float z
 
 
 
-
-
-
 void Shader::set(const std::string& name, const glm::mat2& mat) const
 {
     glUniformMatrix2fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
@@ -225,7 +219,8 @@ GLint Shader::getOrCacheUniformLocation(const std::string& uniformId) const
         return this->m_UniformsLocationCache[uniformId];
     }
 
-    return this->m_UniformsLocationCache[uniformId] = glGetUniformLocation(this->m_ShaderId, uniformId.c_str());
+    return this->m_UniformsLocationCache[uniformId] =
+               glGetUniformLocation(this->m_ShaderId, uniformId.c_str());
 }
 
 GLint Shader::getOrCacheUniformLocation(std::string&& uniformId) const
@@ -234,9 +229,9 @@ GLint Shader::getOrCacheUniformLocation(std::string&& uniformId) const
         return this->m_UniformsLocationCache[uniformId];
     }
 
-    return this->m_UniformsLocationCache.emplace(std::move(uniformId),
-                                                 glGetUniformLocation(this->m_ShaderId, uniformId.c_str())
-                                                ).first->second;
+    return this->m_UniformsLocationCache
+        .emplace(std::move(uniformId), glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
+        .first->second;
 }
 
 

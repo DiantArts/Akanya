@@ -32,57 +32,6 @@ static void GLAPIENTRY messageCallback(GLenum        source,
 namespace engine {
 
 
-
-void WindowDeleter::operator()(GLFWwindow* window)
-{
-    glfwTerminate();
-    glfwDestroyWindow(window);
-}
-
-
-
-// ---------------------------------------------------------------------------- *structors
-
-engine::Camera engine::Window::camera; // static member
-Window::Window()
-{
-    initGLWF();
-
-    // glfwGetPrimaryMonitor function returns the primary monitor to allow a fullscreen rendering
-    this->m_Window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
-    if (!this->m_Window) {
-        glfwTerminate();
-        std::runtime_error("Window creation failed");
-    }
-
-    // specifies the affine transformation of x and y from normalized devices
-    // coordinates to window coordinates.
-    glfwMakeContextCurrent(this->m_Window.get());
-    glfwSetFramebufferSizeCallback(this->m_Window.get(), framebufferSizeCallback);
-
-    // GLAD
-    initGLAD();
-
-    // uncomment this call to draw in wireframe polygons.
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-    // specifies the color values used by glClear to clear the color buffers
-    // glClearColor(0.1F, 0.1F, 0.1F, 1.0F); // clear black
-    // glClearColor(0.03F, 0.03F, 0.03F, 1.0F); // clear black
-    glClearColor(0.0F, 0.0F, 0.0F, 1.0F); // clear black
-
-    // mouse events
-    glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(this->m_Window.get(), mouseDirectionCallback);
-    glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
-
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_DEBUG_OUTPUT);
-    glDebugMessageCallback(messageCallback, 0);
-}
-
-
-
 // ---------------------------------------------------------------------------- OpenGL stuff
 
 bool Window::shouldClose() const
@@ -133,6 +82,61 @@ void Window::processInput(const float deltaTime)
         this->camera.moveBot(deltaTime);
     }
 }
+
+
+
+// ---------------------------------------------------------------------------- singleton
+
+void WindowDeleter::operator()(GLFWwindow* window)
+{
+    glfwTerminate();
+    glfwDestroyWindow(window);
+}
+
+engine::Camera engine::Window::camera; // static member
+Window::Window()
+{
+    initGLWF();
+
+    // glfwGetPrimaryMonitor function returns the primary monitor to allow a fullscreen rendering
+    this->m_Window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
+    if (!this->m_Window) {
+        glfwTerminate();
+        std::runtime_error("Window creation failed");
+    }
+
+    // specifies the affine transformation of x and y from normalized devices
+    // coordinates to window coordinates.
+    glfwMakeContextCurrent(this->m_Window.get());
+    glfwSetFramebufferSizeCallback(this->m_Window.get(), framebufferSizeCallback);
+
+    // GLAD
+    initGLAD();
+
+    // uncomment this call to draw in wireframe polygons.
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    // specifies the color values used by glClear to clear the color buffers
+    // glClearColor(0.1F, 0.1F, 0.1F, 1.0F); // clear black
+    // glClearColor(0.03F, 0.03F, 0.03F, 1.0F); // clear black
+    glClearColor(0.0F, 0.0F, 0.0F, 1.0F); // clear black
+
+    // mouse events
+    glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(this->m_Window.get(), mouseDirectionCallback);
+    glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(messageCallback, 0);
+}
+
+Window& Window::get()
+{
+    return m_SingleInstance;
+}
+
+Window Window::m_SingleInstance;
 
 
 

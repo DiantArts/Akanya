@@ -10,8 +10,8 @@
 
 
 #include <string>
-#include <unordered_map>
 #include <string_view>
+#include <unordered_map>
 
 #include <glm/mat2x2.hpp>
 #include <glm/mat3x3.hpp>
@@ -93,7 +93,7 @@ public:
 
 
 private:
-    GLint m_ShaderId;
+    GLint                                           m_ShaderId;
     mutable std::unordered_map<std::string, GLuint> m_UniformsLocationCache;
 };
 

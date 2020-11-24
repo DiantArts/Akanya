@@ -5,9 +5,10 @@
 ** test
 */
 
-#include <SFML/Audio.hpp>
 #include <functional>
 #include <iostream>
+
+#include <SFML/Audio.hpp>
 
 #include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
@@ -25,7 +26,7 @@ extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
 int main()
 {
     try {
-        engine::Window window;
+        engine::Window& window { engine::Window::get() };
         engine::Clock  clock;
 
         // engine::Shader                              enlightenedShader("enlightened", "enlightened");
