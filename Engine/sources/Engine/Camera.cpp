@@ -186,6 +186,18 @@ void Camera::adjustOrientation()
 
 
 
+const glm::vec3& Camera::getOrientation() const
+{
+    return this->m_ReversedDirection;
+}
+
+const glm::vec3& Camera::getFront() const
+{
+    return this->m_Front;
+}
+
+
+
 // ---------------------------------------------------------------------------- Zoom
 void Camera::zoom(const float value)
 {
@@ -216,7 +228,7 @@ float Camera::getZoom() const
 
 glm::mat4 Camera::getView() const
 {
-    return glm::lookAt(this->m_Position, this->m_Position + this->m_Front, this->m_Up);
+    return std::move(glm::lookAt(this->m_Position, this->m_Position + this->m_Front, this->m_Up));
 }
 
 } // namespace engine

@@ -70,9 +70,10 @@ public:
     void setOrientation(const float xOffset, const float yOffset);
     void setOrientation(const glm::vec2& offset);
 
-    glm::vec3 getOrientation() const;
-
     void adjustOrientation();
+
+    const glm::vec3& getOrientation() const;
+    const glm::vec3& getFront() const;
 
 
     // ---------------------------------------------------------------------------- Zoom

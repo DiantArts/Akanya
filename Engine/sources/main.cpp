@@ -28,10 +28,12 @@ int main()
         engine::Window window;
         engine::Clock  clock;
 
-        engine::Shader                              enlightenedShader("enlightened", "enlightened");
+        // engine::Shader                              enlightenedShader("enlightened", "enlightened");
+        engine::Shader                              enlightenedShader("flashlight", "flashlight");
         engine::object3d::multiple::EnlightenedCube enlightenedCubes(enlightenedShader);
         enlightenedCubes.addTexture("container.png", "material.diffuse", 0);
         enlightenedCubes.addTexture("containerBorders.png", "material.specular", 1);
+
         // enlightenedCubes.addPosition(0.6, 0, -1.0F);
         // enlightenedCubes.addPosition(-0.6, 0, -1.5F);
 
@@ -58,7 +60,7 @@ int main()
 
             window.clear();
             enlightenedCubes.draw(window.camera);
-            getLamp().draw(window.camera);
+            // getLamp().draw(window.camera);
 
             window.pollEvents();
             window.swapBuffers();

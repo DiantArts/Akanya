@@ -54,8 +54,13 @@ void EnlightenedCube::setAllIntoShader(const engine::Camera& camera)
 
     this->m_Shader.set("material.shininess", 32.0F);
 
-    this->m_Shader.set("light.position", getLamp().getPosition());
-    // this->m_Shader.set("light.direction", -0.2F, -1.0F, -0.3F);
+    // this->m_Shader.set("light.position", getLamp().getPosition());
+    this->m_Shader.set("light.position", camera.getPosition());
+    this->m_Shader.set("light.direction", camera.getFront());
+    this->m_Shader.set("light.cutOff", glm::cos(glm::radians(12.5f)));
+    this->m_Shader.set("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+
+
     this->m_Shader.set("light.ambient", getLamp().getParameters().ambient);
     this->m_Shader.set("light.diffuse", getLamp().getParameters().diffuse);
     this->m_Shader.set("light.specular", getLamp().getParameters().specular);
