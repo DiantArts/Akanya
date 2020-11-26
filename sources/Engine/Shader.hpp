@@ -32,6 +32,7 @@ class Shader {
 public:
     // ---------------------------------------------------------------------------- *structors
     Shader(const std::string_view vertexPath, const std::string_view fragmentPath);
+    Shader(const std::string_view filepathes);
     ~Shader();
 
 

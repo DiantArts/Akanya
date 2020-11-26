@@ -49,7 +49,7 @@ public:
 
 
 private:
-    engine::light::dynamic::Parameters m_Parameters;
+    engine::light::dynamic::Parameters m_Parameters {};
 };
 
 

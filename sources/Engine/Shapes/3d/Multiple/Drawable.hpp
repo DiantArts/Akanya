@@ -36,6 +36,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- Draw
+    void update(const engine::Camera& camera);
     void draw(const engine::Camera& camera);
 
 

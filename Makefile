@@ -41,7 +41,7 @@ CPP_FLAGS			:=	-Wpedantic -std=c++20 -Wno-volatile
 
 # COMMON FLAGS
 COMMON_INCDIR		:=	$(INCDIR) $(LIBDIR) externs
-COMMON_WFLAGS		:=	all extra abi=11
+# COMMON_WFLAGS		:=	all extra abi=11
 COMMON_FLAGS		:=	
 
 # Extentions
