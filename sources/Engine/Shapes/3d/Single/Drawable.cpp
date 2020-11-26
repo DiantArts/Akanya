@@ -21,12 +21,8 @@ Drawable::Drawable(engine::Shader&              shader,
                    const glm::vec3&             position,
                    const std::function<void()>& setAttributes,
                    const size_t                 numberOfTextures /* = 1 */)
-    : m_Shader(shader), m_Position(position), m_TextureVector(shader, numberOfTextures)
-{
-    this->m_Vbo.bind();
-    this->m_Vao.bind();
-    setAttributes();
-}
+    : engine::shape3d::Drawable(shader, setAttributes, numberOfTextures), m_Position(position)
+{}
 
 Drawable::~Drawable()
 {}
@@ -49,63 +45,6 @@ void Drawable::draw(const engine::Camera& camera)
     this->m_Vao.bind();
     this->m_Shader.set("model", glm::scale(this->getModel(this->m_Position), this->m_Scale));
     glDrawArrays(GL_TRIANGLES, 0, this->getNumberOfArrayToDraw());
-}
-
-
-
-// ---------------------------------------------------------------------------- Textures
-
-void Drawable::addTexture(const std::string_view filepath, const std::string_view name, int index)
-{
-    this->m_TextureVector.push_back(filepath, name, index);
-}
-
-
-const engine::texture::Vector& Drawable::getTextures() const
-{
-    return this->m_TextureVector;
-}
-
-
-
-// ---------------------------------------------------------------------------- Shader
-
-void Drawable::setShader(engine::Shader& shader)
-{
-    this->m_Shader = shader;
-}
-
-
-const engine::Shader& Drawable::getShader() const
-{
-    return this->m_Shader;
-}
-
-
-
-// ---------------------------------------------------------------------------- Scale
-
-void Drawable::setScale(const float scaleX, const float scaleY, const float scaleZ)
-{
-    this->m_Scale.x = scaleX;
-    this->m_Scale.y = scaleY;
-    this->m_Scale.z = scaleZ;
-}
-
-void Drawable::setScale(const glm::vec3& scale)
-{
-    this->m_Scale = scale;
-}
-
-void Drawable::setScale(glm::vec3&& scale)
-{
-    this->m_Scale = std::move(scale);
-}
-
-
-const glm::vec3& Drawable::getScale() const
-{
-    return this->m_Scale;
 }
 
 

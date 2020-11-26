@@ -35,6 +35,8 @@ public:
     Shader(const std::string_view filepathes);
     ~Shader();
 
+    Shader(const engine::Shader&) = delete;
+
 
     // ---------------------------------------------------------------------------- Use
     void use() const;

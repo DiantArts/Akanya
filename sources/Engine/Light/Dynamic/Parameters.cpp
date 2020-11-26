@@ -18,5 +18,4 @@ Parameters::Parameters()
 
 
 
-
 } // namespace engine::light::dynamic

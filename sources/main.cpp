@@ -10,10 +10,7 @@
 
 #include "Engine/Objects/3d/Multiple/EnlightenedCube.hpp"
 #include "Engine/Objects/3d/Single/LightSourceCube.hpp"
-
-
 #include "ExampleScene.hpp"
-
 
 
 

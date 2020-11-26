@@ -87,10 +87,10 @@ public:
 
 public:
     // ---------------------------------------------------------------------------- mouse config
-    constexpr static float minPitch = -89.999F;
-    constexpr static float maxPitch = 89.999F;
-    constexpr static float minZoom  = 1.0F;
-    constexpr static float maxZoom  = 45.0F;
+    static constexpr float minPitch = -89.999F;
+    static constexpr float maxPitch = 89.999F;
+    static constexpr float minZoom  = 1.0F;
+    static constexpr float maxZoom  = 45.0F;
 
 private:
     float     m_Speed { 2.5F };
@@ -104,8 +104,6 @@ private:
     glm::vec3 m_ReversedDirection { 0.5F, 0.5F, 0.5F };
     float     m_Yaw { -90.0F };
     float     m_Pitch { 0.0F };
-
-    glm::vec3 m_Target;
 
     float m_Velocity; // speed taking in count deltaTime
 };

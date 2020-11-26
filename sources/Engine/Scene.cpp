@@ -9,9 +9,7 @@
 
 
 
-
 namespace engine {
-
 
 
 
@@ -46,17 +44,22 @@ void Scene::draw()
 {
     this->m_Window.clear();
 
-    for (auto& drawable : this->m_VectorSingleDrawables) {
-        drawable->draw(this->m_Window.camera);
-    }
-
-    for (auto& drawable : this->m_VectorMultipleDrawables) {
+    for (auto& drawable : this->m_VectorDrawables) {
         drawable->draw(this->m_Window.camera);
     }
 
     this->m_Window.pollEvents();
     this->m_Window.swapBuffers();
 }
+
+
+
+// ---------------------------------------------------------------------------- Vector Drawables
+void Scene::pushDrawable(std::unique_ptr<engine::shape3d::Drawable>&& drawableObject)
+{
+    this->m_VectorDrawables.push_back(std::move(drawableObject));
+}
+
 
 
 } // namespace engine
