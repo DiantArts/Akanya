@@ -20,9 +20,9 @@ ExampleScene::ExampleScene()
 {
     this->emplaceDrawable<engine::object3d::single::LightSourceCube>(this->m_ShaderMap["lightSource"],
                                                                      glm::vec3 { 2.0F, 0.8F, 0.0F });
-    this->pushDrawable(std::make_unique<engine::object3d::single::LightSourceCube>(
-        this->m_ShaderMap["lightSource"], glm::vec3 { 2.0F, 0.8F, 0.0F }));
 
+    this->emplaceDrawable<engine::object3d::single::LightSourceCube>(
+        this->m_ShaderMap["lightSource"], glm::vec3 { 2.0F, 0.8F, 0.0F });
 
     auto obj { std::make_unique<engine::object3d::multiple::EnlightenedCube>(
         this->m_ShaderMap["enlightened"]) };

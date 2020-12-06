@@ -22,7 +22,6 @@ class Vertices {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Vertices(const std::string_view filepath);
-    ~Vertices() = default;
 
 
     // ---------------------------------------------------------------------------- buffer

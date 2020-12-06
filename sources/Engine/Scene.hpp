@@ -29,14 +29,17 @@ public:
 
 
     // ---------------------------------------------------------------------------- Loop
-    bool         isOver() const;
-    void         manageEvents();
-    void         draw();
+    bool isOver() const;
+    void manageEvents();
+    void draw();
+    void displayFps() const;
+
     virtual void update();
 
 
     // ---------------------------------------------------------------------------- Vector Drawables
     void pushDrawable(std::unique_ptr<engine::shape3d::Drawable>&& drawableObject);
+    void pushDrawable(std::unique_ptr<engine::shape3d::Drawable>& drawableObject);
 
     template <typename DrawableType, typename... Args>
     void emplaceDrawable(Args&&... args)
@@ -50,6 +53,10 @@ private:
 
     engine::Window& m_Window { engine::Window::get() };
     engine::Clock   m_Clock;
+
+    mutable engine::Clock m_FpsClock;
+    mutable size_t        m_Fps { 0 };
+    mutable float         m_Elapsed { 0 };
 
 protected:
     std::vector<std::unique_ptr<engine::shape3d::Drawable>> m_VectorDrawables;

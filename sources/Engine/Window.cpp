@@ -129,6 +129,10 @@ Window::Window()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(messageCallback, 0);
+
+#ifdef DEBUG
+    glfwSwapInterval(0); // disable vsync (testing purpuses)
+#endif
 }
 
 Window& Window::get()

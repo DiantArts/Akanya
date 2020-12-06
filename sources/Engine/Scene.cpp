@@ -5,6 +5,8 @@
 ** Scene
 */
 
+#include <iostream>
+#include "debugMacros.hpp"
 #include "Scene.hpp"
 
 
@@ -47,15 +49,33 @@ void Scene::draw()
     for (auto& drawable : this->m_VectorDrawables) {
         drawable->draw(this->m_Window.camera);
     }
+    this->displayFps();
 
     this->m_Window.pollEvents();
     this->m_Window.swapBuffers();
+}
+
+void Scene::displayFps() const
+{
+    this->m_Elapsed += this->m_FpsClock.getElapsedTime();
+    this->m_Fps++;
+
+    if (this->m_Elapsed >= 1) {
+        std::cout << "FPS: " << this->m_Fps << '\n';
+        this->m_Elapsed -= 1;
+        this->m_Fps = 0;
+    }
 }
 
 
 
 // ---------------------------------------------------------------------------- Vector Drawables
 void Scene::pushDrawable(std::unique_ptr<engine::shape3d::Drawable>&& drawableObject)
+{
+    this->m_VectorDrawables.push_back(std::move(drawableObject));
+}
+
+void Scene::pushDrawable(std::unique_ptr<engine::shape3d::Drawable>& drawableObject)
 {
     this->m_VectorDrawables.push_back(std::move(drawableObject));
 }
