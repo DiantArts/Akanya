@@ -1,9 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** Vector
+** Texture
 ** File description:
-** Vector
+** Texture
 */
+
+#include "Engine/Filepaths.hpp"
 
 // clang-format off
 
@@ -15,18 +17,18 @@
 #include <iostream>
 
 #include <stb/stb_image.h>
-#include "Engine/Shader.hpp"
-#include "Engine/Texture/Vector.hpp"
+#include "../../Shader.hpp"
+#include "Texture.hpp"
 
 
 
-namespace engine::texture {
+namespace engine::container::vector {
 
 
 
 // ---------------------------------------------------------------------------- *structor
 
-Vector::Vector(engine::Shader& shader, size_t sizeToAlloc) : m_Shader(shader)
+Texture::Texture(engine::Shader& shader, size_t sizeToAlloc) : m_Shader(shader)
 {
     this->reserve(sizeToAlloc);
 }
@@ -35,7 +37,7 @@ Vector::Vector(engine::Shader& shader, size_t sizeToAlloc) : m_Shader(shader)
 
 // ---------------------------------------------------------------------------- bind
 
-void Vector::bindThemAll()
+void Texture::bindThemAll()
 {
     auto enumValue { GL_TEXTURE0 };
     for (const auto& texture : this->m_Texture) {
@@ -44,7 +46,7 @@ void Vector::bindThemAll()
     }
 }
 
-void Vector::unbindThemAll()
+void Texture::unbindThemAll()
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -52,16 +54,19 @@ void Vector::unbindThemAll()
 
 
 // ---------------------------------------------------------------------------- std::vector things
-void Vector::reserve(size_t size)
+void Texture::reserve(size_t size)
 {
     this->m_Texture.reserve(size);
 }
 
-void Vector::push_back(const std::string_view textureFileName, const std::string_view name, const int value)
+void Texture::push_back(const std::string_view textureFileName, const std::string_view name, const int value)
 {
-    int         width, height, nrComponents;
-    std::string textureFilepath { engine::texture::directoryPath };
+    std::string textureFilepath;
+    textureFilepath.reserve(engine::filepath::textures.size() + textureFileName.size());
+    textureFilepath += engine::filepath::textures;
     textureFilepath += textureFileName;
+
+    int                        width, height, nrComponents;
     const unsigned char* const data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
 
     if (data) {
@@ -93,27 +98,37 @@ void Vector::push_back(const std::string_view textureFileName, const std::string
 }
 
 
-std::vector<GLuint>::const_iterator Vector::cbegin() const
+
+std::vector<GLuint>::iterator Texture::begin()
+{
+    return this->m_Texture.begin();
+}
+
+std::vector<GLuint>::iterator Texture::end()
+{
+    return this->m_Texture.end();
+}
+
+std::vector<GLuint>::const_iterator Texture::begin() const
+{
+    return this->m_Texture.begin();
+}
+
+std::vector<GLuint>::const_iterator Texture::end() const
+{
+    return this->m_Texture.end();
+}
+
+std::vector<GLuint>::const_iterator Texture::cbegin() const
 {
     return this->m_Texture.cbegin();
 }
 
-std::vector<GLuint>::const_iterator Vector::cend() const
+std::vector<GLuint>::const_iterator Texture::cend() const
 {
     return this->m_Texture.cend();
 }
 
 
-std::vector<GLuint>::iterator Vector::begin()
-{
-    return this->m_Texture.begin();
-}
 
-std::vector<GLuint>::iterator Vector::end()
-{
-    return this->m_Texture.end();
-}
-
-
-
-} // namespace engine::texture
+} // namespace engine::container::vector

@@ -16,7 +16,6 @@
 
 #include "../../../Camera.hpp"
 #include "../../../Shader.hpp"
-#include "../../../Texture/Vector.hpp"
 #include "../../../Vertexes/Vao.hpp"
 #include "../../../Vertexes/Vbo.hpp"
 #include "../Drawable.hpp"

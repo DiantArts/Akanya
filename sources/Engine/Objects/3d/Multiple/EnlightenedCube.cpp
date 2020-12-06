@@ -50,24 +50,24 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader)
 
 void EnlightenedCube::setAllIntoShader(const engine::Camera& camera)
 {
-    this->m_Shader.set("viewPos", camera.getPosition());
+    this->getShader().set("viewPos", camera.getPosition());
 
-    this->m_Shader.set("material.shininess", 32.0F);
+    this->getShader().set("material.shininess", 32.0F);
 
-    this->m_Shader.set("light.position", getLamp().getPosition());
-    // this->m_Shader.set("light.position", camera.getPosition());
-    // this->m_Shader.set("light.direction", camera.getFront());
-    this->m_Shader.set("light.cutOff", glm::cos(glm::radians(12.5f)));
-    this->m_Shader.set("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+    this->getShader().set("light.position", getLamp().getPosition());
+    // this->getShader().set("light.position", camera.getPosition());
+    // this->getShader().set("light.direction", camera.getFront());
+    this->getShader().set("light.cutOff", glm::cos(glm::radians(12.5f)));
+    this->getShader().set("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 
 
-    this->m_Shader.set("light.ambient", getLamp().getParameters().ambient);
-    this->m_Shader.set("light.diffuse", getLamp().getParameters().diffuse);
-    this->m_Shader.set("light.specular", getLamp().getParameters().specular);
+    this->getShader().set("light.ambient", getLamp().getParameters().ambient);
+    this->getShader().set("light.diffuse", getLamp().getParameters().diffuse);
+    this->getShader().set("light.specular", getLamp().getParameters().specular);
 
-    this->m_Shader.set("light.constant", getLamp().getParameters().constant);
-    this->m_Shader.set("light.linear", getLamp().getParameters().linear);
-    this->m_Shader.set("light.quadratic", getLamp().getParameters().quadratic);
+    this->getShader().set("light.constant", getLamp().getParameters().constant);
+    this->getShader().set("light.linear", getLamp().getParameters().linear);
+    this->getShader().set("light.quadratic", getLamp().getParameters().quadratic);
 }
 
 glm::mat4 EnlightenedCube::getModel(const glm::vec3& position)

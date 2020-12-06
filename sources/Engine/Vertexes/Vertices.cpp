@@ -5,8 +5,6 @@
 ** coordonate to create a shape
 */
 
-
-
 #include "Vertices.hpp"
 
 #include <iostream>
@@ -14,6 +12,7 @@
 
 #include <glad/glad.h>
 
+#include "Engine/Filepaths.hpp"
 #include "Tools/File.hpp"
 
 
@@ -26,7 +25,7 @@ namespace engine {
 
 Vertices::Vertices(const std::string_view filepath)
 {
-    std::string str { engine::Vertices::directoryPath };
+    std::string str { engine::filepath::vertices };
     str += filepath;
     str = tools::file::read(str);
 

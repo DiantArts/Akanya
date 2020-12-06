@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "Engine/Filepaths.hpp"
 #include "Tools/File.hpp"
 
 
@@ -29,15 +30,18 @@ namespace engine {
 Shader::Shader(const std::string_view vertexFileName, const std::string_view fragmentFileName)
     : m_ShaderId(glCreateProgram())
 {
-    std::string vertexFilepath { engine::Shader::directoryPath };
-    vertexFilepath += "vertexes/";
+    std::string vertexFilepath;
+    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + vertexFileName.size());
+    vertexFilepath += engine::filepath::shader::vertexes;
     vertexFilepath += vertexFileName;
-    GLuint vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
 
-    std::string fragmentFilepath { engine::Shader::directoryPath };
-    fragmentFilepath += "fragments/";
+    std::string fragmentFilepath;
+    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + fragmentFileName.size());
+    fragmentFilepath += engine::filepath::shader::fragments;
     fragmentFilepath += fragmentFileName;
-    GLuint fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
+
+    auto vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
+    auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
 
     if (vertex && fragment) {
         glAttachShader(this->m_ShaderId, vertex);
@@ -63,7 +67,7 @@ Shader::~Shader()
 
 // ---------------------------------------------------------------------------- Use
 
-void Shader::use() const
+void Shader::use()
 {
     glUseProgram(this->m_ShaderId);
 }
@@ -72,144 +76,144 @@ void Shader::use() const
 
 // ---------------------------------------------------------------------------- Set
 
-void Shader::set(const std::string& name, bool value) const
+void Shader::set(const std::string& name, bool value)
 {
     glUniform1i(this->getOrCacheUniformLocation(name), (int)value);
 }
 
-void Shader::set(std::string&& name, bool value) const
+void Shader::set(std::string&& name, bool value)
 {
     glUniform1i(this->getOrCacheUniformLocation(std::move(name)), (int)value);
 }
 
 
 
-void Shader::set(const std::string& name, int value) const
+void Shader::set(const std::string& name, int value)
 {
     glUniform1i(this->getOrCacheUniformLocation(name), value);
 }
 
-void Shader::set(std::string&& name, int value) const
+void Shader::set(std::string&& name, int value)
 {
     glUniform1i(this->getOrCacheUniformLocation(std::move(name)), value);
 }
 
 
 
-void Shader::set(const std::string& name, float value) const
+void Shader::set(const std::string& name, float value)
 {
     glUniform1f(this->getOrCacheUniformLocation(name), value);
 }
 
-void Shader::set(std::string&& name, float value) const
+void Shader::set(std::string&& name, float value)
 {
     glUniform1f(this->getOrCacheUniformLocation(std::move(name)), value);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::vec2& value) const
+void Shader::set(const std::string& name, const glm::vec2& value)
 {
     glUniform2fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
 }
 
-void Shader::set(std::string&& name, const glm::vec2& value) const
+void Shader::set(std::string&& name, const glm::vec2& value)
 {
     glUniform2fv(getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
 }
 
 
 
-void Shader::set(const std::string& name, const float x, const float y) const
+void Shader::set(const std::string& name, const float x, const float y)
 {
     glUniform2f(this->getOrCacheUniformLocation(name), x, y);
 }
 
-void Shader::set(std::string&& name, const float x, const float y) const
+void Shader::set(std::string&& name, const float x, const float y)
 {
     glUniform2f(this->getOrCacheUniformLocation(std::move(name)), x, y);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::vec3& value) const
+void Shader::set(const std::string& name, const glm::vec3& value)
 {
     glUniform3fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
 }
 
-void Shader::set(std::string&& name, const glm::vec3& value) const
+void Shader::set(std::string&& name, const glm::vec3& value)
 {
     glUniform3fv(this->getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
 }
 
 
 
-void Shader::set(const std::string& name, const float x, const float y, const float z) const
+void Shader::set(const std::string& name, const float x, const float y, const float z)
 {
     glUniform3f(this->getOrCacheUniformLocation(name), x, y, z);
 }
 
-void Shader::set(std::string&& name, const float x, const float y, const float z) const
+void Shader::set(std::string&& name, const float x, const float y, const float z)
 {
     glUniform3f(this->getOrCacheUniformLocation(std::move(name)), x, y, z);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::vec4& value) const
+void Shader::set(const std::string& name, const glm::vec4& value)
 {
     glUniform4fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
 }
 
-void Shader::set(std::string&& name, const glm::vec4& value) const
+void Shader::set(std::string&& name, const glm::vec4& value)
 {
     glUniform4fv(this->getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
 }
 
 
 
-void Shader::set(const std::string& name, const float x, const float y, const float z, const float w) const
+void Shader::set(const std::string& name, const float x, const float y, const float z, const float w)
 {
     glUniform4f(this->getOrCacheUniformLocation(name), x, y, z, w);
 }
 
-void Shader::set(std::string&& name, const float x, const float y, const float z, const float w) const
+void Shader::set(std::string&& name, const float x, const float y, const float z, const float w)
 {
     glUniform4f(this->getOrCacheUniformLocation(std::move(name)), x, y, z, w);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::mat2& mat) const
+void Shader::set(const std::string& name, const glm::mat2& mat)
 {
     glUniformMatrix2fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::set(std::string&& name, const glm::mat2& mat) const
+void Shader::set(std::string&& name, const glm::mat2& mat)
 {
     glUniformMatrix2fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::mat3& mat) const
+void Shader::set(const std::string& name, const glm::mat3& mat)
 {
     glUniformMatrix3fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::set(std::string&& name, const glm::mat3& mat) const
+void Shader::set(std::string&& name, const glm::mat3& mat)
 {
     glUniformMatrix3fv(getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
 }
 
 
 
-void Shader::set(const std::string& name, const glm::mat4& mat) const
+void Shader::set(const std::string& name, const glm::mat4& mat)
 {
     glUniformMatrix4fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::set(std::string&& name, const glm::mat4& mat) const
+void Shader::set(std::string&& name, const glm::mat4& mat)
 {
     glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
 }
@@ -219,23 +223,30 @@ void Shader::set(std::string&& name, const glm::mat4& mat) const
 // ---------------------------------------------------------------------------- Opti
 GLint Shader::getOrCacheUniformLocation(const std::string& uniformId) const
 {
-    if (this->m_UniformsLocationCache.find(uniformId) != this->m_UniformsLocationCache.end()) {
-        return this->m_UniformsLocationCache[uniformId];
-    }
+    try {
+        // return it if already cached
+        return this->m_UniformsLocationCache.at(uniformId);
 
-    return this->m_UniformsLocationCache[uniformId] =
-               glGetUniformLocation(this->m_ShaderId, uniformId.c_str());
+    } catch (const std::exception&) {
+        // cache it
+        return this->m_UniformsLocationCache
+            .emplace(uniformId, glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
+            .first->second;
+    }
 }
 
 GLint Shader::getOrCacheUniformLocation(std::string&& uniformId) const
 {
-    if (this->m_UniformsLocationCache.find(uniformId) != this->m_UniformsLocationCache.end()) {
-        return this->m_UniformsLocationCache[uniformId];
-    }
+    try {
+        // return it if already cached
+        return this->m_UniformsLocationCache.at(uniformId);
 
-    return this->m_UniformsLocationCache
-        .emplace(std::move(uniformId), glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
-        .first->second;
+    } catch (const std::exception&) {
+        // cache it
+        return this->m_UniformsLocationCache
+            .emplace(std::move(uniformId), glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
+            .first->second;
+    }
 }
 
 

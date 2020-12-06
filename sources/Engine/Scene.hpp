@@ -11,7 +11,7 @@
 
 #include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
-#include "Engine/Shader.hpp"
+#include "Engine/Container/Map/Shader.hpp"
 #include "Engine/Shapes/3d/Multiple/Drawable.hpp"
 #include "Engine/Shapes/3d/Single/Drawable.hpp"
 #include "Engine/Window.hpp"
@@ -29,9 +29,9 @@ public:
 
 
     // ---------------------------------------------------------------------------- Loop
-    bool isOver() const;
-    void manageEvents();
-    void draw();
+    bool         isOver() const;
+    void         manageEvents();
+    void         draw();
     virtual void update();
 
 
@@ -53,6 +53,7 @@ private:
 
 protected:
     std::vector<std::unique_ptr<engine::shape3d::Drawable>> m_VectorDrawables;
+    engine::container::map::Shader                          m_ShaderMap;
 };
 
 

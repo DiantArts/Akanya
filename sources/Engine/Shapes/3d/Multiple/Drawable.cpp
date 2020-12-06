@@ -33,21 +33,20 @@ Drawable::~Drawable()
 void Drawable::draw(const engine::Camera& camera)
 {
     this->m_TextureVector.bindThemAll();
-    this->m_Shader.use();
+    this->getShader().use();
 
     this->setAllIntoShader(camera);
-    this->m_Shader.set("view", camera.getView());
-    this->m_Shader.set("projection",
-                       glm::perspective(glm::radians(camera.getZoom()),
-                                        (float)Window::width / (float)Window::height, 0.1F, 100.0F));
+    this->getShader().set("view", camera.getView());
+    this->getShader().set("projection",
+                          glm::perspective(glm::radians(camera.getZoom()),
+                                           (float)Window::width / (float)Window::height, 0.1F, 100.0F));
 
     this->m_Vao.bind();
     for (const auto& position : this->m_VectorPositions) {
-        this->m_Shader.set("model", glm::scale(this->getModel(position), this->m_Scale));
+        this->getShader().set("model", glm::scale(this->getModel(position), this->m_Scale));
         glDrawArrays(GL_TRIANGLES, 0, this->getNumberOfArrayToDraw());
     }
 }
-
 
 
 

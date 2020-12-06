@@ -22,15 +22,15 @@ class Shader;
 
 
 
-namespace texture {
+namespace container::vector {
 
 
 
-class Vector {
+class Texture {
 public:
     // ---------------------------------------------------------------------------- *structor
-    explicit Vector(engine::Shader& shader, size_t sizeToAlloc);
-    ~Vector() = default;
+    explicit Texture(engine::Shader& shader, size_t sizeToAlloc);
+    ~Texture() = default;
 
 
     // ---------------------------------------------------------------------------- bind
@@ -42,11 +42,14 @@ public:
     void reserve(size_t size);
     void push_back(const std::string_view textureFileName, const std::string_view name, int val);
 
-    std::vector<GLuint>::const_iterator cbegin() const;
-    std::vector<GLuint>::const_iterator cend() const;
-
     std::vector<GLuint>::iterator begin();
     std::vector<GLuint>::iterator end();
+
+    std::vector<GLuint>::const_iterator begin() const;
+    std::vector<GLuint>::const_iterator end() const;
+
+    std::vector<GLuint>::const_iterator cbegin() const;
+    std::vector<GLuint>::const_iterator cend() const;
 
 private:
     std::vector<GLuint> m_Texture; // possible that cannot contain more than 42 textures
@@ -55,9 +58,5 @@ private:
 
 
 
-constexpr auto directoryPath { "./data/textures/" };
-
-
-
-} // namespace texture
+} // namespace container::vector
 } // namespace engine

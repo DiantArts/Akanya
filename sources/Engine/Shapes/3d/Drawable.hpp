@@ -7,16 +7,14 @@
 
 #pragma once
 
-
-
 #include <functional>
 #include <vector>
 
 #include <glm/vec3.hpp>
 
 #include "../../Camera.hpp"
+#include "../../Container/Vector/Texture.hpp"
 #include "../../Shader.hpp"
-#include "../../Texture/Vector.hpp"
 #include "../../Vertexes/Vao.hpp"
 #include "../../Vertexes/Vbo.hpp"
 
@@ -31,26 +29,25 @@ public:
     // ---------------------------------------------------------------------------- *structors
     explicit Drawable(engine::Shader&              shader,
                       const std::function<void()>& setAttributes,
-                      const size_t                 numberOfTextures = 1);
+                      const size_t                 numberOfTextures = 1) __attribute__((nonnull(1)));
     virtual ~Drawable() = 0;
 
 
     // ---------------------------------------------------------------------------- Draw
-    void update(const engine::Camera& camera);
+    void         update(const engine::Camera& camera);
     virtual void draw(const engine::Camera& camera) = 0;
 
 
     // ---------------------------------------------------------------------------- Textures
     void addTexture(const std::string_view filepath, const std::string_view name, const int index);
 
-    const engine::texture::Vector& getTextures() const;
+    const engine::container::vector::Texture& getTextures() const;
 
 
     // ---------------------------------------------------------------------------- Shader
-    void setShader(engine::Shader& shader);
-
+    void                  setShader(engine::Shader& shader);
     const engine::Shader& getShader() const;
-
+    engine::Shader&       getShader();
 
     // ---------------------------------------------------------------------------- Scale
     void setScale(const float scaleX, const float scaleY, const float scaleZ);
@@ -68,15 +65,15 @@ protected:
 
 
 protected:
-    engine::Shader&         m_Shader;
-    engine::Vao             m_Vao;
-    engine::texture::Vector m_TextureVector;
+    std::reference_wrapper<engine::Shader> m_Shader;
+    engine::Vao                            m_Vao;
+    engine::container::vector::Texture     m_TextureVector;
 
     glm::vec3 m_Scale { 1.0F, 1.0F, 1.0F };
 
 private:
-    engine::Vbo             m_Vbo;
-    GLuint                  m_Ebo;
+    engine::Vbo m_Vbo;
+    GLuint      m_Ebo;
 };
 
 

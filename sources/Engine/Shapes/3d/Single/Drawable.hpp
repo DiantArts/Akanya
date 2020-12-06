@@ -13,7 +13,6 @@
 
 #include "../../../Camera.hpp"
 #include "../../../Shader.hpp"
-#include "../../../Texture/Vector.hpp"
 #include "../../../Vertexes/Vao.hpp"
 #include "../../../Vertexes/Vbo.hpp"
 #include "../Drawable.hpp"
@@ -42,7 +41,7 @@ public:
     const glm::vec3& getPosition() const;
 
 protected:
-    glm::vec3       m_Position;
+    glm::vec3 m_Position;
 };
 
 } // namespace engine::shape3d::single

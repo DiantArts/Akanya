@@ -8,7 +8,6 @@
 
 #pragma once
 
-
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -22,66 +21,66 @@
 
 #include <glad/glad.h>
 
+#include "NonCopyable.hpp"
+
 
 
 namespace engine {
 
 
 
-class Shader {
+class Shader : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- *structors
     Shader(const std::string_view vertexPath, const std::string_view fragmentPath);
     Shader(const std::string_view filepathes);
     ~Shader();
 
-    Shader(const engine::Shader&) = delete;
-
 
     // ---------------------------------------------------------------------------- Use
-    void use() const;
+    void use();
 
 
     // ---------------------------------------------------------------------------- Set
-    void set(const std::string& name, bool value) const;
-    void set(std::string&& name, bool value) const;
+    void set(const std::string& name, bool value);
+    void set(std::string&& name, bool value);
 
-    void set(const std::string& name, int value) const;
-    void set(std::string&& name, int value) const;
+    void set(const std::string& name, int value);
+    void set(std::string&& name, int value);
 
-    void set(const std::string& name, float value) const;
-    void set(std::string&& name, float value) const;
-
-
-
-    void set(const std::string& name, const glm::vec2& value) const;
-    void set(std::string&& name, const glm::vec2& value) const;
-
-    void set(const std::string& name, const float x, const float y) const;
-    void set(std::string&& name, const float x, const float y) const;
-
-    void set(const std::string& name, const glm::vec3& value) const;
-    void set(std::string&& name, const glm::vec3& value) const;
-
-    void set(const std::string& name, const float x, const float y, const float z) const;
-    void set(std::string&& name, const float x, const float y, const float z) const;
-
-    void set(const std::string& name, const glm::vec4& value) const;
-    void set(std::string&& name, const glm::vec4& value) const;
-
-    void set(const std::string& name, const float x, const float y, const float z, const float w) const;
-    void set(std::string&& name, const float x, const float y, const float z, const float w) const;
+    void set(const std::string& name, float value);
+    void set(std::string&& name, float value);
 
 
 
-    void set(const std::string& name, const glm::mat2& mat) const;
-    void set(std::string&& name, const glm::mat2& mat) const;
+    void set(const std::string& name, const glm::vec2& value);
+    void set(std::string&& name, const glm::vec2& value);
 
-    void set(const std::string& name, const glm::mat3& mat) const;
-    void set(std::string&& name, const glm::mat3& mat) const;
+    void set(const std::string& name, const float x, const float y);
+    void set(std::string&& name, const float x, const float y);
 
-    void set(const std::string& name, const glm::mat4& mat) const;
-    void set(std::string&& name, const glm::mat4& mat) const;
+    void set(const std::string& name, const glm::vec3& value);
+    void set(std::string&& name, const glm::vec3& value);
+
+    void set(const std::string& name, const float x, const float y, const float z);
+    void set(std::string&& name, const float x, const float y, const float z);
+
+    void set(const std::string& name, const glm::vec4& value);
+    void set(std::string&& name, const glm::vec4& value);
+
+    void set(const std::string& name, const float x, const float y, const float z, const float w);
+    void set(std::string&& name, const float x, const float y, const float z, const float w);
+
+
+
+    void set(const std::string& name, const glm::mat2& mat);
+    void set(std::string&& name, const glm::mat2& mat);
+
+    void set(const std::string& name, const glm::mat3& mat);
+    void set(std::string&& name, const glm::mat3& mat);
+
+    void set(const std::string& name, const glm::mat4& mat);
+    void set(std::string&& name, const glm::mat4& mat);
 
 
 
@@ -89,10 +88,6 @@ private:
     // ---------------------------------------------------------------------------- Opti
     GLint getOrCacheUniformLocation(const std::string& uniformId) const;
     GLint getOrCacheUniformLocation(std::string&& uniformId) const;
-
-
-public:
-    constexpr static auto directoryPath { "./data/shaders/" };
 
 
 private:

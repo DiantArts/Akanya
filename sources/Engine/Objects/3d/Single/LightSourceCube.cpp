@@ -41,7 +41,7 @@ LightSourceCube::LightSourceCube(engine::Shader& shader, const glm::vec3& positi
 
 void LightSourceCube::setAllIntoShader(const engine::Camera&)
 {
-    this->m_Shader.set("lightColor", 1.0F, 1.0F, 1.0F);
+    this->getShader().set("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
 glm::mat4 LightSourceCube::getModel(const glm::vec3& position)

@@ -40,7 +40,7 @@ void Drawable::addTexture(const std::string_view filepath, const std::string_vie
 }
 
 
-const engine::texture::Vector& Drawable::getTextures() const
+const engine::container::vector::Texture& Drawable::getTextures() const
 {
     return this->m_TextureVector;
 }
@@ -54,10 +54,14 @@ void Drawable::setShader(engine::Shader& shader)
     this->m_Shader = shader;
 }
 
-
 const engine::Shader& Drawable::getShader() const
 {
-    return this->m_Shader;
+    return this->m_Shader.get();
+}
+
+engine::Shader& Drawable::getShader()
+{
+    return this->m_Shader.get();
 }
 
 

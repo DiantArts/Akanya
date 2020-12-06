@@ -29,9 +29,6 @@ public:
 
     void createBuffer();
 
-public:
-    constexpr static auto directoryPath { "./data/vertices/" };
-
 
 private:
     std::vector<float> m_Vertices;
