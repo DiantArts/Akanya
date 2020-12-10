@@ -1,23 +1,16 @@
 /*
 ** EPITECH PROJECT, 2020
-** Camera
+** sources/Engine/Camera
 ** File description:
 ** Camera
 */
 
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
 
-
-#pragma once
-
-
-
-// clang-format off
-
+#define GLFW_INCLUDE_NONE
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-// clang-format on
-
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
@@ -108,4 +101,10 @@ private:
     float m_Velocity; // speed taking in count deltaTime
 };
 
+
+
 } // namespace engine
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___

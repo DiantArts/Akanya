@@ -5,4 +5,5 @@
 *.txt*
 *.o
 *.d
+*.gch
 binary/*

@@ -1,13 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** File
+** libraries/Tools/String
 ** File description:
-** file tools to help easier code
+** File tools to help easier and cleaner code
 */
 
-#pragma once
-
-
+#ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_STRING_HPP___
+#define ___INCLUDE_GUARD_LIBRARIES_TOOLS_STRING_HPP___
 
 #include <string_view>
 
@@ -22,3 +21,7 @@ extern bool endsWith(const std::string_view a, const std::string_view b);
 
 
 } // namespace tools::string
+
+
+
+#endif // ___INCLUDE_GUARD_libraries_Tools_String_hpp___

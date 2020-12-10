@@ -1,11 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** NonCopyable
+** sources/Engine/NonCopyable
 ** File description:
-** NonCopyable
+** Noncopyable
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_NONCOPYABLE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_NONCOPYABLE_HPP___
 
 namespace engine {
 
@@ -22,3 +23,7 @@ public:
 
 
 } // namespace engine
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_NONCOPYABLE_HPP___

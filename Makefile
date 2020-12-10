@@ -2,150 +2,210 @@
 ## EPITECH PROJECT, 2020
 ## Makefile
 ## File description:
-## C/Cpp makefile
+## Makefile for c++20
 ##
 
-# =================================================================================================
-# = DECLARATION ===================================================================================
-# =================================================================================================
+ARGV			:=
+NAME			:=	akanya
 
-# ============================================================================= Basics
+BINDIR			:=	binaries
+SRCDIR			:=	sources
+INCDIR			:=	includes
+TSTDIR			:=	tests
+LIBDIR			:=	libraries
+EXTERNDIR		:=	externs
+EXTERNBINDIR	:=	$(BINDIR)/$(EXTERNDIR)
 
-ARGV				:=
-BINNAME				:=	akanya
+BUILDDIR		:=	.build
+OBJDIR			:=	objects
+DEPDIR			:=	dependencies
+PCHDIR			:=	precompiledHeaders
+OBJEXTERNDIR	:=	$(EXTERNDIR)/$(OBJDIR)
+DEPEXTERNDIR	:=	$(EXTERNDIR)/$(DEPDIR)
 
-# Directories
-BINDIR				:=	binary
-SRCDIR				:=	sources
-LIBDIR				:=	libraries
-TSTDIR				:=	tests
-INCDIR				:=	includes
-OBJDIR				:=	.objects
-DEPDIR				:=	.dependencies
+C_SRCEXT		:=	.c
+CPP_SRCEXT		:=	.cpp
+CPPM_SRCEXT		:=	.cppm
 
-# Libraries
-LIBNAME				:=	glfw GL GLEW GLU glut X11 pthread Xrandr Xi dl
-LIBLOCATION			:=
+C_HDREXT		:=	.h
+CPP_HDREXT		:=	.hpp
 
-# C
-CC					:=	gcc
-C_EXT				:=	.c
-C_INCDIR			:=
-C_FLAGS				:=
+OBJEXT			:=	.o
+DEPEXT			:=	.d
+PCMEXT			:=	.pcm
+PCHEXT			:=	.gch
 
-# CPP
-CXX					:=	g++
-CPP_EXT				:=	.cpp
-CPP_INCDIR			:=	sources
-CPP_FLAGS			:=	-Wpedantic -std=c++20 -Wno-volatile
+## wflags
+COMMON_WFLAGS	:=	pedantic all extra
+C_WFLAGS		:=
+CPP_WFLAGS		:=
+CPPM_WFLAGS		:=
 
-# COMMON FLAGS
-COMMON_INCDIR		:=	$(INCDIR) $(LIBDIR) externs
-# COMMON_WFLAGS		:=	all extra abi=11
-COMMON_FLAGS		:=	
+## wflags
+COMMON_FLAGS	:=	
+C_FLAGS			:=	
+CPP_FLAGS		:=	-std=c++20
+CPPM_FLAGS		:=	-std=c++20
+PCH_FLAGS		:=	-std=c++20
 
-# Extentions
-OBJEXT				:=	.o
-DEPEXT				:=	.d
-S_LIBEXT			:=	.a
-D_LIBEXT			:=	.so
+## -I
+COMMON_CPPFLAGS	:=	$(INCDIR) $(SRCDIR)
+C_CPPFLAGS		:=
+CXX_CPPFLAGS	:=
 
-# Percentage (disable to optimise compilation)
-# PERCENTAGE_PRINTING	:=	false
+## -L
+LIBLOCATION		:=	
 
-# ============================================================================= AutoDecleration
+## -l
+LIBBIN			:=	glfw dl
 
-MODE_EXT			=	$(RELEASE_EXT)
-
-# Directories
-BINDIR				?=	./
-SRCDIR				?=	sources
-LIBDIR				?=	libraries
-TSTDIR				?=	tests
-
-# C
-CFLAGS				+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag))) $(C_FLAGS) $(COMMON_FLAGS)
-C_CPPFLAGS			:=	$(foreach inc, $(C_INCDIR), $(addprefix -I,$(inc)))
-C_SRC				!=	find $(SRCDIR) -type f -name \*$(C_EXT)
-
-# CPP
-CXXFLAGS			+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag))) $(CPP_FLAGS) $(COMMON_FLAGS)
-CXX_CPPFLAGS		:=	$(foreach inc, $(CPP_INCDIR), $(addprefix -I,$(inc)))
-CXX_SRC				!=	find $(SRCDIR) -type f -name \*$(CPP_EXT)
-
-# COMMON
-LIB_DIR				!=	mkdir -p $(LIBDIR); find $(LIBDIR)/ -maxdepth 1 -type d ! -path $(LIBDIR)/
-EXTERN_DIR			!=	find ./externs/ -maxdepth 1 -type d ! -path ./externs/
-LDFLAGS				+=	-L$(CURDIR) -L$(BINDIR) $(foreach lib, $(LIBLOCATION),$(addprefix -L,$(lib)))
-LDLIBS				+=	$(foreach lib, $(LIBNAME),$(addprefix -l,$(lib)))
-CPPFLAGS			+=	$(foreach inc, $(COMMON_INCDIR), $(addprefix -I,$(inc)))
-
+## exclude pch dir
+NO_PCH_LIB		:=
+NO_PCH_EXTERN	:=	glm
 
 # ============================================================================= Mode debug
 ifeq (debug,$(findstring debug,$(MAKECMDGOALS)))
 
-MODE_EXT			:=	_debug
-CFLAGS				+=	-g3 -Og -pipe -DDEBUG=2
-CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=2
-MOD_OBJDIR			:=	$(addsuffix /debug,$(OBJDIR))
+MODE_EXT		:=	_debug
+MODE_FLAGS		:=	-g3 -Og -pipe -DDEBUG=2
+MOD_BUILDDIR	:=	$(addsuffix /debug,$(BUILDDIR))
 
 
 # ============================================================================= Mode valgrind
 else ifeq (auto_valgrind,$(findstring auto_valgrind,$(MAKECMDGOALS)))
 
-MODE_EXT			:=	_valgrind
-CFLAGS				+=	-g3 -Og -pipe -DDEBUG=1
-CXXFLAGS			+=	-g3 -Og -pipe -DDEBUG=1
-MOD_OBJDIR			:=	$(addsuffix /valgrind,$(OBJDIR))
+MODE_EXT		:=	_valgrind
+MODE_FLAGS		:=	-g3 -Og -pipe -DDEBUG=1
+MOD_BUILDDIR	:=	$(addsuffix /valgrind,$(BUILDDIR))
 
 
 # ============================================================================= Mode gdb
 else ifeq (auto_gdb,$(findstring auto_gdb,$(MAKECMDGOALS)))
 
-MODE_EXT			:=	_gdb
-CFLAGS				+=	-g3 -Og -pipe
-CXXFLAGS			+=	-g3 -Og -pipe
-MOD_OBJDIR			:=	$(addsuffix /gdb,$(OBJDIR))
+MODE_EXT		:=	_gdb
+MODE_FLAGS		:=	-g3 -Og -pipe
+MOD_BUILDDIR	:=	$(addsuffix /gdb,$(BUILDDIR))
 
 # ============================================================================= Mode release
 else
 
-MODE_EXT			:=
-CFLAGS				+=	-Ofast -pipe
-CXXFLAGS			+=	-Ofast -pipe
-MOD_OBJDIR			:=	$(addsuffix /release,$(OBJDIR))
+MODE_EXT		:=
+MODE_FLAGS		:=	-Ofast -pipe
+MOD_BUILDDIR	:=	$(addsuffix /release,$(BUILDDIR))
 
 endif
 
-# ============================================================================= Mode dependent
+## ============================================================================
 
-LDLIBS				+=	$(patsubst $(LIBDIR)/%,-l%$(MODE_EXT),$(LIB_DIR))
-LIBBIN				:=	$(foreach libdir,$(LIB_DIR),$(patsubst $(LIBDIR)/%,$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT),$(libdir)))
+## DIR
+OBJDIR			:=	$(MOD_BUILDDIR)/$(OBJDIR)
+DEPDIR			:=	$(MOD_BUILDDIR)/$(DEPDIR)
+PCHDIR			:=	$(MOD_BUILDDIR)/$(PCHDIR)
+OBJEXTERNDIR	:=	$(MOD_BUILDDIR)/$(OBJEXTERNDIR)
+DEPEXTERNDIR	:=	$(MOD_BUILDDIR)/$(DEPEXTERNDIR)
 
-LDLIBS				+=	$(patsubst ./externs/%,-l%$(MODE_EXT),$(EXTERN_DIR))
-EXTERNBIN			+=	$(foreach libdir,$(EXTERN_DIR),$(patsubst ./externs/%,$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT),$(libdir)))
+CC				:=	gcc
+CXX				:=	g++
 
-NAME				:=	$(BINDIR)/$(BINNAME)$(MODE_EXT)
-DYNAMIC_LIB_NAME	:=	$(BINDIR)/lib$(BINNAME)$(D_LIBEXT)
+# find
+C_SRC			!=	find $(SRCDIR) -type f -name \*$(C_SRCEXT)
+CPP_SRC			!=	find $(SRCDIR) -type f -name \*$(CPP_SRCEXT)
+CPPM_SRC		!=	find $(SRCDIR) -type f -name \*$(CPPM_SRCEXT)
+FOUNDLIBS		!=	find $(LIBDIR) -maxdepth 1 -type d ! -path $(LIBDIR)
+FOUNDEXTERN		!=	find $(EXTERNDIR) -maxdepth 1 -type d ! -path $(EXTERNDIR)
 
-SRC					:=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(C_SRC))
-SRC					+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(CXX_SRC))
+NO_PCH_LIB		:=	$(foreach directory,$(NO_LIB_PCH),! -path ./$(LIBDIR)/$(directory)/\*)
+NO_PCH_EXTERN	:=	$(foreach directory,$(NO_PCH_EXTERN),! -path ./$(EXTERNDIR)/$(directory)/\*)
+C_HDR			!=	find . -type f -name \*$(C_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)
+CPP_HDR			!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)
 
-SRC_LIB				:=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(CPP_EXT)))
-SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find $(LIBDIR)/$% -type f -name \*$(C_EXT)))
+# .x=.o
+C_OBJ			:=	$(patsubst %$(C_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(C_SRC))
+CPP_OBJ			:=	$(patsubst %$(CPP_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(CPP_SRC))
+CPPM_OBJ		+=	$(patsubst %$(CPPM_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(CPPM_SRC))
 
-SRC_LIB				+=	$(patsubst %$(CPP_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find externs/$% -type f -name \*$(CPP_EXT)))
-SRC_LIB				+=	$(patsubst %$(C_EXT),$(MOD_OBJDIR)/%$(OBJEXT),$(shell find externs/$% -type f -name \*$(C_EXT)))
+# .x=.x.gch
+# C_PCH_OBJ		+=	$(patsubst %,$(PCHDIR)/%$(PCHEXT),$(C_HDR))
+# CPP_PCH_OBJ		+=	$(patsubst %,$(PCHDIR)/%$(PCHEXT),$(CPP_HDR))
 
-# ============================================================================= UI
+C_PCH_OBJ		+=	$(patsubst %,%$(PCHEXT),$(C_HDR))
+CPP_PCH_OBJ		+=	$(patsubst %,%$(PCHEXT),$(CPP_HDR))
 
-# display
+## c flags
+CFLAGS			+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
+CFLAGS			+=	$(foreach flag, $(C_WFLAGS),$(addprefix -W,$(flag)))
+CFLAGS			+=	$(C_FLAGS)
+
+## cpp flags
+CXXFLAGS		+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
+CXXFLAGS		+=	$(foreach flag, $(CPP_WFLAGS),$(addprefix -W,$(flag)))
+CXXFLAGS		+=	$(CPP_FLAGS)
+# CXXFLAGS		+=	-fmodules-ts $(foreach objdir, $(dir $(CPPM_OBJ)),-fprebuilt-module-path=$(objdir))
+
+## cppm flags
+CXXMFLAGS		+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
+CXXMFLAGS		+=	$(foreach flag, $(CPPM_WFLAGS),$(addprefix -W,$(flag)))
+# CXXMFLAGS		+=	$(CPPM_FLAGS) -fmodules-ts --precompile
+
+## c.gch flags
+C_PCHFLAGS		+=	-x c-header
+C_PCHFLAGS		+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
+C_PCHFLAGS		+=	$(foreach flag, $(CPP_WFLAGS),$(addprefix -W,$(flag)))
+
+## cpp.gch flags
+CPP_PCHFLAGS	+=	-x c++-header
+CPP_PCHFLAGS	+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
+CPP_PCHFLAGS	+=	$(foreach flag, $(CPP_WFLAGS),$(addprefix -W,$(flag)))
+CPP_PCHFLAGS	+=	$(CPP_FLAGS)
+
+## mode flags
+CFLAGS			+=	$(MODE_FLAGS)
+CXXFLAGS		+=	$(MODE_FLAGS)
+CXXMFLAGS		+=	$(MODE_FLAGS)
+C_PCHFLAGS		+=	$(MODE_FLAGS)
+CPP_PCHFLAGS	+=	$(MODE_FLAGS)
+
+## includes
+CPPFLAGS		+=	$(foreach inc, $(COMMON_CPPFLAGS),$(addprefix -I,$(inc)))
+CPPFLAGS		+=	$(foreach inc, $(C_CPPFLAGS),$(addprefix -I,$(inc)))
+CPPFLAGS		+=	$(foreach inc, $(CXX_CPPFLAGS),$(addprefix -I,$(inc)))
+CPPFLAGS		+=	$(addprefix -I,$(LIBDIR))
+CPPFLAGS		+=	$(addprefix -I,$(EXTERNDIR))
+
+## libraries
+FOUNDLIBS		:=	$(patsubst $(LIBDIR)/%,%,$(FOUNDLIBS))
+FOUNDLIBSBIN	:=	$(patsubst %,./$(BINDIR)/lib%.a,$(FOUNDLIBS))
+
+## externs
+FOUNDEXTERN		:=	$(patsubst $(EXTERNDIR)/%,%,$(FOUNDEXTERN))
+FOUNDEXTERNBIN	:=	$(patsubst %,./$(EXTERNBINDIR)/lib%.a,$(FOUNDEXTERN))
+
+## -L
+LDFLAGS			:=	$(foreach lib, $(LIBLOCATION),$(addprefix -L,$(lib)))
+LDFLAGS			+=	$(addprefix -L,$(BINDIR))
+LDFLAGS			+=	$(addprefix -L,$(EXTERNBINDIR))
+
+## -l
+LDLIBS			:=	$(foreach lib, $(LIBBIN),$(addprefix -l,$(lib)))
+LDLIBS			+=	$(foreach lib, $(FOUNDLIBS),$(addprefix -l,$(lib)$(MODE_EXT)))
+LDLIBS			+=	$(foreach lib, $(FOUNDEXTERN),$(addprefix -l,$(lib)$(MODE_EXT)))
+
+## BINDIR
+BINDIR			:=	$(patsubst /%,,$(BINDIR))
+BINDIR			:=	$(patsubst ~%,,$(BINDIR))
+ifeq "$(BINDIR)" ""
+$(error invalid bindir)
+endif
+NAME			:=	$(BINDIR)/$(NAME)
+
+## ============================================================================
+
 PRINTF				:=	@printf
 
 NORMAL				:=	\e[0m
 BLACK				:=	\e[0;30m
 DARKGRAY			:=	\e[1;30m
-RED 				:=	\e[0;31m
+RED					:=	\e[0;31m
 LRED				:=	\e[1;31m
 GREEN				:=	\e[0;32m
 LGREEN				:=	\e[1;32m
@@ -160,138 +220,154 @@ LCYAN				:=	\e[1;36m
 LIGHT				:=	\e[0;37m
 WHITE				:=	\e[1;37m
 
-MAKEFLAGS			+=	--silent --no-print-directory
+MAKEFLAGS		+=	--silent --no-print-directory
 
-# =================================================================================================
-# = RULES =========================================================================================
-# =================================================================================================
+## ============================================================================
 
-# basics
+all: linkage
 
-all : $(NAME)
+precompilation : $(C_PCH_OBJ) $(CPP_PCH_OBJ)
+	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) done\n"
 
-$(NAME) : $(SRC) $(LIBBIN) $(EXTERNBIN)
-	$(CXX) $(OUTPUT_OPTION) $(SRC) $(LDFLAGS) $(LDLIBS)
-	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
+libraries : $(FOUNDLIBSBIN)
+	$(PRINTF) "$(LCYAN)[Libraries]$(NORMAL) done\n"
 
-ifneq ($(MAKECMDGOALS), count)
-$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB) | $(BINDIR)
-	ar -rc $@ $^
-	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
+externs : $(FOUNDEXTERNBIN)
+	$(PRINTF) "$(LCYAN)[Externs]$(NORMAL) done\n"
 
-$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
-	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
-	$(CC) -c $(OUTPUT_OPTION) $(CFLAGS) $(CPPFLAGS) $(C_CPPFLAGS) $< \
-		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
-ifeq ($(PERCENTAGE_PRINTING), true)
-	$(eval INDEX = $(shell printf "$$(($(INDEX)+1))"))
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< (%.2f%c)\n" "$$((10000*$(INDEX)/$(COUNT)))e-2" '%'
-else
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $<\n"
-endif
+compilation : $(C_OBJ) $(CPP_OBJ)
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) done\n"
 
-$(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
-	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
-	$(CXX) -c $(OUTPUT_OPTION) $(CXXFLAGS) $(CPPFLAGS) $(CXX_CPPFLAGS) \
-		$< -MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$@)
-ifeq ($(PERCENTAGE_PRINTING), true)
-	$(eval INDEX = $(shell printf "$$(($(INDEX)+1))"))
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $< (%.2f%c)\n" "$$((10000*$(INDEX)/$(COUNT)))e-2" '%'
-else
-	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) - $<\n"
-endif
-endif
+linkage : $(NAME)$(MODE_EXT)
+	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) done\n"
 
+## ============================================================================
 
-$(BINDIR):; mkdir -p $@
+$(NAME)$(MODE_EXT): compilation | libraries externs $(BINDIR)
+	$(CXX) $(OUTPUT_OPTION) $(CPP_OBJ) $(CPPM_OBJ) $(LDFLAGS) $(LDLIBS)
 
-# cleaning
+force :;
+# libX.a
+./$(BINDIR)/lib%.a : force | precompilation
+	$(eval DIRNAME = $(patsubst $(BINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
+	$(MAKE) -C $(LIBDIR)/$(DIRNAME) \
+		BINDIR=../../$(BINDIR) \
+		NAME=$(DIRNAME)$(MODE_EXT) \
+		OBJDIR=../../$(OBJDIR)/$(LIBDIR)/$(DIRNAME) \
+		DEPDIR=../../$(DEPDIR)/$(LIBDIR)/$(DIRNAME) \
+		PCHDIR=../../$(PCHDIR)/$(LIBDIR)/$(DIRNAME) \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		CXXMFLAGS="$(CXXMFLAGS)" \
+		CPPFLAGS="-I.." \
+		--silent --no-print-directory
 
-clean	:
-	rm -rf .objects .dependencies vgcore.*
-	$(PRINTF) "$(DARKGRAY)[Clean]$(NORMAL) done\n"
+# externs/libX.a
+./$(EXTERNBINDIR)/lib%.a : force | precompilation
+	$(eval DIRNAME = $(patsubst $(EXTERNBINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
+	$(MAKE) -C $(EXTERNDIR)/$(DIRNAME) \
+		BINDIR=../../$(EXTERNBINDIR) \
+		NAME=$(DIRNAME)$(MODE_EXT) \
+		OBJDIR=../../$(OBJEXTERNDIR)/$(DIRNAME) \
+		DEPDIR=../../$(DEPEXTERNDIR)/$(DIRNAME) \
+		PCHDIR=../../$(PCHDIR)/$(LIBDIR)/$(DIRNAME) \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		CXXMFLAGS="$(CXXMFLAGS)" \
+		CPPFLAGS="-I.." \
+		--silent --no-print-directory
 
-fclean				: clean
-	rm -f $(BINDIR)/$(BINNAME) $(BINDIR)/$(BINNAME)_* $(DYNAMIC_LIB_NAME)
-	$(foreach lib,$(LIBBIN),rm -f $(lib) $(patsubst %.a,%_*.a,$(lib)))
-	$(foreach lib,$(EXTERNBIN),rm -f $(lib) $(patsubst %.a,%_*.a,$(lib)))
-	if [[ -d $(BINDIR) ]]; then rmdir $(BINDIR); fi
-	$(PRINTF) "$(DARKGRAY)[FClean]$(NORMAL) done\n"
+# .c
+$(OBJDIR)/%$(OBJEXT): %$(C_SRCEXT) | $(C_PCH_OBJ)
+	mkdir -p $(@D) $(patsubst $(OBJDIR)%,./$(DEPDIR)%,$(@D))
+	$(CC) -c $(OUTPUT_OPTION) -c $(CPPFLAGS) $(CFLAGS) $< \
+		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) $<\n"
 
-re					:
-	$(MAKE) fclean
-	$(MAKE) all
+# .cpp
+$(OBJDIR)/%$(OBJEXT): %$(CPP_SRCEXT) | $(CPPM_OBJ) precompilation
+	mkdir -p $(@D) $(patsubst $(OBJDIR)%,./$(DEPDIR)%,$(@D))
+	$(CXX) -c $(OUTPUT_OPTION) $(CPPFLAGS) $(CXXFLAGS) $< \
+		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
+	$(PRINTF) "$(LCYAN)[Compilation]$(NORMAL) $<\n"
 
-# auto
+# .cppm
+$(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT) | precompilation
+	mkdir -p $(@D) $(patsubst $(OBJDIR)%,./$(DEPDIR)%,$(@D))
+	$(CXX) -o $(patsubst %$(OBJEXT),%$(PCMEXT),$@) $(CPPFLAGS) $(CXXMFLAGS) $< \
+		-MT $(patsubst %$(OBJEXT),%$(PCMEXT),$@) -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
+	$(CXX) $(OUTPUT_OPTION) -c $(CXXFLAGS) $(patsubst %$(OBJEXT),%$(PCMEXT),$@)
+	$(PRINTF) "$(LCYAN)[Compilation][Module]$(NORMAL) $<\n"
 
-auto				: all
-	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	./$(NAME) $(ARGV)
+# .h
 
-debug				: all
-	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	./$(NAME) $(ARGV)
+$(PCHDIR)/%$(C_HDREXT)$(PCHEXT): %$(C_HDREXT)
+	mkdir -p $(@D)
+	$(CC) $(C_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
+	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
+.PRECIOUS: $(PCHDIR)/%$(C_HDREXT)$(PCHEXT)
 
-auto_valgrind		: all
-	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	valgrind ./$(NAME) $(ARGV)
+%$(C_HDREXT)$(PCHEXT): %$(C_HDREXT)
+	$(CC) $(C_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
+	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
+.PRECIOUS: %$(C_HDREXT)$(PCHEXT)
 
-auto_gdb			: all
-	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	gdb --args $(NAME) $(ARGV)
+$(PCHDIR)/%$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)
+	mkdir -p $(@D)
+	$(CXX) $(CPP_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
+	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
+.PRECIOUS: %$(CPP_HDREXT)$(PCHEXT)
 
+%$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)
+	$(CXX) $(CPP_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
+	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
+.PRECIOUS: $(PCHDIR)/%$(CPP_HDREXT)$(PCHEXT)
+
+$(BINDIR) :; mkdir -p $(BINDIR)
 
 ifneq "$(wildcard $(DEPDIR))" ""
 include $(shell find $(DEPDIR) -type f -name \*$(DEPEXT))
 endif
-.PRECIOUS: $(MOD_OBJDIR)/%$(OBJEXT)
 
-# =================================================================================================
-# = Options =======================================================================================
-# =================================================================================================
+## clean
 
-cat					:
-	cat Makefile
+re :
+	$(MAKE) fclean
+	$(MAKE) all
 
-extractDynamicLib: $(DYNAMIC_LIB_NAME) | $(BINDIR)
+clean :
+	rm -rf $(OBJDIR) $(DEPDIR)
+	$(PRINTF) "$(DARKGRAY)[Clean]$(NORMAL) done\n"
 
-$(DYNAMIC_LIB_NAME)	: CFLAGS += -fPIC
-$(DYNAMIC_LIB_NAME)	: CXXFLAGS += -fPIC
-$(DYNAMIC_LIB_NAME)	: $(SRC) $(LIBBIN) $(EXTERNBIN) | $(BINDIR)
-	$(CXX) $(OUTPUT_OPTION) -shared -Wl,-soname,$(DYNAMIC_LIB_NAME) $(SRC) $(LDFLAGS) $(LDLIBS)
-	$(PRINTF) "$(LCYAN)[Linkage]$(NORMAL) $@\n"
+fclean : clean
+	rm -f $(NAME) $(NAME)_debug $(NAME)_valgrind $(NAME)_gdb
+	$(foreach libbin, $(FOUNDLIBS),rm -f $(BINDIR)/lib$(libbin).a $(BINDIR)/lib$(libbin)_debug.a $(BINDIR)/lib$(libbin)_valgrind.a $(BINDIR)/lib$(libbin)_gdb.a)
+	$(PRINTF) "$(DARKGRAY)[FClean]$(NORMAL) done\n"
 
-# =================================================================================================
-# = UI  (uncompleted) =============================================================================
-# =================================================================================================
+ffclean : fclean
+	rm -rf $(BUILDDIR)
+	rm -rf $(BINDIR)
+	rm -f $(C_PCH_OBJ) $(CPP_PCH_OBJ)
+	$(PRINTF) "$(DARKGRAY)[FFClean]$(NORMAL) done\n"
 
-ifeq ($(PERCENTAGE_PRINTING), true)
+## auto
 
-.NOTPARALLEL:
-ifneq ($(MAKECMDGOALS), count)
-ifneq ($(MAKECMDGOALS), fclean)
-ifneq ($(MAKECMDGOALS), clean)
-COUNT				!=	$(MAKE) count
-INDEX				=	0
-endif
-endif
-else
-FILE_COUNTER		=	0
-endif
+auto: all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
+	./$(NAME)$(MODE_EXT) $(ARGS)
 
-count:	$(SRC) $(LIBBIN) $(EXTERNBIN)
-	$(PRINTF) "$(FILE_COUNTER)\n"
+debug : all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) debug $(ARGV)\n"
+	./$(NAME)$(MODE_EXT) $(ARGV)
 
-ifeq ($(MAKECMDGOALS), count)
-$(BINDIR)/lib%$(MODE_EXT)$(S_LIBEXT) : $(SRC_LIB);
+auto_valgrind : all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto_valgrind $(ARGV)\n"
+	valgrind ./$(NAME)$(MODE_EXT) $(ARGV)
 
-$(MOD_OBJDIR)/%$(OBJEXT) : %$(C_EXT)
-	$(eval FILE_COUNTER = $(shell printf "$$(($(FILE_COUNTER)+1))"))
+auto_gdb : all
+	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto_gdb $(ARGV)\n"
+	gdb --args $(NAME)$(MODE_EXT) $(ARGV)
 
-$(MOD_OBJDIR)/%$(OBJEXT) : %$(CPP_EXT)
-	$(eval FILE_COUNTER = $(shell printf "$$(($(FILE_COUNTER)+1))"))
-endif
+## phony
 
-endif
-
-.PHONY: all clean fclean re auto debug auto_valgrind auto_gdb cat extractDynamicLib count getCount Display
+.PHONY: all clean fclean re auto debug auto_valgrind auto_gdb

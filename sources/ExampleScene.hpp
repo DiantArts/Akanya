@@ -1,11 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** ExampleScene
+** sources/ExampleScene
 ** File description:
-** scene
+** Scene
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___
 
 #include "Engine/Scene.hpp"
 
@@ -20,3 +21,7 @@ public:
 
 private:
 };
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___

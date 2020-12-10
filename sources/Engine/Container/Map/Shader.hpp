@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** ShaderVector
+** sources/Engine/Container/Map/Shader
 ** File description:
 ** ShaderVector
 */
 
-#pragma once
-
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CONTAINER_MAP_SHADER_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CONTAINER_MAP_SHADER_HPP___
 
 #include <string>
 #include <unordered_map>
@@ -23,9 +23,8 @@ namespace engine::container::map {
 
 class Shader {
 public:
-    // ---------------------------------------------------------------------------- access
+    // ---------------------------------------------------------------------------- ACCESS
     engine::Shader& operator[](const std::string& filename); // note: string_view doesn't work
-
 
 private:
     std::unordered_map<std::string, engine::Shader> m_ShaderMap;
@@ -34,3 +33,7 @@ private:
 
 
 } // namespace engine::container::map
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CONTAINER_MAP_SHADER_HPP___

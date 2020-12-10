@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** Shader
+** sources/Engine/Shader
 ** File description:
-** links multiple object shaders to create a program that is able to execute
-** tasks
+** shaders
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 
 #include <string>
 #include <string_view>
@@ -95,4 +95,10 @@ private:
     mutable std::unordered_map<std::string, GLuint> m_UniformsLocationCache;
 };
 
+
+
 } // namespace engine
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___

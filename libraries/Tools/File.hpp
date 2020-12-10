@@ -1,13 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** File
+** libraries/Tools/File
 ** File description:
 ** file tools to help easier code
 */
 
-#pragma once
-
-
+#ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_FILE_HPP___
+#define ___INCLUDE_GUARD_LIBRARIES_TOOLS_FILE_HPP___
 
 #include <string_view>
 
@@ -22,3 +21,7 @@ extern std::string read(const std::string_view filepath);
 
 
 } // namespace tools::file
+
+
+
+#endif // ___INCLUDE_GUARD_LIBRARIES_TOOLS_FILE_HPP___

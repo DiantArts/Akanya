@@ -5,7 +5,8 @@
 ** macros of the program
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___
+#define ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___
 
 #include <chrono>
 #include <iostream>
@@ -174,3 +175,6 @@ private:
 
 #define THROW_MSG(throwMsg)                                                                                  \
     std::cerr << "[" << __FILE__ << ':' << __LINE__ << ']' << std::endl, throw throwMsg,
+
+
+#endif // ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___

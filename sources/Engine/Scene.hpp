@@ -1,19 +1,20 @@
 /*
 ** EPITECH PROJECT, 2020
-** Scene
+** sources/Engine/Scene
 ** File description:
 ** Scene
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___
 
 #include <vector>
 
 #include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
 #include "Engine/Container/Map/Shader.hpp"
-#include "Engine/Shapes/3d/Multiple/Drawable.hpp"
-#include "Engine/Shapes/3d/Single/Drawable.hpp"
+#include "Engine/Graphics/Shapes/3d/Multiple/Drawable.hpp"
+#include "Engine/Graphics/Shapes/3d/Single/Drawable.hpp"
 #include "Engine/Window.hpp"
 
 
@@ -53,7 +54,6 @@ private:
 
     engine::Window& m_Window { engine::Window::get() };
     engine::Clock   m_Clock;
-
     mutable engine::Clock m_FpsClock;
     mutable size_t        m_Fps { 0 };
     mutable float         m_Elapsed { 0 };
@@ -66,3 +66,7 @@ protected:
 
 
 } // namespace engine
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___

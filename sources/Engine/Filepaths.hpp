@@ -1,11 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** Filepaths
+** sources/Engine/Filepaths
 ** File description:
-** filepaths are fun
+** Filepaths are fun
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___
 
 #include <string>
 
@@ -30,3 +31,7 @@ inline std::string vertexes { "./data/shaders/vertexes/" };
 
 
 } // namespace engine::filepath
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___

@@ -1,13 +1,14 @@
 /*
 ** EPITECH PROJECT, 2020
-** Window
+** sources/Engine/Window
 ** File description:
-** window
+** Window
 */
 
-#pragma once
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___
 
-#include <memory> // std::unique_ptr
+#include <memory>
 
 #include "Engine/Camera.hpp"
 
@@ -64,3 +65,7 @@ private:
 
 
 } // namespace engine
+
+
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___
