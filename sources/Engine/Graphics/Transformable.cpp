@@ -48,8 +48,6 @@ void Transformable::setScale(glm::vec3&& scale)
     this->m_Scale = std::move(scale);
 }
 
-
-
 const glm::vec3& Transformable::getScale() const
 {
     return this->m_Scale;

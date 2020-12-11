@@ -27,10 +27,6 @@ public:
     virtual ~Cube();
 
 
-    // ---------------------------------------------------------------------------- Virtual
-    virtual void transformShape(const engine::Camera& camera) const override;
-
-
 private:
     // ---------------------------------------------------------------------------- Attributes
     static void setAttributes();

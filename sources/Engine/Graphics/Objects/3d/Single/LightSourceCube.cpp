@@ -40,8 +40,9 @@ LightSourceCube::LightSourceCube(engine::Shader& shader, const glm::vec3& positi
 
 // ---------------------------------------------------------------------------- override
 
-void LightSourceCube::transformShape(const engine::Camera&) const
+void LightSourceCube::transformShape(const engine::Camera& camera) const
 {
+    engine::graphic::shape3d::Basic::transformShape(camera);
     this->set("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
