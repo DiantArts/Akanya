@@ -31,6 +31,13 @@ Transformable::~Transformable()
 
 // ---------------------------------------------------------------------------- Scale
 
+void Transformable::setScale(const float scale)
+{
+    this->m_Scale.x = scale;
+    this->m_Scale.y = scale;
+    this->m_Scale.z = scale;
+}
+
 void Transformable::setScale(const float scaleX, const float scaleY, const float scaleZ)
 {
     this->m_Scale.x = scaleX;
@@ -60,12 +67,29 @@ bool Transformable::isMultiplePositions() const
     return this->m_MultiplePositions != nullptr;
 }
 
+engine::graphic::position::Single& Transformable::getPosition()
+{
+    if (this->isMultiplePositions()) {
+        throw std::runtime_error("trying to get multiple positions from a simple position shape");
+    }
+    return *this->m_SinglePosition;
+}
+
 const engine::graphic::position::Single& Transformable::getPosition() const
 {
     if (this->isMultiplePositions()) {
         throw std::runtime_error("trying to get multiple positions from a simple position shape");
     }
     return *this->m_SinglePosition;
+}
+
+
+engine::graphic::position::Multiple& Transformable::getPositions()
+{
+    if (!this->isMultiplePositions()) {
+        throw std::runtime_error("trying to get a single positions from a multiple position shape");
+    }
+    return *this->m_MultiplePositions;
 }
 
 const engine::graphic::position::Multiple& Transformable::getPositions() const

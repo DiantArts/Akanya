@@ -15,8 +15,8 @@
 
 // clang-format off
 
-#include "../Single/LightSourceCube.hpp" // tmp
-extern engine::object3d::single::LightSourceCube& getLamp(); // tmp
+#include "LightSourceCube.hpp" // tmp
+extern engine::object3d::multiple::LightSourceCube* lamp;
 
 // clang-format on
 
@@ -43,20 +43,63 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
 
     this->set("material.shininess", 32.0F);
 
-    this->set("light.position", getLamp().getPosition());
-    // this->set("light.position", camera.getPosition());
-    // this->set("light.direction", camera.getFront());
-    this->set("light.cutOff", glm::cos(glm::radians(12.5f)));
-    this->set("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 
 
-    this->set("light.ambient", getLamp().getParameters().ambient);
-    this->set("light.diffuse", getLamp().getParameters().diffuse);
-    this->set("light.specular", getLamp().getParameters().specular);
+    auto pointLightPositions { lamp->getPositions() };
 
-    this->set("light.constant", getLamp().getParameters().constant);
-    this->set("light.linear", getLamp().getParameters().linear);
-    this->set("light.quadratic", getLamp().getParameters().quadratic);
+    // directional light
+    this->set("dirLight.direction", camera.getOrientation());
+    this->set("dirLight.ambient", 0, 0, 0);
+    this->set("dirLight.diffuse", 0, 0, 0);
+    this->set("dirLight.specular", 0, 0, 0);
+
+    // point light 1
+    this->set("pointLights[0].position", pointLightPositions[0]);
+    this->set("pointLights[0].ambient", lamp->getParameters().ambient);
+    this->set("pointLights[0].diffuse", lamp->getParameters().diffuse);
+    this->set("pointLights[0].specular", lamp->getParameters().specular);
+    this->set("pointLights[0].constant", lamp->getParameters().constant);
+    this->set("pointLights[0].linear", lamp->getParameters().linear);
+    this->set("pointLights[0].quadratic", lamp->getParameters().quadratic);
+
+    // point light 2
+    this->set("pointLights[1].position", pointLightPositions[1]);
+    this->set("pointLights[1].ambient", lamp->getParameters().ambient);
+    this->set("pointLights[1].diffuse", lamp->getParameters().diffuse);
+    this->set("pointLights[1].specular", lamp->getParameters().specular);
+    this->set("pointLights[1].constant", lamp->getParameters().constant);
+    this->set("pointLights[1].linear", lamp->getParameters().linear);
+    this->set("pointLights[1].quadratic", lamp->getParameters().quadratic);
+
+    // point light 3
+    this->set("pointLights[2].position", pointLightPositions[2]);
+    this->set("pointLights[2].ambient", lamp->getParameters().ambient);
+    this->set("pointLights[2].diffuse", lamp->getParameters().diffuse);
+    this->set("pointLights[2].specular", lamp->getParameters().specular);
+    this->set("pointLights[2].constant", lamp->getParameters().constant);
+    this->set("pointLights[2].linear", lamp->getParameters().linear);
+    this->set("pointLights[2].quadratic", lamp->getParameters().quadratic);
+
+    // point light 4
+    this->set("pointLights[3].position", pointLightPositions[3]);
+    this->set("pointLights[3].ambient", lamp->getParameters().ambient);
+    this->set("pointLights[3].diffuse", lamp->getParameters().diffuse);
+    this->set("pointLights[3].specular", lamp->getParameters().specular);
+    this->set("pointLights[3].constant", lamp->getParameters().constant);
+    this->set("pointLights[3].linear", lamp->getParameters().linear);
+    this->set("pointLights[3].quadratic", lamp->getParameters().quadratic);
+
+    // spotLight
+    this->set("spotLight.position", camera.getPosition());
+    this->set("spotLight.direction", camera.getFront());
+    this->set("spotLight.ambient", lamp->getParameters().ambient);
+    this->set("spotLight.diffuse", lamp->getParameters().diffuse);
+    this->set("spotLight.specular", lamp->getParameters().specular);
+    this->set("spotLight.constant", lamp->getParameters().constant);
+    this->set("spotLight.linear", lamp->getParameters().linear);
+    this->set("spotLight.quadratic", lamp->getParameters().quadratic);
+    this->set("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
+    this->set("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 }
 
 

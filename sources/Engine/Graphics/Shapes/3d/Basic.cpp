@@ -37,11 +37,11 @@ void Basic::drawModels() const
 {
     if (this->isMultiplePositions()) {
         for (const auto& position : *this->m_MultiplePositions) {
-            this->set("model", glm::scale(this->getModel(position.get()), this->m_Scale));
+            this->set("model", glm::scale(this->getModel(*this, position.get()), this->m_Scale));
             glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
         }
     } else {
-        this->set("model", glm::scale(this->getModel(*this->m_SinglePosition), this->m_Scale));
+        this->set("model", glm::scale(this->getModel(*this, *this->m_SinglePosition), this->m_Scale));
         glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
     }
 }
@@ -60,7 +60,8 @@ void Basic::transformShape(const engine::Camera& camera) const
 
 // ---------------------------------------------------------------------------- Virtuals
 
-glm::mat4 Basic::getModel(const engine::graphic::position::Single& position) const
+glm::mat4 Basic::getModel(const engine::graphic::Transformable&,
+                          const engine::graphic::position::Single& position) const
 {
     return glm::translate(glm::mat4 { 1.0F }, position.get());
 }

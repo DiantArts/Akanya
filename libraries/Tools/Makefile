@@ -21,8 +21,8 @@ BINDIR			?=	.
 OBJDIR			?=	../../.build/objects
 DEPDIR			?=	../../.build/dependencies
 
-CC				:=	clang
-CXX				:=	clang++
+CC				:=	gcc
+CXX				:=	g++
 
 # find
 C_SRC			!=	find . -type f -name \*$(C_SRCEXT)

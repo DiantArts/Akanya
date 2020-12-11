@@ -60,7 +60,7 @@ LIBLOCATION		:=
 LIBBIN			:=	glfw dl
 
 ## exclude pch dir
-NO_PCH_SRC		:=
+NO_PCH_SRC		:=	Engine
 NO_PCH_LIB		:=
 NO_PCH_EXTERN	:=	glm
 

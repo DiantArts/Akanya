@@ -85,4 +85,16 @@ std::vector<engine::graphic::position::Single>::const_iterator Multiple::cend() 
 
 
 
+engine::graphic::position::Single& Multiple::operator[](size_t i)
+{
+    return this->m_VectorPositions[i];
+}
+
+const engine::graphic::position::Single& Multiple::operator[](size_t i) const
+{
+    return this->m_VectorPositions[i];
+}
+
+
+
 } // namespace engine::graphic::position

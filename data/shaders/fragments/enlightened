@@ -28,6 +28,8 @@ uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
 
+#define NR_POINT_LIGHTS 4
+
 void main()
 {
     // ambient

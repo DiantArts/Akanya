@@ -1,19 +1,21 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Objects/3d/Single/LightSourceCube
+** sources/Engine/Graphics/Objects/3d/Multiple/LightSourceCube
 ** File description:
-** Light source as a cube
+** LightsourceCube
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_LIGHTSOURCECUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_LIGHTSOURCECUBE_HPP___
+
+
 
 #include "../../../Light/Dynamic/Default.hpp"
 #include "../../../Shapes/3d/Cube.hpp"
 
 
 
-namespace engine::object3d::single {
+namespace engine::object3d::multiple {
 
 
 
@@ -22,7 +24,7 @@ class LightSourceCube
     , public engine::light::dynamic::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit LightSourceCube(engine::Shader& shaderProgram, const glm::vec3& position = glm::vec3(0, 0, 0));
+    explicit LightSourceCube(engine::Shader& shaderProgram);
     ~LightSourceCube() = default;
 
 
@@ -33,8 +35,8 @@ public:
 
 
 
-} // namespace engine::object3d::single
+} // namespace engine::object3d::multiple
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_LIGHTSOURCECUBE_HPP___

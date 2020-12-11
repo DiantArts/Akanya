@@ -31,6 +31,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- Scale
+    void setScale(const float scale);
     void setScale(const float scaleX, const float scaleY, const float scaleZ);
     void setScale(const glm::vec3& scale);
     void setScale(glm::vec3&& scale);
@@ -41,7 +42,10 @@ public:
     // ---------------------------------------------------------------------------- position
     bool isMultiplePositions() const;
 
+    engine::graphic::position::Single&   getPosition();
     const engine::graphic::position::Single&   getPosition() const;
+
+    engine::graphic::position::Multiple& getPositions();
     const engine::graphic::position::Multiple& getPositions() const;
 
     template <typename Position>
