@@ -9,8 +9,8 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VAO_HPP___
 
 #define GLFW_INCLUDE_NONE
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 
 

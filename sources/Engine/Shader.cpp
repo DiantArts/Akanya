@@ -67,7 +67,7 @@ Shader::~Shader()
 
 // ---------------------------------------------------------------------------- Use
 
-void Shader::use()
+void Shader::use() const
 {
     glUseProgram(this->m_ShaderId);
 }
@@ -76,36 +76,36 @@ void Shader::use()
 
 // ---------------------------------------------------------------------------- Set
 
-void Shader::set(const std::string& name, bool value)
+void Shader::set(const std::string& name, const bool value)
 {
     glUniform1i(this->getOrCacheUniformLocation(name), (int)value);
 }
 
-void Shader::set(std::string&& name, bool value)
+void Shader::set(std::string&& name, const bool value)
 {
     glUniform1i(this->getOrCacheUniformLocation(std::move(name)), (int)value);
 }
 
 
 
-void Shader::set(const std::string& name, int value)
+void Shader::set(const std::string& name, const int value)
 {
     glUniform1i(this->getOrCacheUniformLocation(name), value);
 }
 
-void Shader::set(std::string&& name, int value)
+void Shader::set(std::string&& name, const int value)
 {
     glUniform1i(this->getOrCacheUniformLocation(std::move(name)), value);
 }
 
 
 
-void Shader::set(const std::string& name, float value)
+void Shader::set(const std::string& name, const float value)
 {
     glUniform1f(this->getOrCacheUniformLocation(name), value);
 }
 
-void Shader::set(std::string&& name, float value)
+void Shader::set(std::string&& name, const float value)
 {
     glUniform1f(this->getOrCacheUniformLocation(std::move(name)), value);
 }
@@ -216,6 +216,18 @@ void Shader::set(const std::string& name, const glm::mat4& mat)
 void Shader::set(std::string&& name, const glm::mat4& mat)
 {
     glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
+}
+
+
+
+void Shader::set(const std::string& name, const engine::graphic::position::Single& pos)
+{
+    glUniformMatrix3fv(getOrCacheUniformLocation(name), 1, GL_FALSE, &pos.get()[0]);
+}
+
+void Shader::set(std::string&& name, const engine::graphic::position::Single& pos)
+{
+    glUniform3fv(this->getOrCacheUniformLocation(std::move(name)), 1, &pos.get()[0]);
 }
 
 

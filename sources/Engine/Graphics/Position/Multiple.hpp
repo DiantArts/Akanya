@@ -14,7 +14,7 @@
 
 
 
-namespace engine::position {
+namespace engine::graphic::position {
 
 
 
@@ -26,28 +26,21 @@ public:
 
 
     // ---------------------------------------------------------------------------- set == add
-    void setPosition(const std::vector<glm::vec3>& vectorPositions);
-    void setPosition(const std::vector<engine::position::Single>& vectorPositions);
-    void setPosition(const engine::position::Multiple& vectorPositions);
+    void addPosition(const glm::vec3& position);
+    void addPosition(glm::vec3&& position);
+    void addPosition(const float positionX, const float positionY, const float positionZ);
 
-    void setPosition(const glm::vec3& position);
-    void setPosition(glm::vec3&& position);
-    void setPosition(const float positionX, const float positionY, const float positionZ);
-
-
-    // ---------------------------------------------------------------------------- get
-    const std::vector<engine::position::Single>& getPosition() const;
 
 
     // ---------------------------------------------------------------------------- std::vector
     size_t size() const;
 
-    std::vector<engine::position::Single>::iterator       begin();
-    std::vector<engine::position::Single>::iterator       end();
-    std::vector<engine::position::Single>::const_iterator begin() const;
-    std::vector<engine::position::Single>::const_iterator end() const;
-    std::vector<engine::position::Single>::const_iterator cbegin() const;
-    std::vector<engine::position::Single>::const_iterator cend() const;
+    std::vector<engine::graphic::position::Single>::iterator       begin();
+    std::vector<engine::graphic::position::Single>::iterator       end();
+    std::vector<engine::graphic::position::Single>::const_iterator begin() const;
+    std::vector<engine::graphic::position::Single>::const_iterator end() const;
+    std::vector<engine::graphic::position::Single>::const_iterator cbegin() const;
+    std::vector<engine::graphic::position::Single>::const_iterator cend() const;
 
 
     template <typename... Args>
@@ -75,14 +68,13 @@ public:
     }
 
 
-
 private:
-    std::vector<engine::position::Single> m_VectorPositions;
+    std::vector<engine::graphic::position::Single> m_VectorPositions;
 };
 
 
 
-} // namespace engine::position
+} // namespace engine::graphic::position
 
 
 

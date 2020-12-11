@@ -41,8 +41,8 @@ C_WFLAGS		:=
 CPP_WFLAGS		:=
 CPPM_WFLAGS		:=
 
-## wflags
-COMMON_FLAGS	:=	
+## flags
+COMMON_FLAGS	:=
 C_FLAGS			:=	
 CPP_FLAGS		:=	-std=c++20
 CPPM_FLAGS		:=	-std=c++20
@@ -60,6 +60,7 @@ LIBLOCATION		:=
 LIBBIN			:=	glfw dl
 
 ## exclude pch dir
+NO_PCH_SRC		:=
 NO_PCH_LIB		:=
 NO_PCH_EXTERN	:=	glm
 
@@ -114,10 +115,11 @@ CPPM_SRC		!=	find $(SRCDIR) -type f -name \*$(CPPM_SRCEXT)
 FOUNDLIBS		!=	find $(LIBDIR) -maxdepth 1 -type d ! -path $(LIBDIR)
 FOUNDEXTERN		!=	find $(EXTERNDIR) -maxdepth 1 -type d ! -path $(EXTERNDIR)
 
-NO_PCH_LIB		:=	$(foreach directory,$(NO_LIB_PCH),! -path ./$(LIBDIR)/$(directory)/\*)
+NO_PCH_SRC		:=	$(foreach directory,$(NO_PCH_SRC),! -path ./$(SRCDIR)/$(directory)/\*)
+NO_PCH_LIB		:=	$(foreach directory,$(NO_PCH_LIB),! -path ./$(LIBDIR)/$(directory)/\*)
 NO_PCH_EXTERN	:=	$(foreach directory,$(NO_PCH_EXTERN),! -path ./$(EXTERNDIR)/$(directory)/\*)
-C_HDR			!=	find . -type f -name \*$(C_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)
-CPP_HDR			!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)
+C_HDR			!=	find . -type f -name \*$(C_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB) $(NO_PCH_SRC)
+CPP_HDR			!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)  $(NO_PCH_SRC)
 
 # .x=.o
 C_OBJ			:=	$(patsubst %$(C_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(C_SRC))
@@ -347,7 +349,7 @@ fclean : clean
 ffclean : fclean
 	rm -rf $(BUILDDIR)
 	rm -rf $(BINDIR)
-	rm -f $(C_PCH_OBJ) $(CPP_PCH_OBJ)
+	find . -name \*.gch -delete
 	$(PRINTF) "$(DARKGRAY)[FFClean]$(NORMAL) done\n"
 
 ## auto

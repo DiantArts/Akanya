@@ -53,7 +53,7 @@ private:
 
 
 
-} // namespace ENGINE::LIGHT::DYNAMIC
+} // namespace engine::light::dynamic
 
 
 

@@ -9,10 +9,11 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
 
 #define GLFW_INCLUDE_NONE
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 
 

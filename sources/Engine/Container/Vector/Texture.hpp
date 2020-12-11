@@ -33,8 +33,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- bind
-    void bindThemAll();
-    void unbindThemAll();
+    void bindThemAll() const;
+    void unbindThemAll() const;
 
 
     // ---------------------------------------------------------------------------- std::vector things

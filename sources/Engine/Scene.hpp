@@ -13,8 +13,7 @@
 #include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
 #include "Engine/Container/Map/Shader.hpp"
-#include "Engine/Graphics/Shapes/3d/Multiple/Drawable.hpp"
-#include "Engine/Graphics/Shapes/3d/Single/Drawable.hpp"
+#include "Engine/Graphics/Shapes/3d/Basic.hpp"
 #include "Engine/Window.hpp"
 
 
@@ -39,28 +38,29 @@ public:
 
 
     // ---------------------------------------------------------------------------- Vector Drawables
-    void pushDrawable(std::unique_ptr<engine::shape3d::Drawable>&& drawableObject);
-    void pushDrawable(std::unique_ptr<engine::shape3d::Drawable>& drawableObject);
+    void pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>&& drawableObject);
+    void pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>& drawableObject);
 
     template <typename DrawableType, typename... Args>
     void emplaceDrawable(Args&&... args)
     {
-        this->m_VectorDrawables.push_back(std::make_unique<DrawableType>(std::forward<Args>(args)...));
+        this->m_VectorObjects.push_back(std::make_unique<DrawableType>(std::forward<Args>(args)...));
     }
 
 
 private:
     bool m_isOver = false;
 
-    engine::Window& m_Window { engine::Window::get() };
-    engine::Clock   m_Clock;
+    engine::Window&       m_Window { engine::Window::get() };
+    engine::Clock         m_EventClock;
+    engine::Clock         m_UpdateClock;
     mutable engine::Clock m_FpsClock;
     mutable size_t        m_Fps { 0 };
     mutable float         m_Elapsed { 0 };
 
 protected:
-    std::vector<std::unique_ptr<engine::shape3d::Drawable>> m_VectorDrawables;
-    engine::container::map::Shader                          m_ShaderMap;
+    std::vector<std::unique_ptr<engine::graphic::shape3d::Basic>> m_VectorObjects;
+    engine::container::map::Shader                              m_ShaderMap;
 };
 
 

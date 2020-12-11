@@ -9,7 +9,7 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
 
 #include "../../../Light/Dynamic/Default.hpp"
-#include "../../../Shapes/3d/Single/UpdatedCube.hpp"
+#include "../../../Shapes/3d/Cube.hpp"
 
 
 
@@ -18,7 +18,7 @@ namespace engine::object3d::single {
 
 
 class LightSourceCube
-    : public engine::shape3d::single::UpdatedCube
+    : public engine::graphic::shape3d::Cube
     , public engine::light::dynamic::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
@@ -27,8 +27,9 @@ public:
 
 
     // ---------------------------------------------------------------------------- override
-    void      setAllIntoShader(const engine::Camera& camera) override;
-    glm::mat4 getModel(const glm::vec3& position) override;
+    void      transformShape(const engine::Camera& camera) const final;
+    void      update(float deltaTime) override;
+    glm::mat4 getModel(const engine::graphic::position::Single& position) const final;
 };
 
 

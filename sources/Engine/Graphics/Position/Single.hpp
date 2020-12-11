@@ -12,14 +12,14 @@
 
 
 
-namespace engine::position {
+namespace engine::graphic::position {
 
 
 
 class Single {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Single(const glm::vec3& position);
+    Single(const glm::vec3& position = { 0, 0, 0 });
     Single(glm::vec3&& position);
     Single(const float positionX, const float positionY, const float positionZ);
     ~Single();
@@ -32,7 +32,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- get
-    const glm::vec3& getPosition() const;
+    const glm::vec3& get() const;
 
 
     // ---------------------------------------------------------------------------- move
@@ -43,13 +43,14 @@ public:
     void moveY(const float offset);
     void moveZ(const float offset);
 
+
 private:
     glm::vec3 m_Position;
 };
 
 
 
-} // namespace engine::position
+} // namespace engine::graphic::position
 
 
 

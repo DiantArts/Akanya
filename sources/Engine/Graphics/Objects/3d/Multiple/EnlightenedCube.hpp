@@ -8,7 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_ENLIGHTENEDCUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_ENLIGHTENEDCUBE_HPP___
 
-#include "../../../Shapes/3d/Multiple/UpdatedCube.hpp"
+#include "../../../Shapes/3d/Cube.hpp"
 
 
 
@@ -16,7 +16,7 @@ namespace engine::object3d::multiple {
 
 
 
-class EnlightenedCube : public engine::shape3d::multiple::UpdatedCube {
+class EnlightenedCube : public engine::graphic::shape3d::Cube {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit EnlightenedCube(engine::Shader& shader);
@@ -24,8 +24,12 @@ public:
 
 
     // ---------------------------------------------------------------------------- override
-    void      setAllIntoShader(const engine::Camera& camera) override;
-    glm::mat4 getModel(const glm::vec3& position) override;
+    void transformShape(const engine::Camera& camera) const final;
+
+
+private:
+    // ---------------------------------------------------------------------------- Attributes
+    static void setAttributes();
 };
 
 

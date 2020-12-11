@@ -11,7 +11,7 @@
 
 
 
-namespace engine::position {
+namespace engine::graphic::position {
 
 
 
@@ -55,7 +55,7 @@ void Single::setPosition(const float positionX, const float positionY, const flo
 
 // ---------------------------------------------------------------------------- get
 
-const glm::vec3& Single::getPosition() const
+const glm::vec3& Single::get() const
 {
     return this->m_Position;
 }
@@ -92,4 +92,4 @@ void Single::moveZ(const float offset)
 
 
 
-} // namespace engine::position
+} // namespace engine::graphic::position

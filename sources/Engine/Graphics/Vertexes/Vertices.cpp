@@ -23,7 +23,7 @@ namespace engine {
 
 // ---------------------------------------------------------------------------- *structors
 
-Vertices::Vertices(const std::string_view filepath)
+Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
 {
     std::string str { engine::filepath::vertices };
     str += filepath;
@@ -31,6 +31,8 @@ Vertices::Vertices(const std::string_view filepath)
 
     this->m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);
+    std::getline(iss, str);
+    numberOfArrayToDraw = std::stol(str);
     while (std::getline(iss, str)) {
         this->m_Vertices.push_back(std::stof(str));
     }

@@ -30,30 +30,33 @@ namespace engine::object3d::single {
 // ---------------------------------------------------------------------------- *structors
 
 LightSourceCube::LightSourceCube(engine::Shader& shader, const glm::vec3& position /* = (0, 0, 0) */)
-    : UpdatedCube(shader, position)
+    : Cube(shader, false)
 {
     this->setScale(0.2, 0.2, 0.2);
+    this->setPosition(position);
 }
 
 
 
 // ---------------------------------------------------------------------------- override
 
-void LightSourceCube::setAllIntoShader(const engine::Camera&)
+void LightSourceCube::transformShape(const engine::Camera&) const
 {
-    this->getShader().set("lightColor", 1.0F, 1.0F, 1.0F);
+    this->set("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
-glm::mat4 LightSourceCube::getModel(const glm::vec3& position)
+void LightSourceCube::update(float)
 {
     auto lampYMouvement = -pow(abs(cos(glfwGetTime() * 2) * 5), 3);
 
     getLamp().setPosition(
-        { 0, 6 - pow(abs(cos(glfwGetTime() * 2) * 5), 3) / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
-    this->setPosition({ 0, 4 + lampYMouvement / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
+        glm::vec3 { 0, 6 - pow(abs(cos(glfwGetTime() * 2) * 5), 3) / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
+    this->setPosition(glm::vec3 { 0, 4 + lampYMouvement / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
+}
 
-    glm::mat4 model { 1.0F };
-    return glm::translate(model, position);
+glm::mat4 LightSourceCube::getModel(const engine::graphic::position::Single& position) const
+{
+    return glm::translate(glm::mat4 { 1.0F }, position.get());
 }
 
 

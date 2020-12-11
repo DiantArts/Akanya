@@ -5,9 +5,11 @@
 ** Scene
 */
 
-#include <iostream>
-#include "debugMacros.hpp"
 #include "Scene.hpp"
+
+#include <iostream>
+
+#include "debugMacros.hpp"
 
 
 
@@ -36,7 +38,7 @@ bool Scene::isOver() const
 
 void Scene::manageEvents()
 {
-    this->m_Window.processInput(this->m_Clock.getElapsedTime());
+    this->m_Window.processInput(this->m_EventClock.getElapsedTime());
 }
 
 void Scene::update()
@@ -46,7 +48,8 @@ void Scene::draw()
 {
     this->m_Window.clear();
 
-    for (auto& drawable : this->m_VectorDrawables) {
+    for (auto& drawable : this->m_VectorObjects) {
+        drawable->update(this->m_UpdateClock.getElapsedTime());
         drawable->draw(this->m_Window.camera);
     }
     this->displayFps();
@@ -70,14 +73,14 @@ void Scene::displayFps() const
 
 
 // ---------------------------------------------------------------------------- Vector Drawables
-void Scene::pushDrawable(std::unique_ptr<engine::shape3d::Drawable>&& drawableObject)
+void Scene::pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>&& drawableObject)
 {
-    this->m_VectorDrawables.push_back(std::move(drawableObject));
+    this->m_VectorObjects.push_back(std::move(drawableObject));
 }
 
-void Scene::pushDrawable(std::unique_ptr<engine::shape3d::Drawable>& drawableObject)
+void Scene::pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>& drawableObject)
 {
-    this->m_VectorDrawables.push_back(std::move(drawableObject));
+    this->m_VectorObjects.push_back(std::move(drawableObject));
 }
 
 

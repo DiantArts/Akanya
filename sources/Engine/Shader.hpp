@@ -21,6 +21,7 @@
 
 #include <glad/glad.h>
 
+#include "Graphics/Position/Single.hpp"
 #include "NonCopyable.hpp"
 
 
@@ -38,18 +39,18 @@ public:
 
 
     // ---------------------------------------------------------------------------- Use
-    void use();
+    void use() const;
 
 
     // ---------------------------------------------------------------------------- Set
-    void set(const std::string& name, bool value);
-    void set(std::string&& name, bool value);
+    void set(const std::string& name, const bool value);
+    void set(std::string&& name, const bool value);
 
-    void set(const std::string& name, int value);
-    void set(std::string&& name, int value);
+    void set(const std::string& name, const int value);
+    void set(std::string&& name, const int value);
 
-    void set(const std::string& name, float value);
-    void set(std::string&& name, float value);
+    void set(const std::string& name, const float value);
+    void set(std::string&& name, const float value);
 
 
 
@@ -81,6 +82,11 @@ public:
 
     void set(const std::string& name, const glm::mat4& mat);
     void set(std::string&& name, const glm::mat4& mat);
+
+
+
+    void set(const std::string& name, const engine::graphic::position::Single& pos);
+    void set(std::string&& name, const engine::graphic::position::Single& pos);
 
 
 

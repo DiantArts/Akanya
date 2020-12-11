@@ -37,7 +37,7 @@ Texture::Texture(engine::Shader& shader, size_t sizeToAlloc) : m_Shader(shader)
 
 // ---------------------------------------------------------------------------- bind
 
-void Texture::bindThemAll()
+void Texture::bindThemAll() const
 {
     auto enumValue { GL_TEXTURE0 };
     for (const auto& texture : this->m_Texture) {
@@ -46,7 +46,7 @@ void Texture::bindThemAll()
     }
 }
 
-void Texture::unbindThemAll()
+void Texture::unbindThemAll() const
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
