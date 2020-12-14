@@ -15,13 +15,15 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
+#include "Graphics/Light/Dynamic/Default.hpp"
+
 
 
 namespace engine {
 
 
 
-class Camera {
+class Camera : public engine::light::dynamic::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Camera() = default;
@@ -85,6 +87,7 @@ public:
     static constexpr float maxPitch = 89.999F;
     static constexpr float minZoom  = 1.0F;
     static constexpr float maxZoom  = 45.0F;
+
 
 private:
     float     m_Speed { 2.5F };

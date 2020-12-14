@@ -42,10 +42,10 @@ public:
     // ---------------------------------------------------------------------------- position
     bool isMultiplePositions() const;
 
-    engine::graphic::position::Single&   getPosition();
-    const engine::graphic::position::Single&   getPosition() const;
+    engine::graphic::position::Single&       getPosition();
+    const engine::graphic::position::Single& getPosition() const;
 
-    engine::graphic::position::Multiple& getPositions();
+    engine::graphic::position::Multiple&       getPositions();
     const engine::graphic::position::Multiple& getPositions() const;
 
     template <typename Position>

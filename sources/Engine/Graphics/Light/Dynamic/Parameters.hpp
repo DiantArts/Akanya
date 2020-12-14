@@ -19,8 +19,8 @@ namespace engine::light::dynamic {
 struct Parameters {
     Parameters();
 
-    glm::vec3 ambient { 0.0F };
-    glm::vec3 diffuse { 0.4F };
+    glm::vec3 ambient { 0.1F };
+    glm::vec3 diffuse { 0.3F };
     glm::vec3 specular { 1.0F };
 
 

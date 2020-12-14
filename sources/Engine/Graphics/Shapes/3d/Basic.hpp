@@ -39,7 +39,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- Virtuals
-    virtual glm::mat4 getModel(const engine::graphic::Transformable& transformable,
+    virtual glm::mat4 getModel(const engine::graphic::Transformable&    transformable,
                                const engine::graphic::position::Single& position) const;
 
 

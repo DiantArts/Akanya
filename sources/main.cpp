@@ -13,7 +13,6 @@
 #include "ExampleScene.hpp"
 
 
-
 int main()
 {
     try {

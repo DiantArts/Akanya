@@ -29,8 +29,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- override
-    void      transformShape(const engine::Camera& camera) const final;
-    void      update(float deltaTime) override;
+    void transformShape(const engine::Camera& camera) const final;
+    void update(float deltaTime) override;
 };
 
 

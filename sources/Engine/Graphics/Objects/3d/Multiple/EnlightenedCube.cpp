@@ -49,9 +49,9 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
 
     // directional light
     this->set("dirLight.direction", camera.getOrientation());
-    this->set("dirLight.ambient", 0, 0, 0);
-    this->set("dirLight.diffuse", 0, 0, 0);
-    this->set("dirLight.specular", 0, 0, 0);
+    this->set("dirLight.ambient", camera.getParameters().ambient * glm::vec3{ 0 });
+    this->set("dirLight.diffuse", camera.getParameters().diffuse * glm::vec3{ 0 });
+    this->set("dirLight.specular", camera.getParameters().specular * glm::vec3{ 0 });
 
     // point light 1
     this->set("pointLights[0].position", pointLightPositions[0]);

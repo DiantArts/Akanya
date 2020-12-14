@@ -54,10 +54,10 @@ C_CPPFLAGS		:=
 CXX_CPPFLAGS	:=
 
 ## -L
-LIBLOCATION		:=	
+LIBLOCATION		:=	externPrecompiledLibs
 
 ## -l
-LIBBIN			:=	glfw dl
+LIBBIN			:=	glfw dl assimp z
 
 ## exclude pch dir
 NO_PCH_SRC		:=	Engine

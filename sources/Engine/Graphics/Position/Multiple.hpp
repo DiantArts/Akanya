@@ -67,7 +67,7 @@ public:
         this->m_VectorPositions.emplace_back(std::forward<Args>(args)...);
     }
 
-    engine::graphic::position::Single& operator[](size_t i);
+    engine::graphic::position::Single&       operator[](size_t i);
     const engine::graphic::position::Single& operator[](size_t i) const;
 
 

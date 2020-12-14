@@ -43,7 +43,8 @@ void LightSourceCube::update(float)
     // auto lampYMouvement = -pow(abs(cos(glfwGetTime() * 2) * 5), 3);
 
     // getLamp().setPosition(
-        // glm::vec3 { 0, 6 - pow(abs(cos(glfwGetTime() * 2) * 5), 3) / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
+    // glm::vec3 { 0, 6 - pow(abs(cos(glfwGetTime() * 2) * 5), 3) / 200, -1 + sin(glfwGetTime() * 2) * 4.0F
+    // });
     // this->setPosition(glm::vec3 { 0, 4 + lampYMouvement / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
 }
 
