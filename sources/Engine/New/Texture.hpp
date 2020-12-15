@@ -21,12 +21,13 @@ namespace engine {
 
 
 struct Texture {
-    GLuint id;
+    GLuint      id;
     std::string type;
+    std::string filepath;
 };
 
 
 
-} // engine
+} // namespace engine
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_TEXTURE_HPP___

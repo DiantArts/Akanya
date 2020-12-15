@@ -8,13 +8,24 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___
 
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <string_view>
+#include <vector>
+
 #include <assimp/Importer.hpp>
-#include <assimp/scene.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <assimp/postprocess.h>
+#include <assimp/scene.h>
+#include <glad/glad.h>
+#include <stb/stb_image.h>
 
 #include "Mesh.hpp"
-
-#include <string_view>
 
 
 
@@ -24,7 +35,7 @@ namespace engine {
 
 class Model {
 public:
-    explicit Model(engine::Shader& shader, const std::string& filepath);
+    explicit Model(engine::Shader& shader, const std::string& filepath, bool gamma = false);
     ~Model();
 
 
@@ -39,17 +50,20 @@ public:
 
 private:
     // ---------------------------------------------------------------------------- assimp lib
-    void loadModel(const std::string& filepath);
-    void processNode(aiNode* node, const aiScene* scene);
-    engine::Mesh processMesh(aiNode* mesh, const aiScene* scene);
-    std::vector<engine::Texture> loadMeterialTextures(aiMaterial* mat, aiTextureType type,
-            const std::string_view typeName);
+    void         loadModel(const std::string& filepath);
+    void         processNode(aiNode* node, const aiScene* scene);
+    engine::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    std::vector<engine::Texture>
+    loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName);
 
+    GLuint textureFromFile(const std::string& textureFilepath, std::string& directory, bool gamma);
 
 
 private:
-    std::vector<engine::Mesh> m_Meshes;
-    std::string m_Directory;
+    std::vector<engine::Texture> m_Textures;
+    std::vector<engine::Mesh>    m_Meshes;
+    std::string                  m_Directory;
+    bool                         m_GammaCorrection;
 
     mutable std::reference_wrapper<engine::Shader> m_Shader;
 };

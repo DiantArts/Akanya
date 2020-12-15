@@ -14,9 +14,8 @@
 #include "Engine/Clock.hpp"
 #include "Engine/Container/Map/Shader.hpp"
 #include "Engine/Graphics/Shapes/3d/Basic.hpp"
+#include "Engine/New/Model.hpp"
 #include "Engine/Window.hpp"
-
-#include "Engine/New/Vertex.hpp"
 
 
 namespace engine {
@@ -52,7 +51,6 @@ public:
 private:
     bool m_isOver = false;
 
-    engine::Window&       m_Window { engine::Window::get() };
     engine::Clock         m_EventClock;
     engine::Clock         m_UpdateClock;
     mutable engine::Clock m_FpsClock;
@@ -60,13 +58,9 @@ private:
     mutable float         m_Elapsed { 0 };
 
 protected:
+    engine::Window&       m_Window { engine::Window::get() };
     std::vector<std::unique_ptr<engine::graphic::shape3d::Basic>> m_VectorObjects;
     engine::container::map::Shader                                m_ShaderMap;
-
-
-
-private:
-    engine::Vertex vertex{ glm::vec3{ 0.2F, 0.4F, 0.6F }, glm::vec3{ 0, 1.0F, 0 }, glm::vec2{ 1.0F, 0 } };
 };
 
 

@@ -8,15 +8,16 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MESH_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MESH_HPP___
 
+#include <functional>
 #include <vector>
 
-#include <functional>
 #include "Texture.hpp"
 #include "Vertex.hpp"
-#include "../Shader.hpp"
+
+#include "../Graphics/Vertexes/Ebo.hpp"
 #include "../Graphics/Vertexes/Vao.hpp"
 #include "../Graphics/Vertexes/Vbo.hpp"
-#include "../Graphics/Vertexes/Ebo.hpp"
+#include "../Shader.hpp"
 
 
 
@@ -27,8 +28,8 @@ namespace engine {
 class Mesh {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit Mesh(std::vector<engine::Vertex>&& vertices,
-                  std::vector<GLuint>&& indices,
+    explicit Mesh(std::vector<engine::Vertex>&&  vertices,
+                  std::vector<GLuint>&&          indices,
                   std::vector<engine::Texture>&& textures);
     ~Mesh();
 
@@ -44,8 +45,8 @@ public:
 
 
 public:
-    std::vector<engine::Vertex> m_Vertices;
-    std::vector<GLuint> m_Indices;
+    std::vector<engine::Vertex>  m_Vertices;
+    std::vector<GLuint>          m_Indices;
     std::vector<engine::Texture> m_Textures;
 
 

@@ -54,7 +54,7 @@ C_CPPFLAGS		:=
 CXX_CPPFLAGS	:=
 
 ## -L
-LIBLOCATION		:=	externPrecompiledLibs
+LIBLOCATION		:=
 
 ## -l
 LIBBIN			:=	glfw dl assimp z
