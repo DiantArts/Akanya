@@ -55,7 +55,7 @@ ExampleScene::ExampleScene()
     // cube->addPosition(0.6, 0, -1.0F);
     // cube->addPosition(-0.6, 0, -1.5F);
 
-    this->pushObject(std::move(cube));
+    // this->pushObject(std::move(cube));
 }
 
 ExampleScene::~ExampleScene()
@@ -65,3 +65,20 @@ ExampleScene::~ExampleScene()
 
 void ExampleScene::update()
 {}
+
+void ExampleScene::additionalDraws()
+{
+    this->backpackShader.use();
+    this->backpackShader.set("projection",
+                       glm::perspective(glm::radians(this->m_Window.camera.getZoom()),
+                                        (float)this->m_Window.width / (float)this->m_Window.height, 0.1F,
+                                        100.0F));
+    this->backpackShader.set("view", this->m_Window.camera.getView());
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model           = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model           = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+    this->backpackShader.set("model", model);
+
+    backpack.draw();
+}

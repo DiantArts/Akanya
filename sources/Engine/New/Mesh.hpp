@@ -44,13 +44,11 @@ public:
 
 
 
-public:
+private:
     std::vector<engine::Vertex>  m_Vertices;
     std::vector<GLuint>          m_Indices;
     std::vector<engine::Texture> m_Textures;
 
-
-private:
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
     engine::Ebo m_Ebo;

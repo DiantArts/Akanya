@@ -10,8 +10,8 @@
 
 #include <fstream>
 #include <iostream>
-#include <memory>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -51,8 +51,8 @@ public:
 
 private:
     // ---------------------------------------------------------------------------- assimp lib
-    void         loadModel(const std::string& filepath);
-    void         processNode(aiNode* node, const aiScene* scene);
+    void                          loadModel(const std::string& filepath);
+    void                          processNode(aiNode* node, const aiScene* scene);
     std::unique_ptr<engine::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<engine::Texture>
     loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName);
@@ -61,10 +61,10 @@ private:
 
 
 private:
-    std::vector<engine::Texture> m_Textures;
-    std::vector<std::unique_ptr<engine::Mesh>>    m_Meshes;
-    std::string                  m_Directory;
-    bool                         m_GammaCorrection;
+    std::vector<engine::Texture>               m_Textures;
+    std::vector<std::unique_ptr<engine::Mesh>> m_Meshes;
+    std::string                                m_Directory;
+    bool                                       m_GammaCorrection;
 
     mutable std::reference_wrapper<engine::Shader> m_Shader;
 };

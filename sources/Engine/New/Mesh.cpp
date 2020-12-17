@@ -22,11 +22,11 @@ Mesh::Mesh(std::vector<engine::Vertex>&&  vertices,
     this->m_Vao.bind();
 
     this->m_Vbo.bind();
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(engine::Vertex), &this->m_Vertices[0],
+    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(engine::Vertex), &this->m_Vertices[0],
                  GL_STATIC_DRAW);
 
     this->m_Ebo.bind();
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &this->m_Indices[0],
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->m_Indices.size() * sizeof(GLuint), &this->m_Indices[0],
                  GL_STATIC_DRAW);
 
     // vertex positions
@@ -43,6 +43,16 @@ Mesh::Mesh(std::vector<engine::Vertex>&&  vertices,
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(engine::Vertex),
                           reinterpret_cast<void*>(offsetof(engine::Vertex, TexCoords)));
 
+    // vertex tangent
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(engine::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::Vertex, Tangent)));
+
+    // vertex bitangent
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(engine::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::Vertex, Bitangent)));
+
     this->m_Vao.unbind();
 }
 
@@ -56,6 +66,10 @@ void Mesh::draw(engine::Shader& shader) const
 {
     unsigned int diffuseIndex  = 1;
     unsigned int specularIndex = 1;
+    unsigned int normalIndex   = 1;
+    unsigned int heightIndex   = 1;
+
+
     for (unsigned int i = 0; i < m_Textures.size(); i++) {
         glActiveTexture(GL_TEXTURE0 + i);
         std::string name { "material." };
@@ -64,17 +78,21 @@ void Mesh::draw(engine::Shader& shader) const
             name += std::to_string(diffuseIndex++);
         } else if (m_Textures[i].type == "texture_specular") {
             name += std::to_string(specularIndex++);
+        } else if (name == "texture_normal") {
+            name += std::to_string(normalIndex++);
+        } else if (name == "texture_height") {
+            name += std::to_string(heightIndex++);
         }
 
         shader.set(name.c_str(), static_cast<float>(i));
         glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
     }
-    glActiveTexture(GL_TEXTURE0);
-
     // draw mesh
     this->m_Vao.bind();
     glDrawElements(GL_TRIANGLES, this->m_Indices.size(), GL_UNSIGNED_INT, 0);
     this->m_Vao.unbind();
+
+    glActiveTexture(GL_TEXTURE0);
 }
 
 

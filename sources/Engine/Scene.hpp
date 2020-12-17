@@ -34,8 +34,6 @@ public:
     void draw();
     void drawFps() const;
 
-    virtual void update();
-
 
     // ---------------------------------------------------------------------------- Vector Drawables
     void pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>&& drawableObject);
@@ -48,6 +46,11 @@ public:
     }
 
 
+    // ---------------------------------------------------------------------------- Virtuals
+    virtual void update();
+    virtual void additionalDraws();
+
+
 private:
     bool m_isOver = false;
 
@@ -58,7 +61,7 @@ private:
     mutable float         m_Elapsed { 0 };
 
 protected:
-    engine::Window&       m_Window { engine::Window::get() };
+    engine::Window&                                               m_Window { engine::Window::get() };
     std::vector<std::unique_ptr<engine::graphic::shape3d::Basic>> m_VectorObjects;
     engine::container::map::Shader                                m_ShaderMap;
 };

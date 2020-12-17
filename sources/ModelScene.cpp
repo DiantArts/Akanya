@@ -21,5 +21,4 @@ ModelScene::~ModelScene()
 
 
 void ModelScene::update()
-{
-}
+{}

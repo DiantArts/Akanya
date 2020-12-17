@@ -66,7 +66,7 @@ void Model::loadModel(const std::string& filepath)
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
     for (size_t i = 0; i < node->mNumMeshes; i++) {
-        this->m_Meshes.emplace_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
+        this->m_Meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
     }
 
     for (size_t i = 0; i < node->mNumChildren; i++) {
@@ -76,27 +76,32 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::vector<Vertex>  vertices;
-    std::vector<GLuint>  indices;
-    std::vector<Texture> textures;
+    std::vector<engine::Texture> textures;
+    std::vector<engine::Vertex>  vertices;
+    std::vector<GLuint>          indices;
 
     for (size_t i = 0; i < mesh->mNumVertices; i++) {
         engine::Vertex vertex;
 
-        vertex.Position = glm::vec3 { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
+        vertex.Position = glm::vec3 { std::move(mesh->mVertices[i].x),
+                                      std::move(mesh->mVertices[i].y),
+                                      std::move(mesh->mVertices[i].z) };
 
         if (mesh->HasNormals()) {
-            vertex.Normal = glm::vec3 { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
+            vertex.Normal = glm::vec3 { std::move(mesh->mNormals[i].x),
+                                        std::move(mesh->mNormals[i].y),
+                                        std::move(mesh->mNormals[i].z) };
         }
 
-        // texture coordinates
         if (mesh->mTextureCoords[0]) {
-            vertex.TexCoords = glm::vec2 { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
-            vertex.Tangent   = glm::vec3 { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
-            vertex.Bitangent =
-                glm::vec3 { mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z };
-        } else {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+            vertex.TexCoords = glm::vec2 { std::move(mesh->mTextureCoords[0][i].x),
+                                           std::move(mesh->mTextureCoords[0][i].y) };
+            vertex.Tangent   = glm::vec3 { std::move(mesh->mTangents[i].x),
+                                           std::move(mesh->mTangents[i].y),
+                                           std::move(mesh->mTangents[i].z) };
+            vertex.Bitangent = glm::vec3 { std::move(mesh->mBitangents[i].x),
+                                           std::move(mesh->mBitangents[i].y),
+                                           std::move(mesh->mBitangents[i].z) };
         }
 
         vertices.push_back(vertex);
@@ -105,11 +110,11 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
     for (size_t i = 0; i < mesh->mNumFaces; i++) {
         aiFace face { mesh->mFaces[i] };
         for (size_t j = 0; j < face.mNumIndices; j++) {
-            indices.push_back(face.mIndices[j]);
+            indices.push_back(std::move(face.mIndices[j]));
         }
     }
 
-    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+    aiMaterial* material { scene->mMaterials[mesh->mMaterialIndex] };
 
 
     std::vector<engine::Texture> diffuseMaps =
@@ -134,7 +139,7 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
 std::vector<engine::Texture>
 Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName)
 {
-    std::vector<Texture> textures;
+    std::vector<engine::Texture> textures;
     for (size_t i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
@@ -160,14 +165,14 @@ Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::stri
 
 GLuint Model::textureFromFile(const std::string& textureFilename, std::string& directory, bool)
 {
-    int         width, height, nrComponents;
     std::string textureFilepath;
-    textureFilepath.reserve(textureFilename.size() + 1 + directory.size());
+    textureFilepath.reserve(directory.size() + 1 + textureFilename.size());
     textureFilepath += directory;
     textureFilepath += '/';
     textureFilepath += textureFilename;
-    // const auto data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
-    const auto data { stbi_load("data/textures/container.png", &width, &height, &nrComponents, 0) };
+
+    int        width, height, nrComponents;
+    const auto data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
 
     if (!data) {
         throw std::runtime_error(std::string("ERROR: Failed to load '") + textureFilepath + "' texture\n");
@@ -183,8 +188,9 @@ GLuint Model::textureFromFile(const std::string& textureFilename, std::string& d
 
     GLuint textureId;
     glGenTextures(1, &textureId);
+
     glBindTexture(GL_TEXTURE_2D, textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

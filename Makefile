@@ -36,9 +36,9 @@ PCMEXT			:=	.pcm
 PCHEXT			:=	.gch
 
 ## wflags
-COMMON_WFLAGS	:=	pedantic all extra no-volatile
+COMMON_WFLAGS	:=	pedantic all extra
 C_WFLAGS		:=
-CPP_WFLAGS		:=
+CPP_WFLAGS		:=	no-volatile
 CPPM_WFLAGS		:=
 
 ## flags

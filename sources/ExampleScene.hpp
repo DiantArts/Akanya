@@ -18,8 +18,11 @@ public:
     ~ExampleScene();
 
     void update() override;
+    void additionalDraws() override;
 
 private:
+    engine::Shader backpackShader { "model3d" };
+    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj" };
 };
 
 
