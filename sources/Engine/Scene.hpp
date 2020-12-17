@@ -32,7 +32,7 @@ public:
     bool isOver() const;
     void manageEvents();
     void draw();
-    void displayFps() const;
+    void drawFps() const;
 
     virtual void update();
 

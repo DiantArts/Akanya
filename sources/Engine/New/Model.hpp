@@ -10,6 +10,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <map>
 #include <sstream>
 #include <string>
@@ -52,7 +53,7 @@ private:
     // ---------------------------------------------------------------------------- assimp lib
     void         loadModel(const std::string& filepath);
     void         processNode(aiNode* node, const aiScene* scene);
-    engine::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    std::unique_ptr<engine::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<engine::Texture>
     loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName);
 
@@ -61,7 +62,7 @@ private:
 
 private:
     std::vector<engine::Texture> m_Textures;
-    std::vector<engine::Mesh>    m_Meshes;
+    std::vector<std::unique_ptr<engine::Mesh>>    m_Meshes;
     std::string                  m_Directory;
     bool                         m_GammaCorrection;
 

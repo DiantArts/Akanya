@@ -28,7 +28,7 @@ Model::~Model()
 void Model::draw() const
 {
     for (auto& mesh : this->m_Meshes) {
-        mesh.draw(this->m_Shader.get());
+        mesh->draw(this->m_Shader.get());
     }
 }
 
@@ -66,7 +66,7 @@ void Model::loadModel(const std::string& filepath)
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
     for (size_t i = 0; i < node->mNumMeshes; i++) {
-        this->m_Meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
+        this->m_Meshes.emplace_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
     }
 
     for (size_t i = 0; i < node->mNumChildren; i++) {
@@ -74,7 +74,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     }
 }
 
-engine::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<Vertex>  vertices;
     std::vector<GLuint>  indices;
@@ -128,7 +128,7 @@ engine::Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return Mesh(std::move(vertices), std::move(indices), std::move(textures));
+    return std::make_unique<engine::Mesh>(std::move(vertices), std::move(indices), std::move(textures));
 }
 
 std::vector<engine::Texture>
@@ -166,33 +166,32 @@ GLuint Model::textureFromFile(const std::string& textureFilename, std::string& d
     textureFilepath += directory;
     textureFilepath += '/';
     textureFilepath += textureFilename;
-    const unsigned char* const data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
+    // const auto data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
+    const auto data { stbi_load("data/textures/container.png", &width, &height, &nrComponents, 0) };
 
-    GLuint textureId;
-
-    if (data) {
-        GLenum format;
-        switch (nrComponents) {
-        case 1: format = GL_RED; break;
-        case 3: format = GL_RGB; break;
-        case 4: format = GL_RGBA; break;
-        default: throw std::runtime_error("unsupported texture format found");
-        }
-
-        glGenTextures(1, &textureId);
-        glBindTexture(GL_TEXTURE_2D, textureId);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    } else {
-        std::cerr << "heyyyy" << std::endl;
+    if (!data) {
         throw std::runtime_error(std::string("ERROR: Failed to load '") + textureFilepath + "' texture\n");
     }
+
+    GLenum format;
+    switch (nrComponents) {
+    case 1: format = GL_RED; break;
+    case 3: format = GL_RGB; break;
+    case 4: format = GL_RGBA; break;
+    default: throw std::runtime_error("unsupported texture format found");
+    }
+
+    GLuint textureId;
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     stbi_image_free(const_cast<unsigned char*>(data));
 
     return textureId;

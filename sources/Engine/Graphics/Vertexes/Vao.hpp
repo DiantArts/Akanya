@@ -11,6 +11,7 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include "../../NonCopyable.hpp"
 
 
 
@@ -18,7 +19,7 @@ namespace engine {
 
 
 
-class Vao {
+class Vao : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- *structors
     Vao();

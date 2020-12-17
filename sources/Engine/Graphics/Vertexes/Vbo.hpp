@@ -11,6 +11,7 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include "../../NonCopyable.hpp"
 
 
 
@@ -18,7 +19,7 @@ namespace engine {
 
 
 
-class Vbo {
+class Vbo : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- *structors
     Vbo();

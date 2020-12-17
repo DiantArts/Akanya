@@ -52,13 +52,29 @@ void Scene::draw()
         drawable->update(this->m_UpdateClock.getElapsedTime());
         drawable->draw(this->m_Window.camera);
     }
-    this->displayFps();
+
+    static engine::Shader backpackShader { "model3d" };
+    static engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj" };
+
+    backpackShader.use();
+    backpackShader.set("projection", glm::perspective(glm::radians(this->m_Window.camera.getZoom()),
+                                         (float)this->m_Window.width / (float)this->m_Window.height, 0.1F, 100.0F));
+    backpackShader.set("view", this->m_Window.camera.getView());
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+    backpackShader.set("model", model);
+
+    backpack.draw();
+
+    this->drawFps();
 
     this->m_Window.pollEvents();
     this->m_Window.swapBuffers();
 }
 
-void Scene::displayFps() const
+void Scene::drawFps() const
 {
     this->m_Elapsed += this->m_FpsClock.getElapsedTime();
     this->m_Fps++;
