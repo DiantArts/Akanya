@@ -52,8 +52,8 @@ const engine::Shader& Model::getShader() const
 void Model::loadModel(const std::string& filepath)
 {
     Assimp::Importer importer;
-    const aiScene*   scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
-                                                           aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    const aiScene*   scene { importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+                                                           aiProcess_FlipUVs | aiProcess_CalcTangentSpace) };
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         throw std::runtime_error(std::string("ERROR::ASSIMP::") + importer.GetErrorString());
@@ -76,10 +76,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::vector<engine::Texture> textures;
     std::vector<engine::Vertex>  vertices;
-    std::vector<GLuint>          indices;
-
     for (size_t i = 0; i < mesh->mNumVertices; i++) {
         engine::Vertex vertex;
 
@@ -107,6 +104,7 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
         vertices.push_back(vertex);
     }
 
+    std::vector<GLuint>          indices;
     for (size_t i = 0; i < mesh->mNumFaces; i++) {
         aiFace face { mesh->mFaces[i] };
         for (size_t j = 0; j < face.mNumIndices; j++) {
@@ -116,21 +114,20 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
 
     aiMaterial* material { scene->mMaterials[mesh->mMaterialIndex] };
 
-
     std::vector<engine::Texture> diffuseMaps =
         loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-
     std::vector<engine::Texture> specularMaps =
         loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-
     std::vector<engine::Texture> normalMaps =
         loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-
     std::vector<engine::Texture> heightMaps =
         loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+
+    std::vector<engine::Texture> textures;
+    textures.reserve(diffuseMaps.size() + specularMaps.size() + normalMaps.size() + heightMaps.size());
+    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+    textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     return std::make_unique<engine::Mesh>(std::move(vertices), std::move(indices), std::move(textures));
@@ -163,7 +160,7 @@ Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::stri
     return textures;
 }
 
-GLuint Model::textureFromFile(const std::string& textureFilename, std::string& directory, bool)
+GLuint Model::textureFromFile(const std::string_view textureFilename, std::string_view directory, bool)
 {
     std::string textureFilepath;
     textureFilepath.reserve(directory.size() + 1 + textureFilename.size());

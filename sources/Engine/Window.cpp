@@ -57,6 +57,18 @@ void Window::pollEvents()
 
 
 
+void Window::setClearColor(const float rgb, const float alpha /* = 1.0F */)
+{
+    glClearColor(rgb, rgb, rgb, alpha);
+}
+
+void Window::setClearColor(const float red, const float green, const float blue, const float alpha /* = 1.0F */)
+{
+    glClearColor(red, green, blue, alpha);
+}
+
+
+
 // ---------------------------------------------------------------------------- input
 
 void Window::processInput(const float deltaTime)
@@ -118,9 +130,7 @@ Window::Window()
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // specifies the color values used by glClear to clear the color buffers
-    glClearColor(0.3F, 0.3F, 0.3F, 1.0F); // clear grey
-    // glClearColor(0.03F, 0.03F, 0.03F, 1.0F); // clear black
-    // glClearColor(0.0F, 0.0F, 0.0F, 1.0F); // clear black
+    // glClearColor(0.3F); // clear grey
 
     // mouse events
     glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);

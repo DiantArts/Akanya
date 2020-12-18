@@ -57,7 +57,7 @@ private:
     std::vector<engine::Texture>
     loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName);
 
-    GLuint textureFromFile(const std::string& textureFilepath, std::string& directory, bool gamma);
+    GLuint textureFromFile(const std::string_view textureFilepath, std::string_view directory, bool gamma);
 
 
 private:

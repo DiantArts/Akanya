@@ -17,7 +17,8 @@
 int main()
 {
     try {
-        ExampleScene scene;
+        // ExampleScene scene;
+        ModelScene scene;
 
         while (!scene.isOver()) {
             scene.manageEvents();

@@ -52,8 +52,6 @@ Mesh::Mesh(std::vector<engine::Vertex>&&  vertices,
     glEnableVertexAttribArray(4);
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(engine::Vertex),
                           reinterpret_cast<void*>(offsetof(engine::Vertex, Bitangent)));
-
-    this->m_Vao.unbind();
 }
 
 Mesh::~Mesh()
@@ -64,19 +62,15 @@ Mesh::~Mesh()
 // ---------------------------------------------------------------------------- Draw
 void Mesh::draw(engine::Shader& shader) const
 {
-    unsigned int diffuseIndex  = 1;
-    unsigned int specularIndex = 1;
-    unsigned int normalIndex   = 1;
-    unsigned int heightIndex   = 1;
+    size_t diffuseIndex { 1 }, specularIndex { 1 }, normalIndex { 1 }, heightIndex { 1 };
 
-
-    for (unsigned int i = 0; i < m_Textures.size(); i++) {
+    for (size_t i = 0; i < this->m_Textures.size(); i++) {
         glActiveTexture(GL_TEXTURE0 + i);
         std::string name { "material." };
-        name += m_Textures[i].type;
-        if (m_Textures[i].type == "texture_diffuse") {
+        name += this->m_Textures[i].type;
+        if (this->m_Textures[i].type == "texture_diffuse") {
             name += std::to_string(diffuseIndex++);
-        } else if (m_Textures[i].type == "texture_specular") {
+        } else if (this->m_Textures[i].type == "texture_specular") {
             name += std::to_string(specularIndex++);
         } else if (name == "texture_normal") {
             name += std::to_string(normalIndex++);
@@ -85,14 +79,11 @@ void Mesh::draw(engine::Shader& shader) const
         }
 
         shader.set(name.c_str(), static_cast<float>(i));
-        glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
+        glBindTexture(GL_TEXTURE_2D, this->m_Textures[i].id);
     }
     // draw mesh
     this->m_Vao.bind();
     glDrawElements(GL_TRIANGLES, this->m_Indices.size(), GL_UNSIGNED_INT, 0);
-    this->m_Vao.unbind();
-
-    glActiveTexture(GL_TEXTURE0);
 }
 
 

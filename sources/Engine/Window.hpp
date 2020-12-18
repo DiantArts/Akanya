@@ -37,6 +37,9 @@ public:
     void swapBuffers();
     void pollEvents();
 
+    void setClearColor(const float rgb, const float alpha = 1.0F);
+    void setClearColor(const float red, const float green, const float blue, const float alpha = 1.0F);
+
 
     // ---------------------------------------------------------------------------- input
     void processInput(const float deltaTime);
