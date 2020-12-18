@@ -5,9 +5,10 @@
 ** test
 */
 
-#include "Window.hpp" // std::unique_ptr
+#include "Window.hpp"
 
-#include <iostream> // std::clog
+#include <stb/stb_image.h>
+#include <iostream>
 
 #include <glad/glad.h>
 
@@ -102,7 +103,7 @@ Window::Window()
     this->m_Window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
     if (!this->m_Window) {
         glfwTerminate();
-        std::runtime_error("Window creation failed");
+        throw std::runtime_error("Window creation failed");
     }
 
     // specifies the affine transformation of x and y from normalized devices
@@ -126,6 +127,7 @@ Window::Window()
     glfwSetCursorPosCallback(this->m_Window.get(), mouseDirectionCallback);
     glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
 
+    stbi_set_flip_vertically_on_load(true);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(messageCallback, 0);
@@ -155,14 +157,15 @@ Window Window::m_SingleInstance;
 static void initGLWF()
 {
     if (!glfwInit()) {
-        std::runtime_error("glwfInit failed");
+        throw std::runtime_error("glwfInit failed");
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-#ifdef __APPLE__
+
+#ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif // __APPLE__
 }
@@ -171,7 +174,7 @@ static void initGLAD()
 {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         glfwTerminate();
-        std::runtime_error("glad initialization failed");
+        throw std::runtime_error("glad initialization failed");
     }
 }
 

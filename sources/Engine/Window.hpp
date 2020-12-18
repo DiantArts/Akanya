@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "Engine/NonCopyable.hpp"
 #include "Engine/Camera.hpp"
 
 
@@ -28,7 +29,7 @@ struct WindowDeleter {
 
 
 
-class Window {
+class Window : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- OpenGL stuff
     bool shouldClose() const;
