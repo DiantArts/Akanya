@@ -60,6 +60,7 @@ ExampleScene::ExampleScene()
 
     backpack.addPosition(-3.0F, 0.0F, 0.0F);
     backpack.addPosition( 3.0F, 0.0F, 0.0F);
+    backpack.rotateY(405);
 }
 
 ExampleScene::~ExampleScene()

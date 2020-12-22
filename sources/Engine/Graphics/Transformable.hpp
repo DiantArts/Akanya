@@ -31,17 +31,46 @@ public:
     virtual ~Transformable() = 0;
 
 
-    // ---------------------------------------------------------------------------- Scale
+    // ---------------------------------------------------------------------------- transform
     virtual glm::mat4 transformModel(const engine::graphic::position::Single& position) const;
 
 
     // ---------------------------------------------------------------------------- Scale
+    void scale(const float scale);
+    void scale(const float scaleX, const float scaleY, const float scaleZ);
+    void scale(const glm::vec3& scale);
+    void scaleX(const float scale);
+    void scaleY(const float scale);
+    void scaleZ(const float scale);
+
     void setScale(const float scale);
     void setScale(const float scaleX, const float scaleY, const float scaleZ);
     void setScale(const glm::vec3& scale);
     void setScale(glm::vec3&& scale);
+    void setScaleX(const float scale);
+    void setScaleY(const float scale);
+    void setScaleZ(const float scale);
 
     const glm::vec3& getScale() const;
+
+
+    // ---------------------------------------------------------------------------- Rotation
+    void rotate(const float rotation);
+    void rotate(const float rotationX, const float rotationY, const float rotationZ);
+    void rotate(const glm::vec3& rotation);
+    void rotateX(const float rotation);
+    void rotateY(const float rotation);
+    void rotateZ(const float rotation);
+
+    void setRotation(const float rotation);
+    void setRotation(const float rotationX, const float rotationY, const float rotationZ);
+    void setRotation(const glm::vec3& rotation);
+    void setRotation(glm::vec3&& rotation);
+    void setRotationX(const float rotation);
+    void setRotationY(const float rotation);
+    void setRotationZ(const float rotation);
+
+    const glm::vec3& getRotation() const;
 
 
     // ---------------------------------------------------------------------------- position
@@ -96,6 +125,7 @@ public:
 
 protected:
     glm::vec3                                            m_Scale { 1.0F, 1.0F, 1.0F };
+    glm::vec3                                            m_Rotation { 0.0F, 0.0F, 0.0F };
     std::unique_ptr<engine::graphic::position::Single>   m_SinglePosition { nullptr };
     std::unique_ptr<engine::graphic::position::Multiple> m_MultiplePositions { nullptr };
 };
