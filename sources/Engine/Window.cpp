@@ -42,7 +42,7 @@ bool Window::shouldClose() const
 
 void Window::clear() const
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 void Window::swapBuffers()
@@ -138,7 +138,12 @@ Window::Window()
     glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
 
     stbi_set_flip_vertically_on_load(true);
+
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    // glEnable(GL_STENCIL_TEST);
+
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(messageCallback, 0);
 

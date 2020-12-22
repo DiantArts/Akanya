@@ -77,7 +77,14 @@ void Model::loadModel(const std::string& filepath)
         throw std::runtime_error(std::string("ERROR::ASSIMP::") + importer.GetErrorString());
     }
 
+#ifdef __linux__
     this->m_Directory = filepath.substr(0, filepath.find_last_of('/'));
+#elif _WIN32
+    this->m_Directory = filepath.substr(0, filepath.find_last_of('\\'));
+#elif
+    this->m_Directory = filepath.substr(0, filepath.find_last_of('/'));
+#endif
+
     processNode(scene->mRootNode, scene);
 }
 
