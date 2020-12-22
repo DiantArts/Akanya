@@ -17,7 +17,6 @@ public:
     ModelScene();
     ~ModelScene();
 
-    void update() override;
     void additionalDraws() override;
 
 private:

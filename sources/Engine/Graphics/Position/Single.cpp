@@ -7,6 +7,7 @@
 
 #include "Single.hpp"
 
+#include "debugMacros.hpp"
 #include <utility>
 
 

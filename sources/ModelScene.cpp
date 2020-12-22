@@ -22,9 +22,6 @@ ModelScene::~ModelScene()
 
 
 
-void ModelScene::update()
-{}
-
 void ModelScene::additionalDraws()
 {
     this->backpackShader.use();

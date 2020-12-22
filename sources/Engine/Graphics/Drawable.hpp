@@ -19,11 +19,6 @@
 #include "../Shader.hpp"
 
 
-namespace engine::graphic::position {
-class Single;
-} // namespace engine::graphic::position
-
-
 
 namespace engine::graphic {
 

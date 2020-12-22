@@ -60,3 +60,88 @@ ExampleScene::ExampleScene()
 
 ExampleScene::~ExampleScene()
 {}
+
+
+
+
+void ExampleScene::additionalDraws()
+{
+    this->backpackShader.use();
+    this->backpackShader.set("projection",
+                       glm::perspective(glm::radians(this->m_Window.camera.getZoom()),
+                                        (float)this->m_Window.width / (float)this->m_Window.height, 0.1F,
+                                        100.0F));
+    this->backpackShader.set("view", this->m_Window.camera.getView());
+
+
+    this->backpackShader.set("viewPos", this->m_Window.camera.getPosition());
+
+    this->backpackShader.set("material.shininess", 32.0F);
+
+
+
+    auto pointLightPositions { lamp->getPositions() };
+
+    // directional light
+    this->backpackShader.set("dirLight.direction", this->m_Window.camera.getOrientation());
+    this->backpackShader.set("dirLight.ambient", this->m_Window.camera.getParameters().ambient * glm::vec3 { 0 });
+    this->backpackShader.set("dirLight.diffuse", this->m_Window.camera.getParameters().diffuse * glm::vec3 { 0 });
+    this->backpackShader.set("dirLight.specular", this->m_Window.camera.getParameters().specular * glm::vec3 { 0 });
+
+    // point light 1
+    this->backpackShader.set("pointLights[0].position", pointLightPositions[0]);
+    this->backpackShader.set("pointLights[0].ambient", lamp->getParameters().ambient);
+    this->backpackShader.set("pointLights[0].diffuse", lamp->getParameters().diffuse);
+    this->backpackShader.set("pointLights[0].specular", lamp->getParameters().specular);
+    this->backpackShader.set("pointLights[0].constant", lamp->getParameters().constant);
+    this->backpackShader.set("pointLights[0].linear", lamp->getParameters().linear);
+    this->backpackShader.set("pointLights[0].quadratic", lamp->getParameters().quadratic);
+
+    // point light 2
+    this->backpackShader.set("pointLights[1].position", pointLightPositions[1]);
+    this->backpackShader.set("pointLights[1].ambient", lamp->getParameters().ambient);
+    this->backpackShader.set("pointLights[1].diffuse", lamp->getParameters().diffuse);
+    this->backpackShader.set("pointLights[1].specular", lamp->getParameters().specular);
+    this->backpackShader.set("pointLights[1].constant", lamp->getParameters().constant);
+    this->backpackShader.set("pointLights[1].linear", lamp->getParameters().linear);
+    this->backpackShader.set("pointLights[1].quadratic", lamp->getParameters().quadratic);
+
+    // point light 3
+    this->backpackShader.set("pointLights[2].position", pointLightPositions[2]);
+    this->backpackShader.set("pointLights[2].ambient", lamp->getParameters().ambient);
+    this->backpackShader.set("pointLights[2].diffuse", lamp->getParameters().diffuse);
+    this->backpackShader.set("pointLights[2].specular", lamp->getParameters().specular);
+    this->backpackShader.set("pointLights[2].constant", lamp->getParameters().constant);
+    this->backpackShader.set("pointLights[2].linear", lamp->getParameters().linear);
+    this->backpackShader.set("pointLights[2].quadratic", lamp->getParameters().quadratic);
+
+    // point light 4
+    this->backpackShader.set("pointLights[3].position", pointLightPositions[3]);
+    this->backpackShader.set("pointLights[3].ambient", lamp->getParameters().ambient);
+    this->backpackShader.set("pointLights[3].diffuse", lamp->getParameters().diffuse);
+    this->backpackShader.set("pointLights[3].specular", lamp->getParameters().specular);
+    this->backpackShader.set("pointLights[3].constant", lamp->getParameters().constant);
+    this->backpackShader.set("pointLights[3].linear", lamp->getParameters().linear);
+    this->backpackShader.set("pointLights[3].quadratic", lamp->getParameters().quadratic);
+
+    // spotLight
+    this->backpackShader.set("spotLight.position", this->m_Window.camera.getPosition());
+    this->backpackShader.set("spotLight.direction", this->m_Window.camera.getFront());
+    this->backpackShader.set("spotLight.ambient", lamp->getParameters().ambient);
+    this->backpackShader.set("spotLight.diffuse", lamp->getParameters().diffuse);
+    this->backpackShader.set("spotLight.specular", lamp->getParameters().specular);
+    this->backpackShader.set("spotLight.constant", lamp->getParameters().constant);
+    this->backpackShader.set("spotLight.linear", lamp->getParameters().linear);
+    this->backpackShader.set("spotLight.quadratic", lamp->getParameters().quadratic);
+    this->backpackShader.set("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
+    this->backpackShader.set("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
+
+
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model           = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model           = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+    this->backpackShader.set("model", model);
+
+    backpack.draw();
+}
