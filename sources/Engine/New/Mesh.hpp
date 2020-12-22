@@ -52,7 +52,7 @@ public:
 
 
 private:
-    mutable std::reference_wrapper<engine::Shader> m_Shader;
+    std::reference_wrapper<engine::Shader> m_Shader;
 
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;

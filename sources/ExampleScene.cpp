@@ -25,10 +25,10 @@ ExampleScene::ExampleScene()
     auto lightSource { std::make_unique<engine::object3d::multiple::LightSourceCube>(
         this->m_ShaderMap["lightSource"]) };
 
-    lightSource->addPosition(-5.0F, 2.0F, -5.0F);
-    lightSource->addPosition(2.3F, -3.3F, -54.0F);
+    lightSource->addPosition(-0.0F, 2.0F, -0.0F);
+    lightSource->addPosition(-5.0F, 2.0F, 105.0F);
     lightSource->addPosition(-3.0F, 1.5F, -7.5F);
-    lightSource->addPosition(0.0F, 0.0F, -56.0F);
+    lightSource->addPosition(-5.0F, 2.0F, 105.0F);
 
     this->pushObject(std::move(lightSource));
     lamp = dynamic_cast<engine::object3d::multiple::LightSourceCube*>(&(*this->m_VectorObjects.back()));
@@ -60,7 +60,7 @@ ExampleScene::ExampleScene()
 
     backpack.addPosition(-3.0F, 0.0F, 0.0F);
     backpack.addPosition( 3.0F, 0.0F, 0.0F);
-    backpack.rotateY(405);
+    backpack.rotateY(35);
 }
 
 ExampleScene::~ExampleScene()

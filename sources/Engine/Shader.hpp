@@ -43,50 +43,50 @@ public:
 
 
     // ---------------------------------------------------------------------------- Set
-    void set(const std::string& name, const bool value);
-    void set(std::string&& name, const bool value);
+    void set(const std::string& name, const bool value) const;
+    void set(std::string&& name, const bool value) const;
 
-    void set(const std::string& name, const int value);
-    void set(std::string&& name, const int value);
+    void set(const std::string& name, const int value) const;
+    void set(std::string&& name, const int value) const;
 
-    void set(const std::string& name, const float value);
-    void set(std::string&& name, const float value);
-
-
-
-    void set(const std::string& name, const glm::vec2& value);
-    void set(std::string&& name, const glm::vec2& value);
-
-    void set(const std::string& name, const float x, const float y);
-    void set(std::string&& name, const float x, const float y);
-
-    void set(const std::string& name, const glm::vec3& value);
-    void set(std::string&& name, const glm::vec3& value);
-
-    void set(const std::string& name, const float x, const float y, const float z);
-    void set(std::string&& name, const float x, const float y, const float z);
-
-    void set(const std::string& name, const glm::vec4& value);
-    void set(std::string&& name, const glm::vec4& value);
-
-    void set(const std::string& name, const float x, const float y, const float z, const float w);
-    void set(std::string&& name, const float x, const float y, const float z, const float w);
+    void set(const std::string& name, const float value) const;
+    void set(std::string&& name, const float value) const;
 
 
 
-    void set(const std::string& name, const glm::mat2& mat);
-    void set(std::string&& name, const glm::mat2& mat);
+    void set(const std::string& name, const glm::vec2& value) const;
+    void set(std::string&& name, const glm::vec2& value) const;
 
-    void set(const std::string& name, const glm::mat3& mat);
-    void set(std::string&& name, const glm::mat3& mat);
+    void set(const std::string& name, const float x, const float y) const;
+    void set(std::string&& name, const float x, const float y) const;
 
-    void set(const std::string& name, const glm::mat4& mat);
-    void set(std::string&& name, const glm::mat4& mat);
+    void set(const std::string& name, const glm::vec3& value) const;
+    void set(std::string&& name, const glm::vec3& value) const;
+
+    void set(const std::string& name, const float x, const float y, const float z) const;
+    void set(std::string&& name, const float x, const float y, const float z) const;
+
+    void set(const std::string& name, const glm::vec4& value) const;
+    void set(std::string&& name, const glm::vec4& value) const;
+
+    void set(const std::string& name, const float x, const float y, const float z, const float w) const;
+    void set(std::string&& name, const float x, const float y, const float z, const float w) const;
 
 
 
-    void set(const std::string& name, const engine::graphic::position::Single& pos);
-    void set(std::string&& name, const engine::graphic::position::Single& pos);
+    void set(const std::string& name, const glm::mat2& mat) const;
+    void set(std::string&& name, const glm::mat2& mat) const;
+
+    void set(const std::string& name, const glm::mat3& mat) const;
+    void set(std::string&& name, const glm::mat3& mat) const;
+
+    void set(const std::string& name, const glm::mat4& mat) const;
+    void set(std::string&& name, const glm::mat4& mat) const;
+
+
+
+    void set(const std::string& name, const engine::graphic::position::Single& pos) const;
+    void set(std::string&& name, const engine::graphic::position::Single& pos) const;
 
 
 

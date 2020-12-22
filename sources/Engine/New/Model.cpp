@@ -35,13 +35,13 @@ void Model::drawModels(const engine::Camera&) const
 {
     if (this->isMultiplePositions()) {
         for (const auto& position : *this->m_MultiplePositions) {
-            this->set("model", this->getModel(position.get()));
+            this->setIntoShader("model", this->getModel(position.get()));
             for (auto& mesh : this->m_Meshes) {
                 mesh->draw();
             }
         }
     } else {
-        this->set("model", this->getModel(*this->m_SinglePosition));
+        this->setIntoShader("model", this->getModel(*this->m_SinglePosition));
         for (auto& mesh : this->m_Meshes) {
             mesh->draw();
         }

@@ -44,11 +44,11 @@ void Basic::drawModels(const engine::Camera&) const
     this->m_TextureVector.bindThemAll();
     if (this->isMultiplePositions()) {
         for (const auto& position : *this->m_MultiplePositions) {
-            this->set("model", this->getModel(position.get()));
+            this->setIntoShader("model", this->getModel(position.get()));
             glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
         }
     } else {
-        this->set("model", this->getModel(*this->m_SinglePosition));
+        this->setIntoShader("model", this->getModel(*this->m_SinglePosition));
         glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
     }
 }

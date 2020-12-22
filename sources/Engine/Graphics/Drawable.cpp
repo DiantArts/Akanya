@@ -41,8 +41,8 @@ void Drawable::update(float)
 
 void Drawable::transformShape(const engine::Camera& camera) const
 {
-    this->set("view", camera.getView());
-    this->set("projection", glm::perspective(glm::radians(camera.getZoom()),
+    this->setIntoShader("view", camera.getView());
+    this->setIntoShader("projection", glm::perspective(glm::radians(camera.getZoom()),
                                              (float)Window::width / (float)Window::height, 0.1F, 100.0F));
 }
 

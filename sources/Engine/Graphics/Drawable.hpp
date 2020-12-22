@@ -40,19 +40,19 @@ public:
     const engine::Shader& getShader() const;
 
     template <typename... Args>
-    void set(const std::string& name, const Args&... args) const
+    void setIntoShader(const std::string& name, const Args&... args) const
     {
-        const_cast<engine::Shader&>(this->getShader()).set(name, args...);
+        this->getShader().set(name, args...);
     }
 
     template <typename... Args>
-    void set(std::string&& name, const Args&... args) const
+    void setIntoShader(std::string&& name, const Args&... args) const
     {
-        const_cast<engine::Shader&>(this->getShader()).set(std::move(name), args...);
+        this->getShader().set(std::move(name), args...);
     }
 
 protected:
-    mutable std::reference_wrapper<engine::Shader> m_Shader;
+    std::reference_wrapper<engine::Shader> m_Shader;
 };
 
 

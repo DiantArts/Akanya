@@ -36,7 +36,7 @@ LightSourceCube::LightSourceCube(engine::Shader& shader) : Cube(shader, true)
 void LightSourceCube::transformShape(const engine::Camera& camera) const
 {
     engine::graphic::shape3d::Basic::transformShape(camera);
-    this->set("lightColor", 1.0F, 1.0F, 1.0F);
+    this->setIntoShader("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
 void LightSourceCube::update(float)
