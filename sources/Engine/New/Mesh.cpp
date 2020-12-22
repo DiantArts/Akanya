@@ -14,10 +14,12 @@ namespace engine {
 
 
 // ---------------------------------------------------------------------------- *structors
-Mesh::Mesh(std::vector<engine::Vertex>&&  vertices,
+Mesh::Mesh(engine::Shader& shader,
+           std::vector<engine::Vertex>&&  vertices,
            std::vector<GLuint>&&          indices,
            std::vector<engine::Texture>&& textures)
-    : m_Vertices(std::move(vertices)), m_Indices(std::move(indices)), m_Textures(std::move(textures))
+    : m_Shader(shader)
+    , m_Vertices(std::move(vertices)), m_Indices(std::move(indices)), m_Textures(std::move(textures))
 {
     this->m_Vao.bind();
 
@@ -60,7 +62,7 @@ Mesh::~Mesh()
 
 
 // ---------------------------------------------------------------------------- Draw
-void Mesh::draw(engine::Shader& shader) const
+void Mesh::draw() const
 {
     size_t diffuseIndex { 1 }, specularIndex { 1 }, normalIndex { 1 }, heightIndex { 1 };
 
@@ -78,13 +80,15 @@ void Mesh::draw(engine::Shader& shader) const
             name += std::to_string(heightIndex++);
         }
 
-        shader.set(name.c_str(), static_cast<float>(i));
+        this->m_Shader.get().set(name.c_str(), static_cast<float>(i));
         glBindTexture(GL_TEXTURE_2D, this->m_Textures[i].id);
     }
-    // draw mesh
     this->m_Vao.bind();
     glDrawElements(GL_TRIANGLES, this->m_Indices.size(), GL_UNSIGNED_INT, 0);
 }
+
+void Mesh::update(float)
+{}
 
 
 

@@ -9,21 +9,25 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../../Window.hpp"
 #include "../../Vertexes/Vertices.hpp"
 
 namespace engine::graphic::shape3d {
 
 
 
+// ---------------------------------------------------------------------------- *structors
+
 Basic::Basic(engine::Shader&              shader,
              const std::function<void()>& setAttributes,
              const std::string_view       verticesFilename,
              const bool                   isMultiplePositionsShape /* = false */,
              const size_t                 numberOfTextures /*= 1 */)
-    : engine::graphic::Drawable(shader, setAttributes, numberOfTextures)
-    , engine::graphic::Transformable(isMultiplePositionsShape)
+    : engine::graphic::Drawable(shader), engine::graphic::Transformable(isMultiplePositionsShape)
+    , m_TextureVector(shader, numberOfTextures)
 {
+    this->m_Vbo.bind();
+    this->m_Vao.bind();
+    setAttributes();
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
 }
 
@@ -32,38 +36,42 @@ Basic::~Basic()
 
 
 
-// ---------------------------------------------------------------------------- Override
-void Basic::drawModels() const
+// ---------------------------------------------------------------------------- *structors
+
+void Basic::drawModels(const engine::Camera&) const
 {
+    this->m_Vao.bind();
+    this->m_TextureVector.bindThemAll();
     if (this->isMultiplePositions()) {
         for (const auto& position : *this->m_MultiplePositions) {
-            this->set("model", glm::scale(this->getModel(*this, position.get()), this->m_Scale));
+            this->set("model", this->getModel(position.get()));
             glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
         }
     } else {
-        this->set("model", glm::scale(this->getModel(*this, *this->m_SinglePosition), this->m_Scale));
+        this->set("model", this->getModel(*this->m_SinglePosition));
         glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
     }
 }
 
-void Basic::update(float)
-{}
 
-void Basic::transformShape(const engine::Camera& camera) const
+glm::mat4 Basic::getModel(const engine::graphic::position::Single& position) const
 {
-    this->set("view", camera.getView());
-    this->set("projection", glm::perspective(glm::radians(camera.getZoom()),
-                                             (float)Window::width / (float)Window::height, 0.1F, 100.0F));
+    return this->transformModel(position);
 }
 
 
 
-// ---------------------------------------------------------------------------- Virtuals
+// ---------------------------------------------------------------------------- Textures
 
-glm::mat4 Basic::getModel(const engine::graphic::Transformable&,
-                          const engine::graphic::position::Single& position) const
+void Basic::addTexture(const std::string_view filepath, const std::string_view name, int index)
 {
-    return glm::translate(glm::mat4 { 1.0F }, position.get());
+    this->m_TextureVector.push_back(filepath, name, index);
+}
+
+
+const engine::container::vector::Texture& Basic::getTextures() const
+{
+    return this->m_TextureVector;
 }
 
 

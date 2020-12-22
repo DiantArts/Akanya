@@ -5,6 +5,8 @@
 ** Transformable
 */
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Transformable.hpp"
 
 
@@ -26,6 +28,15 @@ Transformable::Transformable(const bool isMultiplePosition)
 
 Transformable::~Transformable()
 {}
+
+
+
+// ---------------------------------------------------------------------------- Model
+
+glm::mat4 Transformable::transformModel(const engine::graphic::position::Single& position) const
+{
+    return glm::scale(glm::translate(glm::mat4 { 1.0F }, position.get()), this->m_Scale);
+}
 
 
 

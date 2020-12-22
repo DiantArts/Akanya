@@ -5,16 +5,13 @@
 ** Camera
 */
 
-// clang-format off
-
-#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-
-// clang-format on
+#include <glad/glad.h>
 
 #include <stdexcept>
 
-#include <glm/gtc/matrix_transform.hpp> // glm::lookAt()
+#include <glm/gtc/matrix_transform.hpp>
 #include "optimizationBuiltins.hpp"
 #include "Camera.hpp"
 

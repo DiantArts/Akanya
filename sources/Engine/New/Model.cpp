@@ -7,14 +7,19 @@
 
 #include "Model.hpp"
 
+#include "debugMacros.hpp"
 
 
 namespace engine {
 
 
 
-Model::Model(engine::Shader& shader, const std::string& filepath, bool gamma /* = false */)
-    : m_GammaCorrection(gamma), m_Shader(shader)
+Model::Model(engine::Shader&    shader,
+             const std::string& filepath,
+             const bool         isMultiplePositionsShape /* = false */,
+             bool               gamma /* = false */)
+    : engine::graphic::Drawable(shader), engine::graphic::Transformable(isMultiplePositionsShape)
+    , m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
 }
@@ -25,25 +30,38 @@ Model::~Model()
 
 
 // ---------------------------------------------------------------------------- Draw
-void Model::draw() const
+
+void Model::drawModels(const engine::Camera&) const
 {
-    for (auto& mesh : this->m_Meshes) {
-        mesh->draw(this->m_Shader.get());
+    if (this->isMultiplePositions()) {
+        for (const auto& position : *this->m_MultiplePositions) {
+            this->set("model", this->getModel(position.get()));
+            for (auto& mesh : this->m_Meshes) {
+                mesh->draw();
+            }
+        }
+    } else {
+        this->set("model", this->getModel(*this->m_SinglePosition));
+        for (auto& mesh : this->m_Meshes) {
+            mesh->draw();
+        }
     }
 }
 
-
-
-// ---------------------------------------------------------------------------- Shader
-
-void Model::setShader(engine::Shader& shader)
+glm::mat4 Model::getModel(const engine::graphic::position::Single& position) const
 {
-    this->m_Shader = shader;
+    return this->transformModel(position);
 }
 
-const engine::Shader& Model::getShader() const
+
+
+// ---------------------------------------------------------------------------- Update
+
+void Model::update(float deltaTime)
 {
-    return this->m_Shader.get();
+    for (auto& mesh : this->m_Meshes) {
+        mesh->update(deltaTime);
+    }
 }
 
 
@@ -130,7 +148,8 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return std::make_unique<engine::Mesh>(std::move(vertices), std::move(indices), std::move(textures));
+    return std::make_unique<engine::Mesh>(this->m_Shader,
+            std::move(vertices), std::move(indices), std::move(textures));
 }
 
 std::vector<engine::Texture>

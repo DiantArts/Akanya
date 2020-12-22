@@ -26,8 +26,13 @@ namespace engine::graphic {
 
 class Transformable {
 public:
+    // ---------------------------------------------------------------------------- *structors
     Transformable(const bool isMultiplePosition);
     virtual ~Transformable() = 0;
+
+
+    // ---------------------------------------------------------------------------- Scale
+    virtual glm::mat4 transformModel(const engine::graphic::position::Single& position) const;
 
 
     // ---------------------------------------------------------------------------- Scale
@@ -40,7 +45,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- position
-    bool isMultiplePositions() const;
+    virtual bool isMultiplePositions() const;
 
     engine::graphic::position::Single&       getPosition();
     const engine::graphic::position::Single& getPosition() const;
@@ -87,10 +92,6 @@ public:
             throw std::runtime_error("trying to add a position to a single position shape");
         }
     }
-
-
-    // ---------------------------------------------------------------------------- pure virtuals
-    virtual void update(float deltaTime) = 0;
 
 
 protected:

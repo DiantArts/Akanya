@@ -9,6 +9,7 @@
 #define ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___
 
 #include "Engine/Scene.hpp"
+#include "Engine/New/Model.hpp"
 
 
 
@@ -21,7 +22,7 @@ public:
 
 private:
     engine::Shader backpackShader { "model3d" };
-    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj" };
+    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj", true };
 };
 
 

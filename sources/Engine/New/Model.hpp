@@ -27,6 +27,8 @@
 #include <stb/stb_image.h>
 
 #include "Mesh.hpp"
+#include "../Graphics/Drawable.hpp"
+#include "../Graphics/Transformable.hpp"
 
 
 
@@ -34,19 +36,21 @@ namespace engine {
 
 
 
-class Model {
+class Model
+    : public engine::graphic::Drawable
+    , public engine::graphic::Transformable {
 public:
-    explicit Model(engine::Shader& shader, const std::string& filepath, bool gamma = false);
+    explicit Model(engine::Shader&    shader,
+                   const std::string& filepath,
+                   const bool         isMultiplePositionsShape = false,
+                   bool               gamma = false);
     ~Model();
 
 
-    // ---------------------------------------------------------------------------- Draw
-    void draw() const;
-
-
-    // ---------------------------------------------------------------------------- Shader
-    void                  setShader(engine::Shader& shader);
-    const engine::Shader& getShader() const;
+    // ---------------------------------------------------------------------------- Override
+    virtual void update(float deltaTime) override;
+    virtual void drawModels(const engine::Camera& camera) const override;
+    glm::mat4 getModel(const engine::graphic::position::Single& position) const;
 
 
 private:
@@ -65,8 +69,6 @@ private:
     std::vector<std::unique_ptr<engine::Mesh>> m_Meshes;
     std::string                                m_Directory;
     bool                                       m_GammaCorrection;
-
-    mutable std::reference_wrapper<engine::Shader> m_Shader;
 };
 
 

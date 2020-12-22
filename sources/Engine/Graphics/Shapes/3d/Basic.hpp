@@ -8,10 +8,13 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_BASIC_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_BASIC_HPP___
 
-#include <string_view>
-
 #include "../../Drawable.hpp"
 #include "../../Transformable.hpp"
+
+#include "../../Vertexes/Vao.hpp"
+#include "../../Vertexes/Vbo.hpp"
+
+#include "../../../Container/Vector/Texture.hpp"
 
 
 
@@ -32,19 +35,22 @@ public:
     virtual ~Basic() = 0;
 
 
-    // ---------------------------------------------------------------------------- Override
-    virtual void drawModels() const override;
-    virtual void update(float deltaTime) override;
-    virtual void transformShape(const engine::Camera& camera) const override;
+    // ---------------------------------------------------------------------------- Model
+    void drawModels(const engine::Camera&) const override final;
+    virtual glm::mat4 getModel(const engine::graphic::position::Single& position) const;
 
 
-    // ---------------------------------------------------------------------------- Virtuals
-    virtual glm::mat4 getModel(const engine::graphic::Transformable&    transformable,
-                               const engine::graphic::position::Single& position) const;
+    // ---------------------------------------------------------------------------- Textures
+    void addTexture(const std::string_view filepath, const std::string_view name, const int index);
+    const engine::container::vector::Texture& getTextures() const;
 
 
 private:
     size_t m_NumberOfArrayToDraw;
+    engine::container::vector::Texture             m_TextureVector; // TODO: std::optional + Material class
+                                                                    // if numberOfTexture == 0
+    engine::Vao m_Vao;
+    engine::Vbo m_Vbo;
 };
 
 
