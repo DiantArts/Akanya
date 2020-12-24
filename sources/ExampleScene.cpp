@@ -50,8 +50,9 @@ ExampleScene::ExampleScene()
 
     this->pushObject(std::move(cube));
 
-    backpack.setPosition(-3.0F,  0.0F, 0.0F);
-    backpack.instances.add( 3.0F,  0.0F, 0.0F);
+    // backpack.instances.setPosition(-3.0F,  0.0F, 0.0F);
+    backpack.instances.addPosition(-3.0F,  0.0F, 0.0F);
+    backpack.instances.addPosition( 3.0F,  0.0F, 0.0F);
     backpack.rotateY(35);
 }
 
@@ -72,7 +73,7 @@ void ExampleScene::additionalDraws()
     this->backpackShader.set("dirLight.specular",
                              this->m_Window.camera.getParameters().specular * glm::vec3 { 0 });
 
-    this->backpackShader.set("pointLights[0].position", lamp->instances[0].get());
+    this->backpackShader.set("pointLights[0].position", lamp->instances[0]);
     this->backpackShader.set("pointLights[0].ambient", lamp->getParameters().ambient);
     this->backpackShader.set("pointLights[0].diffuse", lamp->getParameters().diffuse);
     this->backpackShader.set("pointLights[0].specular", lamp->getParameters().specular);
@@ -80,7 +81,7 @@ void ExampleScene::additionalDraws()
     this->backpackShader.set("pointLights[0].linear", lamp->getParameters().linear);
     this->backpackShader.set("pointLights[0].quadratic", lamp->getParameters().quadratic);
 
-    this->backpackShader.set("pointLights[1].position", lamp->instances[1].get());
+    this->backpackShader.set("pointLights[1].position", lamp->instances[1]);
     this->backpackShader.set("pointLights[1].ambient", lamp->getParameters().ambient);
     this->backpackShader.set("pointLights[1].diffuse", lamp->getParameters().diffuse);
     this->backpackShader.set("pointLights[1].specular", lamp->getParameters().specular);
@@ -88,7 +89,7 @@ void ExampleScene::additionalDraws()
     this->backpackShader.set("pointLights[1].linear", lamp->getParameters().linear);
     this->backpackShader.set("pointLights[1].quadratic", lamp->getParameters().quadratic);
 
-    this->backpackShader.set("pointLights[2].position", lamp->instances[2].get());
+    this->backpackShader.set("pointLights[2].position", lamp->instances[2]);
     this->backpackShader.set("pointLights[2].ambient", lamp->getParameters().ambient);
     this->backpackShader.set("pointLights[2].diffuse", lamp->getParameters().diffuse);
     this->backpackShader.set("pointLights[2].specular", lamp->getParameters().specular);
@@ -96,7 +97,7 @@ void ExampleScene::additionalDraws()
     this->backpackShader.set("pointLights[2].linear", lamp->getParameters().linear);
     this->backpackShader.set("pointLights[2].quadratic", lamp->getParameters().quadratic);
 
-    this->backpackShader.set("pointLights[3].position", lamp->instances[3].get());
+    this->backpackShader.set("pointLights[3].position", lamp->instances[3]);
     this->backpackShader.set("pointLights[3].ambient", lamp->getParameters().ambient);
     this->backpackShader.set("pointLights[3].diffuse", lamp->getParameters().diffuse);
     this->backpackShader.set("pointLights[3].specular", lamp->getParameters().specular);

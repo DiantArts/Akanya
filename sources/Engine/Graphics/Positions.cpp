@@ -18,9 +18,10 @@ namespace engine::graphic {
 Positions::Positions(const size_t sizeToAlloc)
 {
     if (sizeToAlloc > 1) {
-        this->m_Variant = engine::graphic::position::Multiple { sizeToAlloc };
+        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        multiplePos.reserve(sizeToAlloc);
     } else {
-        this->m_Variant = engine::graphic::position::Single {};
+        this->m_Variant = SinglePosition { 0.0F, 0.0F, 0.0F };
     }
 }
 
@@ -29,146 +30,251 @@ Positions::~Positions()
 
 
 
-// ---------------------------------------------------------------------------- override
+// ---------------------------------------------------------------------------- Access
 
-void Positions::add(float x, float y, float z)
+glm::vec3& Positions::operator[](size_t index)
 {
-    try {
-        auto& multiplePos { std::get<engine::graphic::position::Multiple>(this->m_Variant) };
-        multiplePos.add(std::move(x), std::move(y), std::move(z));
-    } catch (const std::bad_variant_access&) {
-        auto singlePos { std::get<engine::graphic::position::Single>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<engine::graphic::position::Multiple>(2) };
-        multiplePos.add(std::move(singlePos));
-        multiplePos.add(std::move(x), std::move(y), std::move(z));
+    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        if (index > 0) {
+            throw std::out_of_range("trying to access a greater index than 0 of a single pos");
+        }
+        return *position;
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        if (positions.size() <= index) {
+            throw std::out_of_range("trying to access a greater index the vector size");
+        }
+        return positions[index];
     }
 }
 
-void Positions::add(const glm::vec3& position)
+const glm::vec3& Positions::operator[](size_t index) const
 {
-    try {
-        auto& multiplePos { std::get<engine::graphic::position::Multiple>(this->m_Variant) };
-        multiplePos.add(position);
-    } catch (const std::bad_variant_access&) {
-        auto singlePos { std::get<engine::graphic::position::Single>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<engine::graphic::position::Multiple>(2) };
-        multiplePos.add(std::move(singlePos));
-        multiplePos.add(position);
-    }
-}
-
-void Positions::add(glm::vec3&& position)
-{
-    try {
-        auto& multiplePos { std::get<engine::graphic::position::Multiple>(this->m_Variant) };
-        multiplePos.add(std::move(position));
-    } catch (const std::bad_variant_access&) {
-        auto singlePos { std::get<engine::graphic::position::Single>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<engine::graphic::position::Multiple>(2) };
-        multiplePos.add(std::move(singlePos));
-        multiplePos.add(std::move(position));
-    }
-}
-
-void Positions::add(const engine::graphic::position::Single& position)
-{
-    try {
-        auto& multiplePos { std::get<engine::graphic::position::Multiple>(this->m_Variant) };
-        multiplePos.add(position);
-    } catch (const std::bad_variant_access&) {
-        auto singlePos { std::get<engine::graphic::position::Single>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<engine::graphic::position::Multiple>(2) };
-        multiplePos.add(std::move(singlePos));
-        multiplePos.add(position);
-    }
-}
-
-void Positions::add(engine::graphic::position::Single&& position)
-{
-    try {
-        auto& multiplePos { std::get<engine::graphic::position::Multiple>(this->m_Variant) };
-        multiplePos.add(std::move(position));
-    } catch (const std::bad_variant_access&) {
-        auto singlePos { std::get<engine::graphic::position::Single>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<engine::graphic::position::Multiple>(2) };
-        multiplePos.add(std::move(singlePos));
-        multiplePos.add(std::move(position));
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        if (index > 0) {
+            throw std::out_of_range("trying to access a greater index than 0 of a single pos");
+        }
+        return *position;
+    } else {
+        const auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        if (positions.size() <= index) {
+            throw std::out_of_range("trying to access a greater index the vector size");
+        }
+        return positions[index];
     }
 }
 
 //
 
-engine::graphic::position::Single& Positions::operator[](size_t index)
+glm::vec3* Positions::operator->()
 {
-    return std::visit(
-            [&index](auto& p) -> engine::graphic::position::Single& { return p[std::move(index)]; },
-            this->m_Variant);
+    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return position;
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        if (positions.empty()) {
+            throw std::out_of_range("trying to access elements of an empty vector");
+        }
+        return &positions[0];
+    }
 }
 
-const engine::graphic::position::Single& Positions::operator[](size_t index) const
+const glm::vec3* Positions::operator->() const
 {
-    return std::visit(
-            [&index](auto& p) -> const engine::graphic::position::Single& { return p[std::move(index)]; },
-            this->m_Variant);
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return position;
+    } else {
+        const auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        if (positions.empty()) {
+            throw std::out_of_range("trying to access elements of an empty vector");
+        }
+        return &positions[0];
+    }
 }
 
-engine::graphic::position::Single* Positions::operator->()
+
+
+// ---------------------------------------------------------------------------- Iterator
+
+engine::graphic::Positions::iterator Positions::begin()
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::Single* { return p.operator->(); }, this->m_Variant);
+    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::iterator(position);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::iterator(&positions[0]);
+    }
 }
 
-const engine::graphic::position::Single* Positions::operator->() const
+engine::graphic::Positions::const_iterator Positions::begin() const
 {
-    return std::visit(
-            [](auto& p) -> const engine::graphic::position::Single* { return p.operator->(); },
-            this->m_Variant);
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::const_iterator(position);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::const_iterator(&positions[0]);
+    }
+}
+
+engine::graphic::Positions::const_iterator Positions::cbegin() const
+{
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::const_iterator(position);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::const_iterator(&positions[0]);
+    }
 }
 
 //
 
-engine::graphic::position::IPosition::iterator Positions::begin()
+engine::graphic::Positions::iterator Positions::end()
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::iterator { return p.begin(); },
-            this->m_Variant);
+    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::iterator(position + 1);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::iterator(&positions[positions.size()]);
+    }
 }
 
-engine::graphic::position::IPosition::const_iterator Positions::begin() const
+engine::graphic::Positions::const_iterator Positions::end() const
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::const_iterator { return p.begin(); },
-            this->m_Variant);
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::const_iterator(position + 1);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::const_iterator(&positions[positions.size()]);
+    }
 }
 
-engine::graphic::position::IPosition::const_iterator Positions::cbegin() const
+engine::graphic::Positions::const_iterator Positions::cend() const
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::const_iterator { return p.cbegin(); },
-            this->m_Variant);
+    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+        return engine::graphic::Positions::const_iterator(position + 1);
+    } else {
+        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        return engine::graphic::Positions::const_iterator(&positions[positions.size()]);
+    }
+}
+
+
+
+// ---------------------------------------------------------------------------- AddPosition
+
+void Positions::addPosition(float x, float y, float z)
+{
+    try {
+        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        multiplePos.emplace_back(std::move(x), std::move(y), std::move(z));
+    } catch (const std::bad_variant_access&) {
+        auto singlePos { std::get<SinglePosition>(this->m_Variant) };
+        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        multiplePos.reserve(2);
+        multiplePos.push_back(std::move(singlePos));
+        multiplePos.emplace_back(std::move(x), std::move(y), std::move(z));
+    }
+}
+
+void Positions::addPosition(const glm::vec3& position)
+{
+    try {
+        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        multiplePos.push_back(position);
+    } catch (const std::bad_variant_access&) {
+        auto singlePos { std::get<SinglePosition>(this->m_Variant) };
+        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        multiplePos.reserve(2);
+        multiplePos.push_back(std::move(singlePos));
+        multiplePos.push_back(position);
+    }
+}
+
+void Positions::addPosition(glm::vec3&& position)
+{
+    try {
+        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        multiplePos.push_back(std::move(position));
+    } catch (const std::bad_variant_access&) {
+        auto singlePos { std::get<SinglePosition>(this->m_Variant) };
+        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        multiplePos.reserve(2);
+        multiplePos.push_back(std::move(singlePos));
+        multiplePos.push_back(std::move(position));
+    }
+}
+
+
+
+// ---------------------------------------------------------------------------- SetPosition
+
+void Positions::setPosition(const glm::vec3& position)
+{
+    (*this)[0] = position;
+}
+
+void Positions::setPosition(glm::vec3&& position)
+{
+    (*this)[0] = std::move(position);
+}
+
+void Positions::setPosition(const float positionX, const float positionY, const float positionZ)
+{
+    auto& pos { (*this)[0] };
+    pos.x = std::move(positionX);
+    pos.y = std::move(positionY);
+    pos.z = std::move(positionZ);
 }
 
 //
 
-engine::graphic::position::IPosition::iterator Positions::end()
+void Positions::setPositionX(const float positionX)
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::iterator { return p.end(); },
-            this->m_Variant);
+    (*this)[0].x = std::move(positionX);
 }
 
-engine::graphic::position::IPosition::const_iterator Positions::end() const
+void Positions::setPositionY(const float positionY)
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::const_iterator { return p.end(); },
-            this->m_Variant);
+    (*this)[0].y = std::move(positionY);
 }
 
-engine::graphic::position::IPosition::const_iterator Positions::cend() const
+void Positions::setPositionZ(const float positionZ)
 {
-    return std::visit(
-            [](auto& p) -> engine::graphic::position::IPosition::const_iterator { return p.cend(); },
-            this->m_Variant);
+    (*this)[0].z = std::move(positionZ);
+}
+
+
+
+// ---------------------------------------------------------------------------- Move
+
+void Positions::move(const glm::vec3& offset)
+{
+    (*this)[0] += offset;
+}
+
+void Positions::move(const float offsetX, const float offsetY, const float offsetZ)
+{
+    auto& pos { (*this)[0] };
+    pos.x += std::move(offsetX);
+    pos.y += std::move(offsetY);
+    pos.z += std::move(offsetZ);
+}
+
+//
+
+void Positions::moveX(const float offsetX)
+{
+    (*this)[0].x += offsetX;
+}
+
+void Positions::moveY(const float offsetY)
+{
+    (*this)[0].x += offsetY;
+}
+
+void Positions::moveZ(const float offsetZ)
+{
+    (*this)[0].x += offsetZ;
 }
 
 

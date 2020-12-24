@@ -35,14 +35,14 @@ Model::~Model()
 void Model::drawModels(const engine::Camera&) const
 {
     for (const auto& position : this->instances) {
-        this->setIntoShader("model", this->getModel(position.get()));
+        this->setIntoShader("model", this->getModel(position));
         for (auto& mesh : this->m_Meshes) {
             mesh->draw();
         }
     }
 }
 
-glm::mat4 Model::getModel(const engine::graphic::position::Single& position) const
+glm::mat4 Model::getModel(const glm::vec3& position) const
 {
     return this->transformModel(position);
 }

@@ -28,9 +28,9 @@ Transformable::~Transformable()
 
 // ---------------------------------------------------------------------------- transform
 
-glm::mat4 Transformable::transformModel(const engine::graphic::position::Single& position) const
+glm::mat4 Transformable::transformModel(const glm::vec3& position) const
 {
-    auto projection { glm::translate(glm::mat4 { 1.0F }, position.get()) };
+    auto projection { glm::translate(glm::mat4 { 1.0F }, position) };
     if (this->m_Rotation.x) {
         projection = glm::rotate(projection, glm::radians(this->m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
     }
@@ -299,79 +299,66 @@ const glm::vec3& Transformable::getRotation() const
 }
 
 
+// void Transformable::setPosition(const float x, const float y, const float z)
+// {
+    // this->instances->setPosition(std::move(x), std::move(y), std::move(z));
+// }
 
-// ---------------------------------------------------------------------------- positions
-void Transformable::setPosition(const float x, const float y, const float z)
-{
-    this->instances->setPosition(std::move(x), std::move(y), std::move(z));
-}
+// void Transformable::setPosition(const glm::vec3& position)
+// {
+    // this->instances->setPosition(position);
+// }
 
-void Transformable::setPosition(const glm::vec3& position)
-{
-    this->instances->setPosition(position);
-}
+// void Transformable::setPosition(glm::vec3&& position)
+// {
+    // this->instances->setPosition(std::move(position));
+// }
 
-void Transformable::setPosition(glm::vec3&& position)
-{
-    this->instances->setPosition(std::move(position));
-}
 
-void Transformable::setPosition(const engine::graphic::position::Single& position)
-{
-    this->instances->setPosition(position);
-}
 
-void Transformable::setPosition(engine::graphic::position::Single&& position)
-{
-    this->instances->setPosition(std::move(position));
-}
+// void Transformable::setPositionX(const float offset)
+// {
+    // this->instances->setPositionX(std::move(offset));
+// }
 
-//
+// void Transformable::setPositionY(const float offset)
+// {
+    // this->instances->setPositionY(std::move(offset));
+// }
 
-void Transformable::setPositionX(const float offset)
-{
-    this->instances->setPositionX(std::move(offset));
-}
+// void Transformable::setPositionZ(const float offset)
+// {
+    // this->instances->setPositionZ(std::move(offset));
+// }
 
-void Transformable::setPositionY(const float offset)
-{
-    this->instances->setPositionY(std::move(offset));
-}
 
-void Transformable::setPositionZ(const float offset)
-{
-    this->instances->setPositionZ(std::move(offset));
-}
 
-//
+// void Transformable::move(const glm::vec3& position)
+// {
+    // this->instances->move(position);
+// }
 
-void Transformable::move(const glm::vec3& position)
-{
-    this->instances->move(position);
-}
+// void Transformable::move(const float offsetX, const float offsetY, const float offsetZ)
+// {
+    // this->instances->move(std::move(offsetX), std::move(offsetY), std::move(offsetZ));
+// }
 
-void Transformable::move(const float offsetX, const float offsetY, const float offsetZ)
-{
-    this->instances->move(std::move(offsetX), std::move(offsetY), std::move(offsetZ));
-}
 
-//
 
-void Transformable::moveX(const float offset)
-{
-    this->instances->moveX(std::move(offset));
-}
+// void Transformable::moveX(const float offset)
+// {
+    // this->instances->moveX(std::move(offset));
+// }
 
-void Transformable::moveY(const float offset)
-{
-    this->instances->moveY(std::move(offset));
-}
+// void Transformable::moveY(const float offset)
+// {
+    // this->instances->moveY(std::move(offset));
+// }
 
-void Transformable::moveZ(const float offset)
-{
-    this->instances->moveZ(std::move(offset));
-}
-
+// void Transformable::moveZ(const float offset)
+// {
+    // this->instances->moveZ(std::move(offset));
+// }
 
 
 } // namespace engine::graphic

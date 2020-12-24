@@ -52,7 +52,7 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
     this->setIntoShader("dirLight.specular", camera.getParameters().specular * glm::vec3 { 0 });
 
     // point light 1
-    this->setIntoShader("pointLights[0].position", lamp->instances[0].get());
+    this->setIntoShader("pointLights[0].position", lamp->instances[0]);
     this->setIntoShader("pointLights[0].ambient", lamp->getParameters().ambient);
     this->setIntoShader("pointLights[0].diffuse", lamp->getParameters().diffuse);
     this->setIntoShader("pointLights[0].specular", lamp->getParameters().specular);
@@ -61,7 +61,7 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
     this->setIntoShader("pointLights[0].quadratic", lamp->getParameters().quadratic);
 
     // point light 2
-    this->setIntoShader("pointLights[1].position", lamp->instances[1].get());
+    this->setIntoShader("pointLights[1].position", lamp->instances[1]);
     this->setIntoShader("pointLights[1].ambient", lamp->getParameters().ambient);
     this->setIntoShader("pointLights[1].diffuse", lamp->getParameters().diffuse);
     this->setIntoShader("pointLights[1].specular", lamp->getParameters().specular);
@@ -70,7 +70,7 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
     this->setIntoShader("pointLights[1].quadratic", lamp->getParameters().quadratic);
 
     // point light 3
-    this->setIntoShader("pointLights[2].position", lamp->instances[2].get());
+    this->setIntoShader("pointLights[2].position", lamp->instances[2]);
     this->setIntoShader("pointLights[2].ambient", lamp->getParameters().ambient);
     this->setIntoShader("pointLights[2].diffuse", lamp->getParameters().diffuse);
     this->setIntoShader("pointLights[2].specular", lamp->getParameters().specular);
@@ -79,7 +79,7 @@ void EnlightenedCube::transformShape(const engine::Camera& camera) const
     this->setIntoShader("pointLights[2].quadratic", lamp->getParameters().quadratic);
 
     // point light 4
-    this->setIntoShader("pointLights[3].position", lamp->instances[3].get());
+    this->setIntoShader("pointLights[3].position", lamp->instances[3]);
     this->setIntoShader("pointLights[3].ambient", lamp->getParameters().ambient);
     this->setIntoShader("pointLights[3].diffuse", lamp->getParameters().diffuse);
     this->setIntoShader("pointLights[3].specular", lamp->getParameters().specular);

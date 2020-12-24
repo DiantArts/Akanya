@@ -31,7 +31,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- transformModel
-    virtual glm::mat4 transformModel(const engine::graphic::position::Single& position) const;
+    virtual glm::mat4 transformModel(const glm::vec3& position) const;
 
 
     // ---------------------------------------------------------------------------- Scale
@@ -70,25 +70,6 @@ public:
     void setRotationZ(float rotation);
 
     const glm::vec3& getRotation() const;
-
-
-    // ---------------------------------------------------------------------------- positions
-    void setPosition(float x, float y, float z);
-    void setPosition(const glm::vec3& position);
-    void setPosition(glm::vec3&& position);
-    void setPosition(const engine::graphic::position::Single& position);
-    void setPosition(engine::graphic::position::Single&& position);
-
-    void setPositionX(float position);
-    void setPositionY(float position);
-    void setPositionZ(float position);
-
-    void move(const glm::vec3& position);
-    void move(float offsetX, float offsetY, float offsetZ);
-
-    void moveX(float offset);
-    void moveY(float offset);
-    void moveZ(float offset);
 
 public:
     engine::graphic::Positions instances;

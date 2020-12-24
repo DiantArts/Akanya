@@ -35,7 +35,7 @@ public:
 
     // ---------------------------------------------------------------------------- Model
     void              drawModels(const engine::Camera& camera) const override final;
-    virtual glm::mat4 getModel(const engine::graphic::position::Single& position) const;
+    virtual glm::mat4 getModel(const glm::vec3& position) const;
 
 
     // ---------------------------------------------------------------------------- Textures

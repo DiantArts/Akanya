@@ -350,7 +350,7 @@ re :
 
 clean :
 	rm -rf $(OBJDIR) $(DEPDIR)
-	rm vgcore.*
+	rm -f vgcore.*
 	$(PRINTF) "$(DARKGRAY)[Clean]$(NORMAL) done\n"
 
 fclean : clean

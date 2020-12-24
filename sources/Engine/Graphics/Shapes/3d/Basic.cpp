@@ -44,13 +44,13 @@ void Basic::drawModels(const engine::Camera&) const
     this->m_Vao.bind();
     this->m_TextureVector.bindThemAll();
     for (const auto& position : this->instances) {
-        this->setIntoShader("model", this->getModel(position.get()));
+        this->setIntoShader("model", this->getModel(position));
         glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
     }
 }
 
 
-glm::mat4 Basic::getModel(const engine::graphic::position::Single& position) const
+glm::mat4 Basic::getModel(const glm::vec3& position) const
 {
     return this->transformModel(position);
 }

@@ -21,7 +21,6 @@
 
 #include <glad/glad.h>
 
-#include "Graphics/Position/Single.hpp"
 #include "NonCopyable.hpp"
 
 
@@ -82,11 +81,6 @@ public:
 
     void set(const std::string& name, const glm::mat4& mat) const;
     void set(std::string&& name, const glm::mat4& mat) const;
-
-
-
-    void set(const std::string& name, const engine::graphic::position::Single& pos) const;
-    void set(std::string&& name, const engine::graphic::position::Single& pos) const;
 
 
 

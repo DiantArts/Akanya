@@ -22,7 +22,7 @@ public:
 
 private:
     engine::Shader backpackShader { "model3d" };
-    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj" };
+    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj", 2 };
 };
 
 

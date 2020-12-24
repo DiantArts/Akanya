@@ -25,7 +25,7 @@ LightSourceCube::LightSourceCube(engine::Shader& shader, const glm::vec3& positi
     : Cube(shader, false)
 {
     this->setScale(1);
-    this->instances[0].set(position);
+    this->instances[0] = position;
 }
 
 
