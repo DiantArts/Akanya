@@ -78,12 +78,12 @@ void Shader::use() const
 
 void Shader::set(const std::string& name, const bool value) const
 {
-    glUniform1i(this->getOrCacheUniformLocation(name), (int)value);
+    glUniform1i(this->getOrCacheUniformLocation(name), static_cast<int>(value));
 }
 
 void Shader::set(std::string&& name, const bool value) const
 {
-    glUniform1i(this->getOrCacheUniformLocation(std::move(name)), (int)value);
+    glUniform1i(this->getOrCacheUniformLocation(std::move(name)), static_cast<int>(value));
 }
 
 

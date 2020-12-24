@@ -16,7 +16,7 @@ namespace tools::string {
 
 
 
-extern bool endsWith(const std::string_view a, const std::string_view b);
+extern bool endsWith(std::string_view a, std::string_view b);
 
 
 

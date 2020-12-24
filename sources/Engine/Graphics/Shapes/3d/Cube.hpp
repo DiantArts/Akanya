@@ -20,10 +20,10 @@ class Cube : public engine::graphic::shape3d::Basic {
 public:
     // ---------------------------------------------------------------------------- *structors
     Cube(engine::Shader&              shader,
-         const bool                   isMultiplePositionShape = false,
+         bool                   isMultiplePositionShape = false,
          const std::function<void()>& setAttributes           = Cube::setAttributes,
-         const std::string_view       verticesFilename        = "cube",
-         const size_t                 numberOfTextures        = 1);
+         std::string_view       verticesFilename        = "cube",
+         size_t                 numberOfTextures        = 1);
     virtual ~Cube();
 
 

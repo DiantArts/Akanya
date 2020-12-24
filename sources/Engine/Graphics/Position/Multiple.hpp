@@ -18,58 +18,37 @@ namespace engine::graphic::position {
 
 
 
-class Multiple {
+class Multiple : public engine::graphic::position::IPosition {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Multiple();
+    Multiple(const size_t sizeToAlloc);
     ~Multiple();
 
 
-    // ---------------------------------------------------------------------------- set == add
-    void addPosition(const glm::vec3& position);
-    void addPosition(glm::vec3&& position);
-    void addPosition(const float positionX, const float positionY, const float positionZ);
-
+    // ---------------------------------------------------------------------------- addPositions
+    void add(float x, float y, float z);
+    void add(const glm::vec3& position);
+    void add(glm::vec3&& position);
+    void add(const engine::graphic::position::Single& position);
+    void add(engine::graphic::position::Single&& position);
 
 
     // ---------------------------------------------------------------------------- std::vector
     size_t size() const;
 
-    std::vector<engine::graphic::position::Single>::iterator       begin();
-    std::vector<engine::graphic::position::Single>::iterator       end();
-    std::vector<engine::graphic::position::Single>::const_iterator begin() const;
-    std::vector<engine::graphic::position::Single>::const_iterator end() const;
-    std::vector<engine::graphic::position::Single>::const_iterator cbegin() const;
-    std::vector<engine::graphic::position::Single>::const_iterator cend() const;
+    // ---------------------------------------------------------------------------- Iterator
+    engine::graphic::position::Single& operator[](size_t index) override;
+    const engine::graphic::position::Single& operator[](size_t index) const override;
+    engine::graphic::position::Single* operator->() override;
+    const engine::graphic::position::Single* operator->() const override;
 
+    iterator begin() override;
+    const_iterator begin() const override;
+    const_iterator cbegin() const override;
 
-    template <typename... Args>
-    void push_back(const Args&... args)
-    {
-        this->m_VectorPositions.push_back(args...);
-    }
-
-    template <typename... Args>
-    void push_back(Args&&... args)
-    {
-        this->m_VectorPositions.push_back(std::forward<Args>(args)...);
-    }
-
-    template <typename... Args>
-    void emplace_back(const Args&... args)
-    {
-        this->m_VectorPositions.emplace_back(args...);
-    }
-
-    template <typename... Args>
-    void emplace_back(Args&&... args)
-    {
-        this->m_VectorPositions.emplace_back(std::forward<Args>(args)...);
-    }
-
-    engine::graphic::position::Single&       operator[](size_t i);
-    const engine::graphic::position::Single& operator[](size_t i) const;
-
+    iterator end() override;
+    const_iterator end() const override;
+    const_iterator cend() const override;
 
 
 private:

@@ -8,8 +8,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
 
-#include <string_view>
 #include <functional>
+#include <string_view>
 
 #include "../Camera.hpp"
 #include "../Shader.hpp"

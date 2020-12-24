@@ -20,7 +20,7 @@ namespace engine {
 class Vertices {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw);
+    explicit Vertices(std::string_view filepath, size_t& numberOfArrayToDraw);
 
 
     // ---------------------------------------------------------------------------- buffer

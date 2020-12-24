@@ -13,8 +13,7 @@
 
 #include <glm/vec3.hpp>
 
-#include "Position/Multiple.hpp"
-#include "Position/Single.hpp"
+#include "Positions.hpp"
 
 #include "../Camera.hpp"
 
@@ -27,107 +26,77 @@ namespace engine::graphic {
 class Transformable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Transformable(const bool isMultiplePosition);
+    Transformable(size_t numberOfPositions);
     virtual ~Transformable() = 0;
 
 
-    // ---------------------------------------------------------------------------- transform
+    // ---------------------------------------------------------------------------- transformModel
     virtual glm::mat4 transformModel(const engine::graphic::position::Single& position) const;
 
 
     // ---------------------------------------------------------------------------- Scale
-    void scale(const float scale);
-    void scale(const float scaleX, const float scaleY, const float scaleZ);
+    void scale(float scale);
+    void scale(float scaleX, float scaleY, float scaleZ);
     void scale(const glm::vec3& scale);
-    void scaleX(const float scale);
-    void scaleY(const float scale);
-    void scaleZ(const float scale);
+    void scaleX(float scale);
+    void scaleY(float scale);
+    void scaleZ(float scale);
 
-    void setScale(const float scale);
-    void setScale(const float scaleX, const float scaleY, const float scaleZ);
+    void setScale(float scale);
+    void setScale(float scaleX, float scaleY, float scaleZ);
     void setScale(const glm::vec3& scale);
     void setScale(glm::vec3&& scale);
-    void setScaleX(const float scale);
-    void setScaleY(const float scale);
-    void setScaleZ(const float scale);
+    void setScaleX(float scale);
+    void setScaleY(float scale);
+    void setScaleZ(float scale);
 
     const glm::vec3& getScale() const;
 
 
     // ---------------------------------------------------------------------------- Rotation
-    void rotate(const float rotation);
-    void rotate(const float rotationX, const float rotationY, const float rotationZ);
+    void rotate(float rotation);
+    void rotate(float rotationX, float rotationY, float rotationZ);
     void rotate(const glm::vec3& rotation);
-    void rotateX(const float rotation);
-    void rotateY(const float rotation);
-    void rotateZ(const float rotation);
+    void rotateX(float rotation);
+    void rotateY(float rotation);
+    void rotateZ(float rotation);
 
-    void setRotation(const float rotation);
-    void setRotation(const float rotationX, const float rotationY, const float rotationZ);
+    void setRotation(float rotation);
+    void setRotation(float rotationX, float rotationY, float rotationZ);
     void setRotation(const glm::vec3& rotation);
     void setRotation(glm::vec3&& rotation);
-    void setRotationX(const float rotation);
-    void setRotationY(const float rotation);
-    void setRotationZ(const float rotation);
+    void setRotationX(float rotation);
+    void setRotationY(float rotation);
+    void setRotationZ(float rotation);
 
     const glm::vec3& getRotation() const;
 
 
-    // ---------------------------------------------------------------------------- position
-    virtual bool isMultiplePositions() const;
+    // ---------------------------------------------------------------------------- positions
+    void setPosition(float x, float y, float z);
+    void setPosition(const glm::vec3& position);
+    void setPosition(glm::vec3&& position);
+    void setPosition(const engine::graphic::position::Single& position);
+    void setPosition(engine::graphic::position::Single&& position);
 
-    engine::graphic::position::Single&       getPosition();
-    const engine::graphic::position::Single& getPosition() const;
+    void setPositionX(float position);
+    void setPositionY(float position);
+    void setPositionZ(float position);
 
-    engine::graphic::position::Multiple&       getPositions();
-    const engine::graphic::position::Multiple& getPositions() const;
+    void move(const glm::vec3& position);
+    void move(float offsetX, float offsetY, float offsetZ);
 
-    template <typename Position>
-    void setPosition(const Position& position)
-    {
-        if (m_SinglePosition) {
-            m_SinglePosition->setPosition(position);
-        } else {
-            throw std::runtime_error("trying to set a position of a multiple position shape");
-        }
-    }
+    void moveX(float offset);
+    void moveY(float offset);
+    void moveZ(float offset);
 
-    template <typename Position>
-    void setPosition(Position&& position)
-    {
-        if (m_SinglePosition) {
-            m_SinglePosition->setPosition(std::move(position));
-        } else {
-            throw std::runtime_error("trying to set a position of a multiple position shape");
-        }
-    }
-
-    template <typename... Args>
-    void addPosition(const Args&... args)
-    {
-        if (m_MultiplePositions) {
-            m_MultiplePositions->addPosition(args...);
-        } else {
-            throw std::runtime_error("trying to add a position to a single position shape");
-        }
-    }
-
-    template <typename... Args>
-    void addPosition(Args&&... args)
-    {
-        if (m_MultiplePositions) {
-            m_MultiplePositions->addPosition(std::forward<Args>(args)...);
-        } else {
-            throw std::runtime_error("trying to add a position to a single position shape");
-        }
-    }
+public:
+    engine::graphic::Positions instances;
 
 
-protected:
-    glm::vec3                                            m_Scale { 1.0F, 1.0F, 1.0F };
-    glm::vec3                                            m_Rotation { 0.0F, 0.0F, 0.0F };
-    std::unique_ptr<engine::graphic::position::Single>   m_SinglePosition { nullptr };
-    std::unique_ptr<engine::graphic::position::Multiple> m_MultiplePositions { nullptr };
+private:
+    glm::vec3 m_Scale { 1.0F, 1.0F, 1.0F };
+    glm::vec3 m_Rotation { 0.0F, 0.0F, 0.0F };
 };
 
 

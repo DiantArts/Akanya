@@ -5,6 +5,8 @@
 ## Makefile for c++20
 ##
 
+# DEBUG_MAKEFILE	:=	true
+
 ARGV			:=
 NAME			:=	akanya
 
@@ -19,7 +21,6 @@ EXTERNBINDIR	:=	$(BINDIR)/$(EXTERNDIR)
 BUILDDIR		:=	.build
 OBJDIR			:=	objects
 DEPDIR			:=	dependencies
-PCHDIR			:=	precompiledHeaders
 OBJEXTERNDIR	:=	$(EXTERNDIR)/$(OBJDIR)
 DEPEXTERNDIR	:=	$(EXTERNDIR)/$(DEPDIR)
 
@@ -101,9 +102,8 @@ endif
 ## DIR
 OBJDIR			:=	$(MOD_BUILDDIR)/$(OBJDIR)
 DEPDIR			:=	$(MOD_BUILDDIR)/$(DEPDIR)
-PCHDIR			:=	$(MOD_BUILDDIR)/$(PCHDIR)
-OBJEXTERNDIR	:=	$(MOD_BUILDDIR)/$(OBJEXTERNDIR)
-DEPEXTERNDIR	:=	$(MOD_BUILDDIR)/$(DEPEXTERNDIR)
+OBJEXTERNDIR	:=	$(BUILDDIR)/$(OBJEXTERNDIR)
+DEPEXTERNDIR	:=	$(BUILDDIR)/$(DEPEXTERNDIR)
 
 CC				:=	gcc
 CXX				:=	g++
@@ -127,9 +127,6 @@ CPP_OBJ			:=	$(patsubst %$(CPP_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(CPP_SRC))
 CPPM_OBJ		+=	$(patsubst %$(CPPM_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(CPPM_SRC))
 
 # .x=.x.gch
-# C_PCH_OBJ		+=	$(patsubst %,$(PCHDIR)/%$(PCHEXT),$(C_HDR))
-# CPP_PCH_OBJ		+=	$(patsubst %,$(PCHDIR)/%$(PCHEXT),$(CPP_HDR))
-
 C_PCH_OBJ		+=	$(patsubst %,%$(PCHEXT),$(C_HDR))
 CPP_PCH_OBJ		+=	$(patsubst %,%$(PCHEXT),$(CPP_HDR))
 
@@ -190,7 +187,7 @@ LDFLAGS			+=	$(addprefix -L,$(EXTERNBINDIR))
 ## -l
 LDLIBS			:=	$(foreach lib, $(LIBBIN),$(addprefix -l,$(lib)))
 LDLIBS			+=	$(foreach lib, $(FOUNDLIBS),$(addprefix -l,$(lib)$(MODE_EXT)))
-LDLIBS			+=	$(foreach lib, $(FOUNDEXTERN),$(addprefix -l,$(lib)$(MODE_EXT)))
+LDLIBS			+=	$(foreach lib, $(FOUNDEXTERN),$(addprefix -l,$(lib)))
 
 ## BINDIR
 BINDIR			:=	$(patsubst /%,,$(BINDIR))
@@ -222,7 +219,11 @@ LCYAN				:=	\e[1;36m
 LIGHT				:=	\e[0;37m
 WHITE				:=	\e[1;37m
 
+ifneq "$(DEBUG_MAKEFILE)" "true"
 MAKEFLAGS		+=	--silent --no-print-directory
+else
+.NOTPARALLEL:
+endif
 
 ## ============================================================================
 
@@ -252,32 +253,54 @@ force :;
 # libX.a
 ./$(BINDIR)/lib%.a : force | precompilation
 	$(eval DIRNAME = $(patsubst $(BINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
+ifneq "$(DEBUG_MAKEFILE)" "true"
 	$(MAKE) -C $(LIBDIR)/$(DIRNAME) \
 		BINDIR=../../$(BINDIR) \
 		NAME=$(DIRNAME)$(MODE_EXT) \
 		OBJDIR=../../$(OBJDIR)/$(LIBDIR)/$(DIRNAME) \
 		DEPDIR=../../$(DEPDIR)/$(LIBDIR)/$(DIRNAME) \
-		PCHDIR=../../$(PCHDIR)/$(LIBDIR)/$(DIRNAME) \
 		CFLAGS="$(CFLAGS)" \
 		CXXFLAGS="$(CXXFLAGS)" \
 		CXXMFLAGS="$(CXXMFLAGS)" \
 		CPPFLAGS="-I.." \
 		--silent --no-print-directory
+else
+	$(MAKE) -C $(LIBDIR)/$(DIRNAME) \
+		BINDIR=../../$(BINDIR) \
+		NAME=$(DIRNAME)$(MODE_EXT) \
+		OBJDIR=../../$(OBJDIR)/$(LIBDIR)/$(DIRNAME) \
+		DEPDIR=../../$(DEPDIR)/$(LIBDIR)/$(DIRNAME) \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		CXXMFLAGS="$(CXXMFLAGS)" \
+		CPPFLAGS="-I.."
+endif
 
 # externs/libX.a
 ./$(EXTERNBINDIR)/lib%.a : force | precompilation
 	$(eval DIRNAME = $(patsubst $(EXTERNBINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
+ifneq "$(DEBUG_MAKEFILE)" "true"
 	$(MAKE) -C $(EXTERNDIR)/$(DIRNAME) \
 		BINDIR=../../$(EXTERNBINDIR) \
-		NAME=$(DIRNAME)$(MODE_EXT) \
+		NAME=$(DIRNAME) \
 		OBJDIR=../../$(OBJEXTERNDIR)/$(DIRNAME) \
 		DEPDIR=../../$(DEPEXTERNDIR)/$(DIRNAME) \
-		PCHDIR=../../$(PCHDIR)/$(LIBDIR)/$(DIRNAME) \
 		CFLAGS="$(CFLAGS)" \
 		CXXFLAGS="$(CXXFLAGS)" \
 		CXXMFLAGS="$(CXXMFLAGS)" \
 		CPPFLAGS="-I.." \
 		--silent --no-print-directory
+else
+	$(MAKE) -C $(EXTERNDIR)/$(DIRNAME) \
+		BINDIR=../../$(EXTERNBINDIR) \
+		NAME=$(DIRNAME) \
+		OBJDIR=../../$(OBJEXTERNDIR)/$(DIRNAME) \
+		DEPDIR=../../$(DEPEXTERNDIR)/$(DIRNAME) \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		CXXMFLAGS="$(CXXMFLAGS)" \
+		CPPFLAGS="-I.."
+endif
 
 # .c
 $(OBJDIR)/%$(OBJEXT): %$(C_SRCEXT) | $(C_PCH_OBJ)
@@ -303,27 +326,15 @@ $(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT) | precompilation
 
 # .h
 
-$(PCHDIR)/%$(C_HDREXT)$(PCHEXT): %$(C_HDREXT)
-	mkdir -p $(@D)
-	$(CC) $(C_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
-	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
-.PRECIOUS: $(PCHDIR)/%$(C_HDREXT)$(PCHEXT)
-
 %$(C_HDREXT)$(PCHEXT): %$(C_HDREXT)
 	$(CC) $(C_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
 	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
 .PRECIOUS: %$(C_HDREXT)$(PCHEXT)
 
-$(PCHDIR)/%$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)
-	mkdir -p $(@D)
-	$(CXX) $(CPP_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
-	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
-.PRECIOUS: %$(CPP_HDREXT)$(PCHEXT)
-
 %$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)
 	$(CXX) $(CPP_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
 	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
-.PRECIOUS: $(PCHDIR)/%$(CPP_HDREXT)$(PCHEXT)
+.PRECIOUS: %$(CPP_HDREXT)$(PCHEXT)
 
 $(BINDIR) :; mkdir -p $(BINDIR)
 
@@ -339,6 +350,7 @@ re :
 
 clean :
 	rm -rf $(OBJDIR) $(DEPDIR)
+	rm vgcore.*
 	$(PRINTF) "$(DARKGRAY)[Clean]$(NORMAL) done\n"
 
 fclean : clean

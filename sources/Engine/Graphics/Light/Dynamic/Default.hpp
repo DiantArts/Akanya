@@ -38,11 +38,11 @@ public:
     void setLightSpecular(const glm::vec3& specular);
     void setLightSpecular(glm::vec3&& specular);
 
-    void setLightConstant(const float constant);
+    void setLightConstant(float constant);
 
-    void setLightLinear(const float linear);
+    void setLightLinear(float linear);
 
-    void setLightQuadratic(const float quadratic);
+    void setLightQuadratic(float quadratic);
 
     const engine::light::dynamic::Parameters& getParameters() const;
 

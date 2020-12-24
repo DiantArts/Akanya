@@ -27,6 +27,7 @@
 #include <stb/stb_image.h>
 
 #include "Mesh.hpp"
+
 #include "../Graphics/Drawable.hpp"
 #include "../Graphics/Transformable.hpp"
 
@@ -42,15 +43,15 @@ class Model
 public:
     explicit Model(engine::Shader&    shader,
                    const std::string& filepath,
-                   const bool         isMultiplePositionsShape = false,
-                   bool               gamma = false);
+                   size_t             numberOfPositions = 1,
+                   bool               gamma             = false);
     ~Model();
 
 
     // ---------------------------------------------------------------------------- Override
     virtual void update(float deltaTime) override;
     virtual void drawModels(const engine::Camera& camera) const override;
-    glm::mat4 getModel(const engine::graphic::position::Single& position) const;
+    glm::mat4    getModel(const engine::graphic::position::Single& position) const;
 
 
 private:
@@ -59,9 +60,9 @@ private:
     void                          processNode(aiNode* node, const aiScene* scene);
     std::unique_ptr<engine::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<engine::Texture>
-    loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName);
+    loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string_view typeName);
 
-    GLuint textureFromFile(const std::string_view textureFilepath, std::string_view directory, bool gamma);
+    GLuint textureFromFile(std::string_view textureFilepath, std::string_view directory, bool gamma);
 
 
 private:

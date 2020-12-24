@@ -14,12 +14,11 @@
 #include "Texture.hpp"
 #include "Vertex.hpp"
 
+#include "../Graphics/Drawable.hpp"
 #include "../Graphics/Vertexes/Ebo.hpp"
 #include "../Graphics/Vertexes/Vao.hpp"
 #include "../Graphics/Vertexes/Vbo.hpp"
 #include "../Shader.hpp"
-#include "../Graphics/Drawable.hpp"
-
 
 
 
@@ -30,7 +29,7 @@ namespace engine {
 class Mesh {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit Mesh(engine::Shader& shader,
+    explicit Mesh(engine::Shader&                shader,
                   std::vector<engine::Vertex>&&  vertices,
                   std::vector<GLuint>&&          indices,
                   std::vector<engine::Texture>&& textures);

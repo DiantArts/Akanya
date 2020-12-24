@@ -33,8 +33,8 @@ namespace engine {
 class Shader : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Shader(const std::string_view vertexPath, const std::string_view fragmentPath);
-    Shader(const std::string_view filepathes);
+    Shader(std::string_view vertexPath, std::string_view fragmentPath);
+    Shader(std::string_view filepathes);
     ~Shader();
 
 
@@ -43,34 +43,34 @@ public:
 
 
     // ---------------------------------------------------------------------------- Set
-    void set(const std::string& name, const bool value) const;
-    void set(std::string&& name, const bool value) const;
+    void set(const std::string& name, bool value) const;
+    void set(std::string&& name, bool value) const;
 
-    void set(const std::string& name, const int value) const;
-    void set(std::string&& name, const int value) const;
+    void set(const std::string& name, int value) const;
+    void set(std::string&& name, int value) const;
 
-    void set(const std::string& name, const float value) const;
-    void set(std::string&& name, const float value) const;
+    void set(const std::string& name, float value) const;
+    void set(std::string&& name, float value) const;
 
 
 
     void set(const std::string& name, const glm::vec2& value) const;
     void set(std::string&& name, const glm::vec2& value) const;
 
-    void set(const std::string& name, const float x, const float y) const;
-    void set(std::string&& name, const float x, const float y) const;
+    void set(const std::string& name, float x, float y) const;
+    void set(std::string&& name, float x, float y) const;
 
     void set(const std::string& name, const glm::vec3& value) const;
     void set(std::string&& name, const glm::vec3& value) const;
 
-    void set(const std::string& name, const float x, const float y, const float z) const;
-    void set(std::string&& name, const float x, const float y, const float z) const;
+    void set(const std::string& name, float x, float y, float z) const;
+    void set(std::string&& name, float x, float y, float z) const;
 
     void set(const std::string& name, const glm::vec4& value) const;
     void set(std::string&& name, const glm::vec4& value) const;
 
-    void set(const std::string& name, const float x, const float y, const float z, const float w) const;
-    void set(std::string&& name, const float x, const float y, const float z, const float w) const;
+    void set(const std::string& name, float x, float y, float z, float w) const;
+    void set(std::string&& name, float x, float y, float z, float w) const;
 
 
 

@@ -39,7 +39,7 @@ public:
 
     // ---------------------------------------------------------------------------- std::vector things
     void reserve(size_t size);
-    void push_back(const std::string_view textureFileName, const std::string_view name, int val);
+    void push_back(std::string_view textureFileName, std::string_view name, int val);
 
     std::vector<GLuint>::iterator begin();
     std::vector<GLuint>::iterator end();

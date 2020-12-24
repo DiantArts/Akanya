@@ -5,9 +5,9 @@
 ** Transformable
 */
 
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Transformable.hpp"
+
+#include <glm/gtc/matrix_transform.hpp>
 
 
 
@@ -17,14 +17,9 @@ namespace engine::graphic {
 
 // ---------------------------------------------------------------------------- *structors
 
-Transformable::Transformable(const bool isMultiplePosition)
-{
-    if (isMultiplePosition) {
-        this->m_MultiplePositions = std::make_unique<engine::graphic::position::Multiple>();
-    } else {
-        this->m_SinglePosition = std::make_unique<engine::graphic::position::Single>();
-    }
-}
+Transformable::Transformable(const size_t numberOfPositions)
+    : instances(numberOfPositions)
+{}
 
 Transformable::~Transformable()
 {}
@@ -87,7 +82,7 @@ void Transformable::scaleZ(const float scale)
     this->m_Scale.z += scale;
 }
 
-
+//
 
 void Transformable::setScale(const float scale)
 {
@@ -128,7 +123,7 @@ void Transformable::setScaleZ(const float scale)
     this->m_Scale.z = std::move(scale);
 }
 
-
+//
 
 const glm::vec3& Transformable::getScale() const
 {
@@ -255,7 +250,7 @@ void Transformable::rotateZ(const float rotation)
     }
 }
 
-
+//
 
 void Transformable::setRotation(const float rotation)
 {
@@ -296,7 +291,7 @@ void Transformable::setRotationZ(const float rotation)
     this->m_Rotation.z = std::move(rotation);
 }
 
-
+//
 
 const glm::vec3& Transformable::getRotation() const
 {
@@ -305,43 +300,76 @@ const glm::vec3& Transformable::getRotation() const
 
 
 
-// ---------------------------------------------------------------------------- position
-bool Transformable::isMultiplePositions() const
+// ---------------------------------------------------------------------------- positions
+void Transformable::setPosition(const float x, const float y, const float z)
 {
-    return this->m_MultiplePositions != nullptr;
+    this->instances->setPosition(std::move(x), std::move(y), std::move(z));
 }
 
-engine::graphic::position::Single& Transformable::getPosition()
+void Transformable::setPosition(const glm::vec3& position)
 {
-    if (this->isMultiplePositions()) {
-        throw std::runtime_error("trying to get multiple positions from a simple position shape");
-    }
-    return *this->m_SinglePosition;
+    this->instances->setPosition(position);
 }
 
-const engine::graphic::position::Single& Transformable::getPosition() const
+void Transformable::setPosition(glm::vec3&& position)
 {
-    if (this->isMultiplePositions()) {
-        throw std::runtime_error("trying to get multiple positions from a simple position shape");
-    }
-    return *this->m_SinglePosition;
+    this->instances->setPosition(std::move(position));
 }
 
-
-engine::graphic::position::Multiple& Transformable::getPositions()
+void Transformable::setPosition(const engine::graphic::position::Single& position)
 {
-    if (!this->isMultiplePositions()) {
-        throw std::runtime_error("trying to get a single positions from a multiple position shape");
-    }
-    return *this->m_MultiplePositions;
+    this->instances->setPosition(position);
 }
 
-const engine::graphic::position::Multiple& Transformable::getPositions() const
+void Transformable::setPosition(engine::graphic::position::Single&& position)
 {
-    if (!this->isMultiplePositions()) {
-        throw std::runtime_error("trying to get a single positions from a multiple position shape");
-    }
-    return *this->m_MultiplePositions;
+    this->instances->setPosition(std::move(position));
+}
+
+//
+
+void Transformable::setPositionX(const float offset)
+{
+    this->instances->setPositionX(std::move(offset));
+}
+
+void Transformable::setPositionY(const float offset)
+{
+    this->instances->setPositionY(std::move(offset));
+}
+
+void Transformable::setPositionZ(const float offset)
+{
+    this->instances->setPositionZ(std::move(offset));
+}
+
+//
+
+void Transformable::move(const glm::vec3& position)
+{
+    this->instances->move(position);
+}
+
+void Transformable::move(const float offsetX, const float offsetY, const float offsetZ)
+{
+    this->instances->move(std::move(offsetX), std::move(offsetY), std::move(offsetZ));
+}
+
+//
+
+void Transformable::moveX(const float offset)
+{
+    this->instances->moveX(std::move(offset));
+}
+
+void Transformable::moveY(const float offset)
+{
+    this->instances->moveY(std::move(offset));
+}
+
+void Transformable::moveZ(const float offset)
+{
+    this->instances->moveZ(std::move(offset));
 }
 
 

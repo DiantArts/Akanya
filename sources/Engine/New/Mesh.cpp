@@ -14,12 +14,14 @@ namespace engine {
 
 
 // ---------------------------------------------------------------------------- *structors
-Mesh::Mesh(engine::Shader& shader,
+Mesh::Mesh(engine::Shader&                shader,
            std::vector<engine::Vertex>&&  vertices,
            std::vector<GLuint>&&          indices,
            std::vector<engine::Texture>&& textures)
     : m_Shader(shader)
-    , m_Vertices(std::move(vertices)), m_Indices(std::move(indices)), m_Textures(std::move(textures))
+    , m_Vertices(std::move(vertices))
+    , m_Indices(std::move(indices))
+    , m_Textures(std::move(textures))
 {
     this->m_Vao.bind();
 

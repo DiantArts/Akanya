@@ -7,7 +7,6 @@
 
 #include "Multiple.hpp"
 
-#include "debugMacros.hpp"
 #include <utility>
 
 
@@ -18,29 +17,41 @@ namespace engine::graphic::position {
 
 // ---------------------------------------------------------------------------- *structors
 
-Multiple::Multiple()
-{}
+Multiple::Multiple(const size_t sizeToAlloc)
+{
+    this->m_VectorPositions.reserve(sizeToAlloc);
+}
 
 Multiple::~Multiple()
 {}
 
 
 
-// ---------------------------------------------------------------------------- set == add
+// ---------------------------------------------------------------------------- addPositions
 
-void Multiple::addPosition(const glm::vec3& position)
+void Multiple::add(const float posX, const float posY, const float posZ)
+{
+    this->m_VectorPositions.emplace_back(std::move(posX), std::move(posY), std::move(posZ));
+}
+
+void Multiple::add(const glm::vec3& position)
 {
     this->m_VectorPositions.emplace_back(position);
 }
 
-void Multiple::addPosition(glm::vec3&& position)
+void Multiple::add(glm::vec3&& position)
 {
     this->m_VectorPositions.push_back(std::move(position));
 }
 
-void Multiple::addPosition(const float posX, const float posY, const float posZ)
+void Multiple::add(const engine::graphic::position::Single& position)
 {
-    this->m_VectorPositions.emplace_back(posX, posY, posZ);
+    this->m_VectorPositions.push_back(position);
+}
+
+void Multiple::add(engine::graphic::position::Single&& position)
+{
+    this->m_VectorPositions.push_back(std::move(position));
 }
 
 
@@ -54,46 +65,60 @@ size_t Multiple::size() const
 
 
 
-std::vector<engine::graphic::position::Single>::iterator Multiple::begin()
+// ---------------------------------------------------------------------------- Iterator
+
+engine::graphic::position::Single& Multiple::operator[](size_t index)
 {
-    return this->m_VectorPositions.begin();
+    return this->m_VectorPositions[index];
 }
 
-std::vector<engine::graphic::position::Single>::iterator Multiple::end()
+const engine::graphic::position::Single& Multiple::operator[](size_t index) const
 {
-    return this->m_VectorPositions.end();
+    return this->m_VectorPositions[index];
 }
 
-std::vector<engine::graphic::position::Single>::const_iterator Multiple::begin() const
+engine::graphic::position::Single* Multiple::operator->()
 {
-    return this->m_VectorPositions.begin();
+    return &this->m_VectorPositions[0];
 }
 
-std::vector<engine::graphic::position::Single>::const_iterator Multiple::end() const
+const engine::graphic::position::Single* Multiple::operator->() const
 {
-    return this->m_VectorPositions.end();
+    return &this->m_VectorPositions[0];
 }
 
-std::vector<engine::graphic::position::Single>::const_iterator Multiple::cbegin() const
+//
+
+engine::graphic::position::IPosition::iterator Multiple::begin()
 {
-    return this->m_VectorPositions.cbegin();
+    return engine::graphic::position::IPosition::iterator(&this->m_VectorPositions[0]);
 }
 
-std::vector<engine::graphic::position::Single>::const_iterator Multiple::cend() const
+engine::graphic::position::IPosition::const_iterator Multiple::begin() const
 {
-    return this->m_VectorPositions.cend();
+    return engine::graphic::position::IPosition::const_iterator(&this->m_VectorPositions[0]);
 }
 
-
-
-engine::graphic::position::Single& Multiple::operator[](size_t i)
+engine::graphic::position::IPosition::const_iterator Multiple::cbegin() const
 {
-    return this->m_VectorPositions[i];
+    return engine::graphic::position::IPosition::const_iterator(&this->m_VectorPositions[0]);
 }
 
-const engine::graphic::position::Single& Multiple::operator[](size_t i) const
+//
+
+engine::graphic::position::IPosition::iterator Multiple::end()
 {
-    return this->m_VectorPositions[i];
+    return engine::graphic::position::IPosition::iterator(&this->m_VectorPositions[this->size()]);
+}
+
+engine::graphic::position::IPosition::const_iterator Multiple::end() const
+{
+    return engine::graphic::position::IPosition::const_iterator(&this->m_VectorPositions[this->size()]);
+}
+
+engine::graphic::position::IPosition::const_iterator Multiple::cend() const
+{
+    return engine::graphic::position::IPosition::const_iterator(&this->m_VectorPositions[this->size()]);
 }
 
 

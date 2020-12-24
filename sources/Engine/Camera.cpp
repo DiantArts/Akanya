@@ -6,14 +6,16 @@
 */
 
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "Camera.hpp"
 
 #include <stdexcept>
 
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
 #include "optimizationBuiltins.hpp"
-#include "Camera.hpp"
 
 
 

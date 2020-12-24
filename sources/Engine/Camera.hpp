@@ -31,39 +31,39 @@ public:
 
 
     // ---------------------------------------------------------------------------- speed
-    void adjustLocalSpeed(const float deltaTime);
+    void adjustLocalSpeed(float deltaTime);
 
-    void setSpeed(const float value);
+    void setSpeed(float value);
 
     float getSpeed() const;
 
 
     // ---------------------------------------------------------------------------- move
-    void move(const float xOffset, const float yOffset, const float zOffset);
+    void move(float xOffset, float yOffset, float zOffset);
     void move(const glm::vec3& offset);
 
-    void moveForward(const float deltaTime);
-    void moveBackward(const float deltaTime);
+    void moveForward(float deltaTime);
+    void moveBackward(float deltaTime);
 
-    void moveLeft(const float deltaTime);
-    void moveRight(const float deltaTime);
+    void moveLeft(float deltaTime);
+    void moveRight(float deltaTime);
 
-    void moveTop(const float deltaTime);
-    void moveBot(const float deltaTime);
+    void moveTop(float deltaTime);
+    void moveBot(float deltaTime);
 
 
     // ---------------------------------------------------------------------------- Position
-    void setPosition(const float xOffset, const float yOffset, const float zOffset);
+    void setPosition(float xOffset, float yOffset, float zOffset);
     void setPosition(const glm::vec3& offset);
 
     const glm::vec3& getPosition() const;
 
 
     // ---------------------------------------------------------------------------- Orientation
-    void oriente(const float xOffset, const float yOffset);
+    void oriente(float xOffset, float yOffset);
     void oriente(const glm::vec2& offset);
 
-    void setOrientation(const float xOffset, const float yOffset);
+    void setOrientation(float xOffset, float yOffset);
     void setOrientation(const glm::vec2& offset);
 
     void adjustOrientation();
@@ -73,8 +73,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- Zoom
-    void  zoom(const float value);
-    void  setZoom(const float value);
+    void  zoom(float value);
+    void  setZoom(float value);
     float getZoom() const;
 
 

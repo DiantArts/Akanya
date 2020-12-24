@@ -16,9 +16,10 @@ namespace engine {
 
 Model::Model(engine::Shader&    shader,
              const std::string& filepath,
-             const bool         isMultiplePositionsShape /* = false */,
-             bool               gamma /* = false */)
-    : engine::graphic::Drawable(shader), engine::graphic::Transformable(isMultiplePositionsShape)
+             const size_t       numberOfPositions /* = 1 */,
+             const bool         gamma /* = false */)
+    : engine::graphic::Drawable(shader)
+    , engine::graphic::Transformable(numberOfPositions)
     , m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
@@ -33,15 +34,8 @@ Model::~Model()
 
 void Model::drawModels(const engine::Camera&) const
 {
-    if (this->isMultiplePositions()) {
-        for (const auto& position : *this->m_MultiplePositions) {
-            this->setIntoShader("model", this->getModel(position.get()));
-            for (auto& mesh : this->m_Meshes) {
-                mesh->draw();
-            }
-        }
-    } else {
-        this->setIntoShader("model", this->getModel(*this->m_SinglePosition));
+    for (const auto& position : this->instances) {
+        this->setIntoShader("model", this->getModel(position.get()));
         for (auto& mesh : this->m_Meshes) {
             mesh->draw();
         }
@@ -101,35 +95,32 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::vector<engine::Vertex>  vertices;
+    std::vector<engine::Vertex> vertices;
     for (size_t i = 0; i < mesh->mNumVertices; i++) {
         engine::Vertex vertex;
 
-        vertex.Position = glm::vec3 { std::move(mesh->mVertices[i].x),
-                                      std::move(mesh->mVertices[i].y),
+        vertex.Position = glm::vec3 { std::move(mesh->mVertices[i].x), std::move(mesh->mVertices[i].y),
                                       std::move(mesh->mVertices[i].z) };
 
         if (mesh->HasNormals()) {
-            vertex.Normal = glm::vec3 { std::move(mesh->mNormals[i].x),
-                                        std::move(mesh->mNormals[i].y),
+            vertex.Normal = glm::vec3 { std::move(mesh->mNormals[i].x), std::move(mesh->mNormals[i].y),
                                         std::move(mesh->mNormals[i].z) };
         }
 
         if (mesh->mTextureCoords[0]) {
             vertex.TexCoords = glm::vec2 { std::move(mesh->mTextureCoords[0][i].x),
                                            std::move(mesh->mTextureCoords[0][i].y) };
-            vertex.Tangent   = glm::vec3 { std::move(mesh->mTangents[i].x),
-                                           std::move(mesh->mTangents[i].y),
-                                           std::move(mesh->mTangents[i].z) };
-            vertex.Bitangent = glm::vec3 { std::move(mesh->mBitangents[i].x),
-                                           std::move(mesh->mBitangents[i].y),
-                                           std::move(mesh->mBitangents[i].z) };
+            vertex.Tangent   = glm::vec3 { std::move(mesh->mTangents[i].x), std::move(mesh->mTangents[i].y),
+                                         std::move(mesh->mTangents[i].z) };
+            vertex.Bitangent =
+                glm::vec3 { std::move(mesh->mBitangents[i].x), std::move(mesh->mBitangents[i].y),
+                            std::move(mesh->mBitangents[i].z) };
         }
 
         vertices.push_back(vertex);
     }
 
-    std::vector<GLuint>          indices;
+    std::vector<GLuint> indices;
     for (size_t i = 0; i < mesh->mNumFaces; i++) {
         aiFace face { mesh->mFaces[i] };
         for (size_t j = 0; j < face.mNumIndices; j++) {
@@ -155,8 +146,8 @@ std::unique_ptr<engine::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sc
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return std::make_unique<engine::Mesh>(this->m_Shader,
-            std::move(vertices), std::move(indices), std::move(textures));
+    return std::make_unique<engine::Mesh>(this->m_Shader, std::move(vertices), std::move(indices),
+                                          std::move(textures));
 }
 
 std::vector<engine::Texture>

@@ -5,8 +5,10 @@
 ** Drawable
 */
 
-#include <glm/gtc/matrix_transform.hpp>
 #include "Drawable.hpp"
+
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "../Window.hpp"
 
 
@@ -17,8 +19,7 @@ namespace engine::graphic {
 
 // ---------------------------------------------------------------------------- *structors
 
-Drawable::Drawable(engine::Shader& shader)
-    : m_Shader(shader)
+Drawable::Drawable(engine::Shader& shader) : m_Shader(shader)
 {}
 
 Drawable::~Drawable()
@@ -42,8 +43,9 @@ void Drawable::update(float)
 void Drawable::transformShape(const engine::Camera& camera) const
 {
     this->setIntoShader("view", camera.getView());
-    this->setIntoShader("projection", glm::perspective(glm::radians(camera.getZoom()),
-                                             (float)Window::width / (float)Window::height, 0.1F, 100.0F));
+    this->setIntoShader("projection",
+                        glm::perspective(glm::radians(camera.getZoom()),
+                                         (float)Window::width / (float)Window::height, 0.1F, 100.0F));
 }
 
 

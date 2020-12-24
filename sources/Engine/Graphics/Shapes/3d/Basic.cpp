@@ -20,9 +20,10 @@ namespace engine::graphic::shape3d {
 Basic::Basic(engine::Shader&              shader,
              const std::function<void()>& setAttributes,
              const std::string_view       verticesFilename,
-             const bool                   isMultiplePositionsShape /* = false */,
+             const size_t                 numberOfPositions /* = 1 */,
              const size_t                 numberOfTextures /*= 1 */)
-    : engine::graphic::Drawable(shader), engine::graphic::Transformable(isMultiplePositionsShape)
+    : engine::graphic::Drawable(shader)
+    , engine::graphic::Transformable(numberOfPositions)
     , m_TextureVector(shader, numberOfTextures)
 {
     this->m_Vbo.bind();
@@ -42,13 +43,8 @@ void Basic::drawModels(const engine::Camera&) const
 {
     this->m_Vao.bind();
     this->m_TextureVector.bindThemAll();
-    if (this->isMultiplePositions()) {
-        for (const auto& position : *this->m_MultiplePositions) {
-            this->setIntoShader("model", this->getModel(position.get()));
-            glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
-        }
-    } else {
-        this->setIntoShader("model", this->getModel(*this->m_SinglePosition));
+    for (const auto& position : this->instances) {
+        this->setIntoShader("model", this->getModel(position.get()));
         glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
     }
 }

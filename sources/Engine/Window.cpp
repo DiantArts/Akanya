@@ -7,10 +7,10 @@
 
 #include "Window.hpp"
 
-#include <stb/stb_image.h>
 #include <iostream>
 
 #include <glad/glad.h>
+#include <stb/stb_image.h>
 
 
 
@@ -62,7 +62,10 @@ void Window::setClearColor(const float rgb, const float alpha /* = 1.0F */)
     glClearColor(rgb, rgb, rgb, alpha);
 }
 
-void Window::setClearColor(const float red, const float green, const float blue, const float alpha /* = 1.0F */)
+void Window::setClearColor(const float red,
+                           const float green,
+                           const float blue,
+                           const float alpha /* = 1.0F */)
 {
     glClearColor(red, green, blue, alpha);
 }
