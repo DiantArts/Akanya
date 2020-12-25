@@ -10,19 +10,19 @@
 
 
 
-#define FUNC_ALIAS(highLevelFunc, lowLevelFunc) \
-    template<typename... Args> \
-    inline auto highLevelFunc(Args&&... args) -> decltype(lowLevelFunc(std::forward<Args>(args)...)) \
-    { \
-        return lowLevelFunc(std::forward<Args>(args)...); \
+#define FUNC_ALIAS(highLevelFunc, lowLevelFunc)                                                              \
+    template <typename... Args>                                                                              \
+    inline auto highLevelFunc(Args&&... args)->decltype(lowLevelFunc(std::forward<Args>(args)...))           \
+    {                                                                                                        \
+        return lowLevelFunc(std::forward<Args>(args)...);                                                    \
     }
 
-#define CONST_FUNC_ALIAS(highLevelFunc, lowLevelFunc) \
-    template<typename... Args> \
-    inline auto highLevelFunc(Args&&... args) const \
-    -> decltype(lowLevelFunc(std::forward<Args>(args)...)) const \
-    { \
-        return lowLevelFunc(std::forward<Args>(args)...); \
+#define CONST_FUNC_ALIAS(highLevelFunc, lowLevelFunc)                                                        \
+    template <typename... Args>                                                                              \
+    inline auto highLevelFunc(Args&&... args) const->decltype(lowLevelFunc(std::forward<Args>(args)...))     \
+        const                                                                                                \
+    {                                                                                                        \
+        return lowLevelFunc(std::forward<Args>(args)...);                                                    \
     }
 
 

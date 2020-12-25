@@ -103,12 +103,12 @@ public:
         pointer m_Ptr;
     };
 
-    virtual Iterator::iterator       begin()       = 0;
-    virtual Iterator::const_iterator begin() const = 0;
+    virtual Iterator::iterator       begin()        = 0;
+    virtual Iterator::const_iterator begin() const  = 0;
     virtual Iterator::const_iterator cbegin() const = 0;
 
-    virtual Iterator::iterator       end()       = 0;
-    virtual Iterator::const_iterator end() const = 0;
+    virtual Iterator::iterator       end()        = 0;
+    virtual Iterator::const_iterator end() const  = 0;
     virtual Iterator::const_iterator cend() const = 0;
 };
 

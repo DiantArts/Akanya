@@ -23,6 +23,10 @@ public:
 private:
     engine::Shader backpackShader { "model3d" };
     engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj", 2 };
+    // engine::Model  backpack { backpackShader,
+    // "data/3dModels/backpack/original/textures/Survival_BackPack_2.obj", 2 }; engine::Model  backpack {
+    // backpackShader, "data/3dModels/woodenTable/source/Desk.fbx", 2 }; engine::Model  backpack {
+    // backpackShader, "data/3dModels/woodenTable/source/Wooden_Table.obj" };
 };
 
 
