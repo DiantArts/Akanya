@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shapes/Cube
+** sources/Engine/Actors/BasicShapes/Cube
 ** File description:
-** BasicCube
+** this is a default built-in cube
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_CUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_CUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_BASICSHAPES_CUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_BASICSHAPES_CUBE_HPP___
 
 #include "../ABasicShape.hpp"
 
@@ -21,9 +21,9 @@ public:
     // ---------------------------------------------------------------------------- *structors
     Cube(engine::Shader&              shader,
          size_t                       numberOfPositions = 1,
-         size_t                       numberOfTextures = 1,
+         size_t                       numberOfTextures  = 1,
          const std::function<void()>& setAttributesFunc = Cube::setAttributes,
-         const std::string_view       verticesFilename = "cube");
+         const std::string_view       verticesFilename  = "cube");
     virtual ~Cube();
 
 
@@ -38,4 +38,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_CUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_BASICSHAPES_CUBE_HPP___

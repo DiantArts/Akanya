@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Shader
 ** File description:
-** shaders
+** Controls graphic pipeline
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___

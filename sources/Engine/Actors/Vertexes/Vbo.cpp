@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** Vbo
+** sources/Engine/Actors/Vertexes/Vbo
 ** File description:
-** Vbo
+** Vertex Buffer Object: stores a large number of vertices
 */
 
 #include "Vbo.hpp"

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** main
+** sources/Engine/Shader
 ** File description:
-** test
+** Controls graphic pipeline
 */
 
 #include "Shader.hpp"

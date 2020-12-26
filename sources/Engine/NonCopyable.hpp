@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/NonCopyable
 ** File description:
-** Noncopyable
+** Turns inheriting classes NonCopyable
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_NONCOPYABLE_HPP___

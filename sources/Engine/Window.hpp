@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Window
 ** File description:
-** Window
+** Abstraction of GLFW
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___

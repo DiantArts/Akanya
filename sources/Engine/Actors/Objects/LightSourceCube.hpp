@@ -1,15 +1,15 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Objects/3d/Single/LightSourceCube
+** sources/Engine/Actors/Objects/LightSourceCube
 ** File description:
-** Light source as a cube
+** Lamp as cube
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___
 
-#include "../Lights/Default.hpp"
 #include "../BasicShapes/Cube.hpp"
+#include "../Lights/Default.hpp"
 
 
 
@@ -37,4 +37,4 @@ public:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___

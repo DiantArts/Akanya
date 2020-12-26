@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Vertexes/Ebo
+** sources/Engine/Actors/Vertexes/Ebo
 ** File description:
-** ebo
+** Element Buffer Object: help to determine which vertex to draw
 */
 
 #include "Ebo.hpp"

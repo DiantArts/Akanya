@@ -1,26 +1,28 @@
 /*
 ** EPITECH PROJECT, 2020
-** Clock
+** sources/Engine/Clock
 ** File description:
-** opengl time abstraction
+** Simple OpenGL abstractiong of the time
 */
-
-// clang-format off
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-// clang-format on
 
 #include "Clock.hpp"
 
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
+
+
 namespace engine {
+
+
 
 Clock::Clock()
 {}
 
 Clock::~Clock()
 {}
+
+
 
 float Clock::getElapsedTime()
 {
@@ -29,5 +31,7 @@ float Clock::getElapsedTime()
     this->m_LastFrameTime  = currentFrameTime;
     return deltaTime;
 }
+
+
 
 } // namespace engine

@@ -1,41 +1,23 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/New/Model
+** sources/Engine/Actors/Model
 ** File description:
-** Models
+** This class loads models from .objs (at least and for the moment)
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___
-
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <sstream>
-#include <string>
-#include <string_view>
-#include <vector>
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
 
 #include <assimp/Importer.hpp>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
-#include <glad/glad.h>
-#include <stb/stb_image.h>
 
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-
-#include "ADrawable.hpp"
-#include "ATransformable.hpp"
 #include "AShape.hpp"
-
+#include "Vertexes/Ebo.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
-#include "Vertexes/Ebo.hpp"
 
 
 
@@ -87,7 +69,7 @@ private:
         ~Mesh();
 
         // ---------------------------------------------------------- Draw
-        void draw() const;
+        void         draw() const;
         virtual void update(float deltaTime);
 
     private:
@@ -117,12 +99,12 @@ private:
 private:
     std::vector<engine::actor::Model::Texture>               m_Textures;
     std::vector<std::unique_ptr<engine::actor::Model::Mesh>> m_Meshes;
-    std::string                                                m_Directory;
-    bool                                                       m_GammaCorrection;
+    std::string                                              m_Directory;
+    bool                                                     m_GammaCorrection;
 };
 
 
 
 } // namespace engine::actor
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___

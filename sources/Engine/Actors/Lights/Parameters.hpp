@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Light/Dynamic/Parameters
+** sources/Engine/Actors/Lights/Parameters
 ** File description:
-** Dynamic light parameters
+** those parameters allow inheriting classes to illuminates others
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_PARAMETERS_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_PARAMETERS_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_PARAMETERS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_PARAMETERS_HPP___
 
 #include <glm/vec3.hpp>
 
@@ -17,8 +17,6 @@ namespace engine::light::dynamic {
 
 
 struct Parameters {
-    Parameters();
-
     glm::vec3 ambient { 0.5F };
     glm::vec3 diffuse { 0.3F };
     glm::vec3 specular { 1.0F };
@@ -43,4 +41,4 @@ struct Parameters {
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_PARAMETERS_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_PARAMETERS_HPP___

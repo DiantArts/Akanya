@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Positions
+** sources/Engine/Actors/Positions
 ** File description:
-** Positions
+** A vector of position that allow multiple draw from the same object
 */
 
 #include "Positions.hpp"

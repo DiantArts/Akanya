@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Vertexes/Vao
+** sources/Engine/Actors/Vertexes/Vao
 ** File description:
-** vao
+** Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VAO_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VAO_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VAO_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VAO_HPP___
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -45,4 +45,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VAO_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VAO_HPP___

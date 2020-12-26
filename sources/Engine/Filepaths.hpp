@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Filepaths
 ** File description:
-** Filepaths are fun
+** While waiting config file, filepaths are described here
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___

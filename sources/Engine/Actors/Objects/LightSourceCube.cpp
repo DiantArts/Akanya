@@ -1,17 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** LightSourceCube
+** sources/Engine/Actors/Objects/LightSourceCube
 ** File description:
-** Light source as cube
+** Lamp as cube
 */
 
 #include "LightSourceCube.hpp"
-
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "debugMacros.hpp"
-
-#include "../Vertexes/Vertices.hpp"
 
 
 

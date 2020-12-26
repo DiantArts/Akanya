@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Actors/ADrawable
 ** File description:
-** abstract class
+** Every class inheriting from this one should be able to be drawn. Must be inheriting with ATransformable
 */
 
 #include "ADrawable.hpp"

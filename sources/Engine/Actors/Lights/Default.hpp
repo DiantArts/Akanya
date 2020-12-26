@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** LightSourceCube
+** sources/Engine/Actors/Lights/Default
 ** File description:
-** Light source as cube
+** Default light that needs to be improve somehow
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_DEFAULT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_DEFAULT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DEFAULT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DEFAULT_HPP___
 
 #include "Parameters.hpp"
 
@@ -53,8 +53,8 @@ private:
 
 
 
-} // namespace engine::light::dynamic
+} // namespace engine::light
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_LIGHT_DYNAMIC_DEFAULT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DEFAULT_HPP___

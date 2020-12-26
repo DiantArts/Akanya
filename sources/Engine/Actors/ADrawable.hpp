@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/ADrawable
+** sources/Engine/Actors/ADrawable
 ** File description:
-** ADrawable
+** Every class inheriting from this one should be able to be drawn. Must be inheriting with ATransformable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ADRAWABLE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ADRAWABLE_HPP___
 
 #include <functional>
 #include <string_view>
@@ -59,4 +59,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ADRAWABLE_HPP___

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** Vao
+** sources/Engine/Actors/Vertexes/Vao
 ** File description:
-** s
+** Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
 */
 
 #include "Vao.hpp"

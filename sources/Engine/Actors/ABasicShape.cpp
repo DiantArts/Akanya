@@ -1,17 +1,19 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/BasicShape
+** sources/Engine/Actors/ABasicShape
 ** File description:
-** BasicShape
+** Regroup every built-in shapes like Cube and Sphere
 */
 
 #include "ABasicShape.hpp"
-#include "../Filepaths.hpp"
+
 #include <stb/stb_image.h>
 
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Vertexes/Vertices.hpp"
+
+#include "../Filepaths.hpp"
+
+
 
 namespace engine::actor {
 
@@ -20,10 +22,10 @@ namespace engine::actor {
 // ---------------------------------------------------------------------------- *structors
 
 ABasicShape::ABasicShape(engine::Shader&              shader,
-                       const std::function<void()>& setAttributes,
-                       const std::string_view       verticesFilename,
-                       const size_t                 numberOfPositions /* = 1 */,
-                       const size_t                 numberOfTextures /*= 1 */)
+                         const std::function<void()>& setAttributes,
+                         const std::string_view       verticesFilename,
+                         const size_t                 numberOfPositions /* = 1 */,
+                         const size_t                 numberOfTextures /*= 1 */)
     : engine::actor::AShape(shader, numberOfPositions)
 {
     this->m_TextureVector.reserve(numberOfTextures);
@@ -71,7 +73,10 @@ void ABasicShape::addTexture(const std::string_view filename, const std::string_
 
 
 // ---------------------------------------------------------------------------- Texture
-ABasicShape::Texture::Texture(const std::string& filepath, const engine::Shader& shader, const std::string& name, const size_t textureIndex)
+ABasicShape::Texture::Texture(const std::string&    filepath,
+                              const engine::Shader& shader,
+                              const std::string&    name,
+                              const size_t          textureIndex)
 {
     this->m_Index = GL_TEXTURE0 + textureIndex;
 

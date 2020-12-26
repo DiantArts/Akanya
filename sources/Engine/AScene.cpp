@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** AScene
+** sources/Engine/AScene
 ** File description:
-** AScene
+** Describes how the world is composed and how it interact with players
 */
 
 #include "AScene.hpp"

@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** Default
+** sources/Engine/Actors/Lights/Default
 ** File description:
-** Light source as cube
+** Default light that needs to be improve somehow
 */
 
-
+#include "Default.hpp"
 #include "Default.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -103,4 +103,4 @@ const engine::light::dynamic::Parameters& Default::getParameters() const
 }
 
 
-} // namespace engine::light::dynamic
+} // namespace engine::light

@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Positions
+** sources/Engine/Actors/Positions
 ** File description:
-** Positions
+** A vector of position that allow multiple draw from the same object
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_POSITIONS_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_POSITIONS_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
 
 #include <variant>
 #include <vector>
@@ -94,4 +94,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_POSITIONS_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___

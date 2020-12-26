@@ -43,7 +43,7 @@ CPP_WFLAGS		:=	no-volatile
 CPPM_WFLAGS		:=
 
 ## flags
-COMMON_FLAGS	:=	-fmax-errors=5
+COMMON_FLAGS	:=	-fmax-errors=10
 C_FLAGS			:=	
 CPP_FLAGS		:=	-std=c++20
 CPPM_FLAGS		:=	-std=c++20
@@ -368,7 +368,7 @@ ffclean : fclean
 
 auto: all
 	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	./$(NAME)$(MODE_EXT) $(ARGS)
+	# ./$(NAME)$(MODE_EXT) $(ARGS)
 
 debug : all
 	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) debug $(ARGV)\n"

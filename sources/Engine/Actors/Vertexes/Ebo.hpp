@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Vertexes/Ebo
+** sources/Engine/Actors/Vertexes/Ebo
 ** File description:
-** ebo
+** Element Buffer Object: help to determine which vertex to draw
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_EBO_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_EBO_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -45,4 +45,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_EBO_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___

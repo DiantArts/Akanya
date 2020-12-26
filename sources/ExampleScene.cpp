@@ -1,15 +1,15 @@
 /*
 ** EPITECH PROJECT, 2020
-** ExampleScene
+** sources/ExampleScene
 ** File description:
-** scene
+** Simple example of a scene, mainly to test things
 */
 
 #include "ExampleScene.hpp"
-#include "debugMacros.hpp"
 
 #include "Engine/Actors/Objects/EnlightenedCube.hpp"
 #include "Engine/Actors/Objects/LightSourceCube.hpp"
+#include "debugMacros.hpp"
 
 
 
@@ -21,8 +21,8 @@ ExampleScene::ExampleScene()
 {
     DEBUG_MSG("first");
 
-    auto lightSource { std::make_unique<engine::object::LightSourceCube>(
-        this->m_ShaderMap["lightSource"], 4) };
+    auto lightSource { std::make_unique<engine::object::LightSourceCube>(this->m_ShaderMap["lightSource"],
+                                                                         4) };
 
     lightSource->instances.add(-0.0F, 2.0F, 0.0F);
     lightSource->instances.add(-5.0F, 2.0F, 105.0F);
@@ -33,8 +33,7 @@ ExampleScene::ExampleScene()
     lamp = dynamic_cast<engine::object::LightSourceCube*>(&(*this->m_VectorObjects.back()));
 
 
-    auto cube { std::make_unique<engine::object::EnlightenedCube>(
-        this->m_ShaderMap["multiEnlightened"]) };
+    auto cube { std::make_unique<engine::object::EnlightenedCube>(this->m_ShaderMap["multiEnlightened"]) };
 
     cube->addTexture("container.png", "material.diffuse");
     cube->addTexture("containerBorders.png", "material.specular");

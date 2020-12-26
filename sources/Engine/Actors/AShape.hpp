@@ -1,14 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shape
+** sources/Engine/Actors/AShape
 ** File description:
-** Shape
+** A shape is drawable and transformable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPE_HPP___
-
-
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___
 
 #include "ADrawable.hpp"
 #include "ATransformable.hpp"
@@ -44,4 +42,4 @@ private:
 
 } // namespace engine::actor
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___

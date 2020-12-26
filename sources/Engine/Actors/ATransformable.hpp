@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/ATransformable
+** sources/Engine/Actors/ATransformable
 ** File description:
-** ATransformable
+** Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_TRANSFORMABLE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_TRANSFORMABLE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
 
 #include <functional>
 #include <memory>
@@ -87,4 +87,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_TRANSFORMABLE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___

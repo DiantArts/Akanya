@@ -1,17 +1,13 @@
 /*
 ** EPITECH PROJECT, 2020
-** EnlightenedCube
+** sources/Engine/Actors/Objects/EnlightenedCube
 ** File description:
-** Light source as cube
+** default Enlightened cube
 */
 
 #include "EnlightenedCube.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-
-#include "../Vertexes/Vertices.hpp"
-
-
 
 // clang-format off
 

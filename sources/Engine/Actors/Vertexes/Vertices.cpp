@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** Vertices
+** sources/Engine/Actors/Vertexes/Vertices
 ** File description:
-** coordonate to create a shape
+** Extract vertices from files and alloc buffers to binded ones
 */
 
 #include "Vertices.hpp"

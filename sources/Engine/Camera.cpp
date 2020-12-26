@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** Camera
+** sources/Engine/Camera
 ** File description:
-** Camera
+** Allow user to visualise the world through a point of view
 */
 
-#define GLFW_INCLUDE_NONE
+#include "Camera.hpp"
 #include "Camera.hpp"
 
 #include <stdexcept>

@@ -1,11 +1,13 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/New/Model
+** sources/Engine/Actors/Model
 ** File description:
-** Models
+** This class loads models from .objs (at least and for the moment)
 */
 
 #include "Model.hpp"
+
+#include <stb/stb_image.h>
 
 #include "debugMacros.hpp"
 
@@ -67,8 +69,8 @@ Model::Mesh::Mesh(const engine::Shader&                        shader,
     this->m_Vao.bind();
 
     this->m_Vbo.bind();
-    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(engine::actor::Model::Vertex), &this->m_Vertices[0],
-                 GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(engine::actor::Model::Vertex),
+                 &this->m_Vertices[0], GL_STATIC_DRAW);
 
     this->m_Ebo.bind();
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->m_Indices.size() * sizeof(GLuint), &this->m_Indices[0],
@@ -133,8 +135,6 @@ void Model::Mesh::draw() const
 
 void Model::Mesh::update(float)
 {}
-
-
 
 
 
@@ -224,8 +224,8 @@ std::unique_ptr<engine::actor::Model::Mesh> Model::processMesh(aiMesh* mesh, con
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return std::make_unique<engine::actor::Model::Mesh>(this->getShader(), std::move(vertices), std::move(indices),
-                                          std::move(textures));
+    return std::make_unique<engine::actor::Model::Mesh>(this->getShader(), std::move(vertices),
+                                                        std::move(indices), std::move(textures));
 }
 
 std::vector<engine::actor::Model::Texture>

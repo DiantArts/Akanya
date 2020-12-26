@@ -1,26 +1,24 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Scene
+** sources/Engine/AScene
 ** File description:
-** Scene
+** Describes how the world is composed and how it interact with players
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___
-
-#include <vector>
-
-#include "Camera.hpp"
-#include "Clock.hpp"
-#include "Actors/ABasicShape.hpp"
-#include "Window.hpp"
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ASCENE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ASCENE_HPP___
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include <glad/glad.h>
 
+#include "Actors/ABasicShape.hpp"
+#include "Camera.hpp"
+#include "Clock.hpp"
 #include "Shader.hpp"
+#include "Window.hpp"
 
 
 
@@ -67,7 +65,7 @@ private:
     mutable float         m_Elapsed { 0 };
 
 protected:
-    engine::Window&                                               m_Window { engine::Window::get() };
+    engine::Window&                                     m_Window { engine::Window::get() };
     std::vector<std::unique_ptr<engine::actor::AShape>> m_VectorObjects;
 
 protected:
@@ -88,4 +86,4 @@ protected:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_SCENE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ASCENE_HPP___

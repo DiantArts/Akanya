@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shapes/Cube
+** sources/Engine/Actors/BasicShapes/Cube
 ** File description:
-** BasicCube
+** this is a default built-in cube
 */
 
 #include "Cube.hpp"
@@ -12,7 +12,7 @@ namespace engine::actor::basicShape {
 
 
 Cube::Cube(engine::Shader&              shader,
-           const size_t                 numberOfPositions  /* = 1 */,
+           const size_t                 numberOfPositions /* = 1 */,
            const size_t                 numberOfTextures /* = 1 */,
            const std::function<void()>& setAttributesFunc /* = Cube::setAttributes */,
            const std::string_view       verticesFilename /* = "cube" */)

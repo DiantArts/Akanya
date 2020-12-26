@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** main
+** sources/Engine/Window
 ** File description:
-** test
+** Abstraction of GLFW
 */
 
 #include "Window.hpp"

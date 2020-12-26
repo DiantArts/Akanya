@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Camera
 ** File description:
-** Camera
+** Allow user to visualise the world through a point of view
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___

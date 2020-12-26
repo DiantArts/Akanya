@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shape
+** sources/Engine/Actors/AShape
 ** File description:
-** Shape
+** A shape is drawable and transformable
 */
 
 #include "AShape.hpp"

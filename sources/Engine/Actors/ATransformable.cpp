@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/ATransformable
+** sources/Engine/Actors/ATransformable
 ** File description:
-** ATransformable
+** Every class inheriting from this one should be able to be transformed
 */
 
 #include "ATransformable.hpp"

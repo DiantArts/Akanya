@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** main
+** sources/main
 ** File description:
-** test
+** Main of the program, must be simple
 */
 
-#include <functional>
+#include "main.hpp"
 #include <iostream>
 
 #include "ExampleScene.hpp"

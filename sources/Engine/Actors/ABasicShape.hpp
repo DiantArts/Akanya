@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/BasicShape
+** sources/Engine/Actors/ABasicShape
 ** File description:
-** BasicShape
+** Regroup every built-in shapes like Cube and Sphere
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_BASICSHAPE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_BASICSHAPE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
 
 #include "AShape.hpp"
 #include "Vertexes/Vao.hpp"
@@ -21,11 +21,11 @@ namespace engine::actor {
 class ABasicShape : public engine::actor::AShape {
 public:
     // ---------------------------------------------------------------------------- *structors
-    ABasicShape(engine::Shader&             shader,
-               const std::function<void()>& setAttributes,
-               std::string_view             verticesFilename,
-               size_t                       numberOfPositions = 1,
-               size_t                       numberOfTextures  = 1);
+    ABasicShape(engine::Shader&              shader,
+                const std::function<void()>& setAttributes,
+                std::string_view             verticesFilename,
+                size_t                       numberOfPositions = 1,
+                size_t                       numberOfTextures  = 1);
     virtual ~ABasicShape() = 0;
 
 
@@ -44,7 +44,10 @@ public:
     class Texture {
     public:
         // ------------------------------------------------ *structors
-        Texture(const std::string& filename, const engine::Shader& shader, const std::string& name, size_t textureIndex);
+        Texture(const std::string&    filename,
+                const engine::Shader& shader,
+                const std::string&    name,
+                size_t                textureIndex);
         ~Texture();
 
 
@@ -60,7 +63,7 @@ public:
 
 private:
     std::vector<ABasicShape::Texture> m_TextureVector;
-    size_t numberOfTextures { 0 };
+    size_t                            numberOfTextures { 0 };
 };
 
 
@@ -69,4 +72,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_BASICSHAPE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___

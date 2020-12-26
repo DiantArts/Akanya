@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Vertexes/Vertices
+** sources/Engine/Actors/Vertexes/Vertices
 ** File description:
-** coordonate to create a shape
+** Extract vertices from files and alloc buffers to binded ones
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VERTICES_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VERTICES_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
 
 #include <string_view>
 #include <vector>
@@ -38,4 +38,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VERTICES_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___

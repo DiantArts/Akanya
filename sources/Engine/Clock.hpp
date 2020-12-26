@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** sources/Engine/Clock
 ** File description:
-** OpenGL time abstraction
+** Simple OpenGL abstractiong of the time
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CLOCK_HPP___

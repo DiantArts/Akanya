@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Vertexes/Vbo
+** sources/Engine/Actors/Vertexes/Vbo
 ** File description:
-** vbo
+** Vertex Buffer Object: stores a large number of vertices
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VBO_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VBO_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -45,4 +45,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_VERTEXES_VBO_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
