@@ -8,15 +8,15 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_CUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPES_3D_CUBE_HPP___
 
-#include "../../Shapes/3d/Basic.hpp"
+#include "../ABasicShape.hpp"
 
 
 
-namespace engine::graphic::shape3d {
+namespace engine::actor::basicShape {
 
 
 
-class Cube : public engine::graphic::shape3d::Basic {
+class Cube : public engine::actor::ABasicShape {
 public:
     // ---------------------------------------------------------------------------- *structors
     Cube(engine::Shader&              shader,
@@ -34,7 +34,7 @@ private:
 
 
 
-} // namespace engine::graphic::shape3d
+} // namespace engine::actor::shape3d
 
 
 

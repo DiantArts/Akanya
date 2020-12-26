@@ -16,7 +16,7 @@
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
@@ -56,7 +56,7 @@ private:
 };
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 
 

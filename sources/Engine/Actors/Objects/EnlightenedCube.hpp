@@ -8,7 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_ENLIGHTENEDCUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_MULTIPLE_ENLIGHTENEDCUBE_HPP___
 
-#include "../../../Shapes/3d/Cube.hpp"
+#include "../BasicShapes/Cube.hpp"
 
 
 
@@ -16,7 +16,7 @@ namespace engine::object3d::multiple {
 
 
 
-class EnlightenedCube : public engine::graphic::basicShape::Cube {
+class EnlightenedCube : public engine::actor::basicShape::Cube {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit EnlightenedCube(engine::Shader& shader);

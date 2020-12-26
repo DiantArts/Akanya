@@ -8,8 +8,6 @@
 #include <functional>
 #include <iostream>
 
-#include "Engine/Graphics/Objects/3d/Multiple/EnlightenedCube.hpp"
-#include "Engine/Graphics/Objects/3d/Single/LightSourceCube.hpp"
 #include "ExampleScene.hpp"
 
 

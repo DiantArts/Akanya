@@ -7,7 +7,7 @@
 
 #include "Cube.hpp"
 
-namespace engine::graphic::shape3d {
+namespace engine::actor::shape3d {
 
 
 
@@ -16,7 +16,7 @@ Cube::Cube(engine::Shader&              shader,
            const std::string_view       verticesFilename /* = "cube" */,
            const size_t                 numberOfPositions  /* = 1 */,
            const size_t                 numberOfTextures /* = 1 */)
-    : engine::graphic::shape3d::Basic(shader,
+    : engine::actor::shape3d::Basic(shader,
                                       setAttributes,
                                       verticesFilename,
                                       numberOfPositions,
@@ -38,4 +38,4 @@ void Cube::setAttributes()
     glEnableVertexAttribArray(1);
 }
 
-} // namespace engine::graphic::shape3d
+} // namespace engine::actor::shape3d

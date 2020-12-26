@@ -79,15 +79,30 @@ void Scene::drawFps() const
 
 
 // ---------------------------------------------------------------------------- Vector Drawables
-void Scene::pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>&& drawableObject)
+
+void Scene::pushObject(std::unique_ptr<engine::actor::shape3d::Basic>&& drawableObject)
 {
     this->m_VectorObjects.push_back(std::move(drawableObject));
 }
 
-void Scene::pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>& drawableObject)
+void Scene::pushObject(std::unique_ptr<engine::actor::shape3d::Basic>& drawableObject)
 {
     this->m_VectorObjects.push_back(std::move(drawableObject));
 }
+
+
+// ---------------------------------------------------------------------------- ShaderMap
+
+engine::Shader& Scene::ShaderMap::operator[](const std::string& filename)
+{
+    try {
+        // return it if already cached
+        return this->m_ShaderMap.at(filename);
+
+    } catch (const std::exception&) {
+        // cache it
+        return this->m_ShaderMap.emplace(filename, filename).first->second;
+    }
 
 
 

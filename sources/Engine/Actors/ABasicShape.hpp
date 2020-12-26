@@ -8,19 +8,17 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_BASICSHAPE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_BASICSHAPE_HPP___
 
-#include "../../../Container/Vector/Texture.hpp"
-#include "../../Drawable.hpp"
-#include "../../Transformable.hpp"
-#include "../../Vertexes/Vao.hpp"
-#include "../../Vertexes/Vbo.hpp"
+#include "AShape.hpp"
+#include "Vertexes/Vao.hpp"
+#include "Vertexes/Vbo.hpp"
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
-class BasicShape : public engine::graphic::Shape {
+class BasicShape : public engine::actor::AShape {
 public:
     // ---------------------------------------------------------------------------- *structors
     BasicShape(engine::Shader&              shader,
@@ -35,23 +33,41 @@ public:
     virtual update() void drawModels(const engine::Camera& camera) const override final;
 
 
-protected:
-    // ---------------------------------------------------------------------------- Textures
-    void addTexture(std::string_view filepath, std::string_view name, int index);
-    const engine::container::vector::Texture& getTextures() const;
-
-
 private:
-    size_t                             m_NumberOfArrayToDraw;
-    engine::container::vector::Texture m_TextureVector; // TODO: std::optional + Material class
-                                                        // if numberOfTexture == 0
+    size_t      m_NumberOfArrayToDraw;
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
+
+
+public:
+    // ---------------------------------------------------------------------------- Textures
+    class Texture {
+    public:
+        // ------------------------------------------------ *structors
+        Texture(std::string_view filepath, engine::Shader& shader, const std::string& name, size_t textureIndex)
+        ~Texture();
+
+
+        // ------------------------------------------------ bind
+        void bind() const;
+
+
+    private:
+        GLuint m_Id;
+        GLenum m_Index;
+    };
+
+protected:
+    void addTexture(std::string_view filepath, std::string_view name);
+
+private:
+    std::vector<BasicShape::Texture> m_TextureVector;
+    size_t numberOfTextures { 0 };
 };
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 
 

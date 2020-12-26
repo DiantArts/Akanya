@@ -5,13 +5,13 @@
 ** Transformable
 */
 
-#include "Transformable.hpp"
+#include "ATransformable.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
@@ -298,4 +298,4 @@ const glm::vec3& Transformable::getRotation() const
 }
 
 
-} // namespace engine::graphic
+} // namespace engine::actor

@@ -12,9 +12,16 @@
 
 #include "Engine/Camera.hpp"
 #include "Engine/Clock.hpp"
-#include "Engine/Container/Map/Shader.hpp"
 #include "Engine/Graphics/Shapes/3d/Basic.hpp"
 #include "Engine/Window.hpp"
+
+#include <string>
+#include <unordered_map>
+
+#include <glad/glad.h>
+
+#include "../../Shader.hpp"
+
 
 
 namespace engine {
@@ -35,8 +42,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- Vector Drawables
-    void pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>&& drawableObject);
-    void pushObject(std::unique_ptr<engine::graphic::shape3d::Basic>& drawableObject);
+    void pushObject(std::unique_ptr<engine::actor::shape3d::Basic>&& drawableObject);
+    void pushObject(std::unique_ptr<engine::actor::shape3d::Basic>& drawableObject);
 
     template <typename DrawableType, typename... Args>
     void emplaceDrawable(Args&&... args)
@@ -61,8 +68,19 @@ private:
 
 protected:
     engine::Window&                                               m_Window { engine::Window::get() };
-    std::vector<std::unique_ptr<engine::graphic::shape3d::Basic>> m_VectorObjects;
-    engine::container::map::Shader                                m_ShaderMap;
+    std::vector<std::unique_ptr<engine::actor::shape3d::Basic>> m_VectorObjects;
+
+protected:
+    // ---------------------------------------------------------------------------- ShaderMap
+    class ShaderMap {
+    public:
+        engine::Shader& operator[](const std::string& filename); // note: string_view doesn't work
+
+    private:
+        std::unordered_map<std::string, engine::Shader> m_ShaderMap;
+    };
+
+    engine::AScene::ShaderMap m_ShaderMap;
 };
 
 

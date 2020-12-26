@@ -5,14 +5,14 @@
 ** Shape
 */
 
-#include "Shape.hpp"
+#include "AShape.hpp"
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
 Shape::Shape(engine::Shader& shader, const size_t numberOfPositions)
-    : engine::graphic::Drawable(shader), engine::graphic::Transformable(numberOfPositions)
+    : engine::actor::Drawable(shader), engine::actor::Transformable(numberOfPositions)
 {}
 
 Shape::~Shape()

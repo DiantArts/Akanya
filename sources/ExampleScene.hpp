@@ -8,7 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_EXAMPLESCENE_HPP___
 
-#include "Engine/New/Model.hpp"
+#include "Engine/Actors/AModel.hpp"
 #include "Engine/Scene.hpp"
 
 
@@ -22,7 +22,7 @@ public:
 
 private:
     engine::Shader backpackShader { "model3d" };
-    engine::Model  backpack { backpackShader, "data/3dModels/backpack/backpack.obj", 2 };
+    engine::actor::AModel  backpack { backpackShader, "data/3dModels/backpack/backpack.obj", 2 };
     // engine::Model  backpack { backpackShader,
     // "data/3dModels/backpack/original/textures/Survival_BackPack_2.obj", 2 }; engine::Model  backpack {
     // backpackShader, "data/3dModels/woodenTable/source/Desk.fbx", 2 }; engine::Model  backpack {

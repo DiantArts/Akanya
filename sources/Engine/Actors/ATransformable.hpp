@@ -19,7 +19,7 @@
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
@@ -73,7 +73,7 @@ public:
     const glm::vec3& getRotation() const;
 
 public:
-    engine::graphic::Positions instances;
+    engine::actor::Positions instances;
 
 
 private:
@@ -83,7 +83,7 @@ private:
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 
 

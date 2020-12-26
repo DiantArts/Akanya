@@ -10,7 +10,7 @@
 #include "debugMacros.hpp"
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
@@ -20,7 +20,7 @@ Model::Model(engine::Shader&    shader,
              const std::string& filepath,
              const size_t       numberOfPositions /* = 1 */,
              const bool         gamma /* = false */)
-    : engine::graphic::Shape(shader, numberOfPositions), m_GammaCorrection(gamma)
+    : engine::actor::Shape(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
 }
@@ -56,9 +56,9 @@ void Model::update(float deltaTime)
 // ---------------------------------------------------------------------------- Mesh
 
 Model::Mesh::Mesh(engine::Shader&                         shader,
-           std::vector<engine::graphic::Model::Vertex>&&                  vertices,
+           std::vector<engine::actor::Model::Vertex>&&                  vertices,
            std::vector<GLuint>&&                          indices,
-           std::vector<engine::graphic::Model::Texture>&& textures)
+           std::vector<engine::actor::Model::Texture>&& textures)
     : m_Shader(shader)
     , m_Vertices(std::move(vertices))
     , m_Indices(std::move(indices))
@@ -67,7 +67,7 @@ Model::Mesh::Mesh(engine::Shader&                         shader,
     this->m_Vao.bind();
 
     this->m_Vbo.bind();
-    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(engine::graphic::Model::Vertex), &this->m_Vertices[0],
+    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(engine::actor::Model::Vertex), &this->m_Vertices[0],
                  GL_STATIC_DRAW);
 
     this->m_Ebo.bind();
@@ -76,27 +76,27 @@ Model::Mesh::Mesh(engine::Shader&                         shader,
 
     // vertex positions
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(engine::graphic::Model::Vertex), nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(engine::actor::Model::Vertex), nullptr);
 
     // vertex normals
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(engine::graphic::Model::Vertex),
-                          reinterpret_cast<void*>(offsetof(engine::graphic::Model::Vertex, Normal)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(engine::actor::Model::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::actor::Model::Vertex, Normal)));
 
     // vertex texture coords
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(engine::graphic::Model::Vertex),
-                          reinterpret_cast<void*>(offsetof(engine::graphic::Model::Vertex, TexCoords)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(engine::actor::Model::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::actor::Model::Vertex, TexCoords)));
 
     // vertex tangent
     glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(engine::graphic::Model::Vertex),
-                          reinterpret_cast<void*>(offsetof(engine::graphic::Model::Vertex, Tangent)));
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(engine::actor::Model::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::actor::Model::Vertex, Tangent)));
 
     // vertex bitangent
     glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(engine::graphic::Model::Vertex),
-                          reinterpret_cast<void*>(offsetof(engine::graphic::Model::Vertex, Bitangent)));
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(engine::actor::Model::Vertex),
+                          reinterpret_cast<void*>(offsetof(engine::actor::Model::Vertex, Bitangent)));
 }
 
 Model::Mesh::~Mesh()
@@ -171,11 +171,11 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     }
 }
 
-std::unique_ptr<engine::graphic::Model::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
+std::unique_ptr<engine::actor::Model::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    std::vector<engine::graphic::Model::Vertex> vertices;
+    std::vector<engine::actor::Model::Vertex> vertices;
     for (size_t i = 0; i < mesh->mNumVertices; i++) {
-        engine::graphic::Model::Vertex vertex;
+        engine::actor::Model::Vertex vertex;
 
         vertex.Position = glm::vec3 { std::move(mesh->mVertices[i].x), std::move(mesh->mVertices[i].y),
                                       std::move(mesh->mVertices[i].z) };
@@ -208,30 +208,30 @@ std::unique_ptr<engine::graphic::Model::Mesh> Model::processMesh(aiMesh* mesh, c
 
     aiMaterial* material { scene->mMaterials[mesh->mMaterialIndex] };
 
-    std::vector<engine::graphic::Model::Texture> diffuseMaps =
+    std::vector<engine::actor::Model::Texture> diffuseMaps =
         loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-    std::vector<engine::graphic::Model::Texture> specularMaps =
+    std::vector<engine::actor::Model::Texture> specularMaps =
         loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-    std::vector<engine::graphic::Model::Texture> normalMaps =
+    std::vector<engine::actor::Model::Texture> normalMaps =
         loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-    std::vector<engine::graphic::Model::Texture> heightMaps =
+    std::vector<engine::actor::Model::Texture> heightMaps =
         loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
 
-    std::vector<engine::graphic::Model::Texture> textures;
+    std::vector<engine::actor::Model::Texture> textures;
     textures.reserve(diffuseMaps.size() + specularMaps.size() + normalMaps.size() + heightMaps.size());
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return std::make_unique<engine::graphic::Model::Mesh>(this->m_Shader, std::move(vertices), std::move(indices),
+    return std::make_unique<engine::actor::Model::Mesh>(this->m_Shader, std::move(vertices), std::move(indices),
                                           std::move(textures));
 }
 
-std::vector<engine::graphic::Model::Texture>
+std::vector<engine::actor::Model::Texture>
 Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName)
 {
-    std::vector<engine::graphic::Model::Texture> textures;
+    std::vector<engine::actor::Model::Texture> textures;
     for (size_t i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
@@ -244,7 +244,7 @@ Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::stri
             }
         }
         if (!isTextureAlreadyLoaded) {
-            engine::graphic::Model::Texture texture;
+            engine::actor::Model::Texture texture;
             texture.id       = this->textureFromFile(str.C_Str(), this->m_Directory, this->m_GammaCorrection);
             texture.type     = typeName;
             texture.filepath = str.C_Str();
@@ -297,4 +297,4 @@ GLuint Model::textureFromFile(const std::string_view textureFilename, std::strin
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor

@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Drawable
+** sources/Engine/Actors/ADrawable
 ** File description:
-** Drawable
+** abstract class
 */
 
-#include "Drawable.hpp"
+#include "ADrawable.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -13,22 +13,22 @@
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
-Drawable::Drawable(engine::Shader& shader) : m_Shader(shader)
+ADrawable::ADrawable(engine::Shader& shader) : m_Shader(shader)
 {}
 
-Drawable::~Drawable()
+ADrawable::~ADrawable()
 {}
 
 
 
 // ---------------------------------------------------------------------------- Draw
-void Drawable::draw(const engine::Camera& camera) const
+void ADrawable::draw(const engine::Camera& camera) const
 {
     this->applyPerspective(camera);
     this->drawModels(camera);
@@ -37,7 +37,7 @@ void Drawable::draw(const engine::Camera& camera) const
 
 
 // ---------------------------------------------------------------------------- Update
-void Drawable::applyPerspective(const engine::Camera& camera) const
+void ADrawable::applyPerspective(const engine::Camera& camera) const
 {
     this->setIntoShader("view", camera.getView());
     this->setIntoShader("projection",
@@ -49,16 +49,16 @@ void Drawable::applyPerspective(const engine::Camera& camera) const
 
 // ---------------------------------------------------------------------------- Shader
 
-void Drawable::setShader(engine::Shader& shader)
+void ADrawable::setShader(engine::Shader& shader)
 {
     this->m_Shader = shader;
 }
 
-const engine::Shader& Drawable::getShader() const
+const engine::Shader& ADrawable::getShader() const
 {
     return this->m_Shader.get();
 }
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor

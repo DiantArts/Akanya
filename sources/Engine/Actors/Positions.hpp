@@ -16,7 +16,7 @@
 #include "Tools/FuncAlias.hpp"
 #include "Tools/Iterator.hpp"
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
@@ -36,13 +36,13 @@ public:
 
 
     // ---------------------------------------------------------------------------- Iterator
-    engine::graphic::Positions::iterator       begin() override;
-    engine::graphic::Positions::const_iterator begin() const override;
-    engine::graphic::Positions::const_iterator cbegin() const override;
+    engine::actor::Positions::iterator       begin() override;
+    engine::actor::Positions::const_iterator begin() const override;
+    engine::actor::Positions::const_iterator cbegin() const override;
 
-    engine::graphic::Positions::iterator       end() override;
-    engine::graphic::Positions::const_iterator end() const override;
-    engine::graphic::Positions::const_iterator cend() const override;
+    engine::actor::Positions::iterator       end() override;
+    engine::actor::Positions::const_iterator end() const override;
+    engine::actor::Positions::const_iterator cend() const override;
 
 
     // ---------------------------------------------------------------------------- AddPosition
@@ -90,7 +90,7 @@ private:
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 
 

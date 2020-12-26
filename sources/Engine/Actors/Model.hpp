@@ -34,11 +34,11 @@
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
-class Model : public engine::graphic::Shape {
+class Model : public engine::actor::Shape {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Model(engine::Shader&    shader,
@@ -76,9 +76,9 @@ private:
     public:
         // ---------------------------------------------------------- *structors
         explicit Mesh(engine::Shader&                shader,
-                      std::vector<engine::graphic::Model::Vertex>&&  vertices,
+                      std::vector<engine::actor::Model::Vertex>&&  vertices,
                       std::vector<GLuint>&&          indices,
-                      std::vector<engine::graphic::Model::Texture>&& textures);
+                      std::vector<engine::actor::Model::Texture>&& textures);
         ~Mesh();
 
         // ---------------------------------------------------------- Draw
@@ -92,9 +92,9 @@ private:
         engine::Vbo m_Vbo;
         engine::Ebo m_Ebo;
 
-        std::vector<engine::graphic::Model::Vertex>  m_Vertices;
+        std::vector<engine::actor::Model::Vertex>  m_Vertices;
         std::vector<GLuint>          m_Indices;
-        std::vector<engine::graphic::Model::Texture> m_Textures;
+        std::vector<engine::actor::Model::Texture> m_Textures;
     };
 
 
@@ -102,22 +102,22 @@ private:
     // ---------------------------------------------------------------------------- assimp lib
     void                                          loadModel(const std::string& filepath);
     void                                          processNode(aiNode* node, const aiScene* scene);
-    std::unique_ptr<engine::graphic::Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
-    std::vector<engine::graphic::Model::Texture>
+    std::unique_ptr<engine::actor::Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
+    std::vector<engine::actor::Model::Texture>
     loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string_view typeName);
 
     GLuint textureFromFile(std::string_view textureFilepath, std::string_view directory, bool gamma);
 
 
 private:
-    std::vector<engine::graphic::Model::Texture>               m_Textures;
-    std::vector<std::unique_ptr<engine::graphic::Model::Mesh>> m_Meshes;
+    std::vector<engine::actor::Model::Texture>               m_Textures;
+    std::vector<std::unique_ptr<engine::actor::Model::Mesh>> m_Meshes;
     std::string                                                m_Directory;
     bool                                                       m_GammaCorrection;
 };
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_NEW_MODEL_HPP___

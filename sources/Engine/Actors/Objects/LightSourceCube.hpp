@@ -8,8 +8,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
 
-#include "../../../Light/Dynamic/Default.hpp"
-#include "../../../Shapes/3d/Cube.hpp"
+#include "../Light/Default.hpp"
+#include "../BasicShapes/Cube.hpp"
 
 
 
@@ -18,7 +18,7 @@ namespace engine::object3d::single {
 
 
 class LightSourceCube
-    : public engine::graphic::shape3d::Cube
+    : public engine::actor::shape3d::Cube
     , public engine::light::dynamic::Default {
 public:
     // ---------------------------------------------------------------------------- *structors

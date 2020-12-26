@@ -10,18 +10,18 @@
 
 
 
-#include "Drawable.hpp"
-#include "Transformable.hpp"
+#include "ADrawable.hpp"
+#include "ATransformable.hpp"
 
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 
 class Shape
-    : public engine::graphic::Drawable
-    , public engine::graphic::Transformable {
+    : public engine::actor::Drawable
+    , public engine::actor::Transformable {
 public:
     // ---------------------------------------------------------------------------- *structors
     Shape(engine::Shader& shader, size_t numberOfPositions) virtual ~Shape() = 0;
@@ -41,6 +41,6 @@ private:
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_SHAPE_HPP___

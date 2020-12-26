@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-namespace engine::graphic {
+namespace engine::actor {
 
 
 // ---------------------------------------------------------------------------- *structors
@@ -96,65 +96,65 @@ const glm::vec3* Positions::operator->() const
 
 // ---------------------------------------------------------------------------- Iterator
 
-engine::graphic::Positions::iterator Positions::begin()
+engine::actor::Positions::iterator Positions::begin()
 {
     if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::iterator(position);
+        return engine::actor::Positions::iterator(position);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::iterator(&positions[0]);
+        return engine::actor::Positions::iterator(&positions[0]);
     }
 }
 
-engine::graphic::Positions::const_iterator Positions::begin() const
+engine::actor::Positions::const_iterator Positions::begin() const
 {
     if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::const_iterator(position);
+        return engine::actor::Positions::const_iterator(position);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::const_iterator(&positions[0]);
+        return engine::actor::Positions::const_iterator(&positions[0]);
     }
 }
 
-engine::graphic::Positions::const_iterator Positions::cbegin() const
+engine::actor::Positions::const_iterator Positions::cbegin() const
 {
     if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::const_iterator(position);
+        return engine::actor::Positions::const_iterator(position);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::const_iterator(&positions[0]);
+        return engine::actor::Positions::const_iterator(&positions[0]);
     }
 }
 
 //
 
-engine::graphic::Positions::iterator Positions::end()
+engine::actor::Positions::iterator Positions::end()
 {
     if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::iterator(position + 1);
+        return engine::actor::Positions::iterator(position + 1);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::iterator(&positions[positions.size()]);
+        return engine::actor::Positions::iterator(&positions[positions.size()]);
     }
 }
 
-engine::graphic::Positions::const_iterator Positions::end() const
+engine::actor::Positions::const_iterator Positions::end() const
 {
     if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::const_iterator(position + 1);
+        return engine::actor::Positions::const_iterator(position + 1);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::const_iterator(&positions[positions.size()]);
+        return engine::actor::Positions::const_iterator(&positions[positions.size()]);
     }
 }
 
-engine::graphic::Positions::const_iterator Positions::cend() const
+engine::actor::Positions::const_iterator Positions::cend() const
 {
     if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
-        return engine::graphic::Positions::const_iterator(position + 1);
+        return engine::actor::Positions::const_iterator(position + 1);
     } else {
         auto& positions { std::get<MultiplePositions>(this->m_Variant) };
-        return engine::graphic::Positions::const_iterator(&positions[positions.size()]);
+        return engine::actor::Positions::const_iterator(&positions[positions.size()]);
     }
 }
 
@@ -279,4 +279,4 @@ void Positions::moveZ(const float offsetZ)
 
 
 
-} // namespace engine::graphic
+} // namespace engine::actor

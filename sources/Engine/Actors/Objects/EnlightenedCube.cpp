@@ -38,7 +38,7 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader)
 
 void EnlightenedCube::transformShape(const engine::Camera& camera) const
 {
-    engine::graphic::shape3d::Basic::transformShape(camera);
+    engine::actor::shape3d::Basic::transformShape(camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("material.shininess", 32.0F);

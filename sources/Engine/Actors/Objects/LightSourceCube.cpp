@@ -31,7 +31,7 @@ LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPo
 
 void LightSourceCube::transformShape(const engine::Camera& camera) const
 {
-    engine::graphic::shape3d::Basic::transformShape(camera);
+    engine::actor::shape3d::Basic::transformShape(camera);
     this->setIntoShader("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
