@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shapes/3d/Cube
+** sources/Engine/Graphics/Shapes/Cube
 ** File description:
 ** BasicCube
 */
@@ -20,10 +20,10 @@ class Cube : public engine::actor::ABasicShape {
 public:
     // ---------------------------------------------------------------------------- *structors
     Cube(engine::Shader&              shader,
-         const std::function<void()>& setAttributes           = Cube::setAttributes,
-         std::string_view             verticesFilename        = "cube",
-         size_t                       numberOfPositions       = 1,
-         size_t                       numberOfTextures        = 1);
+         size_t                       numberOfPositions = 1,
+         size_t                       numberOfTextures = 1,
+         const std::function<void()>& setAttributesFunc = Cube::setAttributes,
+         const std::string_view       verticesFilename = "cube");
     virtual ~Cube();
 
 
@@ -34,7 +34,7 @@ private:
 
 
 
-} // namespace engine::actor::shape3d
+} // namespace engine::actor::basicShape
 
 
 

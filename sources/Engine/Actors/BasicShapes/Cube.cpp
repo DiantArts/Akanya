@@ -1,26 +1,26 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Shapes/3d/Cube
+** sources/Engine/Graphics/Shapes/Cube
 ** File description:
 ** BasicCube
 */
 
 #include "Cube.hpp"
 
-namespace engine::actor::shape3d {
+namespace engine::actor::basicShape {
 
 
 
 Cube::Cube(engine::Shader&              shader,
-           const std::function<void()>& setAttributes /* = Cube::setAttributes */,
-           const std::string_view       verticesFilename /* = "cube" */,
            const size_t                 numberOfPositions  /* = 1 */,
-           const size_t                 numberOfTextures /* = 1 */)
-    : engine::actor::shape3d::Basic(shader,
-                                      setAttributes,
-                                      verticesFilename,
-                                      numberOfPositions,
-                                      numberOfTextures)
+           const size_t                 numberOfTextures /* = 1 */,
+           const std::function<void()>& setAttributesFunc /* = Cube::setAttributes */,
+           const std::string_view       verticesFilename /* = "cube" */)
+    : engine::actor::ABasicShape(shader,
+                                 setAttributesFunc,
+                                 verticesFilename,
+                                 numberOfPositions,
+                                 numberOfTextures)
 {}
 
 Cube::~Cube()
@@ -38,4 +38,4 @@ void Cube::setAttributes()
     glEnableVertexAttribArray(1);
 }
 
-} // namespace engine::actor::shape3d
+} // namespace engine::actor::basicShape

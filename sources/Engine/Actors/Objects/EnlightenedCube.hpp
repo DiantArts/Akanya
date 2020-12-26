@@ -12,19 +12,19 @@
 
 
 
-namespace engine::object3d::multiple {
+namespace engine::object {
 
 
 
 class EnlightenedCube : public engine::actor::basicShape::Cube {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit EnlightenedCube(engine::Shader& shader);
+    explicit EnlightenedCube(engine::Shader& shader, size_t numberOfPositions = 1);
     ~EnlightenedCube() = default;
 
 
     // ---------------------------------------------------------------------------- override
-    void transformShape(const engine::Camera& camera) const final;
+    void configureShader(const engine::Camera& camera) const final;
 
 
 private:
@@ -34,7 +34,7 @@ private:
 
 
 
-} // namespace engine::object3d::multiple
+} // namespace engine::object
 
 
 

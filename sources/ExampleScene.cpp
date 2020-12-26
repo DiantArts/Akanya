@@ -7,19 +7,19 @@
 
 #include "ExampleScene.hpp"
 
-#include "Engine/Graphics/Objects/3d/Multiple/EnlightenedCube.hpp"
-#include "Engine/Graphics/Objects/3d/Multiple/LightSourceCube.hpp"
+#include "Engine/Actors/Objects/EnlightenedCube.hpp"
+#include "Engine/Actors/Objects/LightSourceCube.hpp"
 
 
 
-engine::object3d::multiple::LightSourceCube* lamp;
+engine::object::LightSourceCube* lamp;
 
 
 
 ExampleScene::ExampleScene()
 {
-    auto lightSource { std::make_unique<engine::object3d::multiple::LightSourceCube>(
-        this->m_ShaderMap["lightSource"]) };
+    auto lightSource { std::make_unique<engine::object::LightSourceCube>(
+        this->m_ShaderMap["lightSource"], 4) };
 
     lightSource->instances.add(-0.0F, 2.0F, 0.0F);
     lightSource->instances.add(-5.0F, 2.0F, 105.0F);
@@ -27,15 +27,15 @@ ExampleScene::ExampleScene()
     lightSource->instances.add(5.0F, 2.0F, 105.0F);
 
     this->pushObject(std::move(lightSource));
-    lamp = dynamic_cast<engine::object3d::multiple::LightSourceCube*>(&(*this->m_VectorObjects.back()));
+    lamp = dynamic_cast<engine::object::LightSourceCube*>(&(*this->m_VectorObjects.back()));
 
 
 
-    auto cube { std::make_unique<engine::object3d::multiple::EnlightenedCube>(
+    auto cube { std::make_unique<engine::object::EnlightenedCube>(
         this->m_ShaderMap["multiEnlightened"]) };
 
-    cube->addTexture("container.png", "material.diffuse", 0);
-    cube->addTexture("containerBorders.png", "material.specular", 1);
+    cube->addTexture("container.png", "material.diffuse");
+    cube->addTexture("containerBorders.png", "material.specular");
 
     cube->instances.add(0.0F, 0.0F, 0.0F);
     cube->instances.add(2.0F, 10.0F, -15.0F);

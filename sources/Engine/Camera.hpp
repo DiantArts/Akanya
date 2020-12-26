@@ -15,7 +15,7 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-#include "Graphics/Light/Dynamic/Default.hpp"
+#include "Actors/Lights/Default.hpp"
 
 
 
@@ -23,7 +23,7 @@ namespace engine {
 
 
 
-class Camera : public engine::light::dynamic::Default {
+class Camera : public engine::light::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Camera() = default;

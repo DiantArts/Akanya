@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Transformable
+** sources/Engine/Graphics/ATransformable
 ** File description:
-** Transformable
+** ATransformable
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_TRANSFORMABLE_HPP___
@@ -23,11 +23,11 @@ namespace engine::actor {
 
 
 
-class Transformable {
+class ATransformable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Transformable(size_t numberOfPositions);
-    virtual ~Transformable() = 0;
+    ATransformable(size_t numberOfPositions);
+    virtual ~ATransformable() = 0;
 
 
     // ---------------------------------------------------------------------------- transformModel

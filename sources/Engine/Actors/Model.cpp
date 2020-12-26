@@ -20,7 +20,7 @@ Model::Model(engine::Shader&    shader,
              const std::string& filepath,
              const size_t       numberOfPositions /* = 1 */,
              const bool         gamma /* = false */)
-    : engine::actor::Shape(shader, numberOfPositions), m_GammaCorrection(gamma)
+    : engine::actor::AShape(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
 }
@@ -55,10 +55,10 @@ void Model::update(float deltaTime)
 
 // ---------------------------------------------------------------------------- Mesh
 
-Model::Mesh::Mesh(engine::Shader&                         shader,
-           std::vector<engine::actor::Model::Vertex>&&                  vertices,
-           std::vector<GLuint>&&                          indices,
-           std::vector<engine::actor::Model::Texture>&& textures)
+Model::Mesh::Mesh(const engine::Shader&                        shader,
+                  std::vector<engine::actor::Model::Vertex>&&  vertices,
+                  std::vector<GLuint>&&                        indices,
+                  std::vector<engine::actor::Model::Texture>&& textures)
     : m_Shader(shader)
     , m_Vertices(std::move(vertices))
     , m_Indices(std::move(indices))
@@ -122,7 +122,7 @@ void Model::Mesh::draw() const
             name += std::to_string(heightIndex++);
         }
 
-        this->m_Shader.get().set(name.c_str(), static_cast<float>(i));
+        this->m_Shader.set(name.c_str(), static_cast<float>(i));
         glBindTexture(GL_TEXTURE_2D, this->m_Textures[i].id);
     }
     this->m_Vao.bind();
@@ -224,7 +224,7 @@ std::unique_ptr<engine::actor::Model::Mesh> Model::processMesh(aiMesh* mesh, con
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-    return std::make_unique<engine::actor::Model::Mesh>(this->m_Shader, std::move(vertices), std::move(indices),
+    return std::make_unique<engine::actor::Model::Mesh>(this->getShader(), std::move(vertices), std::move(indices),
                                           std::move(textures));
 }
 

@@ -8,21 +8,24 @@
 #include "AShape.hpp"
 
 
+namespace engine::actor {
+
+
 
 // ---------------------------------------------------------------------------- *structors
 
-Shape::Shape(engine::Shader& shader, const size_t numberOfPositions)
-    : engine::actor::Drawable(shader), engine::actor::Transformable(numberOfPositions)
+AShape::AShape(engine::Shader& shader, const size_t numberOfPositions)
+    : engine::actor::ADrawable(shader), engine::actor::ATransformable(numberOfPositions)
 {}
 
-Shape::~Shape()
+AShape::~AShape()
 {}
 
 
 
 // ---------------------------------------------------------------------------- Drawable
 
-glm::mat4 Shape::getModel(const glm::vec3& position) const
+glm::mat4 AShape::getModel(const glm::vec3& position) const
 {
     return this->transformModel(position);
 }
@@ -31,5 +34,9 @@ glm::mat4 Shape::getModel(const glm::vec3& position) const
 
 // ---------------------------------------------------------------------------- Transformable
 
-void Shape::update(float)
+void AShape::update(float)
 {}
+
+
+
+} // namespace engine::actor

@@ -30,14 +30,14 @@ ADrawable::~ADrawable()
 // ---------------------------------------------------------------------------- Draw
 void ADrawable::draw(const engine::Camera& camera) const
 {
-    this->applyPerspective(camera);
+    this->configureShader(camera);
     this->drawModels(camera);
 }
 
 
 
 // ---------------------------------------------------------------------------- Update
-void ADrawable::applyPerspective(const engine::Camera& camera) const
+void ADrawable::configureShader(const engine::Camera& camera) const
 {
     this->setIntoShader("view", camera.getView());
     this->setIntoShader("projection",
@@ -49,14 +49,9 @@ void ADrawable::applyPerspective(const engine::Camera& camera) const
 
 // ---------------------------------------------------------------------------- Shader
 
-void ADrawable::setShader(engine::Shader& shader)
-{
-    this->m_Shader = shader;
-}
-
 const engine::Shader& ADrawable::getShader() const
 {
-    return this->m_Shader.get();
+    return this->m_Shader;
 }
 
 

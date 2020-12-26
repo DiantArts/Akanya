@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Drawable
+** sources/Engine/Graphics/ADrawable
 ** File description:
-** Drawable
+** ADrawable
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_DRAWABLE_HPP___
@@ -20,11 +20,11 @@ namespace engine::actor {
 
 
 
-class Drawable {
+class ADrawable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Drawable(engine::Shader& shader);
-    virtual ~Drawable() = 0;
+    ADrawable(engine::Shader& shader);
+    virtual ~ADrawable() = 0;
 
 
     // ---------------------------------------------------------------------------- Draw
@@ -32,10 +32,9 @@ public:
     virtual void drawModels(const engine::Camera& camera) const = 0;
 
     // ---------------------------------------------------------------------------- Update
-    virtual void applyPerspective(const engine::Camera& camera) const;
+    virtual void configureShader(const engine::Camera& camera) const;
 
     // ---------------------------------------------------------------------------- Shader
-    void                  setShader(engine::Shader& shader);
     const engine::Shader& getShader() const;
 
 protected:
@@ -52,7 +51,7 @@ protected:
     }
 
 private:
-    std::reference_wrapper<engine::Shader> m_Shader;
+    const engine::Shader& m_Shader;
 };
 
 

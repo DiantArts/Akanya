@@ -6,10 +6,12 @@
 */
 
 #include "ABasicShape.hpp"
+#include "../Filepaths.hpp"
+#include <stb/stb_image.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../Vertexes/Vertices.hpp"
+#include "Vertexes/Vertices.hpp"
 
 namespace engine::actor {
 
@@ -17,7 +19,7 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-BasicShape::BasicShape(engine::Shader&              shader,
+ABasicShape::ABasicShape(engine::Shader&              shader,
                        const std::function<void()>& setAttributes,
                        const std::string_view       verticesFilename,
                        const size_t                 numberOfPositions /* = 1 */,
@@ -32,14 +34,14 @@ BasicShape::BasicShape(engine::Shader&              shader,
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
 }
 
-BasicShape::~BasicShape()
+ABasicShape::~ABasicShape()
 {}
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
-void BasicShape::drawModels(const engine::Camera&) const
+void ABasicShape::drawModels(const engine::Camera&) const
 {
     this->m_Vao.bind();
     for (const auto& texture : this->m_TextureVector) {
@@ -55,23 +57,29 @@ void BasicShape::drawModels(const engine::Camera&) const
 
 // ---------------------------------------------------------------------------- Textures
 
-void BasicShape::addTexture(const std::string_view filepath, const std::string_view name)
+void ABasicShape::addTexture(const std::string_view filename, const std::string_view name)
 {
-    this->m_TextureVector.push_back(filepath, this->m_Shader.get(), name, numberOfTextures++);
+    std::string filepath;
+    filepath.reserve(filename.size() + 1 + engine::filepath::textures.size());
+    filepath += engine::filepath::textures;
+    filepath += '/';
+    filepath += filename;
+
+    this->m_TextureVector.emplace_back(filepath, this->getShader(), name.data(), numberOfTextures++);
 }
 
 
 
 // ---------------------------------------------------------------------------- Texture
-BasicShape::Texture::Texture(std::string_view filepath, engine::Shader& shader, const std::string& name, size_t textureIndex)
+ABasicShape::Texture::Texture(const std::string& filepath, const engine::Shader& shader, const std::string& name, const size_t textureIndex)
 {
     this->m_Index = GL_TEXTURE0 + textureIndex;
 
     int        width, height, nrComponents;
-    const auto data { stbi_load(textureFilepath.c_str(), &width, &height, &nrComponents, 0) };
+    const auto data { stbi_load(filepath.c_str(), &width, &height, &nrComponents, 0) };
 
     if (!data) {
-        throw std::runtime_error(std::string("ERROR: Failed to load '") + textureFilepath + "' texture\n");
+        throw std::runtime_error(std::string("ERROR: Failed to load '") + filepath + "' texture\n");
     }
 
     GLenum format;
@@ -95,14 +103,14 @@ BasicShape::Texture::Texture(std::string_view filepath, engine::Shader& shader, 
 
     stbi_image_free(const_cast<unsigned char*>(data));
 
-    shader.set(name.c_str(), textureIndex);
+    shader.set(name.c_str(), static_cast<int>(textureIndex));
 }
 
-BasicShape::Texture::~Texture()
+ABasicShape::Texture::~Texture()
 {}
 
 
-void BasicShape::Texture::bind() const
+void ABasicShape::Texture::bind() const
 {
     glActiveTexture(this->m_Index);
     glBindTexture(GL_TEXTURE_2D, this->m_Id);

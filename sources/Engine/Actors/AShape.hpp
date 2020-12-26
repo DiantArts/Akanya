@@ -19,17 +19,18 @@ namespace engine::actor {
 
 
 
-class Shape
-    : public engine::actor::Drawable
-    , public engine::actor::Transformable {
+class AShape
+    : public engine::actor::ADrawable
+    , public engine::actor::ATransformable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Shape(engine::Shader& shader, size_t numberOfPositions) virtual ~Shape() = 0;
+    AShape(engine::Shader& shader, size_t numberOfPositions);
+    virtual ~AShape() = 0;
 
 
     // ---------------------------------------------------------------------------- Drawable
-    virtual void      drawModels(const engine::Camera& camera) const = 0;
-    virtual glm::mat4 getModel(const glm::vec3& position) const override; // just apply transform model
+    glm::mat4    getModel(const glm::vec3& position) const; // just apply transform model
+    virtual void drawModels(const engine::Camera& camera) const = 0;
 
 
     // ---------------------------------------------------------------------------- Transformable

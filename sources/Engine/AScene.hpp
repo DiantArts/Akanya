@@ -10,17 +10,17 @@
 
 #include <vector>
 
-#include "Engine/Camera.hpp"
-#include "Engine/Clock.hpp"
-#include "Engine/Graphics/Shapes/3d/Basic.hpp"
-#include "Engine/Window.hpp"
+#include "Camera.hpp"
+#include "Clock.hpp"
+#include "Actors/ABasicShape.hpp"
+#include "Window.hpp"
 
 #include <string>
 #include <unordered_map>
 
 #include <glad/glad.h>
 
-#include "../../Shader.hpp"
+#include "Shader.hpp"
 
 
 
@@ -28,10 +28,10 @@ namespace engine {
 
 
 
-class Scene {
+class AScene {
 public:
-    Scene();
-    virtual ~Scene() = 0;
+    AScene();
+    virtual ~AScene() = 0;
 
 
     // ---------------------------------------------------------------------------- Loop
@@ -42,8 +42,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- Vector Drawables
-    void pushObject(std::unique_ptr<engine::actor::shape3d::Basic>&& drawableObject);
-    void pushObject(std::unique_ptr<engine::actor::shape3d::Basic>& drawableObject);
+    void pushObject(std::unique_ptr<engine::actor::AShape>&& actor);
+    void pushObject(std::unique_ptr<engine::actor::AShape>& actor);
 
     template <typename DrawableType, typename... Args>
     void emplaceDrawable(Args&&... args)
@@ -68,7 +68,7 @@ private:
 
 protected:
     engine::Window&                                               m_Window { engine::Window::get() };
-    std::vector<std::unique_ptr<engine::actor::shape3d::Basic>> m_VectorObjects;
+    std::vector<std::unique_ptr<engine::actor::AShape>> m_VectorObjects;
 
 protected:
     // ---------------------------------------------------------------------------- ShaderMap
@@ -79,7 +79,6 @@ protected:
     private:
         std::unordered_map<std::string, engine::Shader> m_ShaderMap;
     };
-
     engine::AScene::ShaderMap m_ShaderMap;
 };
 

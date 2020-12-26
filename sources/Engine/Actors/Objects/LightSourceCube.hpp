@@ -8,18 +8,18 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHICS_OBJECTS_3D_SINGLE_LIGHTSOURCECUBE_HPP___
 
-#include "../Light/Default.hpp"
+#include "../Lights/Default.hpp"
 #include "../BasicShapes/Cube.hpp"
 
 
 
-namespace engine::object3d::single {
+namespace engine::object {
 
 
 
 class LightSourceCube
-    : public engine::actor::shape3d::Cube
-    , public engine::light::dynamic::Default {
+    : public engine::actor::basicShape::Cube
+    , public engine::light::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit LightSourceCube(engine::Shader& shaderProgram, size_t numberOfPositions = 1);
@@ -27,13 +27,13 @@ public:
 
 
     // ---------------------------------------------------------------------------- override
-    void transformShape(const engine::Camera& camera) const final;
+    void configureShader(const engine::Camera& camera) const override;
     void update(float deltaTime) override;
 };
 
 
 
-} // namespace engine::object3d::single
+} // namespace engine::object
 
 
 

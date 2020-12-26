@@ -29,8 +29,13 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
-#include "../Graphics/Drawable.hpp"
-#include "../Graphics/Transformable.hpp"
+#include "ADrawable.hpp"
+#include "ATransformable.hpp"
+#include "AShape.hpp"
+
+#include "Vertexes/Vao.hpp"
+#include "Vertexes/Vbo.hpp"
+#include "Vertexes/Ebo.hpp"
 
 
 
@@ -38,7 +43,7 @@ namespace engine::actor {
 
 
 
-class Model : public engine::actor::Shape {
+class Model : public engine::actor::AShape {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Model(engine::Shader&    shader,
@@ -75,9 +80,9 @@ private:
     class Mesh {
     public:
         // ---------------------------------------------------------- *structors
-        explicit Mesh(engine::Shader&                shader,
+        explicit Mesh(const engine::Shader&                        shader,
                       std::vector<engine::actor::Model::Vertex>&&  vertices,
-                      std::vector<GLuint>&&          indices,
+                      std::vector<GLuint>&&                        indices,
                       std::vector<engine::actor::Model::Texture>&& textures);
         ~Mesh();
 
@@ -86,22 +91,22 @@ private:
         virtual void update(float deltaTime);
 
     private:
-        std::reference_wrapper<engine::Shader> m_Shader;
+        const engine::Shader& m_Shader;
 
         engine::Vao m_Vao;
         engine::Vbo m_Vbo;
         engine::Ebo m_Ebo;
 
         std::vector<engine::actor::Model::Vertex>  m_Vertices;
-        std::vector<GLuint>          m_Indices;
+        std::vector<GLuint>                        m_Indices;
         std::vector<engine::actor::Model::Texture> m_Textures;
     };
 
 
 private:
     // ---------------------------------------------------------------------------- assimp lib
-    void                                          loadModel(const std::string& filepath);
-    void                                          processNode(aiNode* node, const aiScene* scene);
+    void                                        loadModel(const std::string& filepath);
+    void                                        processNode(aiNode* node, const aiScene* scene);
     std::unique_ptr<engine::actor::Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<engine::actor::Model::Texture>
     loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string_view typeName);

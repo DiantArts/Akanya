@@ -12,7 +12,7 @@
 
 
 
-namespace engine::light::dynamic {
+namespace engine::light {
 
 
 

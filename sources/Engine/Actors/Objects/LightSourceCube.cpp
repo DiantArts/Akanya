@@ -11,11 +11,11 @@
 
 #include "debugMacros.hpp"
 
-#include "../../../Vertexes/Vertices.hpp"
+#include "../Vertexes/Vertices.hpp"
 
 
 
-namespace engine::object3d::single {
+namespace engine::object {
 
 
 
@@ -23,15 +23,17 @@ namespace engine::object3d::single {
 
 LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPositions /* = 1 */)
     : Cube(shader, numberOfPositions)
-{}
+{
+    this->setScale(0.1F);
+}
 
 
 
 // ---------------------------------------------------------------------------- override
 
-void LightSourceCube::transformShape(const engine::Camera& camera) const
+void LightSourceCube::configureShader(const engine::Camera& camera) const
 {
-    engine::actor::shape3d::Basic::transformShape(camera);
+    engine::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("lightColor", 1.0F, 1.0F, 1.0F);
 }
 
@@ -47,4 +49,4 @@ void LightSourceCube::update(float)
 
 
 
-} // namespace engine::object3d::single
+} // namespace engine::object

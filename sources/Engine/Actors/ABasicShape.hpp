@@ -18,19 +18,19 @@ namespace engine::actor {
 
 
 
-class BasicShape : public engine::actor::AShape {
+class ABasicShape : public engine::actor::AShape {
 public:
     // ---------------------------------------------------------------------------- *structors
-    BasicShape(engine::Shader&              shader,
+    ABasicShape(engine::Shader&             shader,
                const std::function<void()>& setAttributes,
                std::string_view             verticesFilename,
                size_t                       numberOfPositions = 1,
                size_t                       numberOfTextures  = 1);
-    virtual ~BasicShape() = 0;
+    virtual ~ABasicShape() = 0;
 
 
     // ---------------------------------------------------------------------------- Model
-    virtual update() void drawModels(const engine::Camera& camera) const override final;
+    virtual void drawModels(const engine::Camera& camera) const override;
 
 
 private:
@@ -44,7 +44,7 @@ public:
     class Texture {
     public:
         // ------------------------------------------------ *structors
-        Texture(std::string_view filepath, engine::Shader& shader, const std::string& name, size_t textureIndex)
+        Texture(const std::string& filename, const engine::Shader& shader, const std::string& name, size_t textureIndex);
         ~Texture();
 
 
@@ -56,12 +56,10 @@ public:
         GLuint m_Id;
         GLenum m_Index;
     };
-
-protected:
     void addTexture(std::string_view filepath, std::string_view name);
 
 private:
-    std::vector<BasicShape::Texture> m_TextureVector;
+    std::vector<ABasicShape::Texture> m_TextureVector;
     size_t numberOfTextures { 0 };
 };
 

@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** Scene
+** AScene
 ** File description:
-** Scene
+** AScene
 */
 
-#include "Scene.hpp"
+#include "AScene.hpp"
 
 #include <iostream>
 
@@ -17,37 +17,37 @@ namespace engine {
 
 
 
-Scene::Scene()
+AScene::AScene()
 {
     this->m_Window.camera.setSpeed(5);
     this->m_Window.camera.setPosition(1.5, 3.0F, 7.5F);
     this->m_Window.camera.setOrientation(-98, -15);
 }
 
-Scene::~Scene()
+AScene::~AScene()
 {}
 
 
 
 // ---------------------------------------------------------------------------- Loop
 
-bool Scene::isOver() const
+bool AScene::isOver() const
 {
     return this->m_Window.shouldClose() || this->m_isOver;
 }
 
-void Scene::manageEvents()
+void AScene::manageEvents()
 {
     this->m_Window.processInput(this->m_EventClock.getElapsedTime());
 }
 
-void Scene::update()
+void AScene::update()
 {}
 
-void Scene::additionalDraws()
+void AScene::additionalDraws()
 {}
 
-void Scene::draw()
+void AScene::draw()
 {
     this->m_Window.clear();
 
@@ -64,7 +64,7 @@ void Scene::draw()
     this->m_Window.swapBuffers();
 }
 
-void Scene::drawFps() const
+void AScene::drawFps() const
 {
     this->m_Elapsed += this->m_FpsClock.getElapsedTime();
     this->m_Fps++;
@@ -80,20 +80,20 @@ void Scene::drawFps() const
 
 // ---------------------------------------------------------------------------- Vector Drawables
 
-void Scene::pushObject(std::unique_ptr<engine::actor::shape3d::Basic>&& drawableObject)
+void AScene::pushObject(std::unique_ptr<engine::actor::AShape>&& actor)
 {
-    this->m_VectorObjects.push_back(std::move(drawableObject));
+    this->m_VectorObjects.push_back(std::move(actor));
 }
 
-void Scene::pushObject(std::unique_ptr<engine::actor::shape3d::Basic>& drawableObject)
+void AScene::pushObject(std::unique_ptr<engine::actor::AShape>& actor)
 {
-    this->m_VectorObjects.push_back(std::move(drawableObject));
+    this->m_VectorObjects.push_back(std::move(actor));
 }
 
 
 // ---------------------------------------------------------------------------- ShaderMap
 
-engine::Shader& Scene::ShaderMap::operator[](const std::string& filename)
+engine::Shader& AScene::ShaderMap::operator[](const std::string& filename)
 {
     try {
         // return it if already cached
@@ -103,6 +103,7 @@ engine::Shader& Scene::ShaderMap::operator[](const std::string& filename)
         // cache it
         return this->m_ShaderMap.emplace(filename, filename).first->second;
     }
+}
 
 
 

@@ -9,36 +9,36 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../../../Vertexes/Vertices.hpp"
+#include "../Vertexes/Vertices.hpp"
 
 
 
 // clang-format off
 
 #include "LightSourceCube.hpp" // tmp
-extern engine::object3d::multiple::LightSourceCube* lamp;
+extern engine::object::LightSourceCube* lamp;
 
 // clang-format on
 
 
 
-namespace engine::object3d::multiple {
+namespace engine::object {
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
-EnlightenedCube::EnlightenedCube(engine::Shader& shader)
-    : Cube(shader, true, EnlightenedCube::setAttributes, "lightningMap")
+EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPositions)
+    : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
 {}
 
 
 
 // ---------------------------------------------------------------------------- override
 
-void EnlightenedCube::transformShape(const engine::Camera& camera) const
+void EnlightenedCube::configureShader(const engine::Camera& camera) const
 {
-    engine::actor::shape3d::Basic::transformShape(camera);
+    engine::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("material.shininess", 32.0F);
@@ -120,4 +120,4 @@ void EnlightenedCube::setAttributes()
 }
 
 
-} // namespace engine::object3d::multiple
+} // namespace engine::object

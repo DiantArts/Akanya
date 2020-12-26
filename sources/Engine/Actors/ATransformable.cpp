@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Graphics/Transformable
+** sources/Engine/Graphics/ATransformable
 ** File description:
-** Transformable
+** ATransformable
 */
 
 #include "ATransformable.hpp"
@@ -17,17 +17,17 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-Transformable::Transformable(const size_t numberOfPositions) : instances(numberOfPositions)
+ATransformable::ATransformable(const size_t numberOfPositions) : instances(numberOfPositions)
 {}
 
-Transformable::~Transformable()
+ATransformable::~ATransformable()
 {}
 
 
 
 // ---------------------------------------------------------------------------- transform
 
-glm::mat4 Transformable::transformModel(const glm::vec3& position) const
+glm::mat4 ATransformable::transformModel(const glm::vec3& position) const
 {
     auto projection { glm::translate(glm::mat4 { 1.0F }, position) };
     if (this->m_Rotation.x) {
@@ -47,84 +47,84 @@ glm::mat4 Transformable::transformModel(const glm::vec3& position) const
 
 // ---------------------------------------------------------------------------- Scale
 
-void Transformable::scale(const float scale)
+void ATransformable::scale(const float scale)
 {
     this->m_Scale.x += scale;
     this->m_Scale.y += scale;
     this->m_Scale.z += scale;
 }
 
-void Transformable::scale(const float scaleX, const float scaleY, const float scaleZ)
+void ATransformable::scale(const float scaleX, const float scaleY, const float scaleZ)
 {
     this->m_Scale.x += scaleX;
     this->m_Scale.y += scaleY;
     this->m_Scale.z += scaleZ;
 }
 
-void Transformable::scale(const glm::vec3& scale)
+void ATransformable::scale(const glm::vec3& scale)
 {
     this->m_Scale += scale;
 }
 
-void Transformable::scaleX(const float scale)
+void ATransformable::scaleX(const float scale)
 {
     this->m_Scale.x += scale;
 }
 
-void Transformable::scaleY(const float scale)
+void ATransformable::scaleY(const float scale)
 {
     this->m_Scale += scale;
 }
 
-void Transformable::scaleZ(const float scale)
+void ATransformable::scaleZ(const float scale)
 {
     this->m_Scale.z += scale;
 }
 
 //
 
-void Transformable::setScale(const float scale)
+void ATransformable::setScale(const float scale)
 {
     this->m_Scale.x = scale;
     this->m_Scale.y = scale;
     this->m_Scale.z = std::move(scale);
 }
 
-void Transformable::setScale(const float scaleX, const float scaleY, const float scaleZ)
+void ATransformable::setScale(const float scaleX, const float scaleY, const float scaleZ)
 {
     this->m_Scale.x = std::move(scaleX);
     this->m_Scale.y = std::move(scaleY);
     this->m_Scale.z = std::move(scaleZ);
 }
 
-void Transformable::setScale(const glm::vec3& scale)
+void ATransformable::setScale(const glm::vec3& scale)
 {
     this->m_Scale = scale;
 }
 
-void Transformable::setScale(glm::vec3&& scale)
+void ATransformable::setScale(glm::vec3&& scale)
 {
     this->m_Scale = std::move(scale);
 }
 
-void Transformable::setScaleX(const float scale)
+void ATransformable::setScaleX(const float scale)
 {
     this->m_Scale.x = std::move(scale);
 }
 
-void Transformable::setScaleY(const float scale)
+void ATransformable::setScaleY(const float scale)
 {
     this->m_Scale.y = std::move(scale);
 }
 
-void Transformable::setScaleZ(const float scale)
+void ATransformable::setScaleZ(const float scale)
 {
     this->m_Scale.z = std::move(scale);
 }
 
 //
 
-const glm::vec3& Transformable::getScale() const
+const glm::vec3& ATransformable::getScale() const
 {
     return this->m_Scale;
 }
@@ -133,7 +133,7 @@ const glm::vec3& Transformable::getScale() const
 
 // ---------------------------------------------------------------------------- Rotation
 
-void Transformable::rotate(const float rotation)
+void ATransformable::rotate(const float rotation)
 {
     this->m_Rotation += rotation;
 
@@ -159,7 +159,7 @@ void Transformable::rotate(const float rotation)
     }
 }
 
-void Transformable::rotate(const float rotationX, const float rotationY, const float rotationZ)
+void ATransformable::rotate(const float rotationX, const float rotationY, const float rotationZ)
 {
     this->m_Rotation.x += rotationX;
     this->m_Rotation.y += rotationY;
@@ -187,7 +187,7 @@ void Transformable::rotate(const float rotationX, const float rotationY, const f
     }
 }
 
-void Transformable::rotate(const glm::vec3& rotation)
+void ATransformable::rotate(const glm::vec3& rotation)
 {
     this->m_Rotation += rotation;
 
@@ -213,7 +213,7 @@ void Transformable::rotate(const glm::vec3& rotation)
     }
 }
 
-void Transformable::rotateX(const float rotation)
+void ATransformable::rotateX(const float rotation)
 {
     this->m_Rotation.x += rotation;
 
@@ -225,7 +225,7 @@ void Transformable::rotateX(const float rotation)
     }
 }
 
-void Transformable::rotateY(const float rotation)
+void ATransformable::rotateY(const float rotation)
 {
     this->m_Rotation.y += rotation;
 
@@ -237,7 +237,7 @@ void Transformable::rotateY(const float rotation)
     }
 }
 
-void Transformable::rotateZ(const float rotation)
+void ATransformable::rotateZ(const float rotation)
 {
     this->m_Rotation.z += rotation;
 
@@ -251,48 +251,48 @@ void Transformable::rotateZ(const float rotation)
 
 //
 
-void Transformable::setRotation(const float rotation)
+void ATransformable::setRotation(const float rotation)
 {
     this->m_Rotation.x = rotation;
     this->m_Rotation.y = rotation;
     this->m_Rotation.z = std::move(rotation);
 }
 
-void Transformable::setRotation(const float rotationX, const float rotationY, const float rotationZ)
+void ATransformable::setRotation(const float rotationX, const float rotationY, const float rotationZ)
 {
     this->m_Rotation.x = std::move(rotationX);
     this->m_Rotation.y = std::move(rotationY);
     this->m_Rotation.z = std::move(rotationZ);
 }
 
-void Transformable::setRotation(const glm::vec3& rotation)
+void ATransformable::setRotation(const glm::vec3& rotation)
 {
     this->m_Rotation = rotation;
 }
 
-void Transformable::setRotation(glm::vec3&& rotation)
+void ATransformable::setRotation(glm::vec3&& rotation)
 {
     this->m_Rotation = std::move(rotation);
 }
 
-void Transformable::setRotationX(const float rotation)
+void ATransformable::setRotationX(const float rotation)
 {
     this->m_Rotation.x = std::move(rotation);
 }
 
-void Transformable::setRotationY(const float rotation)
+void ATransformable::setRotationY(const float rotation)
 {
     this->m_Rotation.y = std::move(rotation);
 }
 
-void Transformable::setRotationZ(const float rotation)
+void ATransformable::setRotationZ(const float rotation)
 {
     this->m_Rotation.z = std::move(rotation);
 }
 
 //
 
-const glm::vec3& Transformable::getRotation() const
+const glm::vec3& ATransformable::getRotation() const
 {
     return this->m_Rotation;
 }

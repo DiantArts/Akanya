@@ -38,12 +38,12 @@ PCHEXT			:=	.gch
 
 ## wflags
 COMMON_WFLAGS	:=	pedantic all extra
-C_WFLAGS		:=
+C_WFLAGS		:=	
 CPP_WFLAGS		:=	no-volatile
 CPPM_WFLAGS		:=
 
 ## flags
-COMMON_FLAGS	:=
+COMMON_FLAGS	:=	-fmax-errors=5
 C_FLAGS			:=	
 CPP_FLAGS		:=	-std=c++20
 CPPM_FLAGS		:=	-std=c++20
@@ -133,18 +133,18 @@ CPP_PCH_OBJ		+=	$(patsubst %,%$(PCHEXT),$(CPP_HDR))
 ## c flags
 CFLAGS			+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
 CFLAGS			+=	$(foreach flag, $(C_WFLAGS),$(addprefix -W,$(flag)))
-CFLAGS			+=	$(C_FLAGS)
+CFLAGS			+=	$(C_FLAGS) $(COMMON_FLAGS)
 
 ## cpp flags
 CXXFLAGS		+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
 CXXFLAGS		+=	$(foreach flag, $(CPP_WFLAGS),$(addprefix -W,$(flag)))
-CXXFLAGS		+=	$(CPP_FLAGS)
+CXXFLAGS		+=	$(CPP_FLAGS) $(COMMON_FLAGS)
 # CXXFLAGS		+=	-fmodules-ts $(foreach objdir, $(dir $(CPPM_OBJ)),-fprebuilt-module-path=$(objdir))
 
 ## cppm flags
 CXXMFLAGS		+=	$(foreach flag, $(COMMON_WFLAGS),$(addprefix -W,$(flag)))
 CXXMFLAGS		+=	$(foreach flag, $(CPPM_WFLAGS),$(addprefix -W,$(flag)))
-# CXXMFLAGS		+=	$(CPPM_FLAGS) -fmodules-ts --precompile
+# CXXMFLAGS		+=	$(CPPM_FLAGS) -fmodules-ts --precompile $(COMMON_FLAGS)
 
 ## c.gch flags
 C_PCHFLAGS		+=	-x c-header
