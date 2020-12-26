@@ -103,6 +103,7 @@ ABasicShape::Texture::Texture(const std::string& filepath, const engine::Shader&
 
     stbi_image_free(const_cast<unsigned char*>(data));
 
+    shader.use();
     shader.set(name.c_str(), static_cast<int>(textureIndex));
 }
 

@@ -6,6 +6,7 @@
 */
 
 #include "ExampleScene.hpp"
+#include "debugMacros.hpp"
 
 #include "Engine/Actors/Objects/EnlightenedCube.hpp"
 #include "Engine/Actors/Objects/LightSourceCube.hpp"
@@ -18,6 +19,8 @@ engine::object::LightSourceCube* lamp;
 
 ExampleScene::ExampleScene()
 {
+    DEBUG_MSG("first");
+
     auto lightSource { std::make_unique<engine::object::LightSourceCube>(
         this->m_ShaderMap["lightSource"], 4) };
 
@@ -28,7 +31,6 @@ ExampleScene::ExampleScene()
 
     this->pushObject(std::move(lightSource));
     lamp = dynamic_cast<engine::object::LightSourceCube*>(&(*this->m_VectorObjects.back()));
-
 
 
     auto cube { std::make_unique<engine::object::EnlightenedCube>(
