@@ -54,6 +54,11 @@ const engine::Shader& ADrawable::getShader() const
     return this->m_Shader;
 }
 
+void ADrawable::useShader() const
+{
+    this->m_Shader.use();
+}
+
 
 
 } // namespace engine::actor

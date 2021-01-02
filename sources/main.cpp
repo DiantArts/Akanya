@@ -5,7 +5,6 @@
 ** Main of the program, must be simple
 */
 
-#include "main.hpp"
 #include <iostream>
 
 #include "ExampleScene.hpp"
@@ -22,7 +21,6 @@ int main()
             scene.draw();
         }
         return EXIT_SUCCESS;
-
     } catch (const std::exception& e) {
         std::cerr << "ERROR: " << e.what() << std::endl;
         return EXIT_FAILURE;

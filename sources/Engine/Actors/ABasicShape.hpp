@@ -8,7 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
 
-#include "AShape.hpp"
+#include "AActor.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
 
@@ -18,11 +18,11 @@ namespace engine::actor {
 
 
 
-class ABasicShape : public engine::actor::AShape {
+class ABasicShape : public engine::actor::AActor {
 public:
     // ---------------------------------------------------------------------------- *structors
     ABasicShape(engine::Shader&              shader,
-                const std::function<void()>& setAttributes,
+                const std::function<void()>& setAttributesFunc,
                 std::string_view             verticesFilename,
                 size_t                       numberOfPositions = 1,
                 size_t                       numberOfTextures  = 1);

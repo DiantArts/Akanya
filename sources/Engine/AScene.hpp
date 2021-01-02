@@ -39,20 +39,20 @@ public:
     void drawFps() const;
 
 
-    // ---------------------------------------------------------------------------- Vector Drawables
-    void pushObject(std::unique_ptr<engine::actor::AShape>&& actor);
-    void pushObject(std::unique_ptr<engine::actor::AShape>& actor);
+    // ---------------------------------------------------------------------------- Vector Actors
+    void pushActor(std::unique_ptr<engine::actor::AActor>&& actor);
+    void pushActor(std::unique_ptr<engine::actor::AActor>& actor);
 
-    template <typename DrawableType, typename... Args>
-    void emplaceDrawable(Args&&... args)
+    template <typename ActorType, typename... Args>
+    void emplaceActor(Args&&... args)
     {
-        this->m_VectorObjects.push_back(std::make_unique<DrawableType>(std::forward<Args>(args)...));
+        this->m_VectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
     }
 
 
     // ---------------------------------------------------------------------------- Virtuals
     virtual void update();
-    virtual void additionalDraws();
+    virtual void additionalDraws() const;
 
 
 private:
@@ -66,7 +66,7 @@ private:
 
 protected:
     engine::Window&                                     m_Window { engine::Window::get() };
-    std::vector<std::unique_ptr<engine::actor::AShape>> m_VectorObjects;
+    std::vector<std::unique_ptr<engine::actor::AActor>> m_VectorActors;
 
 protected:
     // ---------------------------------------------------------------------------- ShaderMap

@@ -44,16 +44,16 @@ void AScene::manageEvents()
 void AScene::update()
 {}
 
-void AScene::additionalDraws()
+void AScene::additionalDraws() const
 {}
 
 void AScene::draw()
 {
     this->m_Window.clear();
 
-    for (auto& drawable : this->m_VectorObjects) {
-        drawable->update(this->m_UpdateClock.getElapsedTime());
-        drawable->draw(this->m_Window.camera);
+    for (auto& actor : this->m_VectorActors) {
+        actor->update(this->m_UpdateClock.getElapsedTime());
+        actor->draw(this->m_Window.camera);
     }
 
     this->additionalDraws();
@@ -80,14 +80,14 @@ void AScene::drawFps() const
 
 // ---------------------------------------------------------------------------- Vector Drawables
 
-void AScene::pushObject(std::unique_ptr<engine::actor::AShape>&& actor)
+void AScene::pushActor(std::unique_ptr<engine::actor::AActor>&& actor)
 {
-    this->m_VectorObjects.push_back(std::move(actor));
+    this->m_VectorActors.push_back(std::move(actor));
 }
 
-void AScene::pushObject(std::unique_ptr<engine::actor::AShape>& actor)
+void AScene::pushActor(std::unique_ptr<engine::actor::AActor>& actor)
 {
-    this->m_VectorObjects.push_back(std::move(actor));
+    this->m_VectorActors.push_back(std::move(actor));
 }
 
 

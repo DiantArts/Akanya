@@ -24,7 +24,15 @@ std::string read(const std::string_view filepath)
     {
         std::ifstream shaderFile;
         shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-        shaderFile.open(std::string(filepath).c_str());
+
+        try {
+            shaderFile.open(std::string(filepath));
+        } catch (const std::ifstream::failure& e) {
+            throw std::runtime_error(std::string("unable to open '") + std::string(filepath) +
+                                     std::string("' file (") + e.what() + ')');
+        }
+
+
         shaderStream << shaderFile.rdbuf();
     }
     return shaderStream.str();

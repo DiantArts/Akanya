@@ -34,7 +34,11 @@ Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
     std::getline(iss, str);
     numberOfArrayToDraw = std::stol(str);
     while (std::getline(iss, str)) {
-        this->m_Vertices.push_back(std::stof(str));
+        try {
+            this->m_Vertices.push_back(std::stof(str));
+        } catch (...) {
+            throw std::runtime_error(std::string("stof: '") + str + '\'');
+        }
     }
 }
 

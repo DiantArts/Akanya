@@ -368,7 +368,7 @@ ffclean : fclean
 
 auto: all
 	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) auto $(ARGV)\n"
-	# ./$(NAME)$(MODE_EXT) $(ARGS)
+	./$(NAME)$(MODE_EXT) $(ARGS)
 
 debug : all
 	$(PRINTF) "$(YELLOW)[Binary]$(NORMAL) debug $(ARGV)\n"

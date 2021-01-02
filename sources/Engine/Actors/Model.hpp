@@ -14,7 +14,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "AShape.hpp"
+#include "AActor.hpp"
 #include "Vertexes/Ebo.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
@@ -25,7 +25,7 @@ namespace engine::actor {
 
 
 
-class Model : public engine::actor::AShape {
+class Model : public engine::actor::AActor {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Model(engine::Shader&    shader,

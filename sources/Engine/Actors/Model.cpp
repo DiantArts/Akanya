@@ -9,8 +9,6 @@
 
 #include <stb/stb_image.h>
 
-#include "debugMacros.hpp"
-
 
 namespace engine::actor {
 
@@ -22,7 +20,7 @@ Model::Model(engine::Shader&    shader,
              const std::string& filepath,
              const size_t       numberOfPositions /* = 1 */,
              const bool         gamma /* = false */)
-    : engine::actor::AShape(shader, numberOfPositions), m_GammaCorrection(gamma)
+    : engine::actor::AActor(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
 }
@@ -232,7 +230,8 @@ std::vector<engine::actor::Model::Texture>
 Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string_view typeName)
 {
     std::vector<engine::actor::Model::Texture> textures;
-    for (size_t i = 0; i < mat->GetTextureCount(type); i++) {
+
+    for (size_t i { 0 }; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
         bool isTextureAlreadyLoaded { false };
@@ -275,7 +274,9 @@ GLuint Model::textureFromFile(const std::string_view textureFilename, std::strin
     case 1: format = GL_RED; break;
     case 3: format = GL_RGB; break;
     case 4: format = GL_RGBA; break;
-    default: throw std::runtime_error("unsupported texture format found");
+    default:
+        stbi_image_free(const_cast<unsigned char*>(data));
+        throw std::runtime_error("unsupported texture format found");
     }
 
     GLuint textureId;

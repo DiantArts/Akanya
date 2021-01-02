@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/AShape
+** sources/Engine/Actors/AActor
 ** File description:
-** A shape is drawable and transformable
+** An actor is a drawable and a transformable
 */
 
-#include "AShape.hpp"
+#include "AActor.hpp"
 
 
 namespace engine::actor {
@@ -14,18 +14,18 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-AShape::AShape(engine::Shader& shader, const size_t numberOfPositions)
+AActor::AActor(engine::Shader& shader, const size_t numberOfPositions)
     : engine::actor::ADrawable(shader), engine::actor::ATransformable(numberOfPositions)
 {}
 
-AShape::~AShape()
+AActor::~AActor()
 {}
 
 
 
 // ---------------------------------------------------------------------------- Drawable
 
-glm::mat4 AShape::getModel(const glm::vec3& position) const
+glm::mat4 AActor::getModel(const glm::vec3& position) const
 {
     return this->transformModel(position);
 }
@@ -34,7 +34,7 @@ glm::mat4 AShape::getModel(const glm::vec3& position) const
 
 // ---------------------------------------------------------------------------- Transformable
 
-void AShape::update(float)
+void AActor::update(float)
 {}
 
 

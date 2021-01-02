@@ -22,17 +22,17 @@ namespace engine::actor {
 // ---------------------------------------------------------------------------- *structors
 
 ABasicShape::ABasicShape(engine::Shader&              shader,
-                         const std::function<void()>& setAttributes,
+                         const std::function<void()>& setAttributesFunc,
                          const std::string_view       verticesFilename,
                          const size_t                 numberOfPositions /* = 1 */,
                          const size_t                 numberOfTextures /*= 1 */)
-    : engine::actor::AShape(shader, numberOfPositions)
+    : engine::actor::AActor(shader, numberOfPositions)
 {
     this->m_TextureVector.reserve(numberOfTextures);
 
     this->m_Vbo.bind();
     this->m_Vao.bind();
-    setAttributes();
+    setAttributesFunc();
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
 }
 
@@ -62,9 +62,8 @@ void ABasicShape::drawModels(const engine::Camera&) const
 void ABasicShape::addTexture(const std::string_view filename, const std::string_view name)
 {
     std::string filepath;
-    filepath.reserve(filename.size() + 1 + engine::filepath::textures.size());
+    filepath.reserve(filename.size() + engine::filepath::textures.size());
     filepath += engine::filepath::textures;
-    filepath += '/';
     filepath += filename;
 
     this->m_TextureVector.emplace_back(filepath, this->getShader(), name.data(), numberOfTextures++);
@@ -92,7 +91,9 @@ ABasicShape::Texture::Texture(const std::string&    filepath,
     case 1: format = GL_RED; break;
     case 3: format = GL_RGB; break;
     case 4: format = GL_RGBA; break;
-    default: throw std::runtime_error("unsupported texture format found");
+    default:
+        stbi_image_free(const_cast<unsigned char*>(data));
+        throw std::runtime_error("unsupported texture format found");
     }
 
     glGenTextures(1, &this->m_Id);

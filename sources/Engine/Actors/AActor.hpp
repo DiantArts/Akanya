@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/AShape
+** sources/Engine/Actors/AActor
 ** File description:
-** A shape is drawable and transformable
+** An actor is a drawable and a transformable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___
 
 #include "ADrawable.hpp"
 #include "ATransformable.hpp"
@@ -17,13 +17,13 @@ namespace engine::actor {
 
 
 
-class AShape
+class AActor
     : public engine::actor::ADrawable
     , public engine::actor::ATransformable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    AShape(engine::Shader& shader, size_t numberOfPositions);
-    virtual ~AShape() = 0;
+    AActor(engine::Shader& shader, size_t numberOfPositions);
+    virtual ~AActor() = 0;
 
 
     // ---------------------------------------------------------------------------- Drawable
@@ -32,7 +32,7 @@ public:
 
 
     // ---------------------------------------------------------------------------- Transformable
-    virtual void update(float deltaTime);
+    virtual void update(float deltaTime); // just an empty definition
 
 
 private:
@@ -42,4 +42,4 @@ private:
 
 } // namespace engine::actor
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ASHAPE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___

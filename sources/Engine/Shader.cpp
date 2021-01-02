@@ -266,7 +266,7 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
         const char*       shaderCode { readenFile.c_str() };
         glShaderSource(vertex, 1, &shaderCode, nullptr);
     } catch (const std::ifstream::failure& e) {
-        std::clog << "Shader file '" << filepath << "' unsuccesfully read\n";
+        std::clog << "Shader file '" << filepath << "' unsuccesfully read (" << e.what() << ")" << std::endl;
         return 0;
     }
 

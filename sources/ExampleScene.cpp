@@ -12,15 +12,12 @@
 #include "debugMacros.hpp"
 
 
-
 engine::object::LightSourceCube* lamp;
 
 
 
 ExampleScene::ExampleScene()
 {
-    DEBUG_MSG("first");
-
     auto lightSource { std::make_unique<engine::object::LightSourceCube>(this->m_ShaderMap["lightSource"],
                                                                          4) };
 
@@ -29,8 +26,8 @@ ExampleScene::ExampleScene()
     lightSource->instances.add(-3.0F, 1.5F, -7.5F);
     lightSource->instances.add(5.0F, 2.0F, 105.0F);
 
-    this->pushObject(std::move(lightSource));
-    lamp = dynamic_cast<engine::object::LightSourceCube*>(&(*this->m_VectorObjects.back()));
+    this->pushActor(std::move(lightSource));
+    lamp = dynamic_cast<engine::object::LightSourceCube*>(&(*this->m_VectorActors.back()));
 
 
     auto cube { std::make_unique<engine::object::EnlightenedCube>(this->m_ShaderMap["multiEnlightened"]) };
@@ -49,7 +46,7 @@ ExampleScene::ExampleScene()
     cube->instances.add(1.5F, 0.2F, -1.5F);
     cube->instances.add(-1.3F, 1.0F, -1.5F);
 
-    this->pushObject(std::move(cube));
+    this->pushActor(std::move(cube));
 
     // backpack.instances.setPosition(-3.0F,  0.0F, 0.0F);
     backpack.instances.addPosition(-3.0F, 0.0F, 0.0F);
@@ -63,10 +60,8 @@ ExampleScene::~ExampleScene()
 
 
 
-void ExampleScene::additionalDraws()
+void ExampleScene::additionalDraws() const
 {
-    this->backpackShader.use();
-
     this->backpackShader.set("dirLight.direction", this->m_Window.camera.getOrientation());
     this->backpackShader.set("dirLight.ambient",
                              this->m_Window.camera.getParameters().ambient * glm::vec3 { 0 });
@@ -121,5 +116,7 @@ void ExampleScene::additionalDraws()
     this->backpackShader.set("viewPos", this->m_Window.camera.getPosition());
     this->backpackShader.set("material.shininess", 32.0F);
 
-    backpack.draw(this->m_Window.camera);
+    this->backpack.draw(this->m_Window.camera);
+
+    this->cubeMap.draw(this->m_Window.camera);
 }

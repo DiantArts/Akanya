@@ -28,14 +28,13 @@ public:
 
 
     // ---------------------------------------------------------------------------- Draw
-    void         draw(const engine::Camera& camera) const;
+    virtual void draw(const engine::Camera& camera) const;
     virtual void drawModels(const engine::Camera& camera) const = 0;
-
-    // ---------------------------------------------------------------------------- Update
-    virtual void configureShader(const engine::Camera& camera) const;
 
     // ---------------------------------------------------------------------------- Shader
     const engine::Shader& getShader() const;
+    void useShader() const;
+    virtual void configureShader(const engine::Camera& camera) const;
 
 protected:
     template <typename... Args>
