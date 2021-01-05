@@ -76,6 +76,7 @@ void Window::setClearColor(const float red,
 
 void Window::processInput(const float deltaTime)
 {
+    this->pollEvents();
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->m_Window.get(), true);
     }

@@ -62,6 +62,8 @@ ExampleScene::~ExampleScene()
 
 void ExampleScene::additionalDraws() const
 {
+    this->backpackShader.use();
+
     this->backpackShader.set("dirLight.direction", this->m_Window.camera.getOrientation());
     this->backpackShader.set("dirLight.ambient",
                              this->m_Window.camera.getParameters().ambient * glm::vec3 { 0 });
@@ -117,6 +119,4 @@ void ExampleScene::additionalDraws() const
     this->backpackShader.set("material.shininess", 32.0F);
 
     this->backpack.draw(this->m_Window.camera);
-
-    this->cubeMap.draw(this->m_Window.camera);
 }

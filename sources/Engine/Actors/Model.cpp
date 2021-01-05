@@ -6,6 +6,7 @@
 */
 
 #include "Model.hpp"
+#include "debugMacros.hpp"
 
 #include <stb/stb_image.h>
 
@@ -23,10 +24,13 @@ Model::Model(engine::Shader&    shader,
     : engine::actor::AActor(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filepath);
+    DEBUG_MSG("model created");
 }
 
 Model::~Model()
-{}
+{
+    glDeleteTextures(this->m_Textures.size(), &this->m_Textures.front().id);
+}
 
 
 
@@ -46,9 +50,11 @@ void Model::drawModels(const engine::Camera&) const
 
 void Model::update(float deltaTime)
 {
+    this->useShader();
     for (auto& mesh : this->m_Meshes) {
         mesh->update(deltaTime);
     }
+    glUseProgram(0);
 }
 
 

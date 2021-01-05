@@ -10,7 +10,6 @@
 
 #include "Engine/AScene.hpp"
 #include "Engine/Actors/Model.hpp"
-#include "Engine/CubeMap.hpp"
 
 
 
@@ -24,15 +23,6 @@ public:
 private:
     engine::Shader backpackShader { "model3d" };
     engine::actor::Model backpack { backpackShader, "data/3dModels/backpack/backpack.obj", 2 };
-
-    engine::Shader cubeMapShader { "cubeMap" };
-    engine::actor::CubeMap cubeMap { cubeMapShader };
-
-    // engine::actor::Model backpack { backpackShader,
-                             // "data/3dModels/backpack/original/Survival_BackPack_2.obj", 2 };
-
-    // engine::actor::Model backpack { backpackShader, "data/3dModels/woodenTable/source/Desk.fbx", 2 };
-    // engine::actor::Model backpack { backpackShader, "data/3dModels/woodenTable/source/Wooden_Table.obj" };
 };
 
 

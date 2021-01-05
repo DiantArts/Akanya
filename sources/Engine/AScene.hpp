@@ -19,6 +19,7 @@
 #include "Clock.hpp"
 #include "Shader.hpp"
 #include "Window.hpp"
+#include "CubeMap.hpp"
 
 
 
@@ -78,6 +79,9 @@ protected:
         std::unordered_map<std::string, engine::Shader> m_ShaderMap;
     };
     engine::AScene::ShaderMap m_ShaderMap;
+
+private:
+    engine::actor::CubeMap cubeMap { this->m_ShaderMap["cubeMap"] };
 };
 
 

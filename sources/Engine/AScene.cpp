@@ -42,7 +42,11 @@ void AScene::manageEvents()
 }
 
 void AScene::update()
-{}
+{
+    for (auto& actor : this->m_VectorActors) {
+        actor->update(this->m_UpdateClock.getElapsedTime());
+    }
+}
 
 void AScene::additionalDraws() const
 {}
@@ -52,15 +56,15 @@ void AScene::draw()
     this->m_Window.clear();
 
     for (auto& actor : this->m_VectorActors) {
-        actor->update(this->m_UpdateClock.getElapsedTime());
         actor->draw(this->m_Window.camera);
     }
 
     this->additionalDraws();
 
+    this->cubeMap.draw(this->m_Window.camera);
+
     this->drawFps();
 
-    this->m_Window.pollEvents();
     this->m_Window.swapBuffers();
 }
 

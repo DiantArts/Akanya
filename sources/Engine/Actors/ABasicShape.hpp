@@ -54,16 +54,17 @@ public:
         // ------------------------------------------------ bind
         void bind() const;
 
-
     private:
         GLuint m_Id;
         GLenum m_Index;
+
+        friend ABasicShape::~ABasicShape(); // textures destruction pupruse
     };
     void addTexture(std::string_view filepath, std::string_view name);
 
 private:
     std::vector<ABasicShape::Texture> m_TextureVector;
-    size_t                            numberOfTextures { 0 };
+    size_t                            m_NumberOfTextures { 0 };
 };
 
 

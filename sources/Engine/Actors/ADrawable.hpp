@@ -51,6 +51,9 @@ protected:
 
 private:
     const engine::Shader& m_Shader;
+
+    static inline size_t idGiver { 0 };
+    const size_t m_Id { idGiver++ };
 };
 
 

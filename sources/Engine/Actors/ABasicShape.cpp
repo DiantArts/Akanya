@@ -6,6 +6,7 @@
 */
 
 #include "ABasicShape.hpp"
+#include "debugMacros.hpp"
 
 #include <stb/stb_image.h>
 
@@ -25,19 +26,25 @@ ABasicShape::ABasicShape(engine::Shader&              shader,
                          const std::function<void()>& setAttributesFunc,
                          const std::string_view       verticesFilename,
                          const size_t                 numberOfPositions /* = 1 */,
-                         const size_t                 numberOfTextures /*= 1 */)
+                         const size_t                 numberOfTexturesToReserve /*= 1 */)
     : engine::actor::AActor(shader, numberOfPositions)
 {
-    this->m_TextureVector.reserve(numberOfTextures);
+    this->m_TextureVector.reserve(numberOfTexturesToReserve);
 
     this->m_Vbo.bind();
     this->m_Vao.bind();
     setAttributesFunc();
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
+
+    DEBUG_MSG("basic shape created");
 }
 
 ABasicShape::~ABasicShape()
-{}
+{
+    for (auto& texture : this->m_TextureVector) {
+        glDeleteTextures(1, &texture.m_Id);
+    }
+}
 
 
 
@@ -66,7 +73,7 @@ void ABasicShape::addTexture(const std::string_view filename, const std::string_
     filepath += engine::filepath::textures;
     filepath += filename;
 
-    this->m_TextureVector.emplace_back(filepath, this->getShader(), name.data(), numberOfTextures++);
+    this->m_TextureVector.emplace_back(filepath, this->getShader(), name.data(), this->m_NumberOfTextures++);
 }
 
 

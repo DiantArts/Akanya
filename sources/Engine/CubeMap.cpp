@@ -38,9 +38,14 @@ CubeMap::CubeMap(engine::Shader&              shader,
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
     setAttributesFunc();
 
+    stbi_set_flip_vertically_on_load(false);
     this->m_Texture.loadFromConfigFile(textureDirectory);
+    stbi_set_flip_vertically_on_load(true);
 
     this->instances.setPosition(0, 0, 0);
+
+    this->useShader();
+    this->setIntoShader("skybox", static_cast<int>(0));
 }
 
 CubeMap::~CubeMap()
@@ -71,7 +76,6 @@ void CubeMap::configureShader(const engine::Camera& camera) const
     this->setIntoShader("projection",
                         glm::perspective(glm::radians(camera.getZoom()),
                                          (float)Window::width / (float)Window::height, 0.1F, 100.0F));
-    this->setIntoShader("skybox", static_cast<int>(0));
 }
 
 
@@ -94,7 +98,9 @@ CubeMap::Texture::Texture()
 }
 
 CubeMap::Texture::~Texture()
-{}
+{
+    glDeleteTextures(1, &this->m_Id);
+}
 
 void CubeMap::Texture::loadFromConfigFile(const std::string_view textureDirectory)
 {
@@ -106,14 +112,12 @@ void CubeMap::Texture::loadFromConfigFile(const std::string_view textureDirector
     textureConfigFilepath += textureDirectory;
     textureConfigFilepath += "/filepaths.config";
 
-    std::ifstream configFile;
-    configFile.exceptions(std::ifstream::badbit);
-    try {
-        configFile.open(textureConfigFilepath);
-    } catch (const std::ifstream::failure& e) {
+    std::ifstream configFile(textureConfigFilepath);
+    if (!configFile.is_open()) {
         throw std::runtime_error(std::string("unable to open '") + textureConfigFilepath +
-                                 std::string("' texture config file (") + e.what() + ')');
+                                 "' texture config file");
     }
+
 
     std::string filepath, filename;
     filepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 1);

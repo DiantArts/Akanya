@@ -6,6 +6,7 @@
 */
 
 #include "ADrawable.hpp"
+#include "debugMacros.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -20,7 +21,9 @@ namespace engine::actor {
 // ---------------------------------------------------------------------------- *structors
 
 ADrawable::ADrawable(engine::Shader& shader) : m_Shader(shader)
-{}
+{
+    DEBUG_MSG("(" << this->m_Id << "): created");
+}
 
 ADrawable::~ADrawable()
 {}
@@ -30,6 +33,7 @@ ADrawable::~ADrawable()
 // ---------------------------------------------------------------------------- Draw
 void ADrawable::draw(const engine::Camera& camera) const
 {
+    this->useShader();
     this->configureShader(camera);
     this->drawModels(camera);
 }
