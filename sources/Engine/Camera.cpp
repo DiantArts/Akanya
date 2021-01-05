@@ -23,6 +23,22 @@ namespace engine {
 
 
 
+// ---------------------------------------------------------------------------- *structors
+Camera::Camera()
+{
+    this->setLightAmbient(glm::vec3 { 1.0F });
+    this->setLightDiffuse(glm::vec3 { 0.8F });
+    this->setLightSpecular(glm::vec3 { 0.0F });
+
+    this->setLightConstant(1.0F);
+    this->setLightLinear(1.0F);
+    this->setLightQuadratic(0.32F);
+}
+Camera::~Camera()
+{}
+
+
+
 // ---------------------------------------------------------------------------- speed
 
 void Camera::adjustLocalSpeed(const float deltaTime)

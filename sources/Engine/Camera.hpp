@@ -26,8 +26,8 @@ namespace engine {
 class Camera : public engine::light::Default {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit Camera() = default;
-    ~Camera()         = default;
+    explicit Camera();
+    ~Camera();
 
 
     // ---------------------------------------------------------------------------- speed
