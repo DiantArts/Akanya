@@ -73,7 +73,7 @@ ABasicShape::Texture::Texture(const std::string& filename)
         const auto data { stbi_load(filepath.c_str(), &width, &height, &nrComponents, 0) };
 
         if (!data) {
-            throw std::runtime_error(std::string("ERROR: Failed to load '") + filepath + "' texture\n");
+            throw std::runtime_error(std::string("ERROR: Failed to load '") + filepath + "' texture");
         }
 
         GLenum format;

@@ -18,6 +18,7 @@ namespace engine::filepath {
 
 inline std::string textures { "./data/textures/" };
 inline std::string vertices { "./data/vertices/" };
+inline std::string model { "./data/3dModels/" };
 
 
 
