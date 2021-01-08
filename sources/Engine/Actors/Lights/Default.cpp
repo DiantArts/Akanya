@@ -18,10 +18,12 @@ namespace engine::light {
 
 // ---------------------------------------------------------------------------- *structors
 
-Default::Default(const light::dynamic::Parameters& parameters) : m_Parameters(parameters)
+Default::Default(const light::dynamic::Parameters& parameters)
+    : m_Parameters(parameters)
 {}
 
-Default::Default(light::dynamic::Parameters&& parameters) : m_Parameters(std::move(parameters))
+Default::Default(light::dynamic::Parameters&& parameters)
+    : m_Parameters(std::move(parameters))
 {}
 
 Default::~Default()

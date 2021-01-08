@@ -71,7 +71,7 @@ void AScene::draw()
 void AScene::drawFps() const
 {
     this->m_Elapsed += this->m_FpsClock.getElapsedTime();
-    this->m_Fps++;
+    ++this->m_Fps;
 
     if (this->m_Elapsed >= 1) {
         std::cout << "FPS: " << this->m_Fps << '\n';

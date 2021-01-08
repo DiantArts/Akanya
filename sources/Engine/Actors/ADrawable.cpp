@@ -20,7 +20,8 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-ADrawable::ADrawable(engine::Shader& shader) : m_Shader(shader)
+ADrawable::ADrawable(engine::Shader& shader)
+    : m_Shader(shader)
 {
     DEBUG_MSG("(" << this->m_Id << "): created");
 }

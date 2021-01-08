@@ -73,7 +73,7 @@ protected:
     // ---------------------------------------------------------------------------- ShaderMap
     class ShaderMap {
     public:
-        engine::Shader& operator[](const std::string& filename); // note: string_view doesn't work
+        engine::Shader& operator[](const std::string& filename);
 
     private:
         std::unordered_map<std::string, engine::Shader> m_ShaderMap;

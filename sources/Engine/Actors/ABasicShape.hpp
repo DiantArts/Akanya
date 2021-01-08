@@ -9,6 +9,7 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
 
 #include "AActor.hpp"
+#include "Texture.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
 
@@ -33,38 +34,25 @@ public:
     virtual void drawModels(const engine::Camera& camera) const override;
 
 
+public:
+    // ---------------------------------------------------------------------------- Textures
+    class Texture : public engine::Texture {
+    public:
+        // ------------------------------------------------ *structors
+        Texture(const std::string& filename);
+        ~Texture();
+    };
+    void addTexture(const std::string& filepath, const std::string& name);
+    void bindTextures() const;
+
+private:
+    std::vector<ABasicShape::Texture> m_TextureVector;
+
+
 private:
     size_t      m_NumberOfArrayToDraw;
     engine::Vao m_Vao;
     engine::Vbo m_Vbo;
-
-
-public:
-    // ---------------------------------------------------------------------------- Textures
-    class Texture {
-    public:
-        // ------------------------------------------------ *structors
-        Texture(const std::string&    filename,
-                const engine::Shader& shader,
-                const std::string&    name,
-                size_t                textureIndex);
-        ~Texture();
-
-
-        // ------------------------------------------------ bind
-        void bind() const;
-
-    private:
-        GLuint m_Id;
-        GLenum m_Index;
-
-        friend ABasicShape::~ABasicShape(); // textures destruction pupruse
-    };
-    void addTexture(std::string_view filepath, std::string_view name);
-
-private:
-    std::vector<ABasicShape::Texture> m_TextureVector;
-    size_t                            m_NumberOfTextures { 0 };
 };
 
 

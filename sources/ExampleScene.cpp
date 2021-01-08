@@ -51,6 +51,7 @@ ExampleScene::ExampleScene()
     // backpack.instances.setPosition(-3.0F,  0.0F, 0.0F);
     backpack.instances.addPosition(-3.0F, 0.0F, 0.0F);
     backpack.instances.addPosition(3.0F, 0.0F, 0.0F);
+    backpack.instances.addPosition(9.0F, 0.0F, 0.0F);
     // backpack.setScale(0.005F);
     // backpack.rotate(0, 0, 0);
 }

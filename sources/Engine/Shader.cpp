@@ -54,7 +54,8 @@ Shader::Shader(const std::string_view vertexFileName, const std::string_view fra
     glDeleteShader(fragment);
 }
 
-Shader::Shader(const std::string_view filepathes) : Shader(filepathes, filepathes)
+Shader::Shader(const std::string_view filepathes)
+    : Shader(filepathes, filepathes)
 {}
 
 

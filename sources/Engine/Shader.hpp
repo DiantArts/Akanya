@@ -41,7 +41,7 @@ public:
     void use() const;
 
 
-    // ---------------------------------------------------------------------------- Set
+    // ---------------------------------------------------------------------------- Set (must be used before)
     void set(const std::string& name, bool value) const;
     void set(std::string&& name, bool value) const;
 

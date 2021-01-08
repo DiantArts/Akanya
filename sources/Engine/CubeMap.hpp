@@ -13,6 +13,7 @@
 #include "Actors/AActor.hpp"
 #include "Actors/Vertexes/Vao.hpp"
 #include "Actors/Vertexes/Vbo.hpp"
+#include "Texture.hpp"
 
 
 
@@ -25,8 +26,8 @@ public:
     // ---------------------------------------------------------------------------- *structors
     CubeMap(engine::Shader&              shader,
             const std::function<void()>& setAttributesFunc = CubeMap::setAttributes,
-            const std::string_view       verticesFilename = "cubeMap",
-            const std::string_view       textureDirectory = "cubeMap");
+            const std::string_view       verticesFilename  = "cubeMap",
+            const std::string_view       textureDirectory  = "cubeMap");
     ~CubeMap();
 
 
@@ -42,21 +43,14 @@ public:
 
 public:
     // ---------------------------------------------------------------------------- Textures
-    class Texture {
+    class Texture : public engine::Texture {
     public:
         // ------------------------------------------------ *structors
-        Texture();
+        Texture(const std::string& configFilepath);
         ~Texture();
-
-        void loadFromConfigFile(const std::string_view configFilepath);
-
 
         // ------------------------------------------------ bind
         void bind() const;
-
-
-    private:
-        GLuint m_Id;
     };
 
 private:
@@ -68,7 +62,7 @@ private:
 
 
 
-} // engine::actor
+} // namespace engine::actor
 
 
 

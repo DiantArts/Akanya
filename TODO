@@ -1,1 +1,5 @@
+INPROGRESS:
 regroup every Texture class into one
+
+TODO:
+optimise GLSL (shadered memory) (advanced-glsl)

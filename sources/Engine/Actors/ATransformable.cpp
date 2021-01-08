@@ -17,7 +17,8 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-ATransformable::ATransformable(const size_t numberOfPositions) : instances(numberOfPositions)
+ATransformable::ATransformable(const size_t numberOfPositions)
+    : instances(numberOfPositions)
 {}
 
 ATransformable::~ATransformable()

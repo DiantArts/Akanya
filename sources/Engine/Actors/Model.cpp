@@ -29,7 +29,9 @@ Model::Model(engine::Shader&    shader,
 
 Model::~Model()
 {
-    glDeleteTextures(this->m_Textures.size(), &this->m_Textures.front().id);
+    for (auto& elem : this->m_Textures) {
+        glDeleteTextures(1, &elem.id);
+    }
 }
 
 
@@ -114,7 +116,7 @@ void Model::Mesh::draw() const
 {
     size_t diffuseIndex { 1 }, specularIndex { 1 }, normalIndex { 1 }, heightIndex { 1 };
 
-    for (size_t i = 0; i < this->m_Textures.size(); i++) {
+    for (size_t i = 0; i < this->m_Textures.size(); ++i) {
         glActiveTexture(GL_TEXTURE0 + i);
         std::string name { "material." };
         name += this->m_Textures[i].type;
@@ -166,11 +168,11 @@ void Model::loadModel(const std::string& filepath)
 
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
-    for (size_t i = 0; i < node->mNumMeshes; i++) {
+    for (size_t i = 0; i < node->mNumMeshes; ++i) {
         this->m_Meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
     }
 
-    for (size_t i = 0; i < node->mNumChildren; i++) {
+    for (size_t i = 0; i < node->mNumChildren; ++i) {
         processNode(node->mChildren[i], scene);
     }
 }
@@ -178,7 +180,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 std::unique_ptr<engine::actor::Model::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<engine::actor::Model::Vertex> vertices;
-    for (size_t i = 0; i < mesh->mNumVertices; i++) {
+    for (size_t i = 0; i < mesh->mNumVertices; ++i) {
         engine::actor::Model::Vertex vertex;
 
         vertex.Position = glm::vec3 { std::move(mesh->mVertices[i].x), std::move(mesh->mVertices[i].y),
@@ -203,9 +205,9 @@ std::unique_ptr<engine::actor::Model::Mesh> Model::processMesh(aiMesh* mesh, con
     }
 
     std::vector<GLuint> indices;
-    for (size_t i = 0; i < mesh->mNumFaces; i++) {
+    for (size_t i = 0; i < mesh->mNumFaces; ++i) {
         aiFace face { mesh->mFaces[i] };
-        for (size_t j = 0; j < face.mNumIndices; j++) {
+        for (size_t j = 0; j < face.mNumIndices; ++j) {
             indices.push_back(std::move(face.mIndices[j]));
         }
     }
@@ -237,11 +239,11 @@ Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::stri
 {
     std::vector<engine::actor::Model::Texture> textures;
 
-    for (size_t i { 0 }; i < mat->GetTextureCount(type); i++) {
+    for (size_t i { 0 }; i < mat->GetTextureCount(type); ++i) {
         aiString str;
         mat->GetTexture(type, i, &str);
         bool isTextureAlreadyLoaded { false };
-        for (size_t j = 0; j < this->m_Textures.size(); j++) {
+        for (size_t j = 0; j < this->m_Textures.size(); ++j) {
             if (std::strcmp(this->m_Textures[j].filepath.data(), str.C_Str()) == 0) {
                 textures.push_back(this->m_Textures[j]);
                 isTextureAlreadyLoaded = true;

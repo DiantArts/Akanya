@@ -31,16 +31,12 @@ CubeMap::CubeMap(engine::Shader&              shader,
                  const std::function<void()>& setAttributesFunc /* = CubeMap::setAttributes */,
                  const std::string_view       verticesFilename,
                  const std::string_view       textureDirectory)
-    : AActor(shader, 1)
+    : AActor(shader, 1), m_Texture(textureDirectory.data())
 {
     this->m_Vbo.bind();
     this->m_Vao.bind();
     engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
     setAttributesFunc();
-
-    stbi_set_flip_vertically_on_load(false);
-    this->m_Texture.loadFromConfigFile(textureDirectory);
-    stbi_set_flip_vertically_on_load(true);
 
     this->instances.setPosition(0, 0, 0);
 
@@ -92,75 +88,73 @@ void CubeMap::setAttributes()
 
 // ---------------------------------------------------------------------------- Textures
 
-CubeMap::Texture::Texture()
+CubeMap::Texture::Texture(const std::string& textureDirectory)
+    : engine::Texture(textureDirectory)
 {
-    glGenTextures(1, &this->m_Id);
+    if (this->m_Id.use_count() == 1) { // if just created
+        glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);
+
+        std::string textureConfigFilepath;
+        textureConfigFilepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 17);
+        textureConfigFilepath += engine::filepath::textures;
+        textureConfigFilepath += textureDirectory;
+        textureConfigFilepath += "/filepaths.config";
+
+        std::ifstream configFile(textureConfigFilepath);
+        if (!configFile.is_open()) {
+            throw std::runtime_error(std::string("unable to open '") + textureConfigFilepath +
+                                     "' texture config file");
+        }
+
+
+        std::string filepath, filename;
+        filepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 1);
+        filepath += engine::filepath::textures;
+        filepath += textureDirectory;
+        filepath += "/";
+        size_t filepathSize { filepath.size() };
+
+        stbi_set_flip_vertically_on_load(false);
+        for (size_t i { 0 }; std::getline(configFile, filename); ++i) {
+            filepath.replace(filepath.begin() + filepathSize, filepath.end(), filename);
+
+            int        width, height, nrComponents;
+            const auto data { stbi_load(filepath.c_str(), &width, &height, &nrComponents, 0) };
+
+            if (!data) {
+                stbi_image_free(const_cast<unsigned char*>(data));
+                throw std::runtime_error(std::string("Failed to load '") + filepath + "' cube map's texture");
+            }
+
+            GLenum format;
+            switch (nrComponents) {
+            case 1: format = GL_RED; break;
+            case 3: format = GL_RGB; break;
+            case 4: format = GL_RGBA; break;
+            default: throw std::runtime_error("unsupported texture format found");
+            }
+
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format,
+                         GL_UNSIGNED_BYTE, data);
+            stbi_image_free(const_cast<unsigned char*>(data));
+        }
+        stbi_set_flip_vertically_on_load(true);
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    }
 }
 
 CubeMap::Texture::~Texture()
-{
-    glDeleteTextures(1, &this->m_Id);
-}
-
-void CubeMap::Texture::loadFromConfigFile(const std::string_view textureDirectory)
-{
-    glBindTexture(GL_TEXTURE_CUBE_MAP, this->m_Id);
-
-    std::string textureConfigFilepath;
-    textureConfigFilepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 17);
-    textureConfigFilepath += engine::filepath::textures;
-    textureConfigFilepath += textureDirectory;
-    textureConfigFilepath += "/filepaths.config";
-
-    std::ifstream configFile(textureConfigFilepath);
-    if (!configFile.is_open()) {
-        throw std::runtime_error(std::string("unable to open '") + textureConfigFilepath +
-                                 "' texture config file");
-    }
-
-
-    std::string filepath, filename;
-    filepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 1);
-    filepath += engine::filepath::textures;
-    filepath += textureDirectory;
-    filepath += "/";
-    size_t filepathSize { filepath.size() };
-
-    for (size_t i { 0 }; std::getline(configFile, filename); i++) {
-        filepath.replace(filepath.begin() + filepathSize, filepath.end(), filename);
-
-        int        width, height, nrComponents;
-        const auto data { stbi_load(filepath.c_str(), &width, &height, &nrComponents, 0) };
-
-        if (!data) {
-            stbi_image_free(const_cast<unsigned char*>(data));
-            throw std::runtime_error(std::string("Failed to load '") + filepath + "' cube map's texture");
-        }
-
-        GLenum format;
-        switch (nrComponents) {
-        case 1: format = GL_RED; break;
-        case 3: format = GL_RGB; break;
-        case 4: format = GL_RGBA; break;
-        default: throw std::runtime_error("unsupported texture format found");
-        }
-
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format,
-                     GL_UNSIGNED_BYTE, data);
-        stbi_image_free(const_cast<unsigned char*>(data));
-    }
-
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-}
+{}
 
 void CubeMap::Texture::bind() const
 {
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, this->m_Id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);
 }
 
 
