@@ -10,9 +10,9 @@
 
 #include <string_view>
 
-#include "Actors/AActor.hpp"
-#include "Actors/Vertexes/Vao.hpp"
-#include "Actors/Vertexes/Vbo.hpp"
+#include "AActor.hpp"
+#include "Vertexes/Vao.hpp"
+#include "Vertexes/Vbo.hpp"
 #include "Texture.hpp"
 
 
@@ -43,7 +43,7 @@ public:
 
 public:
     // ---------------------------------------------------------------------------- Textures
-    class Texture : public engine::Texture {
+    class Texture : public engine::actor::Texture {
     public:
         // ------------------------------------------------ *structors
         Texture(const std::string& configFilepath);

@@ -1,8 +1,11 @@
 TODO:
-optimise GLSL (shadered memory) (advanced-glsl)
 
 TODO Later:
+optimise GLSL (shadered memory) : https://learnopengl.com/Advanced-OpenGL/Advanced-GLSL
 Batch rendering
 Particule system
 Skeletal Animation system
 Mouse picking
+
+TODO if needed:
+Transparancy : https://learnopengl.com/Advanced-OpenGL/Blending

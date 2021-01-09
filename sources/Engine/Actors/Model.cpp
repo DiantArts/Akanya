@@ -231,7 +231,7 @@ Model::Texture::Texture(const std::string&     filename,
                         const std::string&     directoryName,
                         const std::string_view typeName,
                         const size_t           i)
-    : engine::Texture(filename)
+    : engine::actor::Texture(filename)
 {
     if (this->m_Id.use_count() == 1) { // if need initialisation
         std::string textureFilepath;

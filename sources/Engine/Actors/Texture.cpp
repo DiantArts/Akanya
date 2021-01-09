@@ -75,7 +75,7 @@ TextureMap g_CachedTextures;
 
 
 
-namespace engine {
+namespace engine::actor {
 
 
 
@@ -101,4 +101,4 @@ GLuint Texture::get() const
 
 
 
-} // namespace engine
+} // namespace engine::actor

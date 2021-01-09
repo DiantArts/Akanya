@@ -15,11 +15,11 @@
 #include <glad/glad.h>
 
 #include "Actors/ABasicShape.hpp"
+#include "Actors/CubeMap.hpp"
 #include "Camera.hpp"
 #include "Clock.hpp"
 #include "Shader.hpp"
 #include "Window.hpp"
-#include "CubeMap.hpp"
 
 
 

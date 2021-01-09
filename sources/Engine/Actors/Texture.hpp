@@ -14,7 +14,7 @@
 #include <glad/glad.h>
 
 
-namespace engine {
+namespace engine::actor {
 
 
 
@@ -37,7 +37,7 @@ public: // TODO: tmp
 
 
 
-} // namespace engine
+} // namespace engine::actor
 
 
 

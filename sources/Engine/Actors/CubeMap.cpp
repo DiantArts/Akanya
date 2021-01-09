@@ -15,9 +15,10 @@
 
 #include <stb/stb_image.h>
 
-#include "Actors/Vertexes/Vertices.hpp"
-#include "Filepaths.hpp"
-#include "Window.hpp"
+#include "Vertexes/Vertices.hpp"
+
+#include "../Filepaths.hpp"
+#include "../Window.hpp"
 
 
 
@@ -89,7 +90,7 @@ void CubeMap::setAttributes()
 // ---------------------------------------------------------------------------- Textures
 
 CubeMap::Texture::Texture(const std::string& textureDirectory)
-    : engine::Texture(textureDirectory)
+    : engine::actor::Texture(textureDirectory)
 {
     if (this->m_Id.use_count() == 1) { // if just created
         glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);

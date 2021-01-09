@@ -61,7 +61,7 @@ void ABasicShape::drawModels(const engine::Camera&) const
 // ---------------------------------------------------------------------------- Texture
 
 ABasicShape::Texture::Texture(const std::string& filename)
-    : engine::Texture(filename)
+    : engine::actor::Texture(filename)
 {
     if (this->m_Id.use_count() == 1) { // if need initialisation
         int        width, height, nrComponents;

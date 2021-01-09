@@ -36,7 +36,7 @@ public:
 
 public:
     // ---------------------------------------------------------------------------- Textures
-    class Texture : public engine::Texture {
+    class Texture : public engine::actor::Texture {
     public:
         // ------------------------------------------------ *structors
         Texture(const std::string& filename);

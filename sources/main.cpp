@@ -9,9 +9,29 @@
 
 #include "ExampleScene.hpp"
 
+#include "Engine/Events/Window.hpp"
+#include "Engine/Events/Keyboard.hpp"
+
+void keyPressedHandler(engine::event::KeyPressed& event)
+{
+    std::cout << __FUNCTION__  << ": " << event.getName() << std::endl;
+}
+
+void keyReleasedHandler(engine::event::KeyReleased& event)
+{
+    std::cout << __FUNCTION__  << ": " << event << std::endl;
+}
+
+
 
 int main()
 {
+    // std::unique_ptr<engine::AEvent> event { new engine::event::KeyPressed(10) };
+    // std::function<void(engine::event::KeyPressed&)> func1 = keyPressedHandler;
+    // std::function<void(engine::event::KeyReleased&)> func2 = keyReleasedHandler;
+    // event->handleWith(func1);
+    // event->handleWith(func2);
+    // return 0;
     try {
         ExampleScene scene;
 
