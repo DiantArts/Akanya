@@ -1,5 +1,8 @@
-INPROGRESS:
-regroup every Texture class into one
-
 TODO:
 optimise GLSL (shadered memory) (advanced-glsl)
+
+TODO Later:
+Batch rendering
+Particule system
+Skeletal Animation system
+Mouse picking

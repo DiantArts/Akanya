@@ -6,6 +6,7 @@
 */
 
 #include "Texture.hpp"
+#include <iostream>
 
 #include <unordered_map>
 
@@ -15,19 +16,16 @@ namespace {
 
 class TextureMap {
 public:
-    using data       = std::shared_ptr<GLuint>;
-    using internData = std::weak_ptr<GLuint>;
-    using map        = std::unordered_map<std::string, internData>;
-    using iterator   = map::iterator;
+    using DataType   = GLuint;
+    using DataPtr    = std::shared_ptr<DataType>;
+    using InternData = std::weak_ptr<DataType>;
+    using Map        = std::unordered_map<std::string, InternData>;
+    using iterator   = Map::iterator;
 
     TextureMap()
-    {
-        for (auto& elem : this->m_Map) {
-            glDeleteTextures(1, elem.second.lock().get());
-        }
-    }
+    {}
 
-    data operator[](const std::string& filename)
+    DataPtr operator[](const std::string& filename)
     {
         {
             auto it { this->m_Map.find(filename) };
@@ -36,13 +34,17 @@ public:
             }
         }
 
-        auto instance { std::make_shared<GLuint>() };
-        auto it { this->m_Map.emplace(filename, instance).first };
+        DataPtr instance( new DataType, [this, filename](DataType* id) {
+            glDeleteTextures(1, id);
+            delete id;
+            this->m_Map.erase(filename);
+        });
+        this->m_Map.emplace(filename, instance);
         glGenTextures(1, instance.get());
         return instance;
     }
 
-    data operator[](std::string&& filename)
+    DataPtr operator[](std::string&& filename)
     {
         {
             auto it { this->m_Map.find(filename) };
@@ -51,8 +53,12 @@ public:
             }
         }
 
-        auto instance { std::make_shared<GLuint>() };
-        auto it { this->m_Map.emplace(std::move(filename), instance).first };
+        DataPtr instance( new DataType, [this, filename](DataType* id) {
+            glDeleteTextures(1, id);
+            delete id;
+            this->m_Map.erase(filename);
+        });
+        this->m_Map.emplace(std::move(filename), instance);
         glGenTextures(1, instance.get());
         return instance;
     }
@@ -60,7 +66,7 @@ public:
 
 
 private:
-    TextureMap::map m_Map;
+    TextureMap::Map m_Map;
 };
 
 TextureMap g_CachedTextures;
