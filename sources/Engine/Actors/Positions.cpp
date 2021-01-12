@@ -279,4 +279,17 @@ void Positions::moveZ(const float offsetZ)
 
 
 
+// ---------------------------------------------------------------------------- Size
+
+size_t Positions::size() const
+{
+    if (const auto* positions { std::get_if<MultiplePositions>(&this->m_Variant) }) {
+        return positions->size();
+    } else {
+        return 1;
+    }
+}
+
+
+
 } // namespace engine::actor

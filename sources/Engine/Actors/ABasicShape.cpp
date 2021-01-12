@@ -27,7 +27,7 @@ ABasicShape::ABasicShape(engine::Shader&              shader,
                          const std::string_view       verticesFilename,
                          const size_t                 numberOfPositions /* = 1 */,
                          const size_t                 numberOfTexturesToReserve /*= 1 */)
-    : engine::actor::AActor(shader, numberOfPositions)
+    : engine::AActor(shader, numberOfPositions)
 {
     this->m_TextureVector.reserve(numberOfTexturesToReserve);
 

@@ -27,31 +27,37 @@ public:
         using pointer           = value_type*;
         using reference         = value_type&;
 
-        iterator(const pointer ptr) : m_Ptr(std::move(ptr))
+        explicit iterator(const pointer ptr) : m_Ptr(std::move(ptr))
         {}
+
         reference operator*()
         {
             return *this->m_Ptr;
         }
+
         pointer operator->()
         {
             return this->m_Ptr;
         }
+
         iterator& operator++()
         {
             m_Ptr++;
             return *this;
         }
+
         iterator operator++(int)
         {
             auto tmp = *this;
             ++(*this);
             return tmp;
         }
+
         bool operator==(const Iterator::iterator& that)
         {
             return this->m_Ptr == that.m_Ptr;
         }
+
         bool operator!=(const Iterator::iterator& that)
         {
             return this->m_Ptr != that.m_Ptr;
@@ -71,29 +77,35 @@ public:
 
         const_iterator(pointer ptr) : m_Ptr(std::move(ptr))
         {}
+
         reference operator*()
         {
             return *this->m_Ptr;
         }
+
         pointer operator->()
         {
             return this->m_Ptr;
         }
+
         const const_iterator& operator++()
         {
             m_Ptr++;
             return *this;
         }
+
         const const_iterator operator++(int)
         {
             auto tmp = *this;
             ++(*this);
             return tmp;
         }
+
         bool operator==(const Iterator::const_iterator& that)
         {
             return this->m_Ptr == that.m_Ptr;
         }
+
         bool operator!=(const Iterator::const_iterator& that)
         {
             return this->m_Ptr != that.m_Ptr;

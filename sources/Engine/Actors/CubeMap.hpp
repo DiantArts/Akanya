@@ -21,7 +21,7 @@ namespace engine::actor {
 
 
 
-class CubeMap : public engine::actor::AActor {
+class CubeMap : public engine::AActor {
 public:
     // ---------------------------------------------------------------------------- *structors
     CubeMap(engine::Shader&              shader,
@@ -43,7 +43,7 @@ public:
 
 public:
     // ---------------------------------------------------------------------------- Textures
-    class Texture : public engine::actor::Texture {
+    class Texture {
     public:
         // ------------------------------------------------ *structors
         Texture(const std::string& configFilepath);
@@ -51,6 +51,10 @@ public:
 
         // ------------------------------------------------ bind
         void bind() const;
+        GLuint get();
+
+    private:
+        std::shared_ptr<GLuint> m_Id;
     };
 
 private:

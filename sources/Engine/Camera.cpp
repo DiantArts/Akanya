@@ -25,14 +25,15 @@ namespace engine {
 
 // ---------------------------------------------------------------------------- *structors
 Camera::Camera()
+    : engine::actor::ALight(this->instances)
 {
-    this->setLightAmbient(glm::vec3 { 1.0F });
-    this->setLightDiffuse(glm::vec3 { 0.8F });
-    this->setLightSpecular(glm::vec3 { 0.0F });
+    this->parameters.ambient = glm::vec3 { 1.0F };
+    this->parameters.diffuse = glm::vec3 { 0.8F };
+    this->parameters.specular = glm::vec3 { 0.0F };
 
-    this->setLightConstant(1.0F);
-    this->setLightLinear(1.0F);
-    this->setLightQuadratic(0.32F);
+    this->parameters.constant = 1.0F;
+    this->parameters.linear = 1.0F;
+    this->parameters.quadratic = 0.32F;
 }
 Camera::~Camera()
 {}

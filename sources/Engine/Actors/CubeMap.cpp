@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <unordered_map>
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -19,6 +20,67 @@
 
 #include "../Filepaths.hpp"
 #include "../Window.hpp"
+
+
+
+namespace {
+
+class TextureMap {
+public:
+    using DataType   = GLuint;
+    using DataPtr    = std::shared_ptr<DataType>;
+    using InternData = std::weak_ptr<DataType>;
+    using Map        = std::unordered_map<std::string, InternData>;
+    using iterator   = Map::iterator;
+
+    TextureMap()
+    {}
+
+    DataPtr operator[](const std::string& filename)
+    {
+        {
+            auto it { this->m_Map.find(filename) };
+            if (it != this->m_Map.end()) {
+                return it->second.lock();
+            }
+        }
+
+        DataPtr instance(new DataType, [this, filename](DataType* id) {
+            glDeleteTextures(1, id);
+            delete id;
+            this->m_Map.erase(filename);
+        });
+        this->m_Map.emplace(filename, instance);
+        glGenTextures(1, instance.get());
+        return instance;
+    }
+
+    DataPtr operator[](std::string&& filename)
+    {
+        {
+            auto it { this->m_Map.find(filename) };
+            if (it != this->m_Map.end()) {
+                return it->second.lock();
+            }
+        }
+
+        DataPtr instance(new DataType, [this, filename](DataType* id) {
+            glDeleteTextures(1, id);
+            delete id;
+            this->m_Map.erase(filename);
+        });
+        this->m_Map.emplace(std::move(filename), instance);
+        glGenTextures(1, instance.get());
+        return instance;
+    }
+
+private:
+    TextureMap::Map m_Map;
+};
+
+TextureMap g_CachedTextures;
+
+} // namespace
 
 
 
@@ -32,7 +94,7 @@ CubeMap::CubeMap(engine::Shader&              shader,
                  const std::function<void()>& setAttributesFunc /* = CubeMap::setAttributes */,
                  const std::string_view       verticesFilename,
                  const std::string_view       textureDirectory)
-    : AActor(shader, 1), m_Texture(textureDirectory.data())
+    : engine::AActor(shader, 1), m_Texture(textureDirectory.data())
 {
     this->m_Vbo.bind();
     this->m_Vao.bind();
@@ -90,7 +152,7 @@ void CubeMap::setAttributes()
 // ---------------------------------------------------------------------------- Textures
 
 CubeMap::Texture::Texture(const std::string& textureDirectory)
-    : engine::actor::Texture(textureDirectory)
+    : m_Id(g_CachedTextures[textureDirectory])
 {
     if (this->m_Id.use_count() == 1) { // if just created
         glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);

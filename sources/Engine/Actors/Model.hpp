@@ -28,7 +28,7 @@ namespace engine::actor {
 
 
 
-class Model : public engine::actor::AActor {
+class Model : public engine::AActor {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Model(engine::Shader&    shader,

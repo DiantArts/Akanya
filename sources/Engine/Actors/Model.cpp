@@ -24,7 +24,7 @@ Model::Model(engine::Shader&    shader,
              const std::string& filename,
              const size_t       numberOfPositions /* = 1 */,
              const bool         gamma /* = false */)
-    : engine::actor::AActor(shader, numberOfPositions), m_GammaCorrection(gamma)
+    : engine::AActor(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filename);
     DEBUG_MSG("model created");

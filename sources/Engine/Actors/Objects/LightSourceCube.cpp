@@ -16,7 +16,7 @@ namespace engine::object {
 // ---------------------------------------------------------------------------- *structors
 
 LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPositions /* = 1 */)
-    : Cube(shader, numberOfPositions)
+    : engine::actor::basicShape::Cube(shader, numberOfPositions), engine::actor::ALight(this->instances)
 {
     this->setScale(0.1F);
 }

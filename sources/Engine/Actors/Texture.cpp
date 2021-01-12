@@ -14,16 +14,13 @@
 
 namespace {
 
-class TextureMap {
+class TextureContainer {
 public:
     using DataType   = GLuint;
     using DataPtr    = std::shared_ptr<DataType>;
     using InternData = std::weak_ptr<DataType>;
     using Map        = std::unordered_map<std::string, InternData>;
     using iterator   = Map::iterator;
-
-    TextureMap()
-    {}
 
     DataPtr operator[](const std::string& filename)
     {
@@ -64,12 +61,11 @@ public:
     }
 
 
-
 private:
-    TextureMap::Map m_Map;
+    TextureContainer::Map m_Map;
 };
 
-TextureMap g_CachedTextures;
+TextureContainer g_CachedTextures;
 
 } // namespace
 

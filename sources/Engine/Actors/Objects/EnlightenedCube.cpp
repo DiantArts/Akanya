@@ -43,55 +43,55 @@ void EnlightenedCube::configureShader(const engine::Camera& camera) const
 
     // directional light
     this->setIntoShader("dirLight.direction", camera.getOrientation());
-    this->setIntoShader("dirLight.ambient", camera.getParameters().ambient * glm::vec3 { 0 });
-    this->setIntoShader("dirLight.diffuse", camera.getParameters().diffuse * glm::vec3 { 0 });
-    this->setIntoShader("dirLight.specular", camera.getParameters().specular * glm::vec3 { 0 });
+    this->setIntoShader("dirLight.ambient", camera.parameters.ambient * glm::vec3 { 0 });
+    this->setIntoShader("dirLight.diffuse", camera.parameters.diffuse * glm::vec3 { 0 });
+    this->setIntoShader("dirLight.specular", camera.parameters.specular * glm::vec3 { 0 });
 
     // point light 1
     this->setIntoShader("pointLights[0].position", lamp->instances[0]);
-    this->setIntoShader("pointLights[0].ambient", lamp->getParameters().ambient);
-    this->setIntoShader("pointLights[0].diffuse", lamp->getParameters().diffuse);
-    this->setIntoShader("pointLights[0].specular", lamp->getParameters().specular);
-    this->setIntoShader("pointLights[0].constant", lamp->getParameters().constant);
-    this->setIntoShader("pointLights[0].linear", lamp->getParameters().linear);
-    this->setIntoShader("pointLights[0].quadratic", lamp->getParameters().quadratic);
+    this->setIntoShader("pointLights[0].ambient", lamp->parameters.ambient);
+    this->setIntoShader("pointLights[0].diffuse", lamp->parameters.diffuse);
+    this->setIntoShader("pointLights[0].specular", lamp->parameters.specular);
+    this->setIntoShader("pointLights[0].constant", lamp->parameters.constant);
+    this->setIntoShader("pointLights[0].linear", lamp->parameters.linear);
+    this->setIntoShader("pointLights[0].quadratic", lamp->parameters.quadratic);
 
     // point light 2
     this->setIntoShader("pointLights[1].position", lamp->instances[1]);
-    this->setIntoShader("pointLights[1].ambient", lamp->getParameters().ambient);
-    this->setIntoShader("pointLights[1].diffuse", lamp->getParameters().diffuse);
-    this->setIntoShader("pointLights[1].specular", lamp->getParameters().specular);
-    this->setIntoShader("pointLights[1].constant", lamp->getParameters().constant);
-    this->setIntoShader("pointLights[1].linear", lamp->getParameters().linear);
-    this->setIntoShader("pointLights[1].quadratic", lamp->getParameters().quadratic);
+    this->setIntoShader("pointLights[1].ambient", lamp->parameters.ambient);
+    this->setIntoShader("pointLights[1].diffuse", lamp->parameters.diffuse);
+    this->setIntoShader("pointLights[1].specular", lamp->parameters.specular);
+    this->setIntoShader("pointLights[1].constant", lamp->parameters.constant);
+    this->setIntoShader("pointLights[1].linear", lamp->parameters.linear);
+    this->setIntoShader("pointLights[1].quadratic", lamp->parameters.quadratic);
 
     // point light 3
     this->setIntoShader("pointLights[2].position", lamp->instances[2]);
-    this->setIntoShader("pointLights[2].ambient", lamp->getParameters().ambient);
-    this->setIntoShader("pointLights[2].diffuse", lamp->getParameters().diffuse);
-    this->setIntoShader("pointLights[2].specular", lamp->getParameters().specular);
-    this->setIntoShader("pointLights[2].constant", lamp->getParameters().constant);
-    this->setIntoShader("pointLights[2].linear", lamp->getParameters().linear);
-    this->setIntoShader("pointLights[2].quadratic", lamp->getParameters().quadratic);
+    this->setIntoShader("pointLights[2].ambient", lamp->parameters.ambient);
+    this->setIntoShader("pointLights[2].diffuse", lamp->parameters.diffuse);
+    this->setIntoShader("pointLights[2].specular", lamp->parameters.specular);
+    this->setIntoShader("pointLights[2].constant", lamp->parameters.constant);
+    this->setIntoShader("pointLights[2].linear", lamp->parameters.linear);
+    this->setIntoShader("pointLights[2].quadratic", lamp->parameters.quadratic);
 
     // point light 4
     this->setIntoShader("pointLights[3].position", lamp->instances[3]);
-    this->setIntoShader("pointLights[3].ambient", lamp->getParameters().ambient);
-    this->setIntoShader("pointLights[3].diffuse", lamp->getParameters().diffuse);
-    this->setIntoShader("pointLights[3].specular", lamp->getParameters().specular);
-    this->setIntoShader("pointLights[3].constant", lamp->getParameters().constant);
-    this->setIntoShader("pointLights[3].linear", lamp->getParameters().linear);
-    this->setIntoShader("pointLights[3].quadratic", lamp->getParameters().quadratic);
+    this->setIntoShader("pointLights[3].ambient", lamp->parameters.ambient);
+    this->setIntoShader("pointLights[3].diffuse", lamp->parameters.diffuse);
+    this->setIntoShader("pointLights[3].specular", lamp->parameters.specular);
+    this->setIntoShader("pointLights[3].constant", lamp->parameters.constant);
+    this->setIntoShader("pointLights[3].linear", lamp->parameters.linear);
+    this->setIntoShader("pointLights[3].quadratic", lamp->parameters.quadratic);
 
     // spotLight
     this->setIntoShader("spotLight.position", camera.getPosition());
     this->setIntoShader("spotLight.direction", camera.getFront());
-    this->setIntoShader("spotLight.ambient", lamp->getParameters().ambient);
-    this->setIntoShader("spotLight.diffuse", lamp->getParameters().diffuse);
-    this->setIntoShader("spotLight.specular", lamp->getParameters().specular);
-    this->setIntoShader("spotLight.constant", lamp->getParameters().constant);
-    this->setIntoShader("spotLight.linear", lamp->getParameters().linear);
-    this->setIntoShader("spotLight.quadratic", lamp->getParameters().quadratic);
+    this->setIntoShader("spotLight.ambient", lamp->parameters.ambient);
+    this->setIntoShader("spotLight.diffuse", lamp->parameters.diffuse);
+    this->setIntoShader("spotLight.specular", lamp->parameters.specular);
+    this->setIntoShader("spotLight.constant", lamp->parameters.constant);
+    this->setIntoShader("spotLight.linear", lamp->parameters.linear);
+    this->setIntoShader("spotLight.quadratic", lamp->parameters.quadratic);
     this->setIntoShader("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
     this->setIntoShader("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 }

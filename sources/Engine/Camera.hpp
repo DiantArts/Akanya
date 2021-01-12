@@ -15,7 +15,7 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-#include "Actors/Lights/Default.hpp"
+#include "Actors/Lights/ALight.hpp"
 
 
 
@@ -23,7 +23,7 @@ namespace engine {
 
 
 
-class Camera : public engine::light::Default {
+class Camera : public engine::actor::ALight {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Camera();
@@ -87,6 +87,8 @@ public:
     static constexpr float maxPitch = 89.999F;
     static constexpr float minZoom  = 1.0F;
     static constexpr float maxZoom  = 45.0F;
+
+    engine::actor::Positions instances { 1 };
 
 
 private:

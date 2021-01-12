@@ -30,7 +30,6 @@ public:
     GLuint get() const;
 
 
-protected:
 public: // TODO: tmp
     std::shared_ptr<GLuint> m_Id;
 };

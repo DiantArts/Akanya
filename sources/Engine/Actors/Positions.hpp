@@ -81,6 +81,9 @@ public:
     FUNC_ALIAS(operator+=, move)
 
 
+    // ---------------------------------------------------------------------------- Size
+    size_t size() const;
+
 private:
     using SinglePosition    = glm::vec3;
     using MultiplePositions = std::vector<SinglePosition>;

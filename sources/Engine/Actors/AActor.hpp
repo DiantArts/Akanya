@@ -42,4 +42,10 @@ private:
 
 } // namespace engine::actor
 
+
+
+namespace engine { using AActor = engine::actor::AActor; }
+
+
+
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___

@@ -149,6 +149,8 @@ Window::Window()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glEnable(GL_MULTISAMPLE);
+
     // glEnable(GL_CULL_FACE);
     // glCullFace(GL_CCW);
 
@@ -189,6 +191,7 @@ static void initGLWF()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);

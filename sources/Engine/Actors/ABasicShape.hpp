@@ -19,7 +19,7 @@ namespace engine::actor {
 
 
 
-class ABasicShape : public engine::actor::AActor {
+class ABasicShape : public engine::AActor {
 public:
     // ---------------------------------------------------------------------------- *structors
     ABasicShape(engine::Shader&              shader,
