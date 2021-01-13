@@ -7,7 +7,8 @@
 
 #include <iostream>
 
-#include "ExampleScene.hpp"
+#include "Scenes/Example.hpp"
+#include "Scenes/AdvancedLight.hpp"
 
 #include "Engine/Events/Window.hpp"
 #include "Engine/Events/Keyboard.hpp"
@@ -33,7 +34,8 @@ int main()
     // event->handleWith(func2);
     // return 0;
     try {
-        ExampleScene scene;
+        // scene::Example scene;
+        scene::AdvancedLight scene;
 
         while (!scene.isOver()) {
             scene.manageEvents();

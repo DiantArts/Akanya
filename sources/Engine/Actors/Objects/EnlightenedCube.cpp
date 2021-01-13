@@ -9,16 +9,9 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-// clang-format off
-
-#include "LightSourceCube.hpp" // tmp
-extern engine::object::LightSourceCube* lamp;
-
-// clang-format on
 
 
-
-namespace engine::object {
+namespace engine::actor::object {
 
 
 
@@ -26,7 +19,8 @@ namespace engine::object {
 
 EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
-{}
+{
+}
 
 
 
@@ -35,63 +29,25 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPo
 void EnlightenedCube::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("viewPos", camera.getPosition());
-
     this->setIntoShader("material.shininess", 32.0F);
-
+    this->setIntoShader("viewPos", camera.getPosition());
 
 
     // directional light
-    this->setIntoShader("dirLight.direction", camera.getOrientation());
-    this->setIntoShader("dirLight.ambient", camera.parameters.ambient * glm::vec3 { 0 });
-    this->setIntoShader("dirLight.diffuse", camera.parameters.diffuse * glm::vec3 { 0 });
-    this->setIntoShader("dirLight.specular", camera.parameters.specular * glm::vec3 { 0 });
+    // this->setIntoShader("dirLight.direction", camera.getOrientation());
+    // this->setIntoShader("dirLight.ambient", camera.parameters.ambient * glm::vec3 { 0 });
+    // this->setIntoShader("dirLight.diffuse", camera.parameters.diffuse * glm::vec3 { 0 });
+    // this->setIntoShader("dirLight.specular", camera.parameters.specular * glm::vec3 { 0 });
 
-    // point light 1
-    this->setIntoShader("pointLights[0].position", lamp->instances[0]);
-    this->setIntoShader("pointLights[0].ambient", lamp->parameters.ambient);
-    this->setIntoShader("pointLights[0].diffuse", lamp->parameters.diffuse);
-    this->setIntoShader("pointLights[0].specular", lamp->parameters.specular);
-    this->setIntoShader("pointLights[0].constant", lamp->parameters.constant);
-    this->setIntoShader("pointLights[0].linear", lamp->parameters.linear);
-    this->setIntoShader("pointLights[0].quadratic", lamp->parameters.quadratic);
-
-    // point light 2
-    this->setIntoShader("pointLights[1].position", lamp->instances[1]);
-    this->setIntoShader("pointLights[1].ambient", lamp->parameters.ambient);
-    this->setIntoShader("pointLights[1].diffuse", lamp->parameters.diffuse);
-    this->setIntoShader("pointLights[1].specular", lamp->parameters.specular);
-    this->setIntoShader("pointLights[1].constant", lamp->parameters.constant);
-    this->setIntoShader("pointLights[1].linear", lamp->parameters.linear);
-    this->setIntoShader("pointLights[1].quadratic", lamp->parameters.quadratic);
-
-    // point light 3
-    this->setIntoShader("pointLights[2].position", lamp->instances[2]);
-    this->setIntoShader("pointLights[2].ambient", lamp->parameters.ambient);
-    this->setIntoShader("pointLights[2].diffuse", lamp->parameters.diffuse);
-    this->setIntoShader("pointLights[2].specular", lamp->parameters.specular);
-    this->setIntoShader("pointLights[2].constant", lamp->parameters.constant);
-    this->setIntoShader("pointLights[2].linear", lamp->parameters.linear);
-    this->setIntoShader("pointLights[2].quadratic", lamp->parameters.quadratic);
-
-    // point light 4
-    this->setIntoShader("pointLights[3].position", lamp->instances[3]);
-    this->setIntoShader("pointLights[3].ambient", lamp->parameters.ambient);
-    this->setIntoShader("pointLights[3].diffuse", lamp->parameters.diffuse);
-    this->setIntoShader("pointLights[3].specular", lamp->parameters.specular);
-    this->setIntoShader("pointLights[3].constant", lamp->parameters.constant);
-    this->setIntoShader("pointLights[3].linear", lamp->parameters.linear);
-    this->setIntoShader("pointLights[3].quadratic", lamp->parameters.quadratic);
-
-    // spotLight
-    this->setIntoShader("spotLight.position", camera.getPosition());
-    this->setIntoShader("spotLight.direction", camera.getFront());
-    this->setIntoShader("spotLight.ambient", lamp->parameters.ambient);
-    this->setIntoShader("spotLight.diffuse", lamp->parameters.diffuse);
-    this->setIntoShader("spotLight.specular", lamp->parameters.specular);
-    this->setIntoShader("spotLight.constant", lamp->parameters.constant);
-    this->setIntoShader("spotLight.linear", lamp->parameters.linear);
-    this->setIntoShader("spotLight.quadratic", lamp->parameters.quadratic);
+    for (auto light : engine::actor::light::ALight::getAll()) {
+        this->setIntoShader(light.name + ".position", light.position);
+        this->setIntoShader(light.name + ".ambient", light.parameters.ambient);
+        this->setIntoShader(light.name + ".diffuse", light.parameters.diffuse);
+        this->setIntoShader(light.name + ".specular", light.parameters.specular);
+        this->setIntoShader(light.name + ".constant", light.parameters.constant);
+        this->setIntoShader(light.name + ".linear", light.parameters.linear);
+        this->setIntoShader(light.name + ".quadratic", light.parameters.quadratic);
+    }
     this->setIntoShader("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
     this->setIntoShader("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 }
@@ -116,4 +72,4 @@ void EnlightenedCube::setAttributes()
 }
 
 
-} // namespace engine::object
+} // namespace engine::actor::object

@@ -13,7 +13,7 @@
 
 
 
-namespace engine::object {
+namespace engine::actor::object {
 
 
 
@@ -33,7 +33,7 @@ public:
 
 
 
-} // namespace engine::object
+} // namespace engine::actor::object
 
 
 

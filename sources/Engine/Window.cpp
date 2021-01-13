@@ -13,7 +13,6 @@
 #include <stb/stb_image.h>
 
 
-
 static void initGLWF();
 static void initGLAD();
 
@@ -28,6 +27,7 @@ static void GLAPIENTRY messageCallback(GLenum        source,
                                        const GLchar* message,
                                        const void*   userParam);
 
+extern bool gammaEnabled;
 
 
 namespace engine {
@@ -98,6 +98,13 @@ void Window::processInput(const float deltaTime)
     if (glfwGetKey(this->m_Window.get(), GLFW_KEY_X) == GLFW_PRESS) {
         this->camera.moveBot(deltaTime);
     }
+
+    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_TAB) == GLFW_PRESS && !this->gammaKeyPressed) {
+        gammaEnabled = !gammaEnabled;
+        this->gammaKeyPressed = true;
+    } if (glfwGetKey(this->m_Window.get(), GLFW_KEY_TAB) == GLFW_RELEASE) {
+        this->gammaKeyPressed = false;
+    }
 }
 
 
@@ -130,6 +137,21 @@ Window::Window()
     // GLAD
     initGLAD();
 
+    this->configure();
+}
+
+void Window::configure()
+{
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
+
+#ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif // __APPLE__
+
     // uncomment this call to draw in wireframe polygons.
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -150,6 +172,7 @@ Window::Window()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_MULTISAMPLE);
+    glEnable(GL_FRAMEBUFFER_SRGB);
 
     // glEnable(GL_CULL_FACE);
     // glCullFace(GL_CCW);
@@ -186,16 +209,6 @@ static void initGLWF()
     if (!glfwInit()) {
         throw std::runtime_error("glwfInit failed");
     }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_SAMPLES, 4);
-
-#ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif // __APPLE__
 }
 
 static void initGLAD()

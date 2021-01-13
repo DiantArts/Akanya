@@ -39,14 +39,15 @@ public:
     class Texture : public engine::actor::Texture {
     public:
         // ------------------------------------------------ *structors
-        Texture(const std::string& filename);
+        Texture(const std::string& filename, bool gammaCorrection);
         ~Texture();
     };
-    void addTexture(const std::string& filepath, const std::string& name);
+    void addTexture(const std::string& filepath, const std::string& name, bool gammaCorrection = false);
     void bindTextures() const;
 
 private:
     std::vector<ABasicShape::Texture> m_TextureVector;
+    std::vector<ABasicShape::Texture> m_TextureGammaCorrectedVector;
 
 
 private:

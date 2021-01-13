@@ -61,7 +61,7 @@ void AScene::draw()
 
     this->additionalDraws();
 
-    this->cubeMap.draw(this->m_Window.camera);
+    // this->cubeMap.draw(this->m_Window.camera);
 
     this->drawFps();
 

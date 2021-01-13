@@ -54,8 +54,7 @@ Shader::Shader(const std::string_view vertexFileName, const std::string_view fra
     glDeleteShader(fragment);
 }
 
-Shader::Shader(const std::string_view filepathes)
-    : Shader(filepathes, filepathes)
+Shader::Shader(const std::string_view filepathes) : Shader(filepathes, filepathes)
 {}
 
 
@@ -115,12 +114,12 @@ void Shader::set(std::string&& name, const float value) const
 
 void Shader::set(const std::string& name, const glm::vec2& value) const
 {
-    glUniform2fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
+    glUniform2f(this->getOrCacheUniformLocation(name), value.x, value.y);
 }
 
 void Shader::set(std::string&& name, const glm::vec2& value) const
 {
-    glUniform2fv(getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
+    glUniform2f(getOrCacheUniformLocation(std::move(name)), value.x, value.y);
 }
 
 //
@@ -139,12 +138,12 @@ void Shader::set(std::string&& name, const float x, const float y) const
 
 void Shader::set(const std::string& name, const glm::vec3& value) const
 {
-    glUniform3fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
+    glUniform3f(this->getOrCacheUniformLocation(name), value.x, value.y, value.z);
 }
 
 void Shader::set(std::string&& name, const glm::vec3& value) const
 {
-    glUniform3fv(this->getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
+    glUniform3f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z);
 }
 
 //
@@ -163,12 +162,12 @@ void Shader::set(std::string&& name, const float x, const float y, const float z
 
 void Shader::set(const std::string& name, const glm::vec4& value) const
 {
-    glUniform4fv(this->getOrCacheUniformLocation(name), 1, &value[0]);
+    glUniform4f(this->getOrCacheUniformLocation(name), value.x, value.y, value.z, value.w);
 }
 
 void Shader::set(std::string&& name, const glm::vec4& value) const
 {
-    glUniform4fv(this->getOrCacheUniformLocation(std::move(name)), 1, &value[0]);
+    glUniform4f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z, value.w);
 }
 
 //
@@ -219,6 +218,105 @@ void Shader::set(std::string&& name, const glm::mat4& mat) const
     glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
 }
 
+//
+
+
+void Shader::set(const std::string& name, const std::span<int> array) const
+{
+    glUniform1iv(this->getOrCacheUniformLocation(name), array.size(), &array.front());
+}
+
+void Shader::set(std::string&& name, const std::span<int> array) const
+{
+    glUniform1iv(this->getOrCacheUniformLocation(std::move(name)), array.size(), &array.front());
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<float> array) const
+{
+    glUniform1fv(this->getOrCacheUniformLocation(name), array.size(), &array.front());
+}
+
+void Shader::set(std::string&& name, const std::span<float> array) const
+{
+    glUniform1fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), &array.front());
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::vec2> array) const
+{
+    glUniform2fv(this->getOrCacheUniformLocation(name), array.size(), &array.front()[0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::vec2> array) const
+{
+    glUniform2fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), &array.front()[0]);
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::vec3> array) const
+{
+    glUniform3fv(this->getOrCacheUniformLocation(name), array.size(), &array.front()[0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::vec3> array) const
+{
+    glUniform3fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), &array.front()[0]);
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::vec4> array) const
+{
+    glUniform4fv(this->getOrCacheUniformLocation(name), array.size(), &array.front()[0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::vec4> array) const
+{
+    glUniform4fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), &array.front()[0]);
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::mat2> array) const
+{
+    glUniformMatrix2fv(this->getOrCacheUniformLocation(name), array.size(), GL_FALSE, &array.front()[0][0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::mat2> array) const
+{
+    glUniformMatrix2fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), GL_FALSE,
+                       &array.front()[0][0]);
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::mat3> array) const
+{
+    glUniformMatrix3fv(this->getOrCacheUniformLocation(name), array.size(), GL_FALSE, &array.front()[0][0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::mat3> array) const
+{
+    glUniformMatrix3fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), GL_FALSE,
+                       &array.front()[0][0]);
+}
+
+//
+
+void Shader::set(const std::string& name, const std::span<glm::mat4> array) const
+{
+    glUniformMatrix4fv(this->getOrCacheUniformLocation(name), array.size(), GL_FALSE, &array.front()[0][0]);
+}
+
+void Shader::set(std::string&& name, const std::span<glm::mat4> array) const
+{
+    glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), array.size(), GL_FALSE,
+                       &array.front()[0][0]);
+}
 
 
 // ---------------------------------------------------------------------------- Opti

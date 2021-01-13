@@ -81,7 +81,7 @@ protected:
     engine::AScene::ShaderMap m_ShaderMap;
 
 private:
-    engine::actor::CubeMap cubeMap { this->m_ShaderMap["cubeMap"] };
+    // engine::actor::CubeMap cubeMap { this->m_ShaderMap["cubeMap"] };
 };
 
 

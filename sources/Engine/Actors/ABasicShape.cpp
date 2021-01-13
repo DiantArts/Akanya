@@ -14,6 +14,7 @@
 
 #include "../Filepaths.hpp"
 
+extern bool gammaEnabled;
 
 
 namespace engine::actor {
@@ -60,7 +61,7 @@ void ABasicShape::drawModels(const engine::Camera&) const
 
 // ---------------------------------------------------------------------------- Texture
 
-ABasicShape::Texture::Texture(const std::string& filename)
+ABasicShape::Texture::Texture(const std::string& filename, bool gammaCorrection)
     : engine::actor::Texture(filename)
 {
     if (this->m_Id.use_count() == 1) { // if need initialisation
@@ -76,18 +77,19 @@ ABasicShape::Texture::Texture(const std::string& filename)
             throw std::runtime_error(std::string("ERROR: Failed to load '") + filepath + "' texture");
         }
 
-        GLenum format;
+        GLenum dataFormat;
+        GLenum internalFormat;
         switch (nrComponents) {
-        case 1: format = GL_RED; break;
-        case 3: format = GL_RGB; break;
-        case 4: format = GL_RGBA; break;
+        case 1: internalFormat = dataFormat = GL_RED; break;
+        case 3: internalFormat = gammaCorrection ? GL_SRGB : GL_RGB; dataFormat = GL_RGB; break;
+        case 4: internalFormat = gammaCorrection ? GL_SRGB_ALPHA : GL_RGBA; dataFormat = GL_RGBA;  break;
         default:
             stbi_image_free(const_cast<unsigned char*>(data));
             throw std::runtime_error("unsupported texture format found");
         }
 
         glBindTexture(GL_TEXTURE_2D, *this->m_Id);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -102,11 +104,11 @@ ABasicShape::Texture::Texture(const std::string& filename)
 ABasicShape::Texture::~Texture()
 {}
 
-void ABasicShape::addTexture(const std::string& filename, const std::string& name)
+void ABasicShape::addTexture(const std::string& filename, const std::string& name, const bool gammaCorrection)
 {
     this->useShader();
     this->setIntoShader(name.c_str(), static_cast<int>(this->m_TextureVector.size()));
-    this->m_TextureVector.emplace_back(filename);
+    this->m_TextureVector.emplace_back(filename, false);
 }
 
 void ABasicShape::bindTextures() const

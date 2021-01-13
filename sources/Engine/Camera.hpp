@@ -23,7 +23,7 @@ namespace engine {
 
 
 
-class Camera : public engine::actor::ALight {
+class Camera {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit Camera();

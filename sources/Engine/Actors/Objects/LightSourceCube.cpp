@@ -9,14 +9,15 @@
 
 
 
-namespace engine::object {
+namespace engine::actor::object {
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
 LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPositions /* = 1 */)
-    : engine::actor::basicShape::Cube(shader, numberOfPositions), engine::actor::ALight(this->instances)
+    : engine::actor::basicShape::Cube(shader, numberOfPositions)
+    , engine::actor::ALight(this->instances, "pointLights")
 {
     this->setScale(0.1F);
 }
@@ -43,4 +44,4 @@ void LightSourceCube::update(float)
 
 
 
-} // namespace engine::object
+} // namespace engine::actor::object

@@ -40,8 +40,7 @@ glm::mat4 ATransformable::transformModel(const glm::vec3& position) const
     if (this->m_Rotation.z) {
         projection = glm::rotate(projection, glm::radians(this->m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     }
-    projection = glm::scale(projection, this->m_Scale);
-    return projection;
+    return glm::scale(projection, this->m_Scale);
 }
 
 

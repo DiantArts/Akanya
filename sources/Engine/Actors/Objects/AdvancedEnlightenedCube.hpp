@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/EnlightenedCube
+** sources/Engine/Actors/Objects/AdvancedEnlightenedCube
 ** File description:
-** Lamp as cube
+** Advanced enlightened
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ENLIGHTENEDCUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ENLIGHTENEDCUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ADVANCEDENLIGHTENEDCUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ADVANCEDENLIGHTENEDCUBE_HPP___
 
 #include "../BasicShapes/Cube.hpp"
 
@@ -16,11 +16,11 @@ namespace engine::actor::object {
 
 
 
-class EnlightenedCube : public engine::actor::basicShape::Cube {
+class AdvancedEnlightenedCube : public engine::actor::basicShape::Cube {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit EnlightenedCube(engine::Shader& shader, size_t numberOfPositions = 1);
-    ~EnlightenedCube() = default;
+    explicit AdvancedEnlightenedCube(engine::Shader& shader, size_t numberOfPositions = 1);
+    ~AdvancedEnlightenedCube() = default;
 
 
     // ---------------------------------------------------------------------------- override
@@ -38,4 +38,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ENLIGHTENEDCUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_ADVANCEDENLIGHTENEDCUBE_HPP___

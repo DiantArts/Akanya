@@ -1,0 +1,61 @@
+/*
+** EPITECH PROJECT, 2020
+** sources/Engine/Actors/Lights/Container
+** File description:
+** Container of every lights
+*/
+
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_CONTAINER_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_CONTAINER_HPP___
+
+#include <deque>
+#include <string>
+
+#include "Iterator.hpp"
+#include "Parameters.hpp"
+
+
+
+namespace engine::actor::light {
+
+
+
+struct ContainerWrapper {
+    ContainerWrapper(const engine::actor::Positions& instancesParam, const std::string& name);
+    ContainerWrapper(const engine::actor::Positions& instancesParam, std::string&& name);
+
+    engine::actor::light::Parameters parameters;
+    const engine::actor::Positions&  instances;
+    const std::string                name;
+};
+
+
+
+class Container : engine::actor::light::Iterator {
+public:
+    const std::deque<engine::actor::light::ContainerWrapper>& get() const;
+    engine::actor::light::ContainerWrapper& emplace_back(const engine::actor::Positions& instances,
+                                                         const std::string&              name);
+    engine::actor::light::ContainerWrapper& emplace_back(const engine::actor::Positions& instances,
+                                                         std::string&&                   name);
+    engine::actor::light::ContainerWrapper& back();
+
+
+    // ---------------------------------------------------------------------------- iterator
+    Iterator::iterator       begin() override;
+    Iterator::const_iterator begin() const override;
+    Iterator::const_iterator cbegin() const override;
+
+    Iterator::iterator       end() override;
+    Iterator::const_iterator end() const override;
+    Iterator::const_iterator cend() const override;
+
+
+private:
+    std::deque<engine::actor::light::ContainerWrapper> m_List;
+};
+
+
+} // namespace engine::actor::light
+
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_CONTAINER_HPP___

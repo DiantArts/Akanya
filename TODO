@@ -1,4 +1,6 @@
 TODO:
+finish event system
+iterate over lights, dynamic light number
 
 TODO Later:
 optimise GLSL (shadered memory) : https://learnopengl.com/Advanced-OpenGL/Advanced-GLSL

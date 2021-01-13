@@ -16,52 +16,53 @@
 
 namespace engine::actor::light {
 
-class ALight;
+class ContainerWrapper;
 
 
 
 class Iterator {
 public:
-    struct LightIteratingWrapper {
-        engine::actor::light::Parameters& parameters;
-        const glm::vec3& position;
+    struct LightReferenceWrapper {
+        const engine::actor::light::Parameters& parameters;
+        const glm::vec3&                        position;
+        const std::string                       name;
     };
 
     class iterator {
     public:
-        explicit iterator(engine::actor::light::ALight* ptr);
+        explicit iterator(engine::actor::light::ContainerWrapper* ptr);
 
-        Iterator::LightIteratingWrapper operator*();
-        Iterator::LightIteratingWrapper operator->();
+        Iterator::LightReferenceWrapper operator*();
+        Iterator::LightReferenceWrapper operator->();
 
         Iterator::iterator& operator++();
-        Iterator::iterator operator++(int);
+        Iterator::iterator  operator++(int);
 
         bool operator==(const Iterator::iterator& that);
         bool operator!=(const Iterator::iterator& that);
 
     private:
-        engine::actor::light::ALight* m_Ptr;
-        size_t m_Index{ 0 };
+        engine::actor::light::ContainerWrapper* m_Ptr;
+        size_t                                  m_Index { 0 };
     };
 
 
     class const_iterator {
     public:
-        explicit const_iterator(const engine::actor::light::ALight* ptr);
+        explicit const_iterator(const engine::actor::light::ContainerWrapper* ptr);
 
-        Iterator::LightIteratingWrapper operator*();
-        Iterator::LightIteratingWrapper operator->();
+        Iterator::LightReferenceWrapper operator*();
+        Iterator::LightReferenceWrapper operator->();
 
         const Iterator::const_iterator& operator++();
-        Iterator::const_iterator operator++(int);
+        Iterator::const_iterator        operator++(int);
 
         bool operator==(const Iterator::const_iterator& that);
         bool operator!=(const Iterator::const_iterator& that);
 
     private:
-        const engine::actor::light::ALight* m_Ptr;
-        size_t m_Index{ 0 };
+        const engine::actor::light::ContainerWrapper* m_Ptr;
+        size_t                                        m_Index { 0 };
     };
 
 

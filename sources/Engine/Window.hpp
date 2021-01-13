@@ -40,6 +40,8 @@ public:
     void setClearColor(float rgb, float alpha = 1.0F);
     void setClearColor(float red, float green, float blue, float alpha = 1.0F);
 
+    void configure();
+
 
     // ---------------------------------------------------------------------------- input
     void processInput(float deltaTime);
@@ -54,7 +56,7 @@ public:
 
 private:
     std::unique_ptr<GLFWwindow, WindowDeleter> m_Window;
-
+    bool gammaKeyPressed { false };
 
 
     // ---------------------------------------------------------------------------- singleton
@@ -64,6 +66,7 @@ public:
 private:
     Window();
     static Window m_SingleInstance;
+
 };
 
 

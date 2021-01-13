@@ -9,9 +9,12 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
 
 #include <list>
+#include <string>
 
-#include "Iterator.hpp"
 #include "Parameters.hpp"
+#include "Container.hpp"
+
+#include "../Positions.hpp"
 
 
 
@@ -21,41 +24,21 @@ class Iterator;
 
 
 
-class ALight : engine::actor::light::Iterator {
-public:
-    struct Wrapper {
-        Wrapper(const engine::actor::Positions& instancesParam) : instances(instancesParam) {}
-
-        engine::actor::light::Parameters parameters;
-        const engine::actor::Positions&  instances;
-    };
-
+class ALight {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit ALight(const engine::actor::Positions& instances);
+    explicit ALight(const engine::actor::Positions& instances, const std::string& name);
+    explicit ALight(const engine::actor::Positions& instances, std::string&& name);
     ~ALight();
 
 
     // ---------------------------------------------------------------------------- getEveryLights
-    static const std::list<engine::actor::light::ALight::Wrapper>& getAll();
-
-
-    // ---------------------------------------------------------------------------- iterator
-    Iterator::iterator       begin() override;
-    Iterator::const_iterator begin() const override;
-    Iterator::const_iterator cbegin() const override;
-
-    Iterator::iterator       end() override;
-    Iterator::const_iterator end() const override;
-    Iterator::const_iterator cend() const override;
+    static const engine::actor::light::Container& getAll();
 
 
 public:
     engine::actor::light::Parameters& parameters;
-
-private:
-    const engine::actor::Positions& instancesRef;
-    friend class engine::actor::light::Iterator;
+    const std::string&                name;
 };
 
 

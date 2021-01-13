@@ -7,34 +7,11 @@
 
 #include "ALight.hpp"
 
+#include "Container.hpp"
 
 
-namespace {
 
-class LightContainer {
-public:
-    const std::list<engine::actor::ALight::Wrapper>& get() const
-    {
-        return this->m_List;
-    }
-
-    engine::actor::ALight::Wrapper& emplace_back(const engine::actor::Positions& instances)
-    {
-        return this->m_List.emplace_back(instances);
-    }
-
-    engine::actor::ALight::Wrapper& back()
-    {
-        return this->m_List.back();
-    }
-
-private:
-    std::list<engine::actor::ALight::Wrapper> m_List;
-};
-
-LightContainer g_CachedLights;
-
-} // namespace
+namespace { engine::actor::light::Container g_CachedLights; }
 
 
 
@@ -44,9 +21,14 @@ namespace engine::actor::light {
 
 // ---------------------------------------------------------------------------- *structors
 
-ALight::ALight(const engine::actor::Positions& instances)
-    : parameters(g_CachedLights.emplace_back(instances).parameters)
-    , instancesRef(g_CachedLights.back().instances)
+ALight::ALight(const engine::actor::Positions& instances, const std::string& name)
+    : parameters(g_CachedLights.emplace_back(instances, name).parameters)
+    , name(g_CachedLights.back().name)
+{}
+
+ALight::ALight(const engine::actor::Positions& instances, std::string&& name)
+    : parameters(g_CachedLights.emplace_back(instances, std::move(name)).parameters)
+    , name(g_CachedLights.back().name)
 {}
 
 ALight::~ALight()
@@ -55,43 +37,10 @@ ALight::~ALight()
 
 
 // ---------------------------------------------------------------------------- getEveryLights
-const std::list<engine::actor::ALight::Wrapper>& ALight::getAll()
+
+const engine::actor::light::Container& ALight::getAll()
 {
-    return g_CachedLights.get();
-}
-
-
-// ---------------------------------------------------------------------------- iterator
-ALight::Iterator::iterator ALight::begin()
-{
-    return ALight::Iterator::iterator { this };
-}
-
-ALight::Iterator::const_iterator ALight::begin() const
-{
-    return ALight::Iterator::const_iterator { this };
-}
-
-ALight::Iterator::const_iterator ALight::cbegin() const
-{
-    return ALight::Iterator::const_iterator { this };
-}
-
-
-
-ALight::Iterator::iterator ALight::end()
-{
-    return ALight::Iterator::iterator { this };
-}
-
-ALight::Iterator::const_iterator ALight::end() const
-{
-    return ALight::Iterator::const_iterator { this };
-}
-
-ALight::Iterator::const_iterator ALight::cend() const
-{
-    return ALight::Iterator::const_iterator { this };
+    return g_CachedLights;
 }
 
 

@@ -9,6 +9,7 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 
 #include <string>
+#include <span>
 #include <string_view>
 #include <unordered_map>
 
@@ -81,6 +82,36 @@ public:
 
     void set(const std::string& name, const glm::mat4& mat) const;
     void set(std::string&& name, const glm::mat4& mat) const;
+
+
+
+    void set(const std::string& name, std::span<int> array) const;
+    void set(std::string&& name, std::span<int> array) const;
+
+    void set(const std::string& name, std::span<float> array) const;
+    void set(std::string&& name, std::span<float> array) const;
+
+
+
+    void set(const std::string& name, std::span<glm::vec2> array) const;
+    void set(std::string&& name, std::span<glm::vec2> array) const;
+
+    void set(const std::string& name, std::span<glm::vec3> array) const;
+    void set(std::string&& name, std::span<glm::vec3> array) const;
+
+    void set(const std::string& name, std::span<glm::vec4> array) const;
+    void set(std::string&& name, std::span<glm::vec4> array) const;
+
+
+
+    void set(const std::string& name, std::span<glm::mat2> array) const;
+    void set(std::string&& name, std::span<glm::mat2> array) const;
+
+    void set(const std::string& name, std::span<glm::mat3> array) const;
+    void set(std::string&& name, std::span<glm::mat3> array) const;
+
+    void set(const std::string& name, std::span<glm::mat4> array) const;
+    void set(std::string&& name, std::span<glm::mat4> array) const;
 
 
 
