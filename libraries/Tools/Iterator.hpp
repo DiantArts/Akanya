@@ -32,12 +32,12 @@ public:
 
         reference operator*()
         {
-            return *this->m_Ptr;
+            return *m_Ptr;
         }
 
         pointer operator->()
         {
-            return this->m_Ptr;
+            return m_Ptr;
         }
 
         iterator& operator++()
@@ -55,12 +55,12 @@ public:
 
         bool operator==(const Iterator::iterator& that)
         {
-            return this->m_Ptr == that.m_Ptr;
+            return m_Ptr == that.m_Ptr;
         }
 
         bool operator!=(const Iterator::iterator& that)
         {
-            return this->m_Ptr != that.m_Ptr;
+            return m_Ptr != that.m_Ptr;
         }
 
     private:
@@ -80,12 +80,12 @@ public:
 
         reference operator*()
         {
-            return *this->m_Ptr;
+            return *m_Ptr;
         }
 
         pointer operator->()
         {
-            return this->m_Ptr;
+            return m_Ptr;
         }
 
         const const_iterator& operator++()
@@ -103,12 +103,12 @@ public:
 
         bool operator==(const Iterator::const_iterator& that)
         {
-            return this->m_Ptr == that.m_Ptr;
+            return m_Ptr == that.m_Ptr;
         }
 
         bool operator!=(const Iterator::const_iterator& that)
         {
-            return this->m_Ptr != that.m_Ptr;
+            return m_Ptr != that.m_Ptr;
         }
 
     private:

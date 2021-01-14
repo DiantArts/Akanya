@@ -17,12 +17,12 @@ namespace engine {
 
 Vao::Vao()
 {
-    glGenVertexArrays(1, &this->m_Vao);
+    glGenVertexArrays(1, &m_Vao);
 }
 
 Vao::~Vao()
 {
-    glDeleteVertexArrays(1, &this->m_Vao);
+    glDeleteVertexArrays(1, &m_Vao);
 }
 
 
@@ -31,7 +31,7 @@ Vao::~Vao()
 
 GLuint Vao::get() const
 {
-    return this->m_Vao;
+    return m_Vao;
 }
 
 
@@ -40,7 +40,7 @@ GLuint Vao::get() const
 
 void Vao::bind() const
 {
-    glBindVertexArray(this->m_Vao);
+    glBindVertexArray(m_Vao);
 }
 
 void Vao::unbind() const

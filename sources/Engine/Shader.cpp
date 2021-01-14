@@ -44,10 +44,10 @@ Shader::Shader(const std::string_view vertexFileName, const std::string_view fra
     auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
 
     if (vertex && fragment) {
-        glAttachShader(this->m_ShaderId, vertex);
-        glAttachShader(this->m_ShaderId, fragment);
-        glLinkProgram(this->m_ShaderId);
-        checkLinkageStatus(this->m_ShaderId);
+        glAttachShader(m_ShaderId, vertex);
+        glAttachShader(m_ShaderId, fragment);
+        glLinkProgram(m_ShaderId);
+        checkLinkageStatus(m_ShaderId);
     }
 
     glDeleteShader(vertex);
@@ -60,7 +60,7 @@ Shader::Shader(const std::string_view filepathes) : Shader(filepathes, filepathe
 
 Shader::~Shader()
 {
-    glDeleteProgram(this->m_ShaderId);
+    glDeleteProgram(m_ShaderId);
 }
 
 
@@ -69,7 +69,7 @@ Shader::~Shader()
 
 void Shader::use() const
 {
-    glUseProgram(this->m_ShaderId);
+    glUseProgram(m_ShaderId);
 }
 
 
@@ -324,12 +324,12 @@ GLint Shader::getOrCacheUniformLocation(const std::string& uniformId) const
 {
     try {
         // return it if already cached
-        return this->m_UniformsLocationCache.at(uniformId);
+        return m_UniformsLocationCache.at(uniformId);
 
     } catch (const std::exception&) {
         // cache it
-        return this->m_UniformsLocationCache
-            .emplace(uniformId, glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
+        return m_UniformsLocationCache
+            .emplace(uniformId, glGetUniformLocation(m_ShaderId, uniformId.c_str()))
             .first->second;
     }
 }
@@ -338,12 +338,12 @@ GLint Shader::getOrCacheUniformLocation(std::string&& uniformId) const
 {
     try {
         // return it if already cached
-        return this->m_UniformsLocationCache.at(uniformId);
+        return m_UniformsLocationCache.at(uniformId);
 
     } catch (const std::exception&) {
         // cache it
-        return this->m_UniformsLocationCache
-            .emplace(std::move(uniformId), glGetUniformLocation(this->m_ShaderId, uniformId.c_str()))
+        return m_UniformsLocationCache
+            .emplace(std::move(uniformId), glGetUniformLocation(m_ShaderId, uniformId.c_str()))
             .first->second;
     }
 }

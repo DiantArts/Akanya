@@ -23,53 +23,53 @@ Iterator::iterator::iterator(engine::actor::light::ContainerWrapper* ptr) : m_Pt
 engine::actor::light::Iterator::LightReferenceWrapper Iterator::iterator::operator*()
 {
     std::string name;
-    if (this->m_Ptr->instances.size() <= 1) {
-        name += this->m_Ptr->name;
-    } else if (this->m_Index < 10) {
-        name.reserve(this->m_Ptr->name.size() + 3);
-        name += this->m_Ptr->name;
+    if (m_Ptr->instances.size() <= 1) {
+        name += m_Ptr->name;
+    } else if (m_Index < 10) {
+        name.reserve(m_Ptr->name.size() + 3);
+        name += m_Ptr->name;
         name += '[';
-        name += this->m_Index + '0';
+        name += m_Index + '0';
         name += ']';
     } else {
-        name.reserve(this->m_Ptr->name.size() + 4);
-        name += this->m_Ptr->name;
+        name.reserve(m_Ptr->name.size() + 4);
+        name += m_Ptr->name;
         name += '[';
-        name += std::to_string(this->m_Index);
+        name += std::to_string(m_Index);
         name += ']';
     }
-    return engine::actor::light::Iterator::LightReferenceWrapper { this->m_Ptr->parameters,
-                                                                   this->m_Ptr->instances[this->m_Index],
+    return engine::actor::light::Iterator::LightReferenceWrapper { m_Ptr->parameters,
+                                                                   m_Ptr->instances[m_Index],
                                                                    std::move(name) };
 }
 
 engine::actor::light::Iterator::LightReferenceWrapper Iterator::iterator::operator->()
 {
     std::string name;
-    if (this->m_Ptr->instances.size() <= 1) {
-        name += this->m_Ptr->name;
-    } else if (this->m_Index < 10) {
-        name.reserve(this->m_Ptr->name.size() + 3);
-        name += this->m_Ptr->name;
+    if (m_Ptr->instances.size() <= 1) {
+        name += m_Ptr->name;
+    } else if (m_Index < 10) {
+        name.reserve(m_Ptr->name.size() + 3);
+        name += m_Ptr->name;
         name += '[';
-        name += this->m_Index + '0';
+        name += m_Index + '0';
         name += ']';
     } else {
-        name.reserve(this->m_Ptr->name.size() + 4);
-        name += this->m_Ptr->name;
+        name.reserve(m_Ptr->name.size() + 4);
+        name += m_Ptr->name;
         name += '[';
-        name += std::to_string(this->m_Index);
+        name += std::to_string(m_Index);
         name += ']';
     }
-    return engine::actor::light::Iterator::LightReferenceWrapper { this->m_Ptr->parameters,
-                                                                   this->m_Ptr->instances[this->m_Index],
+    return engine::actor::light::Iterator::LightReferenceWrapper { m_Ptr->parameters,
+                                                                   m_Ptr->instances[m_Index],
                                                                    std::move(name) };
 }
 
 engine::actor::light::Iterator::iterator& Iterator::iterator::operator++()
 {
-    if (++this->m_Index >= this->m_Ptr->instances.size()) {
-        this->m_Index = 0;
+    if (++m_Index >= m_Ptr->instances.size()) {
+        m_Index = 0;
         m_Ptr++;
     }
     return *this;
@@ -84,12 +84,12 @@ engine::actor::light::Iterator::iterator Iterator::iterator::operator++(int)
 
 bool Iterator::iterator::operator==(const engine::actor::light::Iterator::iterator& that)
 {
-    return this->m_Ptr == that.m_Ptr;
+    return m_Ptr == that.m_Ptr;
 }
 
 bool Iterator::iterator::operator!=(const engine::actor::light::Iterator::iterator& that)
 {
-    return this->m_Ptr != that.m_Ptr;
+    return m_Ptr != that.m_Ptr;
 }
 
 
@@ -103,53 +103,53 @@ Iterator::const_iterator::const_iterator(const engine::actor::light::ContainerWr
 engine::actor::light::Iterator::LightReferenceWrapper Iterator::const_iterator::operator*()
 {
     std::string name;
-    if (this->m_Ptr->instances.size() <= 1) {
-        name += this->m_Ptr->name;
-    } else if (this->m_Index < 10) {
-        name.reserve(this->m_Ptr->name.size() + 3);
-        name += this->m_Ptr->name;
+    if (m_Ptr->instances.size() <= 1) {
+        name += m_Ptr->name;
+    } else if (m_Index < 10) {
+        name.reserve(m_Ptr->name.size() + 3);
+        name += m_Ptr->name;
         name += '[';
-        name += this->m_Index + '0';
+        name += m_Index + '0';
         name += ']';
     } else {
-        name.reserve(this->m_Ptr->name.size() + 4);
-        name += this->m_Ptr->name;
+        name.reserve(m_Ptr->name.size() + 4);
+        name += m_Ptr->name;
         name += '[';
-        name += std::to_string(this->m_Index);
+        name += std::to_string(m_Index);
         name += ']';
     }
-    return engine::actor::light::Iterator::LightReferenceWrapper { this->m_Ptr->parameters,
-                                                                   this->m_Ptr->instances[this->m_Index],
+    return engine::actor::light::Iterator::LightReferenceWrapper { m_Ptr->parameters,
+                                                                   m_Ptr->instances[m_Index],
                                                                    std::move(name) };
 }
 
 engine::actor::light::Iterator::LightReferenceWrapper Iterator::const_iterator::operator->()
 {
     std::string name;
-    if (this->m_Ptr->instances.size() <= 1) {
-        name += this->m_Ptr->name;
-    } else if (this->m_Index < 10) {
-        name.reserve(this->m_Ptr->name.size() + 3);
-        name += this->m_Ptr->name;
+    if (m_Ptr->instances.size() <= 1) {
+        name += m_Ptr->name;
+    } else if (m_Index < 10) {
+        name.reserve(m_Ptr->name.size() + 3);
+        name += m_Ptr->name;
         name += '[';
-        name += this->m_Index + '0';
+        name += m_Index + '0';
         name += ']';
     } else {
-        name.reserve(this->m_Ptr->name.size() + 4);
-        name += this->m_Ptr->name;
+        name.reserve(m_Ptr->name.size() + 4);
+        name += m_Ptr->name;
         name += '[';
-        name += std::to_string(this->m_Index);
+        name += std::to_string(m_Index);
         name += ']';
     }
-    return engine::actor::light::Iterator::LightReferenceWrapper { this->m_Ptr->parameters,
-                                                                   this->m_Ptr->instances[this->m_Index],
+    return engine::actor::light::Iterator::LightReferenceWrapper { m_Ptr->parameters,
+                                                                   m_Ptr->instances[m_Index],
                                                                    std::move(name) };
 }
 
 const engine::actor::light::Iterator::const_iterator& Iterator::const_iterator::operator++()
 {
-    if (++this->m_Index >= this->m_Ptr->instances.size()) {
-        this->m_Index = 0;
+    if (++m_Index >= m_Ptr->instances.size()) {
+        m_Index = 0;
         m_Ptr++;
     }
     return *this;
@@ -164,12 +164,12 @@ engine::actor::light::Iterator::const_iterator Iterator::const_iterator::operato
 
 bool Iterator::const_iterator::operator==(const engine::actor::light::Iterator::const_iterator& that)
 {
-    return this->m_Ptr == that.m_Ptr;
+    return m_Ptr == that.m_Ptr;
 }
 
 bool Iterator::const_iterator::operator!=(const engine::actor::light::Iterator::const_iterator& that)
 {
-    return this->m_Ptr != that.m_Ptr;
+    return m_Ptr != that.m_Ptr;
 }
 
 

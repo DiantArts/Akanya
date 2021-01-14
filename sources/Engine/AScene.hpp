@@ -50,7 +50,7 @@ public:
     template <typename ActorType, typename... Args>
     void emplaceActor(Args&&... args)
     {
-        this->m_VectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
+        m_VectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
     }
 
 
@@ -84,8 +84,8 @@ protected:
     engine::AScene::ShaderMap m_ShaderMap;
 
 protected:
-    engine::Shadows m_Shadows { this->m_ShaderMap["shaderMappingDepth"] };
-    // engine::actor::CubeMap cubeMap { this->m_ShaderMap["old/cubeMap"] };
+    engine::Shadows m_Shadows { m_ShaderMap["shaderMappingDepth"] };
+    // engine::actor::CubeMap cubeMap { m_ShaderMap["old/cubeMap"] };
 };
 
 

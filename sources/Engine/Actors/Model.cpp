@@ -41,7 +41,7 @@ void Model::drawModels(const engine::Camera&) const
 {
     for (const auto& position : this->instances) {
         this->setIntoShader("model", this->getModel(position));
-        for (auto& mesh : this->m_Meshes) {
+        for (auto& mesh : m_Meshes) {
             mesh->draw();
         }
     }
@@ -52,7 +52,7 @@ void Model::drawModels(const engine::Camera&) const
 void Model::update(float deltaTime)
 {
     this->useShader();
-    for (auto& mesh : this->m_Meshes) {
+    for (auto& mesh : m_Meshes) {
         mesh->update(deltaTime);
     }
     glUseProgram(0);
@@ -71,14 +71,14 @@ Model::Mesh::Mesh(const engine::Shader&         shader,
     , m_Indices(std::move(indices))
     , m_Textures(std::move(textures))
 {
-    this->m_Vao.bind();
+    m_Vao.bind();
 
-    this->m_Vbo.bind();
-    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(Model::Vertex), &this->m_Vertices[0],
+    m_Vbo.bind();
+    glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Model::Vertex), &m_Vertices[0],
                  GL_STATIC_DRAW);
 
-    this->m_Ebo.bind();
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->m_Indices.size() * sizeof(GLuint), &this->m_Indices[0],
+    m_Ebo.bind();
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(GLuint), &m_Indices[0],
                  GL_STATIC_DRAW);
 
     // vertex positions
@@ -113,13 +113,13 @@ Model::Mesh::~Mesh()
 
 void Model::Mesh::draw() const
 {
-    for (size_t i = 0; i < this->m_Textures.size(); ++i) {
+    for (size_t i = 0; i < m_Textures.size(); ++i) {
         glActiveTexture(GL_TEXTURE0 + i);
-        this->m_Shader.set(this->m_Textures[i].getName().c_str(), static_cast<float>(i));
-        glBindTexture(GL_TEXTURE_2D, this->m_Textures[i].get());
+        m_Shader.set(m_Textures[i].getName().c_str(), static_cast<float>(i));
+        glBindTexture(GL_TEXTURE_2D, m_Textures[i].get());
     }
-    this->m_Vao.bind();
-    glDrawElements(GL_TRIANGLES, this->m_Indices.size(), GL_UNSIGNED_INT, 0);
+    m_Vao.bind();
+    glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 //
@@ -135,11 +135,11 @@ void Model::loadModel(const std::string& filename)
     Assimp::Importer importer;
 
 #ifdef __linux__
-    this->m_DirectoryName = filename.substr(0, filename.find_last_of('/'));
+    m_DirectoryName = filename.substr(0, filename.find_last_of('/'));
 #elif _WIN32
-    this->m_DirectoryName = filename.substr(0, filename.find_last_of('\\'));
+    m_DirectoryName = filename.substr(0, filename.find_last_of('\\'));
 #elif
-    this->m_DirectoryName = filename.substr(0, filename.find_last_of('/'));
+    m_DirectoryName = filename.substr(0, filename.find_last_of('/'));
 #endif
 
     std::string filepath;
@@ -160,7 +160,7 @@ void Model::loadModel(const std::string& filename)
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
     for (size_t i = 0; i < node->mNumMeshes; ++i) {
-        this->m_Meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
+        m_Meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
     }
 
     for (size_t i = 0; i < node->mNumChildren; ++i) {
@@ -223,7 +223,7 @@ void Model::loadMaterialTextures(std::vector<Model::Texture>& textures,
     for (size_t i { 0 }; i < material->GetTextureCount(type); ++i) {
         aiString str;
         material->GetTexture(type, i, &str);
-        textures.emplace_back(str.C_Str(), this->m_DirectoryName, typeName, i);
+        textures.emplace_back(str.C_Str(), m_DirectoryName, typeName, i);
     }
 }
 
@@ -233,7 +233,7 @@ Model::Texture::Texture(const std::string&     filename,
                         const size_t           i)
     : engine::actor::Texture(filename)
 {
-    if (this->m_Id.use_count() == 1) { // if need initialisation
+    if (m_Id.use_count() == 1) { // if need initialisation
         std::string textureFilepath;
         textureFilepath.reserve(engine::filepath::model.size() + directoryName.size() + filename.size() + 2);
         textureFilepath += engine::filepath::model;
@@ -259,7 +259,7 @@ Model::Texture::Texture(const std::string&     filename,
             throw std::runtime_error("unsupported texture format found");
         }
 
-        glBindTexture(GL_TEXTURE_2D, *this->m_Id);
+        glBindTexture(GL_TEXTURE_2D, *m_Id);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -271,10 +271,10 @@ Model::Texture::Texture(const std::string&     filename,
         stbi_image_free(const_cast<unsigned char*>(data));
     }
 
-    this->m_Name.reserve(typeName.size() + 10);
-    this->m_Name += "material.";
-    this->m_Name += typeName.data();
-    this->m_Name += std::to_string(i);
+    m_Name.reserve(typeName.size() + 10);
+    m_Name += "material.";
+    m_Name += typeName.data();
+    m_Name += std::to_string(i);
 }
 
 Model::Texture::~Texture()
@@ -282,7 +282,7 @@ Model::Texture::~Texture()
 
 const std::string& Model::Texture::getName() const
 {
-    return this->m_Name;
+    return m_Name;
 }
 
 

@@ -39,8 +39,8 @@ public:
     DataPtr operator[](const std::string& filename)
     {
         {
-            auto it { this->m_Map.find(filename) };
-            if (it != this->m_Map.end()) {
+            auto it { m_Map.find(filename) };
+            if (it != m_Map.end()) {
                 return it->second.lock();
             }
         }
@@ -48,9 +48,9 @@ public:
         DataPtr instance(new DataType, [this, filename](DataType* id) {
             glDeleteTextures(1, id);
             delete id;
-            this->m_Map.erase(filename);
+            m_Map.erase(filename);
         });
-        this->m_Map.emplace(filename, instance);
+        m_Map.emplace(filename, instance);
         glGenTextures(1, instance.get());
         return instance;
     }
@@ -58,8 +58,8 @@ public:
     DataPtr operator[](std::string&& filename)
     {
         {
-            auto it { this->m_Map.find(filename) };
-            if (it != this->m_Map.end()) {
+            auto it { m_Map.find(filename) };
+            if (it != m_Map.end()) {
                 return it->second.lock();
             }
         }
@@ -67,9 +67,9 @@ public:
         DataPtr instance(new DataType, [this, filename](DataType* id) {
             glDeleteTextures(1, id);
             delete id;
-            this->m_Map.erase(filename);
+            m_Map.erase(filename);
         });
-        this->m_Map.emplace(std::move(filename), instance);
+        m_Map.emplace(std::move(filename), instance);
         glGenTextures(1, instance.get());
         return instance;
     }
@@ -96,9 +96,9 @@ CubeMap::CubeMap(engine::Shader&              shader,
                  const std::string_view       textureDirectory)
     : engine::AActor(shader, 1), m_Texture(textureDirectory.data())
 {
-    this->m_Vbo.bind();
-    this->m_Vao.bind();
-    engine::Vertices(verticesFilename, this->m_NumberOfArrayToDraw).createBuffer();
+    m_Vbo.bind();
+    m_Vao.bind();
+    engine::Vertices(verticesFilename, m_NumberOfArrayToDraw).createBuffer();
     setAttributesFunc();
 
     this->instances.setPosition(0, 0, 0);
@@ -124,9 +124,9 @@ void CubeMap::draw(const engine::Camera& camera) const
 
 void CubeMap::drawModels(const engine::Camera&) const
 {
-    this->m_Vao.bind();
-    this->m_Texture.bind();
-    glDrawArrays(GL_TRIANGLES, 0, this->m_NumberOfArrayToDraw);
+    m_Vao.bind();
+    m_Texture.bind();
+    glDrawArrays(GL_TRIANGLES, 0, m_NumberOfArrayToDraw);
 }
 
 void CubeMap::configureShader(const engine::Camera& camera) const
@@ -154,8 +154,8 @@ void CubeMap::setAttributes()
 CubeMap::Texture::Texture(const std::string& textureDirectory)
     : m_Id(g_CachedTextures[textureDirectory])
 {
-    if (this->m_Id.use_count() == 1) { // if just created
-        glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);
+    if (m_Id.use_count() == 1) { // if just created
+        glBindTexture(GL_TEXTURE_CUBE_MAP, *m_Id);
 
         std::string textureConfigFilepath;
         textureConfigFilepath.reserve(textureDirectory.size() + engine::filepath::textures.size() + 17);
@@ -217,7 +217,7 @@ CubeMap::Texture::~Texture()
 void CubeMap::Texture::bind() const
 {
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, *this->m_Id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, *m_Id);
 }
 
 

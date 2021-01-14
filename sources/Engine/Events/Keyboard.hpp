@@ -22,7 +22,7 @@ public:
 
     GET_CATEGORY(Input | Keyboard)
 
-    int getCode() const { return this->m_KeyCode; }
+    int getCode() const { return m_KeyCode; }
 
 private:
     int m_KeyCode;

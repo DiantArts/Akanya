@@ -28,8 +28,8 @@ Clock::~Clock()
 float Clock::getElapsedTime()
 {
     float currentFrameTime = glfwGetTime();
-    float deltaTime        = currentFrameTime - this->m_LastFrameTime;
-    this->m_LastFrameTime  = currentFrameTime;
+    float deltaTime        = currentFrameTime - m_LastFrameTime;
+    m_LastFrameTime  = currentFrameTime;
     return deltaTime;
 }
 

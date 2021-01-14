@@ -37,7 +37,7 @@ namespace engine {
 
 bool Window::shouldClose() const
 {
-    return glfwWindowShouldClose(this->m_Window.get());
+    return glfwWindowShouldClose(m_Window.get());
 }
 
 void Window::clear() const
@@ -47,7 +47,7 @@ void Window::clear() const
 
 void Window::swapBuffers()
 {
-    glfwSwapBuffers(this->m_Window.get());
+    glfwSwapBuffers(m_Window.get());
 }
 
 void Window::pollEvents()
@@ -77,32 +77,32 @@ void Window::setClearColor(const float red,
 void Window::processInput(const float deltaTime)
 {
     this->pollEvents();
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(this->m_Window.get(), true);
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(m_Window.get(), true);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_W) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_W) == GLFW_PRESS) {
         this->camera.moveForward(deltaTime);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_S) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_S) == GLFW_PRESS) {
         this->camera.moveBackward(deltaTime);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_A) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_A) == GLFW_PRESS) {
         this->camera.moveLeft(deltaTime);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_D) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_D) == GLFW_PRESS) {
         this->camera.moveRight(deltaTime);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
         this->camera.moveTop(deltaTime);
     }
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_X) == GLFW_PRESS) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_X) == GLFW_PRESS) {
         this->camera.moveBot(deltaTime);
     }
 
-    if (glfwGetKey(this->m_Window.get(), GLFW_KEY_TAB) == GLFW_PRESS && !this->gammaKeyPressed) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_TAB) == GLFW_PRESS && !this->gammaKeyPressed) {
         gammaEnabled = !gammaEnabled;
         this->gammaKeyPressed = true;
-    } if (glfwGetKey(this->m_Window.get(), GLFW_KEY_TAB) == GLFW_RELEASE) {
+    } if (glfwGetKey(m_Window.get(), GLFW_KEY_TAB) == GLFW_RELEASE) {
         this->gammaKeyPressed = false;
     }
 }
@@ -123,16 +123,16 @@ Window::Window()
     initGLWF();
 
     // glfwGetPrimaryMonitor function returns the primary monitor to allow a fullscreen rendering
-    this->m_Window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
-    if (!this->m_Window) {
+    m_Window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
+    if (!m_Window) {
         glfwTerminate();
         throw std::runtime_error("Window creation failed");
     }
 
     // specifies the affine transformation of x and y from normalized devices
     // coordinates to window coordinates.
-    glfwMakeContextCurrent(this->m_Window.get());
-    glfwSetFramebufferSizeCallback(this->m_Window.get(), framebufferSizeCallback);
+    glfwMakeContextCurrent(m_Window.get());
+    glfwSetFramebufferSizeCallback(m_Window.get(), framebufferSizeCallback);
 
     // GLAD
     initGLAD();
@@ -159,9 +159,9 @@ void Window::configure()
     // glClearColor(0.3F); // clear grey
 
     // mouse events
-    glfwSetInputMode(this->m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(this->m_Window.get(), mouseDirectionCallback);
-    glfwSetScrollCallback(this->m_Window.get(), mouseScrollcallback);
+    glfwSetInputMode(m_Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(m_Window.get(), mouseDirectionCallback);
+    glfwSetScrollCallback(m_Window.get(), mouseScrollcallback);
 
     stbi_set_flip_vertically_on_load(true);
 

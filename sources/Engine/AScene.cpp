@@ -19,9 +19,9 @@ namespace engine {
 
 AScene::AScene()
 {
-    this->m_Window.camera.setSpeed(5);
-    this->m_Window.camera.setPosition(1.5, 3.0F, 7.5F);
-    this->m_Window.camera.setOrientation(-98, -15);
+    m_Window.camera.setSpeed(5);
+    m_Window.camera.setPosition(1.5, 3.0F, 7.5F);
+    m_Window.camera.setOrientation(-98, -15);
 }
 
 AScene::~AScene()
@@ -33,18 +33,18 @@ AScene::~AScene()
 
 bool AScene::isOver() const
 {
-    return this->m_Window.shouldClose() || this->m_isOver;
+    return m_Window.shouldClose() || m_isOver;
 }
 
 void AScene::manageEvents()
 {
-    this->m_Window.processInput(this->m_EventClock.getElapsedTime());
+    m_Window.processInput(m_EventClock.getElapsedTime());
 }
 
 void AScene::update()
 {
-    for (auto& actor : this->m_VectorActors) {
-        actor->update(this->m_UpdateClock.getElapsedTime());
+    for (auto& actor : m_VectorActors) {
+        actor->update(m_UpdateClock.getElapsedTime());
     }
 }
 
@@ -53,37 +53,37 @@ void AScene::additionalDraws() const
 
 void AScene::draw() const
 {
-    this->m_Window.clear();
+    m_Window.clear();
 
     for (auto light : engine::actor::light::ALight::getAll()) {
-        this->m_Shadows.bind(light.getPosition());
-        this->m_Shadows.unbind();
+        m_Shadows.bind(light.getPosition());
+        m_Shadows.unbind();
     }
 
     this->drawEverything();
-    // this->cubeMap.draw(this->m_Window.camera);
+    // this->cubeMap.draw(m_Window.camera);
     this->drawFps();
 
-    this->m_Window.swapBuffers();
+    m_Window.swapBuffers();
 }
 
 void AScene::drawActors() const
 {
-    for (auto& actor : this->m_VectorActors) {
-        actor->draw(this->m_Window.camera);
+    for (auto& actor : m_VectorActors) {
+        actor->draw(m_Window.camera);
     }
     this->additionalDraws();
 }
 
 void AScene::drawFps() const
 {
-    this->m_Elapsed += this->m_FpsClock.getElapsedTime();
-    ++this->m_Fps;
+    m_Elapsed += m_FpsClock.getElapsedTime();
+    ++m_Fps;
 
-    if (this->m_Elapsed >= 1) {
-        std::cout << "FPS: " << this->m_Fps << '\n';
-        this->m_Elapsed -= 1;
-        this->m_Fps = 0;
+    if (m_Elapsed >= 1) {
+        std::cout << "FPS: " << m_Fps << '\n';
+        m_Elapsed -= 1;
+        m_Fps = 0;
     }
 }
 
@@ -93,12 +93,12 @@ void AScene::drawFps() const
 
 void AScene::pushActor(std::unique_ptr<engine::actor::AActor>&& actor)
 {
-    this->m_VectorActors.push_back(std::move(actor));
+    m_VectorActors.push_back(std::move(actor));
 }
 
 void AScene::pushActor(std::unique_ptr<engine::actor::AActor>& actor)
 {
-    this->m_VectorActors.push_back(std::move(actor));
+    m_VectorActors.push_back(std::move(actor));
 }
 
 
@@ -108,11 +108,11 @@ engine::Shader& AScene::ShaderMap::operator[](const std::string& filename)
 {
     try {
         // return it if already cached
-        return this->m_ShaderMap.at(filename);
+        return m_ShaderMap.at(filename);
 
     } catch (const std::exception&) {
         // cache it
-        return this->m_ShaderMap.emplace(filename, filename).first->second;
+        return m_ShaderMap.emplace(filename, filename).first->second;
     }
 }
 

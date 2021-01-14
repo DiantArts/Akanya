@@ -31,7 +31,7 @@ ContainerWrapper::ContainerWrapper(const engine::actor::Positions& instancesPara
 
 const std::deque<engine::actor::light::ContainerWrapper>& Container::get() const
 {
-    return this->m_List;
+    return m_List;
 }
 
 
@@ -41,18 +41,18 @@ const std::deque<engine::actor::light::ContainerWrapper>& Container::get() const
 engine::actor::light::ContainerWrapper& Container::emplace_back(const engine::actor::Positions& instances,
                                                                 const std::string&              name)
 {
-    return this->m_List.emplace_back(instances, name);
+    return m_List.emplace_back(instances, name);
 }
 
 engine::actor::light::ContainerWrapper& Container::emplace_back(const engine::actor::Positions& instances,
                                                                 std::string&&                   name)
 {
-    return this->m_List.emplace_back(instances, std::move(name));
+    return m_List.emplace_back(instances, std::move(name));
 }
 
 engine::actor::light::ContainerWrapper& Container::back()
 {
-    return this->m_List.back();
+    return m_List.back();
 }
 
 
@@ -61,34 +61,34 @@ engine::actor::light::ContainerWrapper& Container::back()
 
 Container::Iterator::iterator Container::begin()
 {
-    return Container::Iterator::iterator { &this->m_List[0] };
+    return Container::Iterator::iterator { &m_List[0] };
 }
 
 Container::Iterator::const_iterator Container::begin() const
 {
-    return Container::Iterator::const_iterator { &this->m_List[0] };
+    return Container::Iterator::const_iterator { &m_List[0] };
 }
 
 Container::Iterator::const_iterator Container::cbegin() const
 {
-    return Container::Iterator::const_iterator { &this->m_List[0] };
+    return Container::Iterator::const_iterator { &m_List[0] };
 }
 
 
 
 Container::Iterator::iterator Container::end()
 {
-    return Container::Iterator::iterator { &this->m_List[this->m_List.size()] };
+    return Container::Iterator::iterator { &m_List[m_List.size()] };
 }
 
 Container::Iterator::const_iterator Container::end() const
 {
-    return Container::Iterator::const_iterator { &this->m_List[this->m_List.size()] };
+    return Container::Iterator::const_iterator { &m_List[m_List.size()] };
 }
 
 Container::Iterator::const_iterator Container::cend() const
 {
-    return Container::Iterator::const_iterator { &this->m_List[this->m_List.size()] };
+    return Container::Iterator::const_iterator { &m_List[m_List.size()] };
 }
 
 

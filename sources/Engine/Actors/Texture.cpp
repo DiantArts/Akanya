@@ -25,8 +25,8 @@ public:
     DataPtr operator[](const std::string& filename)
     {
         {
-            auto it { this->m_Map.find(filename) };
-            if (it != this->m_Map.end()) {
+            auto it { m_Map.find(filename) };
+            if (it != m_Map.end()) {
                 return it->second.lock();
             }
         }
@@ -34,9 +34,9 @@ public:
         DataPtr instance( new DataType, [this, filename](DataType* id) {
             glDeleteTextures(1, id);
             delete id;
-            this->m_Map.erase(filename);
+            m_Map.erase(filename);
         });
-        this->m_Map.emplace(filename, instance);
+        m_Map.emplace(filename, instance);
         glGenTextures(1, instance.get());
         return instance;
     }
@@ -44,8 +44,8 @@ public:
     DataPtr operator[](std::string&& filename)
     {
         {
-            auto it { this->m_Map.find(filename) };
-            if (it != this->m_Map.end()) {
+            auto it { m_Map.find(filename) };
+            if (it != m_Map.end()) {
                 return it->second.lock();
             }
         }
@@ -53,9 +53,9 @@ public:
         DataPtr instance( new DataType, [this, filename](DataType* id) {
             glDeleteTextures(1, id);
             delete id;
-            this->m_Map.erase(filename);
+            m_Map.erase(filename);
         });
-        this->m_Map.emplace(std::move(filename), instance);
+        m_Map.emplace(std::move(filename), instance);
         glGenTextures(1, instance.get());
         return instance;
     }
@@ -92,7 +92,7 @@ Texture::~Texture()
 
 GLuint Texture::get() const
 {
-    return *this->m_Id;
+    return *m_Id;
 }
 
 

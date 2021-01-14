@@ -21,7 +21,7 @@ namespace scene {
 
 Example::Example()
 {
-    auto lightSource { std::make_unique<engine::actor::object::LightSourceCube>(this->m_ShaderMap["lightSource"],
+    auto lightSource { std::make_unique<engine::actor::object::LightSourceCube>(m_ShaderMap["lightSource"],
                                                                          4) };
 
     lightSource->instances.add(-0.0F, 2.0F, 0.0F);
@@ -32,7 +32,7 @@ Example::Example()
     this->pushActor(std::move(lightSource));
 
 
-    auto cube { std::make_unique<engine::actor::object::EnlightenedCube>(this->m_ShaderMap["multiEnlightened"]) };
+    auto cube { std::make_unique<engine::actor::object::EnlightenedCube>(m_ShaderMap["multiEnlightened"]) };
 
     cube->addTexture("container.png", "material.diffuse");
     cube->addTexture("containerBorders.png", "material.specular");
@@ -69,13 +69,13 @@ void Example::additionalDraws() const
 {
     this->backpackShader.use();
 
-    // this->backpackShader.set("dirLight.direction", this->m_Window.camera.getOrientation());
+    // this->backpackShader.set("dirLight.direction", m_Window.camera.getOrientation());
     // this->backpackShader.set("dirLight.ambient",
-                             // this->m_Window.camera.parameters.ambient * glm::vec3 { 0 });
+                             // m_Window.camera.parameters.ambient * glm::vec3 { 0 });
     // this->backpackShader.set("dirLight.diffuse",
-                             // this->m_Window.camera.parameters.diffuse * glm::vec3 { 0 });
+                             // m_Window.camera.parameters.diffuse * glm::vec3 { 0 });
     // this->backpackShader.set("dirLight.specular",
-                             // this->m_Window.camera.parameters.specular * glm::vec3 { 0 });
+                             // m_Window.camera.parameters.specular * glm::vec3 { 0 });
 
     for (auto light : engine::actor::light::ALight::getAll()) {
         this->backpackShader.set(light.name + ".position", light.position);
@@ -89,10 +89,10 @@ void Example::additionalDraws() const
     this->backpackShader.set("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
     this->backpackShader.set("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 
-    // this->backpackShader.set("viewPos", this->m_Window.camera.getPosition());
+    // this->backpackShader.set("viewPos", m_Window.camera.getPosition());
     this->backpackShader.set("material.shininess", 32.0F);
 
-    this->backpack.draw(this->m_Window.camera);
+    this->backpack.draw(m_Window.camera);
 }
 
 

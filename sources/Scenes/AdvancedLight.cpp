@@ -23,14 +23,14 @@ namespace scene {
 AdvancedLight::AdvancedLight()
 {
     auto lightSource {
-        std::make_unique<engine::actor::object::LightSourceCube>(this->m_ShaderMap["old/lightSource"])
+        std::make_unique<engine::actor::object::LightSourceCube>(m_ShaderMap["old/lightSource"])
     };
     lightSource->instances.move(-2.0F, 4.0F, -1.0F);
     this->pushActor(std::move(lightSource));
 
 
     auto cube {
-        std::make_unique<engine::actor::object::ShadowCube>(this->m_ShaderMap["shadowMapping"], 3)
+        std::make_unique<engine::actor::object::ShadowCube>(m_ShaderMap["shadowMapping"], 3)
     };
     cube->instances.add(3.0F, 2.0F, 2.0F);
     cube->instances.add(0.0F, 0.5F, 0.0F);
@@ -39,7 +39,7 @@ AdvancedLight::AdvancedLight()
 
 
     auto floor {
-        std::make_unique<engine::actor::object::AdvancedEnlightenedCube>(this->m_ShaderMap["old/advancedLight"])
+        std::make_unique<engine::actor::object::AdvancedEnlightenedCube>(m_ShaderMap["old/advancedLight"])
     };
     floor->addTexture("woodFloor.jpg", "texture1", false);
     this->pushActor(std::move(floor));

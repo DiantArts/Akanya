@@ -17,12 +17,12 @@ namespace engine {
 
 Fbo::Fbo()
 {
-    glGenFramebuffers(1, &this->m_Fbo);
+    glGenFramebuffers(1, &m_Fbo);
 }
 
 Fbo::~Fbo()
 {
-    glDeleteFramebuffers(1, &this->m_Fbo);
+    glDeleteFramebuffers(1, &m_Fbo);
 }
 
 
@@ -31,7 +31,7 @@ Fbo::~Fbo()
 
 GLuint Fbo::get() const
 {
-    return this->m_Fbo;
+    return m_Fbo;
 }
 
 
@@ -40,7 +40,7 @@ GLuint Fbo::get() const
 
 void Fbo::bind() const
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, this->m_Fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_Fbo);
 }
 
 void Fbo::unbind() const

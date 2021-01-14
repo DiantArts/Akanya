@@ -18,10 +18,10 @@ namespace engine::actor {
 Positions::Positions(const size_t sizeToAlloc)
 {
     if (sizeToAlloc > 1) {
-        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        auto& multiplePos { m_Variant.emplace<MultiplePositions>() };
         multiplePos.reserve(sizeToAlloc);
     } else {
-        this->m_Variant = SinglePosition { 0.0F, 0.0F, 0.0F };
+        m_Variant = SinglePosition { 0.0F, 0.0F, 0.0F };
     }
 }
 
@@ -34,13 +34,13 @@ Positions::~Positions()
 
 glm::vec3& Positions::operator[](size_t index)
 {
-    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         if (index > 0) {
             throw std::out_of_range("trying to access a greater index than 0 of a single pos");
         }
         return *position;
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         if (positions.size() <= index) {
             throw std::out_of_range("trying to access a greater index the vector size");
         }
@@ -50,13 +50,13 @@ glm::vec3& Positions::operator[](size_t index)
 
 const glm::vec3& Positions::operator[](size_t index) const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         if (index > 0) {
             throw std::out_of_range("trying to access a greater index than 0 of a single pos");
         }
         return *position;
     } else {
-        const auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        const auto& positions { std::get<MultiplePositions>(m_Variant) };
         if (positions.size() <= index) {
             throw std::out_of_range("trying to access a greater index the vector size");
         }
@@ -68,10 +68,10 @@ const glm::vec3& Positions::operator[](size_t index) const
 
 glm::vec3* Positions::operator->()
 {
-    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return position;
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         if (positions.empty()) {
             throw std::out_of_range("trying to access elements of an empty vector");
         }
@@ -81,10 +81,10 @@ glm::vec3* Positions::operator->()
 
 const glm::vec3* Positions::operator->() const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return position;
     } else {
-        const auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        const auto& positions { std::get<MultiplePositions>(m_Variant) };
         if (positions.empty()) {
             throw std::out_of_range("trying to access elements of an empty vector");
         }
@@ -98,30 +98,30 @@ const glm::vec3* Positions::operator->() const
 
 engine::actor::Positions::iterator Positions::begin()
 {
-    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::iterator(position);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::iterator(&positions[0]);
     }
 }
 
 engine::actor::Positions::const_iterator Positions::begin() const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::const_iterator(position);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::const_iterator(&positions[0]);
     }
 }
 
 engine::actor::Positions::const_iterator Positions::cbegin() const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::const_iterator(position);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::const_iterator(&positions[0]);
     }
 }
@@ -130,30 +130,30 @@ engine::actor::Positions::const_iterator Positions::cbegin() const
 
 engine::actor::Positions::iterator Positions::end()
 {
-    if (auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::iterator(position + 1);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::iterator(&positions[positions.size()]);
     }
 }
 
 engine::actor::Positions::const_iterator Positions::end() const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::const_iterator(position + 1);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::const_iterator(&positions[positions.size()]);
     }
 }
 
 engine::actor::Positions::const_iterator Positions::cend() const
 {
-    if (const auto* position { std::get_if<SinglePosition>(&this->m_Variant) }) {
+    if (const auto* position { std::get_if<SinglePosition>(&m_Variant) }) {
         return engine::actor::Positions::const_iterator(position + 1);
     } else {
-        auto& positions { std::get<MultiplePositions>(this->m_Variant) };
+        auto& positions { std::get<MultiplePositions>(m_Variant) };
         return engine::actor::Positions::const_iterator(&positions[positions.size()]);
     }
 }
@@ -165,11 +165,11 @@ engine::actor::Positions::const_iterator Positions::cend() const
 void Positions::addPosition(float x, float y, float z)
 {
     try {
-        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        auto& multiplePos { std::get<MultiplePositions>(m_Variant) };
         multiplePos.emplace_back(std::move(x), std::move(y), std::move(z));
     } catch (const std::bad_variant_access&) {
-        auto  singlePos { std::get<SinglePosition>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        auto  singlePos { std::get<SinglePosition>(m_Variant) };
+        auto& multiplePos { m_Variant.emplace<MultiplePositions>() };
         multiplePos.reserve(2);
         multiplePos.push_back(std::move(singlePos));
         multiplePos.emplace_back(std::move(x), std::move(y), std::move(z));
@@ -179,11 +179,11 @@ void Positions::addPosition(float x, float y, float z)
 void Positions::addPosition(const glm::vec3& position)
 {
     try {
-        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        auto& multiplePos { std::get<MultiplePositions>(m_Variant) };
         multiplePos.push_back(position);
     } catch (const std::bad_variant_access&) {
-        auto  singlePos { std::get<SinglePosition>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        auto  singlePos { std::get<SinglePosition>(m_Variant) };
+        auto& multiplePos { m_Variant.emplace<MultiplePositions>() };
         multiplePos.reserve(2);
         multiplePos.push_back(std::move(singlePos));
         multiplePos.push_back(position);
@@ -193,11 +193,11 @@ void Positions::addPosition(const glm::vec3& position)
 void Positions::addPosition(glm::vec3&& position)
 {
     try {
-        auto& multiplePos { std::get<MultiplePositions>(this->m_Variant) };
+        auto& multiplePos { std::get<MultiplePositions>(m_Variant) };
         multiplePos.push_back(std::move(position));
     } catch (const std::bad_variant_access&) {
-        auto  singlePos { std::get<SinglePosition>(this->m_Variant) };
-        auto& multiplePos { this->m_Variant.emplace<MultiplePositions>() };
+        auto  singlePos { std::get<SinglePosition>(m_Variant) };
+        auto& multiplePos { m_Variant.emplace<MultiplePositions>() };
         multiplePos.reserve(2);
         multiplePos.push_back(std::move(singlePos));
         multiplePos.push_back(std::move(position));
@@ -283,7 +283,7 @@ void Positions::moveZ(const float offsetZ)
 
 size_t Positions::size() const
 {
-    if (const auto* positions { std::get_if<MultiplePositions>(&this->m_Variant) }) {
+    if (const auto* positions { std::get_if<MultiplePositions>(&m_Variant) }) {
         return positions->size();
     } else {
         return 1;

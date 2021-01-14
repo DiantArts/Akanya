@@ -17,12 +17,12 @@ namespace engine {
 
 Vbo::Vbo()
 {
-    glGenBuffers(1, &this->m_Vbo);
+    glGenBuffers(1, &m_Vbo);
 }
 
 Vbo::~Vbo()
 {
-    glDeleteBuffers(1, &this->m_Vbo);
+    glDeleteBuffers(1, &m_Vbo);
 }
 
 
@@ -31,7 +31,7 @@ Vbo::~Vbo()
 
 GLuint Vbo::get() const
 {
-    return this->m_Vbo;
+    return m_Vbo;
 }
 
 
@@ -40,7 +40,7 @@ GLuint Vbo::get() const
 
 void Vbo::bind() const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, this->m_Vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
 }
 
 void Vbo::unbind() const

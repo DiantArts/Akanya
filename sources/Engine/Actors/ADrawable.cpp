@@ -23,7 +23,7 @@ namespace engine::actor {
 ADrawable::ADrawable(engine::Shader& shader)
     : m_Shader(shader)
 {
-    DEBUG_MSG("(" << this->m_Id << "): created");
+    DEBUG_MSG("(" << m_Id << "): created");
 }
 
 ADrawable::~ADrawable()
@@ -56,12 +56,12 @@ void ADrawable::configureShader(const engine::Camera& camera) const
 
 const engine::Shader& ADrawable::getShader() const
 {
-    return this->m_Shader;
+    return m_Shader;
 }
 
 void ADrawable::useShader() const
 {
-    this->m_Shader.use();
+    m_Shader.use();
 }
 
 

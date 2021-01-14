@@ -17,12 +17,12 @@ namespace engine {
 
 Ebo::Ebo()
 {
-    glGenBuffers(1, &this->m_Ebo);
+    glGenBuffers(1, &m_Ebo);
 }
 
 Ebo::~Ebo()
 {
-    glDeleteBuffers(1, &this->m_Ebo);
+    glDeleteBuffers(1, &m_Ebo);
 }
 
 
@@ -31,7 +31,7 @@ Ebo::~Ebo()
 
 GLuint Ebo::get() const
 {
-    return this->m_Ebo;
+    return m_Ebo;
 }
 
 
@@ -40,7 +40,7 @@ GLuint Ebo::get() const
 
 void Ebo::bind() const
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->m_Ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Ebo);
 }
 
 void Ebo::unbind() const

@@ -29,13 +29,13 @@ Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
     str += filepath;
     str = tools::file::read(str);
 
-    this->m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
+    m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);
     std::getline(iss, str);
     numberOfArrayToDraw = std::stol(str);
     while (std::getline(iss, str)) {
         try {
-            this->m_Vertices.push_back(std::stof(str));
+            m_Vertices.push_back(std::stof(str));
         } catch (...) {
             throw std::runtime_error(std::string("stof: '") + str + '\'');
         }
@@ -48,7 +48,7 @@ Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
 
 void Vertices::createBuffer()
 {
-    glBufferData(GL_ARRAY_BUFFER, this->m_Vertices.size() * sizeof(float), &this->m_Vertices.front(),
+    glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(float), &m_Vertices.front(),
                  GL_STATIC_DRAW);
 }
 
