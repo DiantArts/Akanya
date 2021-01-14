@@ -51,21 +51,28 @@ void AScene::update()
 void AScene::additionalDraws() const
 {}
 
-void AScene::draw()
+void AScene::draw() const
 {
     this->m_Window.clear();
 
-    for (auto& actor : this->m_VectorActors) {
-        actor->draw(this->m_Window.camera);
+    for (auto light : engine::actor::light::ALight::getAll()) {
+        this->m_Shadows.bind(light.getPosition());
+        this->m_Shadows.unbind();
     }
 
-    this->additionalDraws();
-
+    this->drawEverything();
     // this->cubeMap.draw(this->m_Window.camera);
-
     this->drawFps();
 
     this->m_Window.swapBuffers();
+}
+
+void AScene::drawActors() const
+{
+    for (auto& actor : this->m_VectorActors) {
+        actor->draw(this->m_Window.camera);
+    }
+    this->additionalDraws();
 }
 
 void AScene::drawFps() const

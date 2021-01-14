@@ -20,6 +20,7 @@
 #include "Clock.hpp"
 #include "Shader.hpp"
 #include "Window.hpp"
+#include "Shadows.hpp"
 
 
 
@@ -36,7 +37,9 @@ public:
     // ---------------------------------------------------------------------------- Loop
     bool isOver() const;
     void manageEvents();
-    void draw();
+
+    void draw() const;
+    void drawActors() const;
     void drawFps() const;
 
 
@@ -80,8 +83,9 @@ protected:
     };
     engine::AScene::ShaderMap m_ShaderMap;
 
-private:
-    // engine::actor::CubeMap cubeMap { this->m_ShaderMap["cubeMap"] };
+protected:
+    engine::Shadows m_Shadows { this->m_ShaderMap["shaderMappingDepth"] };
+    // engine::actor::CubeMap cubeMap { this->m_ShaderMap["old/cubeMap"] };
 };
 
 

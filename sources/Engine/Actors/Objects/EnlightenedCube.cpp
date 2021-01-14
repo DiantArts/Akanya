@@ -20,6 +20,9 @@ namespace engine::actor::object {
 EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
 {
+    this->useShader();
+    this->addTexture("container.png", "material.diffuse");
+    this->addTexture("containerBorders.png", "material.specular");
 }
 
 

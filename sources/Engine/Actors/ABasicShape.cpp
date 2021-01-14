@@ -106,9 +106,8 @@ ABasicShape::Texture::~Texture()
 
 void ABasicShape::addTexture(const std::string& filename, const std::string& name, const bool gammaCorrection)
 {
-    this->useShader();
     this->setIntoShader(name.c_str(), static_cast<int>(this->m_TextureVector.size()));
-    this->m_TextureVector.emplace_back(filename, false);
+    this->m_TextureVector.emplace_back(filename, gammaCorrection);
 }
 
 void ABasicShape::bindTextures() const

@@ -7,6 +7,7 @@
 
 #include "AdvancedLight.hpp"
 #include "Engine/Actors/Objects/AdvancedEnlightenedCube.hpp"
+#include "Engine/Actors/Objects/ShadowCube.hpp"
 #include "Engine/Actors/Objects/EnlightenedCube.hpp"
 #include "Engine/Actors/Objects/LightSourceCube.hpp"
 #include "debugMacros.hpp"
@@ -24,15 +25,13 @@ AdvancedLight::AdvancedLight()
     auto lightSource {
         std::make_unique<engine::actor::object::LightSourceCube>(this->m_ShaderMap["old/lightSource"])
     };
-    lightSource->instances.move(0.0F, 10.0F, 0.0F);
+    lightSource->instances.move(-2.0F, 4.0F, -1.0F);
     this->pushActor(std::move(lightSource));
 
 
     auto cube {
-        std::make_unique<engine::actor::object::EnlightenedCube>(this->m_ShaderMap["old/multiEnlightened"], 3)
+        std::make_unique<engine::actor::object::ShadowCube>(this->m_ShaderMap["shadowMapping"], 3)
     };
-    cube->addTexture("container.png", "material.diffuse");
-    cube->addTexture("containerBorders.png", "material.specular");
     cube->instances.add(3.0F, 2.0F, 2.0F);
     cube->instances.add(0.0F, 0.5F, 0.0F);
     cube->instances.add(-1.0F, 1.0F, 3.0F);
