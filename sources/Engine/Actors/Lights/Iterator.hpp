@@ -16,7 +16,7 @@
 
 namespace engine::actor::light {
 
-class ContainerWrapper;
+class ContainedLight;
 
 
 
@@ -30,7 +30,7 @@ public:
 
     class iterator {
     public:
-        explicit iterator(engine::actor::light::ContainerWrapper* ptr);
+        explicit iterator(engine::actor::light::ContainedLight* ptr);
 
         Iterator::LightReferenceWrapper operator*();
         Iterator::LightReferenceWrapper operator->();
@@ -42,14 +42,14 @@ public:
         bool operator!=(const Iterator::iterator& that);
 
     private:
-        engine::actor::light::ContainerWrapper* m_Ptr;
+        engine::actor::light::ContainedLight* m_Ptr;
         size_t                                  m_Index { 0 };
     };
 
 
     class const_iterator {
     public:
-        explicit const_iterator(const engine::actor::light::ContainerWrapper* ptr);
+        explicit const_iterator(const engine::actor::light::ContainedLight* ptr);
 
         Iterator::LightReferenceWrapper operator*();
         Iterator::LightReferenceWrapper operator->();
@@ -61,7 +61,7 @@ public:
         bool operator!=(const Iterator::const_iterator& that);
 
     private:
-        const engine::actor::light::ContainerWrapper* m_Ptr;
+        const engine::actor::light::ContainedLight* m_Ptr;
         size_t                                        m_Index { 0 };
     };
 

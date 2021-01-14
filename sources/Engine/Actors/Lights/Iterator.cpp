@@ -17,7 +17,7 @@ namespace engine::actor::light {
 
 // ---------------------------------------------------------------------------- iterator
 
-Iterator::iterator::iterator(engine::actor::light::ContainerWrapper* ptr) : m_Ptr(std::move(ptr))
+Iterator::iterator::iterator(engine::actor::light::ContainedLight* ptr) : m_Ptr(std::move(ptr))
 {}
 
 engine::actor::light::Iterator::LightReferenceWrapper Iterator::iterator::operator*()
@@ -96,7 +96,7 @@ bool Iterator::iterator::operator!=(const engine::actor::light::Iterator::iterat
 
 // ---------------------------------------------------------------------------- const_iterator
 
-Iterator::const_iterator::const_iterator(const engine::actor::light::ContainerWrapper* ptr)
+Iterator::const_iterator::const_iterator(const engine::actor::light::ContainedLight* ptr)
     : m_Ptr(std::move(ptr))
 {}
 

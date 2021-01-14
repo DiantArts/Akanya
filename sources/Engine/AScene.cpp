@@ -55,24 +55,30 @@ void AScene::draw() const
 {
     m_Window.clear();
 
-    for (auto light : engine::actor::light::ALight::getAll()) {
-        m_Shadows.bind(light.getPosition());
-        m_Shadows.unbind();
+    auto light { *engine::actor::ALight::getAll().begin() };
+    m_Shadows.generateSpaceMatrix(light.position);
+    // m_Shadows.bindSpaceMatrix();
+    // m_Shadows.bind();
+
+    // for (auto& actor : m_VectorActors) {
+        // actor->draw(m_Window.camera);
+    // }
+
+    // m_Shadows.unbind();
+
+    for (auto& actor : m_VectorActors) {
+        actor->draw(m_Window.camera);
     }
-
-    this->drawEverything();
+    this->additionalDraws();
     // this->cubeMap.draw(m_Window.camera);
-    this->drawFps();
 
+
+    this->drawFps();
     m_Window.swapBuffers();
 }
 
 void AScene::drawActors() const
 {
-    for (auto& actor : m_VectorActors) {
-        actor->draw(m_Window.camera);
-    }
-    this->additionalDraws();
 }
 
 void AScene::drawFps() const

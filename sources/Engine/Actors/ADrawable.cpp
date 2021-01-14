@@ -39,6 +39,12 @@ void ADrawable::draw(const engine::Camera& camera) const
     this->drawModels(camera);
 }
 
+void ADrawable::drawShadows(const engine::Camera& camera) const
+{
+    this->configureShader(camera);
+    this->drawModels(camera);
+}
+
 
 
 // ---------------------------------------------------------------------------- Update

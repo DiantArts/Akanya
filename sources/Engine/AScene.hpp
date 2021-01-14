@@ -83,8 +83,11 @@ protected:
     };
     engine::AScene::ShaderMap m_ShaderMap;
 
+private:
+    engine::Shader  m_ShadowsShader { "shadowMappingDepth", "shadowMappingDepth" };
+    engine::Shadows m_Shadows { m_ShadowsShader };
+
 protected:
-    engine::Shadows m_Shadows { m_ShaderMap["shaderMappingDepth"] };
     // engine::actor::CubeMap cubeMap { m_ShaderMap["old/cubeMap"] };
 };
 

@@ -15,13 +15,15 @@ namespace engine::actor::light {
 
 
 
-// ---------------------------------------------------------------------------- ContainerWrapper
+// ---------------------------------------------------------------------------- ContainedLight
 
-ContainerWrapper::ContainerWrapper(const engine::actor::Positions& instancesParam, const std::string& name)
+ContainedLight::ContainedLight(const engine::actor::Positions& instancesParam,
+                               const std::string&              name)
     : instances(instancesParam), name(name)
 {}
 
-ContainerWrapper::ContainerWrapper(const engine::actor::Positions& instancesParam, std::string&& name)
+ContainedLight::ContainedLight(const engine::actor::Positions& instancesParam,
+                               std::string&&                   name)
     : instances(instancesParam), name(std::move(name))
 {}
 
@@ -29,7 +31,7 @@ ContainerWrapper::ContainerWrapper(const engine::actor::Positions& instancesPara
 
 // ---------------------------------------------------------------------------- Get
 
-const std::deque<engine::actor::light::ContainerWrapper>& Container::get() const
+const std::deque<engine::actor::light::ContainedLight>& Container::get() const
 {
     return m_List;
 }
@@ -38,19 +40,19 @@ const std::deque<engine::actor::light::ContainerWrapper>& Container::get() const
 
 // ---------------------------------------------------------------------------- Container stuff
 
-engine::actor::light::ContainerWrapper& Container::emplace_back(const engine::actor::Positions& instances,
-                                                                const std::string&              name)
+engine::actor::light::ContainedLight& Container::emplace_back(const engine::actor::Positions& instances,
+                                                              const std::string&              name)
 {
     return m_List.emplace_back(instances, name);
 }
 
-engine::actor::light::ContainerWrapper& Container::emplace_back(const engine::actor::Positions& instances,
-                                                                std::string&&                   name)
+engine::actor::light::ContainedLight& Container::emplace_back(const engine::actor::Positions& instances,
+                                                              std::string&&                   name)
 {
     return m_List.emplace_back(instances, std::move(name));
 }
 
-engine::actor::light::ContainerWrapper& Container::back()
+engine::actor::light::ContainedLight& Container::back()
 {
     return m_List.back();
 }

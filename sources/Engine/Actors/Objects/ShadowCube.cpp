@@ -9,6 +9,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+extern const glm::mat4* shadowsSpaceMatrix;
+
 
 namespace engine::actor::object {
 
@@ -36,7 +38,7 @@ void ShadowCube::configureShader(const engine::Camera& camera) const
     for (auto light : engine::actor::light::ALight::getAll()) {
         this->setIntoShader("lightPos", light.position);
     }
-    this->setIntoShader("lightSpaceMatrix", lightSpaceMatrix);
+    this->setIntoShader("lightSpaceMatrix", *shadowsSpaceMatrix);
 
     glm::vec3 lightPositions[] = {
         { -3.0f, 0.0f, 0.0f },

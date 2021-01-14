@@ -29,6 +29,7 @@ public:
 
     // ---------------------------------------------------------------------------- Draw
     virtual void draw(const engine::Camera& camera) const;
+    virtual void drawShadows(const engine::Camera& camera) const;
     virtual void drawModels(const engine::Camera& camera) const = 0;
 
     // ---------------------------------------------------------------------------- Shader

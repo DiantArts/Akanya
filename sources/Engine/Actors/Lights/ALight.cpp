@@ -7,11 +7,14 @@
 
 #include "ALight.hpp"
 
+#include <functional>
+
 #include "Container.hpp"
 
 
-
-namespace { engine::actor::light::Container g_CachedLights; }
+namespace {
+engine::actor::light::Container g_CachedLights;
+}
 
 
 
@@ -22,13 +25,11 @@ namespace engine::actor::light {
 // ---------------------------------------------------------------------------- *structors
 
 ALight::ALight(const engine::actor::Positions& instances, const std::string& name)
-    : parameters(g_CachedLights.emplace_back(instances, name).parameters)
-    , name(g_CachedLights.back().name)
+    : m_ContainedLight(g_CachedLights.emplace_back(instances, name))
 {}
 
 ALight::ALight(const engine::actor::Positions& instances, std::string&& name)
-    : parameters(g_CachedLights.emplace_back(instances, std::move(name)).parameters)
-    , name(g_CachedLights.back().name)
+    : m_ContainedLight(g_CachedLights.emplace_back(instances, name))
 {}
 
 ALight::~ALight()
@@ -36,7 +37,7 @@ ALight::~ALight()
 
 
 
-// ---------------------------------------------------------------------------- getEveryLights
+// ---------------------------------------------------------------------------- static
 
 const engine::actor::light::Container& ALight::getAll()
 {

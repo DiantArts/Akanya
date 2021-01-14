@@ -8,7 +8,6 @@
 #include "LightSourceCube.hpp"
 
 
-
 namespace engine::actor::object {
 
 

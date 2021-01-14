@@ -20,9 +20,11 @@ namespace engine::actor::light {
 
 
 
-struct ContainerWrapper {
-    ContainerWrapper(const engine::actor::Positions& instancesParam, const std::string& name);
-    ContainerWrapper(const engine::actor::Positions& instancesParam, std::string&& name);
+struct ContainedLight {
+    ContainedLight(const engine::actor::Positions& instancesParam,
+                   const std::string&              name);
+    ContainedLight(const engine::actor::Positions& instancesParam,
+                   std::string&&                   name);
 
     engine::actor::light::Parameters parameters;
     const engine::actor::Positions&  instances;
@@ -33,12 +35,12 @@ struct ContainerWrapper {
 
 class Container : engine::actor::light::Iterator {
 public:
-    const std::deque<engine::actor::light::ContainerWrapper>& get() const;
-    engine::actor::light::ContainerWrapper& emplace_back(const engine::actor::Positions& instances,
-                                                         const std::string&              name);
-    engine::actor::light::ContainerWrapper& emplace_back(const engine::actor::Positions& instances,
-                                                         std::string&&                   name);
-    engine::actor::light::ContainerWrapper& back();
+    const std::deque<engine::actor::light::ContainedLight>& get() const;
+    engine::actor::light::ContainedLight& emplace_back(const engine::actor::Positions& instances,
+                                                       const std::string&              name);
+    engine::actor::light::ContainedLight&
+    emplace_back(const engine::actor::Positions& instances, std::string&& name);
+    engine::actor::light::ContainedLight& back();
 
 
     // ---------------------------------------------------------------------------- iterator
@@ -52,7 +54,7 @@ public:
 
 
 private:
-    std::deque<engine::actor::light::ContainerWrapper> m_List;
+    std::deque<engine::actor::light::ContainedLight> m_List;
 };
 
 

@@ -26,18 +26,27 @@ public:
     ~Shadows();
 
 
+    // ---------------------------------------------------------------------------- SpaceMatrix
+    void             generateSpaceMatrix(const glm::vec3& lightPosition) const;
+    void             bindSpaceMatrix() const;
+    const glm::mat4& getSpaceMatrix() const;
+
+
     // ---------------------------------------------------------------------------- Bindings
-    void bind(glm::vec3& lightPosition) const;
+    void bind() const;
     void unbind() const;
+
 
 public:
     constexpr static size_t width { 1024 };
     constexpr static size_t height { 1024 };
 
+
 private:
-    GLuint          m_Map;
-    engine::Fbo     m_Fbo;
-    engine::Shader& m_Shader;
+    GLuint            m_Map;
+    engine::Fbo       m_Fbo;
+    engine::Shader&   m_Shader;
+    mutable glm::mat4 m_SpaceMatrix;
 };
 
 

@@ -11,16 +11,15 @@
 #include <list>
 #include <string>
 
-#include "Parameters.hpp"
 #include "Container.hpp"
+#include "Parameters.hpp"
 
+#include "../../Shadows.hpp"
 #include "../Positions.hpp"
 
 
 
 namespace engine::actor::light {
-
-class Iterator;
 
 
 
@@ -32,20 +31,29 @@ public:
     ~ALight();
 
 
-    // ---------------------------------------------------------------------------- getEveryLights
+    // ---------------------------------------------------------------------------- shadows
+    void drawShadows() const;
+
+
+    // ---------------------------------------------------------------------------- static
     static const engine::actor::light::Container& getAll();
 
 
+private:
+    engine::actor::light::ContainedLight& m_ContainedLight;
+
 public:
-    engine::actor::light::Parameters& parameters;
-    const std::string&                name;
+    const engine::actor::light::Parameters& parameters { m_ContainedLight.parameters };
+    const std::string&                      name { m_ContainedLight.name };
 };
 
 
 
 } // namespace engine::actor::light
 
-namespace engine::actor { using ALight = engine::actor::light::ALight; }
+namespace engine::actor {
+using ALight = engine::actor::light::ALight;
+}
 
 
 
