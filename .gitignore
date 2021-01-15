@@ -9,3 +9,4 @@
 *.so
 *.gch
 binaries/*
+*vgcore.*
