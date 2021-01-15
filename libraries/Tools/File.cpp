@@ -38,6 +38,38 @@ std::string read(const std::string_view filepath)
     return shaderStream.str();
 }
 
+std::ifstream openReadFile(const std::string_view filepath)
+{
+    std::ifstream shaderFile;
+    //----   ?
+    //shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    //----   ?
+
+    try {
+        shaderFile.open(std::string(filepath));
+    } catch (const std::ifstream::failure& e) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(filepath) +
+                                    std::string("' file (") + e.what() + ')');
+    }
+
+    return shaderFile;
+}
+
+std::ofstream openWriteFile(const std::string_view filepath)
+{
+    std::ofstream shaderFile;
+    shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+    try {
+        shaderFile.open(std::string(filepath));
+    } catch (const std::ifstream::failure& e) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(filepath) +
+                                    std::string("' file (") + e.what() + ')');
+    }
+
+    return shaderFile;
+}
+
 
 
 } // namespace tools::file
