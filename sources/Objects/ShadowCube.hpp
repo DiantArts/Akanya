@@ -1,18 +1,18 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/ShadowCube
+** sources/Objects/ShadowCube
 ** File description:
-** ShadowCube testing
+** Trying to implement shadows, just a trial
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_SHADOWCUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_SHADOWCUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_SHADOWCUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_OBJECTS_SHADOWCUBE_HPP___
 
-#include "../BasicShapes/Cube.hpp"
+#include "Engine/Actors/BasicShapes/Cube.hpp"
 
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
@@ -34,8 +34,8 @@ private:
 
 
 
-} // namespace engine::actor::object
+} // namespace game::object
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_SHADOWCUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_OBJECTS_SHADOWCUBE_HPP___

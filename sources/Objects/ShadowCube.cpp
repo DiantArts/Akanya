@@ -1,42 +1,44 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/AdvancedEnlightenedCube
+** sources/Objects/ShadowCube
 ** File description:
-** Advanced enlightened
+** Trying to implement shadows, just a trial
 */
 
-#include "AdvancedEnlightenedCube.hpp"
+#include "ShadowCube.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-bool gammaEnabled { false };
+extern const glm::mat4* shadowsSpaceMatrix;
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
-AdvancedEnlightenedCube::AdvancedEnlightenedCube(engine::Shader& shader, const size_t numberOfPositions)
-    : Cube(shader, numberOfPositions, 1, AdvancedEnlightenedCube::setAttributes, "floor")
+ShadowCube::ShadowCube(engine::Shader& shader, const size_t numberOfPositions)
+    : Cube(shader, numberOfPositions, 1, ShadowCube::setAttributes, "cube")
 {
     this->useShader();
+    this->addTexture("container.png", "material.diffuse");
+    this->setIntoShader("shadowMap", 1);
 }
 
 
 
 // ---------------------------------------------------------------------------- override
 
-void AdvancedEnlightenedCube::configureShader(const engine::Camera& camera) const
+void ShadowCube::configureShader(const engine::Camera& camera) const
 {
-    engine::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("viewPos", camera.getPosition());
-    this->setIntoShader("gamma", gammaEnabled);
+    ABasicShape::configureShader(camera);
 
-    // for (auto light : engine::actor::light::ALight::getAll()) {
+    this->setIntoShader("viewPos", camera.getPosition());
+    // for (auto light : light::ALight::getAll()) {
         // this->setIntoShader("lightPos", light.position);
     // }
+    // this->setIntoShader("lightSpaceMatrix", *shadowsSpaceMatrix);
 
     glm::vec3 lightPositions[] = {
         { -3.0f, 0.0f, 0.0f },
@@ -59,7 +61,7 @@ void AdvancedEnlightenedCube::configureShader(const engine::Camera& camera) cons
 
 // ---------------------------------------------------------------------------- Attributes
 
-void AdvancedEnlightenedCube::setAttributes()
+void ShadowCube::setAttributes()
 {
     // vertex attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
@@ -75,4 +77,4 @@ void AdvancedEnlightenedCube::setAttributes()
 }
 
 
-} // namespace engine::actor::object
+} // namespace game::object

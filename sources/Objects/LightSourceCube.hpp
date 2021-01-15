@@ -1,19 +1,19 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/LightSourceCube
+** sources/Objects/LightSourceCube
 ** File description:
-** Lamp as cube
+** A lamp ?
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 
-#include "../BasicShapes/Cube.hpp"
-#include "../Lights/ALight.hpp"
+#include "Engine/Actors/BasicShapes/Cube.hpp"
+#include "Engine/Actors/Lights/ALight.hpp"
 
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
@@ -33,8 +33,8 @@ public:
 
 
 
-} // namespace engine::actor::object
+} // namespace game::object
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_OBJECTS_LIGHTSOURCECUBE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___

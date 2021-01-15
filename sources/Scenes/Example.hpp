@@ -14,7 +14,7 @@
 
 
 
-namespace scene {
+namespace game::scene {
 
 
 
@@ -24,17 +24,11 @@ public:
     Example();
     ~Example();
 
-
-    // ---------------------------------------------------------------------------- hardcoded
-    void additionalDraws() const override;
-
 private:
-    engine::Shader backpackShader { "model3d" };
-    engine::actor::Model backpack { backpackShader, "backpack/backpack.obj", 2 };
 };
 
 
 
-} // namespace scene
+} // namespace game::scene
 
 #endif // ___INCLUDE_GUARD_SOURCES_SCENES_EXAMPLE_HPP___

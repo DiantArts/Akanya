@@ -44,14 +44,14 @@ public:
 
 
     // ---------------------------------------------------------------------------- Vector Actors
-    void pushActor(std::unique_ptr<engine::actor::AActor>&& actor);
-    void pushActor(std::unique_ptr<engine::actor::AActor>& actor);
+    void pushActor(std::unique_ptr<engine::AActor>&& actor);
+    void pushActor(std::unique_ptr<engine::AActor>& actor);
 
     template <typename ActorType, typename... Args>
     ActorType& emplaceActor(Args&&... args)
     {
         m_VectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
-        return *dynamic_cast<std::unique_ptr<ActorType>&>(m_VectorActors.back());
+        return static_cast<ActorType&>(*m_VectorActors.back());
     }
 
 
@@ -62,7 +62,7 @@ public:
 
 protected:
     engine::Window&                                     m_Window { engine::Window::get() };
-    std::vector<std::unique_ptr<engine::actor::AActor>> m_VectorActors;
+    std::vector<std::unique_ptr<engine::AActor>> m_VectorActors;
     std::vector<engine::actor::CubeMap> m_VectorCubeMap;
 
 protected:

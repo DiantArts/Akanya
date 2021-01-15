@@ -34,8 +34,8 @@ int main()
     // event->handleWith(func2);
     // return 0;
     try {
-        // scene::Example scene;
-        scene::AdvancedLight scene;
+        game::scene::Example scene;
+        // game::scene::AdvancedLight scene;
 
         while (!scene.isOver()) {
             scene.manageEvents();

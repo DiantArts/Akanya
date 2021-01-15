@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/EnlightenedCube
+** sources/Objects/EnlightenedCube
 ** File description:
-** default Enlightened cube
+** An enlightened cube lol
 */
 
 #include "EnlightenedCube.hpp"
@@ -11,7 +11,7 @@
 
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
@@ -75,4 +75,4 @@ void EnlightenedCube::setAttributes()
 }
 
 
-} // namespace engine::actor::object
+} // namespace game::object

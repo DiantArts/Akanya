@@ -13,7 +13,7 @@
 
 
 
-namespace scene {
+namespace game::scene {
 
 
 
@@ -32,6 +32,6 @@ private:
 
 
 
-} // namespace scene
+} // namespace game::scene
 
 #endif // ___INCLUDE_GUARD_SOURCES_SCENES_ADVANCEDLIGHT_HPP___

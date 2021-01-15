@@ -1,14 +1,14 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/LightSourceCube
+** sources/Objects/LightSourceCube
 ** File description:
-** Lamp as cube
+** A lamp ?
 */
 
 #include "LightSourceCube.hpp"
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
@@ -43,4 +43,4 @@ void LightSourceCube::update(float)
 
 
 
-} // namespace engine::actor::object
+} // namespace game::object

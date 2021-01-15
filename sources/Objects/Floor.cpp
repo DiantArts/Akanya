@@ -1,44 +1,43 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Engine/Actors/Objects/ShadowCube
+** sources/Objects/Floor
 ** File description:
-** ShadowCube testing
+** Just a floor lol
 */
 
-#include "ShadowCube.hpp"
+#include "Floor.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-extern const glm::mat4* shadowsSpaceMatrix;
+bool gammaEnabled { false };
 
 
-namespace engine::actor::object {
+namespace game::object {
 
 
 
 // ---------------------------------------------------------------------------- *structors
 
-ShadowCube::ShadowCube(engine::Shader& shader, const size_t numberOfPositions)
-    : Cube(shader, numberOfPositions, 1, ShadowCube::setAttributes, "cube")
+Floor::Floor(engine::Shader& shader, const size_t numberOfPositions)
+    : Cube(shader, numberOfPositions, 1, Floor::setAttributes, "floor")
 {
     this->useShader();
-    this->addTexture("container.png", "material.diffuse");
-    this->setIntoShader("shadowMap", 1);
+    this->addTexture("woodFloor.jpg", "texture1");
 }
 
 
 
 // ---------------------------------------------------------------------------- override
 
-void ShadowCube::configureShader(const engine::Camera& camera) const
+void Floor::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
-
     this->setIntoShader("viewPos", camera.getPosition());
-    for (auto light : engine::actor::light::ALight::getAll()) {
-        this->setIntoShader("lightPos", light.position);
-    }
-    this->setIntoShader("lightSpaceMatrix", *shadowsSpaceMatrix);
+    this->setIntoShader("gamma", gammaEnabled);
+
+    // for (auto light : engine::actor::light::ALight::getAll()) {
+        // this->setIntoShader("lightPos", light.position);
+    // }
 
     glm::vec3 lightPositions[] = {
         { -3.0f, 0.0f, 0.0f },
@@ -61,7 +60,7 @@ void ShadowCube::configureShader(const engine::Camera& camera) const
 
 // ---------------------------------------------------------------------------- Attributes
 
-void ShadowCube::setAttributes()
+void Floor::setAttributes()
 {
     // vertex attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
@@ -77,4 +76,4 @@ void ShadowCube::setAttributes()
 }
 
 
-} // namespace engine::actor::object
+} // namespace game::object

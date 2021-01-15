@@ -7,15 +7,15 @@
 
 #include "AdvancedLight.hpp"
 
-#include "Engine/Actors/Objects/AdvancedEnlightenedCube.hpp"
-#include "Engine/Actors/Objects/EnlightenedCube.hpp"
-#include "Engine/Actors/Objects/LightSourceCube.hpp"
-#include "Engine/Actors/Objects/ShadowCube.hpp"
+#include "../Objects/Floor.hpp"
+#include "../Objects/EnlightenedCube.hpp"
+#include "../Objects/LightSourceCube.hpp"
+#include "../Objects/ShadowCube.hpp"
 #include "debugMacros.hpp"
 
 
 
-namespace scene {
+namespace game::scene {
 
 
 
@@ -23,8 +23,7 @@ namespace scene {
 
 AdvancedLight::AdvancedLight()
 {
-    this->emplaceActor<engine::actor::object::LightSourceCube>(m_ShaderMap["lightSource"]);
-
+    this->emplaceActor<game::object::LightSourceCube>(m_ShaderMap["lightSource"]);
     m_ShaderMap["pointShadow"].use();
     m_ShaderMap["pointShadow"].set("depthMap", 1);
 }
@@ -41,4 +40,4 @@ void AdvancedLight::additionalDraws() const
 
 
 
-} // namespace scene
+} // namespace game::scene
