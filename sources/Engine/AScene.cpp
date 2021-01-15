@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+#include "Tools/File.hpp"
 #include "debugMacros.hpp"
 
 
@@ -55,8 +56,8 @@ void AScene::draw() const
 {
     m_Window.clear();
 
-    auto light { *engine::actor::ALight::getAll().begin() };
-    m_Shadows.generateSpaceMatrix(light.position);
+    // auto light { *engine::actor::ALight::getAll().begin() };
+    // m_Shadows.generateSpaceMatrix(light.position);
     // m_Shadows.bindSpaceMatrix();
     // m_Shadows.bind();
 
@@ -70,7 +71,9 @@ void AScene::draw() const
         actor->draw(m_Window.camera);
     }
     this->additionalDraws();
-    // this->cubeMap.draw(m_Window.camera);
+    for (auto& cubeMap : m_VectorCubeMap) {
+        cubeMap.draw(m_Window.camera);
+    }
 
 
     this->drawFps();
@@ -78,8 +81,7 @@ void AScene::draw() const
 }
 
 void AScene::drawActors() const
-{
-}
+{}
 
 void AScene::drawFps() const
 {

@@ -48,9 +48,10 @@ public:
     void pushActor(std::unique_ptr<engine::actor::AActor>& actor);
 
     template <typename ActorType, typename... Args>
-    void emplaceActor(Args&&... args)
+    ActorType& emplaceActor(Args&&... args)
     {
         m_VectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
+        return *dynamic_cast<std::unique_ptr<ActorType>&>(m_VectorActors.back());
     }
 
 
@@ -59,18 +60,10 @@ public:
     virtual void additionalDraws() const;
 
 
-private:
-    bool m_isOver = false;
-
-    engine::Clock         m_EventClock;
-    engine::Clock         m_UpdateClock;
-    mutable engine::Clock m_FpsClock;
-    mutable size_t        m_Fps { 0 };
-    mutable float         m_Elapsed { 0 };
-
 protected:
     engine::Window&                                     m_Window { engine::Window::get() };
     std::vector<std::unique_ptr<engine::actor::AActor>> m_VectorActors;
+    std::vector<engine::actor::CubeMap> m_VectorCubeMap;
 
 protected:
     // ---------------------------------------------------------------------------- ShaderMap
@@ -84,11 +77,15 @@ protected:
     engine::AScene::ShaderMap m_ShaderMap;
 
 private:
-    engine::Shader  m_ShadowsShader { "shadowMappingDepth", "shadowMappingDepth" };
-    engine::Shadows m_Shadows { m_ShadowsShader };
+    bool m_isOver = false;
 
-protected:
-    // engine::actor::CubeMap cubeMap { m_ShaderMap["old/cubeMap"] };
+    engine::Clock         m_EventClock;
+    engine::Clock         m_UpdateClock;
+    mutable engine::Clock m_FpsClock;
+    mutable size_t        m_Fps { 0 };
+    mutable float         m_Elapsed { 0 };
+
+    engine::Shadows m_Shadows { m_ShaderMap["pointShadowDepth"] };
 };
 
 

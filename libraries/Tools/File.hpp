@@ -12,15 +12,16 @@
 
 
 
-namespace tools::file {
+namespace tool::file {
 
 
 
 extern std::string read(std::string_view filepath);
+extern bool exists(const std::string& filepath);
 
 
 
-} // namespace tools::file
+} // namespace tool::file
 
 
 

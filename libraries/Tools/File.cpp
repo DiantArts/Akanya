@@ -12,9 +12,13 @@
 #include <sstream> // std::stringstream
 #include <string>  // std::string
 
+#ifdef __linux__
+#include <sys/stat.h>
+#endif
 
 
-namespace tools::file {
+
+namespace tool::file {
 
 
 
@@ -38,6 +42,16 @@ std::string read(const std::string_view filepath)
     return shaderStream.str();
 }
 
+bool exists(const std::string& filepath)
+{
+#ifdef __linux__
+    struct stat buffer;
+    return stat(filepath.c_str(), &buffer) == 0;
+#else
+    return std::ifstream(filepath.c_str()).good();
+#endif
+}
 
 
-} // namespace tools::file
+
+} // namespace tool::file

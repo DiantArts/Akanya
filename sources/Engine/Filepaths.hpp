@@ -26,6 +26,7 @@ namespace shader {
 
 inline std::string fragments { "./data/shaders/fragments/" };
 inline std::string vertexes { "./data/shaders/vertexes/" };
+inline std::string geometries { "./data/shaders/geometries/" };
 
 } // namespace shader
 

@@ -27,7 +27,7 @@ Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
 {
     std::string str { engine::filepath::vertices };
     str += filepath;
-    str = tools::file::read(str);
+    str = tool::file::read(str);
 
     m_Vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);

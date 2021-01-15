@@ -8,8 +8,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 
-#include <string>
 #include <span>
+#include <string>
 #include <string_view>
 #include <unordered_map>
 
@@ -33,8 +33,11 @@ namespace engine {
 class Shader : public engine::NonCopyable {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Shader(std::string_view vertexPath, std::string_view fragmentPath);
     Shader(std::string_view filepathes);
+    Shader(std::string_view vertexFilename, std::string_view fragmentFilename);
+    Shader(std::string_view vertexFilename,
+           std::string_view fragmentFilename,
+           std::string_view geometryFilename);
     ~Shader();
 
 
@@ -116,6 +119,10 @@ public:
 
 
 private:
+    void compile(std::string&& vertexFilepath, std::string&& fragmentFilepath);
+    void
+    compile(std::string&& vertexFilepath, std::string&& fragmentFilepath, std::string&& geometryFilepath);
+
     // ---------------------------------------------------------------------------- Opti
     GLint getOrCacheUniformLocation(const std::string& uniformId) const;
     GLint getOrCacheUniformLocation(std::string&& uniformId) const;

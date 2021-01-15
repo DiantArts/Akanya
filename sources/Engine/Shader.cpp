@@ -27,36 +27,79 @@ namespace engine {
 
 // ---------------------------------------------------------------------------- *structors
 
-Shader::Shader(const std::string_view vertexFileName, const std::string_view fragmentFileName)
+
+Shader::Shader(const std::string_view filepaths) : m_ShaderId(glCreateProgram())
+{
+    std::string vertexFilepath;
+    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + filepaths.size() + 5);
+    vertexFilepath += engine::filepath::shader::vertexes;
+    vertexFilepath += filepaths;
+    vertexFilepath += ".glsl";
+
+    std::string fragmentFilepath;
+    fragmentFilepath.reserve(engine::filepath::shader::fragments.size() + filepaths.size() + 5);
+    fragmentFilepath += engine::filepath::shader::fragments;
+    fragmentFilepath += filepaths;
+    fragmentFilepath += ".glsl";
+
+    std::string geometryFilepath;
+    geometryFilepath.reserve(engine::filepath::shader::geometries.size() + filepaths.size() + 5);
+    geometryFilepath += engine::filepath::shader::geometries;
+    geometryFilepath += filepaths;
+    geometryFilepath += ".glsl";
+
+
+    if (tool::file::exists(geometryFilepath)) {
+        this->compile(std::move(vertexFilepath), std::move(fragmentFilepath), std::move(geometryFilepath));
+    } else {
+        this->compile(std::move(vertexFilepath), std::move(fragmentFilepath));
+    }
+}
+
+Shader::Shader(const std::string_view vertexFilename, const std::string_view fragmentFilename)
     : m_ShaderId(glCreateProgram())
 {
     std::string vertexFilepath;
-    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + vertexFileName.size());
+    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + vertexFilename.size() + 5);
     vertexFilepath += engine::filepath::shader::vertexes;
-    vertexFilepath += vertexFileName;
+    vertexFilepath += vertexFilename;
+    vertexFilepath += ".glsl";
 
     std::string fragmentFilepath;
-    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + fragmentFileName.size());
+    fragmentFilepath.reserve(engine::filepath::shader::fragments.size() + fragmentFilename.size() + 5);
     fragmentFilepath += engine::filepath::shader::fragments;
-    fragmentFilepath += fragmentFileName;
+    fragmentFilepath += fragmentFilename;
+    fragmentFilepath += ".glsl";
 
-    auto vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
-    auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
-
-    if (vertex && fragment) {
-        glAttachShader(m_ShaderId, vertex);
-        glAttachShader(m_ShaderId, fragment);
-        glLinkProgram(m_ShaderId);
-        checkLinkageStatus(m_ShaderId);
-    }
-
-    glDeleteShader(vertex);
-    glDeleteShader(fragment);
+    this->compile(std::move(vertexFilepath), std::move(fragmentFilepath));
 }
 
-Shader::Shader(const std::string_view filepathes) : Shader(filepathes, filepathes)
-{}
 
+Shader::Shader(const std::string_view vertexFilename,
+               const std::string_view fragmentFilename,
+               const std::string_view geometryFilename)
+    : m_ShaderId(glCreateProgram())
+{
+    std::string vertexFilepath;
+    vertexFilepath.reserve(engine::filepath::shader::vertexes.size() + vertexFilename.size() + 5);
+    vertexFilepath += engine::filepath::shader::vertexes;
+    vertexFilepath += vertexFilename;
+    vertexFilepath += ".glsl";
+
+    std::string fragmentFilepath;
+    fragmentFilepath.reserve(engine::filepath::shader::fragments.size() + fragmentFilename.size() + 5);
+    fragmentFilepath += engine::filepath::shader::fragments;
+    fragmentFilepath += fragmentFilename;
+    fragmentFilepath += ".glsl";
+
+    std::string geometryFilepath;
+    geometryFilepath.reserve(engine::filepath::shader::geometries.size() + geometryFilename.size() + 5);
+    geometryFilepath += engine::filepath::shader::geometries;
+    geometryFilepath += geometryFilename;
+    geometryFilepath += ".glsl";
+
+    this->compile(std::move(vertexFilepath), std::move(fragmentFilepath), std::move(geometryFilepath));
+}
 
 Shader::~Shader()
 {
@@ -319,7 +362,51 @@ void Shader::set(std::string&& name, const std::span<glm::mat4> array) const
 }
 
 
+
+// ---------------------------------------------------------------------------- Compilation
+
+void Shader::compile(std::string&& vertexFilepath, std::string&& fragmentFilepath)
+{
+    auto vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
+    auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
+
+    if (vertex && fragment) {
+        glAttachShader(m_ShaderId, vertex);
+        glAttachShader(m_ShaderId, fragment);
+        glLinkProgram(m_ShaderId);
+        checkLinkageStatus(m_ShaderId);
+    }
+
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
+}
+
+void Shader::compile(std::string&& vertexFilepath,
+                     std::string&& fragmentFilepath,
+                     std::string&& geometryFilepath)
+{
+    auto vertex { compileShader(GL_VERTEX_SHADER, vertexFilepath) };
+    auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
+    auto geometry { compileShader(GL_GEOMETRY_SHADER, geometryFilepath) };
+
+
+    if (vertex && fragment && geometry) {
+        glAttachShader(m_ShaderId, vertex);
+        glAttachShader(m_ShaderId, fragment);
+        glAttachShader(m_ShaderId, geometry);
+        glLinkProgram(m_ShaderId);
+        checkLinkageStatus(m_ShaderId);
+    }
+
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
+    glDeleteShader(geometry);
+}
+
+
+
 // ---------------------------------------------------------------------------- Opti
+
 GLint Shader::getOrCacheUniformLocation(const std::string& uniformId) const
 {
     try {
@@ -328,8 +415,7 @@ GLint Shader::getOrCacheUniformLocation(const std::string& uniformId) const
 
     } catch (const std::exception&) {
         // cache it
-        return m_UniformsLocationCache
-            .emplace(uniformId, glGetUniformLocation(m_ShaderId, uniformId.c_str()))
+        return m_UniformsLocationCache.emplace(uniformId, glGetUniformLocation(m_ShaderId, uniformId.c_str()))
             .first->second;
     }
 }
@@ -361,7 +447,7 @@ static GLuint compileShader(GLenum shaderType, const std::string filepath)
     GLuint vertex { glCreateShader(shaderType) };
 
     try {
-        const std::string readenFile { tools::file::read(filepath) };
+        const std::string readenFile { tool::file::read(filepath) };
         const char*       shaderCode { readenFile.c_str() };
         glShaderSource(vertex, 1, &shaderCode, nullptr);
     } catch (const std::ifstream::failure& e) {

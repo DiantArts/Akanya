@@ -19,7 +19,7 @@ namespace engine::actor::object {
 // ---------------------------------------------------------------------------- *structors
 
 ShadowCube::ShadowCube(engine::Shader& shader, const size_t numberOfPositions)
-    : Cube(shader, numberOfPositions, 1, ShadowCube::setAttributes, "floor")
+    : Cube(shader, numberOfPositions, 1, ShadowCube::setAttributes, "cube")
 {
     this->useShader();
     this->addTexture("container.png", "material.diffuse");
