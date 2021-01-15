@@ -7,7 +7,7 @@
 
 
 //#include <boost/dll/runtime_symbol_info.hpp>
-#include "Tools/File.hpp"
+#include "../Tools/File.hpp"
 
 #include "Config.hpp"
 
@@ -41,7 +41,7 @@ void Config::loadFile(std::string filename)
     if (!filename.empty())
         this->filepath = filename;
 
-    std::ifstream shaderFile { tools::file::openReadFile(this->filepath) };
+    std::ifstream shaderFile { tool::file::openReadFile(this->filepath) };
     std::string line;
 
     while(std::getline(shaderFile, line)) {
@@ -69,7 +69,7 @@ void Config::saveFile(std::string filename,
     if (!filename.empty())
         this->filepath = filename;
 
-    auto shaderFile { tools::file::openWriteFile(this->filepath) };
+    auto shaderFile { tool::file::openWriteFile(this->filepath) };
 
     for (const auto& line : umap) {
         shaderFile << line.first;
@@ -86,7 +86,7 @@ void Config::saveFile(std::string filename)
     if (!filename.empty())
         this->filepath = filename;
 
-    auto shaderFile { tools::file::openWriteFile(this->filepath) };
+    auto shaderFile { tool::file::openWriteFile(this->filepath) };
 
     for (const auto& line : this->mapVec) {
         shaderFile << line.first;
@@ -98,12 +98,12 @@ void Config::saveFile(std::string filename)
     shaderFile.close();
 }
 
-void Config::saveValue(std::string filename, std::string varName, std::vector<std::string> values)
+void Config::saveValue(std::string, std::string, std::vector<std::string>)
 {
 
 }
 
-void Config::loadValue(std::string filename, std::string varName)
+void Config::loadValue(std::string, std::string)
 {
 
 }
