@@ -14,6 +14,8 @@ int main()
     config::Config config;
 
     config.loadFile(".config");
+    config.loadValue(".mdr", "bread");
     config.printInfo();
-    config.saveFile(".mdr");
+    
+    //config.saveFile(".mdr");
 }

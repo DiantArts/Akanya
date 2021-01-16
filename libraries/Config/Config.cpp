@@ -108,14 +108,40 @@ void Config::saveFile(const std::string filename)
     shaderFile.close();
 }
 
-void Config::saveValue(std::string, std::string, std::vector<std::string>&)
+void Config::saveValue(std::string filename, std::string varName, std::vector<std::string>& vec)
 {
-
+    this->mapVec[varName] = vec;
 }
 
-void Config::loadValue(std::string, std::string)
+void Config::loadValue(std::string filename, std::string varName)
 {
+    if (!filename.empty())
+        this->filepath = filename;
 
+    std::string line;
+    std::ifstream shaderFile(this->filepath);
+    std::vector<std::string> vecTmp;
+    varName += ';';
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+    }
+
+    while(std::getline(shaderFile, line) && vecTmp.empty()) {
+        line = line.substr(0, line.find('#'));
+        if (line.empty() || line.find(varName))
+            continue;
+
+        for (auto const& elem : line | std::ranges::views::split(';')) {
+            std::string value;
+            for (auto const& e : elem)
+                value += e;
+            vecTmp.push_back(value);
+        }
+        const auto str = vecTmp[0];
+        vecTmp.erase(vecTmp.begin());
+        this->mapVec[str] = vecTmp;
+    }
 }
 
 
