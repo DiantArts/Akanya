@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 #include <fstream> // std::ifstream
 
 namespace config {
@@ -43,7 +44,7 @@ void Config::loadFile(const std::string filename)
     std::ifstream shaderFile(this->filepath);
 
     if (!shaderFile.is_open()) {
-        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+        throw std::runtime_error(std::string("unable to open '") + this->filepath + '\'');
     }
 
     while(std::getline(shaderFile, line)) {
@@ -74,7 +75,7 @@ void Config::saveFile(const std::string filename,
     std::ofstream shaderFile(this->filepath);
 
     if (!shaderFile.is_open()) {
-        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+        throw std::runtime_error(std::string("unable to open '") + this->filepath + '\'');
     }
 
     for (const auto& line : umap) {
@@ -95,7 +96,7 @@ void Config::saveFile(const std::string filename)
     std::ofstream shaderFile(this->filepath);
 
     if (!shaderFile.is_open()) {
-        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+        throw std::runtime_error(std::string("unable to open '") + this->filepath + '\'');
     }
 
     for (const auto& line : this->mapVec) {
@@ -110,8 +111,44 @@ void Config::saveFile(const std::string filename)
 
 void Config::saveValue(std::string filename, std::string varName, std::vector<std::string>& vec)
 {
-    this->mapVec[varName] = vec;
+    if (!filename.empty())
+        this->filepath = filename;
+
+    std::string line;
+    std::fstream shaderFile(this->filepath, std::fstream::in | std::fstream::out);
+    std::string str(varName + ';');
+
+    std::string needToWrite(varName);
+    for (const auto& elem : vec) {
+        needToWrite += ';';
+        needToWrite += elem;
+    }
+    needToWrite += '\n';
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error(std::string("unable to open '") + this->filepath + '\'');
+    }
+
+    for(auto filep = shaderFile.tellp(); std::getline(shaderFile, line); filep = shaderFile.tellp()) {
+        line = line.substr(0, line.find('#'));
+        if (line.empty() || line.find(str))
+            continue;
+        std::streambuf * pbuf = shaderFile.rdbuf();
+        std::stringstream shaderStream;
+        shaderStream << shaderFile.rdbuf();
+
+        shaderFile.seekp(filep);
+        pbuf->sputn(needToWrite.c_str(), needToWrite.size());
+        shaderFile << shaderStream.str();
+        // ------------------- ----------------------------- ----------------------- NEED TO DELETE THE END OF FILE OR USE IFSTREAM AND OFSTREAM
+        shaderFile.close();
+        return;
+    }
+    std::streambuf * pbuf = shaderFile.rdbuf();
+    pbuf->sputn(needToWrite.c_str(), needToWrite.size());
+    shaderFile.close();
 }
+
 
 void Config::loadValue(std::string filename, std::string varName)
 {
@@ -124,7 +161,7 @@ void Config::loadValue(std::string filename, std::string varName)
     varName += ';';
 
     if (!shaderFile.is_open()) {
-        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+        throw std::runtime_error(std::string("unable to open '") + this->filepath + '\'');
     }
 
     while(std::getline(shaderFile, line) && vecTmp.empty()) {

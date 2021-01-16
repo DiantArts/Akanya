@@ -12,10 +12,7 @@
 int main()
 {
     config::Config config;
+    std::vector<std::string> rd = {"salut", "bro"};
 
-    config.loadFile(".config");
-    config.loadValue(".mdr", "bread");
-    config.printInfo();
-    
-    //config.saveFile(".mdr");
+    config.saveValue(".mdr", "oklm", rd);
 }
