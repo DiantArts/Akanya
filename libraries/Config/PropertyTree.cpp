@@ -38,12 +38,8 @@ void PropertyTree::readValue(const std::string path, std::vector<std::string>& f
 
 void PropertyTree::readValue(const std::string path, std::vector< std::vector<std::string> >& matrix)
 {
-    int x = 0;
-    for (pt::ptree::value_type &row : this->root.get_child(path))
-    {
-        int y = 0;
-        for (pt::ptree::value_type &cell : row.second)
-        {
+    for (int x = 0; pt::ptree::value_type &row : this->root.get_child(path)) {
+        for (int y = 0; pt::ptree::value_type &cell : row.second) {
             matrix[x][y] = cell.second.get_value<std::string>();
             y++;
         }
@@ -51,31 +47,37 @@ void PropertyTree::readValue(const std::string path, std::vector< std::vector<st
     }
 }
 
-void PropertyTree::readValue(const std::string path, std::vector< std::pair<std::string, std::string> >& animals)
+void PropertyTree::readValue(const std::string path, std::map<std::string, std::string>& animals)
 {
     // A vector to allow storing our animals
 
     // Iterator over all animals
-    for (pt::ptree::value_type &animal : this->root.get_child(path))
-    {
+    for (pt::ptree::value_type &animal : this->root.get_child(path)) {
         // Get the label of the node
         std::string name = animal.first;
         // Get the content of the node
         std::string color = animal.second.get_value<std::string>();
-        animals.push_back(std::make_pair(name, color));
+        animals[name] = color;
     }
 }
 
-void PropertyTree::addValue(const std::string path, const std::string& first, const std::string& second)
+void PropertyTree::readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix)
 {
-    pt::ptree fish1;
-    fish1.put_value("blue");
+    // A vector to allow storing our namedMatrix
 
-    pt::ptree fish2;
-    fish2.put_value("yellow");
+    // Iterator over all namedMatrix
+    for (pt::ptree::value_type &row : this->root.get_child(path))
+    {
+        // Get the label of the node
+        std::string name = row.first;
 
-    this->root.push_back(std::make_pair("fish", fish1));
-    this->root.push_back(std::make_pair("fish", fish2));
+        std::string childPath(path + ".");
+        childPath += name;
+        // Get the content of the node
+        for (pt::ptree::value_type &fruit : this->root.get_child(childPath)) {
+            namedMatrix[name].push_back(fruit.second.get_value<std::string>());
+        }
+    }
 }
 
 void PropertyTree::addValue(const std::string path, const std::string& single)
@@ -95,7 +97,7 @@ void PropertyTree::addValue(const std::string path, const std::vector<std::strin
         // Add this node to the list.
         fruits_node.push_back(std::make_pair("", fruit_node));
     }
-    root.put_child(path, fruits_node);
+    this->root.put_child(path, fruits_node);
 }
 
 void PropertyTree::addValue(const std::string path, const std::vector< std::vector<std::string> >& matrix)
@@ -117,21 +119,42 @@ void PropertyTree::addValue(const std::string path, const std::vector< std::vect
         // Add the row to our matrix
         matrix_node.push_back(std::make_pair("", row));
     }
-    // Add the node to the this->root
+    // Add the node to this->root
     this->root.put_child(path, matrix_node);
 }
 
 void PropertyTree::addValue(const std::string path,
-    const std::vector< std::pair<std::string, std::string> >& animals)
+    const std::map<std::string, std::string>& animals)
 {
     pt::ptree animals_node;
     // Add animals as childs
     for (auto &animal : animals)
         animals_node.put(animal.first, animal.second);
-    // Add the new node to the this->root
+    // Add the new node to this->root
     this->root.put_child(path, animals_node);
 }
 
+void PropertyTree::addValue(const std::string path,
+    const std::map<std::string, std::vector<std::string> >& namedMatrix)
+{
+    pt::ptree animals_node;
+
+    for (auto &row : namedMatrix) {
+        pt::ptree cells_node;
+        for (auto &cell : row.second)
+        {
+            // Create an unnamed node containing the value
+            pt::ptree cell_node;
+            cell_node.put("", cell);
+
+            // Add this node to the list.
+            cells_node.push_back(std::make_pair("", cell_node));
+        }
+        animals_node.put_child(row.first, cells_node);
+    }
+    // Add the new node to this->root
+    this->root.put_child(path, animals_node);
+}
 
 
 } // config

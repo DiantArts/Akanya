@@ -22,11 +22,18 @@ int main()
     config.addValue("some.complex.path", b);
     std::cout << b << std::endl;
 
-    std::vector<std::pair<std::string, std::string> > vecb;
+    std::map<std::string, std::vector<std::string> > vecb;
 
-    //config.readValue("animals", vecb);
-    config.addValue("animals.rabbit", "not white");
-    //config.addValue("animals", vecb);
+    config.readValue("namedMatrix", vecb);
+    //config.addValue("animals.rabbit", "not white");
+    for (auto &row : vecb) {
+            std::cout << row.first << ": ";
+        for (auto &cell : row.second) {
+            std::cout << cell << " ";
+        }
+        std::cout << std::endl;
+    }
+    config.addValue("namedMatrix", vecb);
     
 
 

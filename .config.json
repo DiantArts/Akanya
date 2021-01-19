@@ -2,13 +2,13 @@
     "height": "320",
     "some": {
         "complex": {
-            "path": "hello guys guys"
+            "path": "hello"
         }
     },
     "animals": {
         "rabbit": "white",
-        "dog": "brown",
-        "cat": "grey"
+        "cat": "grey",
+        "dog": "brown"
     },
     "fruits": [
         "apple",
@@ -31,5 +31,17 @@
             "8",
             "9"
         ]
-    ]
+    ],
+    "namedMatrix": {
+        "cat": [
+            "grey",
+            "AHAHA"
+        ],
+        "dog": [
+            "brown"
+        ],
+        "rabbit": [
+            "white"
+        ]
+    }
 }
