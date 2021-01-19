@@ -133,14 +133,22 @@ void Config::saveValue(std::string filename, std::string varName, std::vector<st
         line = line.substr(0, line.find('#'));
         if (line.empty() || line.find(str))
             continue;
-        std::streambuf * pbuf = shaderFile.rdbuf();
         std::stringstream shaderStream;
         shaderStream << shaderFile.rdbuf();
+        auto resetp = shaderFile.tellp();
 
         shaderFile.seekp(filep);
-        pbuf->sputn(needToWrite.c_str(), needToWrite.size());
+        shaderFile << needToWrite;
         shaderFile << shaderStream.str();
-        // ------------------- ----------------------------- ----------------------- NEED TO DELETE THE END OF FILE OR USE IFSTREAM AND OFSTREAM
+        
+        auto endp = shaderFile.tellp();
+        if (resetp - endp <= 0)
+            return;
+
+        std::string tmp;
+        for (int i = 0; i <= resetp - endp ; i++)
+            tmp += ' ';
+        shaderFile << tmp;
         shaderFile.close();
         return;
     }

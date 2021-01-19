@@ -4,9 +4,9 @@
 ** File description:
 ** file class to help easier config
 */
+
 #ifndef ___INCLUDE_GUARD_LIBRARIES_CONFIG_CONFIG_HPP___
 #define ___INCLUDE_GUARD_LIBRARIES_CONFIG_CONFIG_HPP___
-
 
 #include <vector>
 #include <unordered_map>
