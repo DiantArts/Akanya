@@ -18,8 +18,6 @@ namespace tool::file {
 
 extern std::string read(std::string_view filepath);
 extern bool exists(const std::string& filepath);
-extern std::ifstream openReadFile(std::string_view filepath);
-extern std::ofstream openWriteFile(std::string_view filepath);
 
 
 

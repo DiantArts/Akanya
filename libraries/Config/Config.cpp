@@ -7,8 +7,6 @@
 
 
 //#include <boost/dll/runtime_symbol_info.hpp>
-#include "../Tools/File.hpp"
-
 #include "Config.hpp"
 
 #include <iostream>
@@ -36,21 +34,25 @@ void Config::printInfo() const
     }
 }
 
-void Config::loadFile(std::string filename)
+void Config::loadFile(const std::string filename)
 {
     if (!filename.empty())
         this->filepath = filename;
 
-    std::ifstream shaderFile { tool::file::openReadFile(this->filepath) };
     std::string line;
+    std::ifstream shaderFile(this->filepath);
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+    }
 
     while(std::getline(shaderFile, line)) {
+        line = line.substr(0, line.find('#'));
         if (line.empty())
             continue;
-        const auto& parts = line | std::ranges::views::split(';');
         std::vector<std::string> vecTmp;
 
-        for (auto const& elem : parts) {
+        for (auto const& elem : line | std::ranges::views::split(';')) {
             std::string value;
             for (auto const& e : elem)
                 value += e;
@@ -63,13 +65,17 @@ void Config::loadFile(std::string filename)
     shaderFile.close();
 }
 
-void Config::saveFile(std::string filename,
-    std::unordered_map<std::string, std::vector<std::string>> umap)
+void Config::saveFile(const std::string filename,
+    std::unordered_map<std::string, std::vector<std::string>>& umap)
 {
     if (!filename.empty())
         this->filepath = filename;
 
-    auto shaderFile { tool::file::openWriteFile(this->filepath) };
+    std::ofstream shaderFile(this->filepath);
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+    }
 
     for (const auto& line : umap) {
         shaderFile << line.first;
@@ -81,12 +87,16 @@ void Config::saveFile(std::string filename,
     shaderFile.close();
 }
 
-void Config::saveFile(std::string filename)
+void Config::saveFile(const std::string filename)
 {
     if (!filename.empty())
         this->filepath = filename;
 
-    auto shaderFile { tool::file::openWriteFile(this->filepath) };
+    std::ofstream shaderFile(this->filepath);
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error(std::string("unable to open '") + std::string(this->filepath) + '\'');
+    }
 
     for (const auto& line : this->mapVec) {
         shaderFile << line.first;
@@ -98,7 +108,7 @@ void Config::saveFile(std::string filename)
     shaderFile.close();
 }
 
-void Config::saveValue(std::string, std::string, std::vector<std::string>)
+void Config::saveValue(std::string, std::string, std::vector<std::string>&)
 {
 
 }

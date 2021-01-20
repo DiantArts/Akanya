@@ -25,9 +25,9 @@ public:
 
     void loadFile(std::string filename = "");
     void saveFile(std::string filename = "");
-    void saveFile(std::string filename, std::unordered_map<std::string, std::vector<std::string>> umap);
+    void saveFile(std::string filename, std::unordered_map<std::string, std::vector<std::string>>& umap);
 
-    void saveValue(std::string filename, std::string varName, std::vector<std::string> values);
+    void saveValue(std::string filename, std::string varName, std::vector<std::string>& values);
     void loadValue(std::string filename, std::string varName);
     /*
     - operator<< // file << varName << value1 << value2 ...
@@ -36,7 +36,7 @@ public:
 
 private:
 //------------------------ info config
-    std::string_view filepath;
+    std::string filepath;
     std::unordered_map<std::string, std::vector<std::string>> mapVec;
 
 //    std::vector<std::vector<std::string>> vec;
