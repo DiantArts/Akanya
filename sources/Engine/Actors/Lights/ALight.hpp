@@ -11,10 +11,12 @@
 #include <list>
 #include <string>
 
-#include "Container.hpp"
-
 #include "../../Shadows.hpp"
 #include "../Positions.hpp"
+
+
+
+namespace engine { class Shader; }
 
 
 
@@ -25,23 +27,24 @@ namespace engine::actor::light {
 class ALight {
 public:
     // ---------------------------------------------------------------------------- *structors
-    explicit ALight(const engine::actor::Positions& instances, const std::string& name);
-    explicit ALight(const engine::actor::Positions& instances, std::string&& name);
+    explicit ALight(std::string name);
     virtual ~ALight() = 0;
 
 
     // ---------------------------------------------------------------------------- static
-    static const engine::actor::light::Container& getAll();
+    static const std::vector<std::reference_wrapper<ALight>>& getAll();
+    static std::vector<std::reference_wrapper<ALight>>::const_iterator begin();
+    static std::vector<std::reference_wrapper<ALight>>::const_iterator cbegin();
+    static std::vector<std::reference_wrapper<ALight>>::const_iterator end();
+    static std::vector<std::reference_wrapper<ALight>>::const_iterator cend();
 
 
-    // ---------------------------------------------------------------------------- getters
+    // ---------------------------------------------------------------------------- Others
+    virtual void setIntoThisShader(const engine::Shader& shader) const = 0;
     const std::string& getName() const;
 
 private:
-    engine::actor::light::ContainedLight& m_ContainedLight;
-
-public:
-    const std::string&                      name { m_ContainedLight.name };
+    const std::string& m_Name;
 };
 
 

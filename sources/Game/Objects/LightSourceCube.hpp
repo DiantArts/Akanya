@@ -9,7 +9,7 @@
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 
 #include "Engine/Actors/BasicShapes/Cube.hpp"
-#include "Engine/Actors/Lights/ALight.hpp"
+#include "Engine/Actors/Lights/Point.hpp"
 
 
 
@@ -19,7 +19,7 @@ namespace game::object {
 
 class LightSourceCube
     : public engine::actor::basicShape::Cube
-    , public engine::actor::ALight {
+    , public engine::actor::light::Point {
 public:
     // ---------------------------------------------------------------------------- *structors
     explicit LightSourceCube(engine::Shader& shaderProgram, size_t numberOfPositions = 1);

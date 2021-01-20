@@ -16,7 +16,7 @@ namespace game::object {
 
 LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPositions /* = 1 */)
     : engine::actor::basicShape::Cube(shader, numberOfPositions)
-    , engine::actor::ALight(this->instances, "pointLights")
+    , engine::actor::light::Point("pointLights", this->instances)
 {
     this->setScale(0.1F);
 }

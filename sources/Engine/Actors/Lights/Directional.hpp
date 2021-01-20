@@ -21,17 +21,23 @@ namespace engine::actor::light {
 class Directional : engine::actor::ALight {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Directional(const engine::actor::Position& instances, const std::string& name);
+    Directional(const std::string& name, glm::vec3 direction);
     ~Directional();
+
+
+    // ---------------------------------------------------------------------------- set
+    void setIntoThisShader(const engine::Shader& shader) const override final;
 
 
 private:
     struct Parameters {
         glm::vec3 direction;
+
         glm::vec3 ambient  { 0.5F };
         glm::vec3 diffuse  { 0.3F };
         glm::vec3 specular { 1.0F };
     };
+    Parameters m_Parameters;
 };
 
 

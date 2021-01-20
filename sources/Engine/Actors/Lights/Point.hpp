@@ -21,13 +21,18 @@ namespace engine::actor::light {
 class Point : engine::actor::ALight {
 public:
     // ---------------------------------------------------------------------------- *structors
-    Point();
+    Point(const std::string& name, const engine::actor::Positions& positions);
     ~Point();
+
+
+    // ---------------------------------------------------------------------------- set
+    void setIntoThisShader(const engine::Shader& shader) const override final;
 
 
 private:
     struct Parameters {
-        glm::vec3 position;
+        const engine::actor::Positions& positions;
+
         glm::vec3 ambient  {   0.5F };
         glm::vec3 diffuse  {   0.3F };
         glm::vec3 specular {   1.0F };
@@ -35,6 +40,7 @@ private:
         float linear       {   0.3F };
         float quadratic    { 0.016F };
     };
+    Parameters m_Parameters;
 };
 
 

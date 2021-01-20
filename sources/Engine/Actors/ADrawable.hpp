@@ -16,6 +16,10 @@
 
 
 
+namespace engine::actor::light { class ALight; }
+
+
+
 namespace engine::actor {
 
 
@@ -37,6 +41,7 @@ public:
     void useShader() const;
     virtual void configureShader(const engine::Camera& camera) const;
 
+
 protected:
     template <typename... Args>
     void setIntoShader(const std::string& name, const Args&... args) const
@@ -49,6 +54,9 @@ protected:
     {
         this->getShader().set(std::move(name), args...);
     }
+
+    void setIntoShader(const engine::actor::light::ALight& light) const;
+
 
 private:
     const engine::Shader& m_Shader;

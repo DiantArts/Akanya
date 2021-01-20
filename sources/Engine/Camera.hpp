@@ -15,8 +15,6 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-#include "Actors/Lights/ALight.hpp"
-
 
 
 namespace engine {
@@ -81,18 +79,13 @@ public:
     // ---------------------------------------------------------------------------- view
     glm::mat4 getView() const;
 
+
 public:
     // ---------------------------------------------------------------------------- mouse config
     static constexpr float minPitch = -89.999F;
     static constexpr float maxPitch = 89.999F;
     static constexpr float minZoom  = 1.0F;
     static constexpr float maxZoom  = 45.0F;
-
-    engine::actor::Positions instances { 1 };
-
-
-public:
-    engine::actor::light::Parameters parameters;
 
 
 private:

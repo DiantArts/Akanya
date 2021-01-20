@@ -20,6 +20,7 @@ Positions::Positions(const size_t sizeToAlloc)
     if (sizeToAlloc > 1) {
         auto& multiplePos { m_Variant.emplace<MultiplePositions>() };
         multiplePos.reserve(sizeToAlloc);
+        multiplePos.emplace_back(0.0F, 0.0F, 0.0F);
     } else {
         m_Variant = SinglePosition { 0.0F, 0.0F, 0.0F };
     }

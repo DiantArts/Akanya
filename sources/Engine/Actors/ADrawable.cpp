@@ -6,6 +6,7 @@
 */
 
 #include "ADrawable.hpp"
+#include "Lights/ALight.hpp"
 #include "debugMacros.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -68,6 +69,11 @@ const engine::Shader& ADrawable::getShader() const
 void ADrawable::useShader() const
 {
     m_Shader.use();
+}
+
+void ADrawable::setIntoShader(const engine::actor::light::ALight& light) const
+{
+    light.setIntoThisShader(this->getShader());
 }
 
 

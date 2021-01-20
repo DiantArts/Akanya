@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "Actors/Lights/ALight.hpp"
 #include "Engine/Filepaths.hpp"
 #include "Tools/File.hpp"
 
