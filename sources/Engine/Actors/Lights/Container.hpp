@@ -12,7 +12,6 @@
 #include <string>
 
 #include "Iterator.hpp"
-#include "Parameters.hpp"
 
 
 
@@ -21,12 +20,6 @@ namespace engine::actor::light {
 
 
 struct ContainedLight {
-    ContainedLight(const engine::actor::Positions& instancesParam,
-                   const std::string&              name);
-    ContainedLight(const engine::actor::Positions& instancesParam,
-                   std::string&&                   name);
-
-    engine::actor::light::Parameters parameters;
     const engine::actor::Positions&  instances;
     const std::string                name;
 };

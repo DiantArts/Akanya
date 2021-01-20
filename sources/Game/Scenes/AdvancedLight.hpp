@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Scenes/AdvancedLight
+** sources/Game/Scenes/AdvancedLight
 ** File description:
-** Scene to test lightning
+** Scene to test lightnings
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_SCENES_ADVANCEDLIGHT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_SCENES_ADVANCEDLIGHT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___
 
 #include "Engine/AScene.hpp"
 #include "Engine/Actors/Model.hpp"
@@ -34,4 +34,4 @@ private:
 
 } // namespace game::scene
 
-#endif // ___INCLUDE_GUARD_SOURCES_SCENES_ADVANCEDLIGHT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___

@@ -12,7 +12,6 @@
 #include <string>
 
 #include "Container.hpp"
-#include "Parameters.hpp"
 
 #include "../../Shadows.hpp"
 #include "../Positions.hpp"
@@ -28,22 +27,20 @@ public:
     // ---------------------------------------------------------------------------- *structors
     explicit ALight(const engine::actor::Positions& instances, const std::string& name);
     explicit ALight(const engine::actor::Positions& instances, std::string&& name);
-    ~ALight();
-
-
-    // ---------------------------------------------------------------------------- shadows
-    void drawShadows() const;
+    virtual ~ALight() = 0;
 
 
     // ---------------------------------------------------------------------------- static
     static const engine::actor::light::Container& getAll();
 
 
+    // ---------------------------------------------------------------------------- getters
+    const std::string& getName() const;
+
 private:
     engine::actor::light::ContainedLight& m_ContainedLight;
 
 public:
-    const engine::actor::light::Parameters& parameters { m_ContainedLight.parameters };
     const std::string&                      name { m_ContainedLight.name };
 };
 
@@ -51,9 +48,7 @@ public:
 
 } // namespace engine::actor::light
 
-namespace engine::actor {
-using ALight = engine::actor::light::ALight;
-}
+namespace engine::actor { using ALight = engine::actor::light::ALight; }
 
 
 

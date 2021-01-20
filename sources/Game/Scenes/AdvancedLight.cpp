@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** sources/Scenes/AdvancedLight
+** sources/Game/Scenes/AdvancedLight
 ** File description:
-** Scene to test lightning
+** Scene to test lightnings
 */
 
 #include "AdvancedLight.hpp"

@@ -15,20 +15,6 @@ namespace engine::actor::light {
 
 
 
-// ---------------------------------------------------------------------------- ContainedLight
-
-ContainedLight::ContainedLight(const engine::actor::Positions& instancesParam,
-                               const std::string&              name)
-    : instances(instancesParam), name(name)
-{}
-
-ContainedLight::ContainedLight(const engine::actor::Positions& instancesParam,
-                               std::string&&                   name)
-    : instances(instancesParam), name(std::move(name))
-{}
-
-
-
 // ---------------------------------------------------------------------------- Get
 
 const std::deque<engine::actor::light::ContainedLight>& Container::get() const

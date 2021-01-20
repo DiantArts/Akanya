@@ -91,6 +91,10 @@ public:
     engine::actor::Positions instances { 1 };
 
 
+public:
+    engine::actor::light::Parameters parameters;
+
+
 private:
     float     m_Speed { 2.5F };
     float     m_Zoom { 45.0F };

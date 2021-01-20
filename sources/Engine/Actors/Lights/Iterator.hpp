@@ -10,8 +10,6 @@
 
 #include <cstddef>
 
-#include "Parameters.hpp"
-
 
 
 namespace engine::actor::light {
@@ -23,7 +21,6 @@ class ContainedLight;
 class Iterator {
 public:
     struct LightReferenceWrapper {
-        const engine::actor::light::Parameters& parameters;
         const glm::vec3&                        position;
         const std::string                       name;
     };

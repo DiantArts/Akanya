@@ -6,6 +6,8 @@
 */
 
 #include "Backpack.hpp"
+#include <iostream>
+#include "Engine/Actors/Lights/ALight.hpp"
 
 
 
@@ -27,10 +29,14 @@ Backpack::~Backpack()
 // ---------------------------------------------------------------------------- override
 void Backpack::configureShader(const engine::Camera& camera) const
 {
-    // this->setIntoShader("dirLight.direction", camera.getOrientation());
-    // this->setIntoShader("dirLight.ambient", camera.parameters.ambient * glm::vec3 { 0 });
-    // this->setIntoShader("dirLight.diffuse", camera.parameters.diffuse * glm::vec3 { 0 });
-    // this->setIntoShader("dirLight.specular", camera.parameters.specular * glm::vec3 { 0 });
+    engine::actor::ADrawable::configureShader(camera);
+
+    // for (auto light : engine::actor::ALight::getAll()) {
+        // this->setIntoShader("dirLight.direction", camera.getOrientation());
+        // this->setIntoShader("dirLight.ambient", camera.parameters.ambient * glm::vec3 { 0 });
+        // this->setIntoShader("dirLight.diffuse", camera.parameters.diffuse * glm::vec3 { 0 });
+        // this->setIntoShader("dirLight.specular", camera.parameters.specular * glm::vec3 { 0 });
+    // }
 
     for (auto light : engine::actor::light::ALight::getAll()) {
         this->setIntoShader(light.name + ".position", light.position);
@@ -41,10 +47,10 @@ void Backpack::configureShader(const engine::Camera& camera) const
         this->setIntoShader(light.name + ".linear", light.parameters.linear);
         this->setIntoShader(light.name + ".quadratic", light.parameters.quadratic);
     }
+
     this->setIntoShader("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
     this->setIntoShader("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 
-    this->setIntoShader("viewPos", camera.getPosition());
     this->setIntoShader("material.shininess", 32.0F);
 }
 

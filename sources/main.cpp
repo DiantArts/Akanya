@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-#include "Scenes/Example.hpp"
-#include "Scenes/AdvancedLight.hpp"
+#include "Game/Scenes/Example.hpp"
+#include "Game/Scenes/AdvancedLight.hpp"
 
 #include "Engine/Events/Window.hpp"
 #include "Engine/Events/Keyboard.hpp"

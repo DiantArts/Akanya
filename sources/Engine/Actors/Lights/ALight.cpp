@@ -12,9 +12,7 @@
 #include "Container.hpp"
 
 
-namespace {
-engine::actor::light::Container g_CachedLights;
-}
+namespace { engine::actor::light::Container g_CachedLights; }
 
 
 
