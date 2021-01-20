@@ -6,6 +6,7 @@
 */
 
 #include "Point.hpp"
+#include <iostream>
 
 
 
@@ -36,6 +37,8 @@ void Point::setIntoThisShader(const engine::Shader& shader) const
         shader.set(this->getName() + ".linear", m_Parameters.linear);
         shader.set(this->getName() + ".quadratic", m_Parameters.quadratic);
     } else {
+        std::cout << this->getName() << std::endl;
+        return ;
         size_t i { 0 };
         size_t baseNameSize { this->getName().size() };
         std::string name;

@@ -31,6 +31,12 @@ public:
     virtual ~ALight() = 0;
 
 
+    ALight(const ALight&) = delete;
+    ALight(ALight&&) = delete;
+
+    ALight& operator=(const ALight&) = delete;
+    ALight& operator=(ALight&&) = delete;
+
     // ---------------------------------------------------------------------------- static
     static const std::vector<std::reference_wrapper<ALight>>& getAll();
     static std::vector<std::reference_wrapper<ALight>>::const_iterator begin();

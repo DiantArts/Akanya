@@ -6,6 +6,7 @@
 */
 
 #include "ALight.hpp"
+#include <iostream>
 
 #include <functional>
 #include <algorithm>
@@ -24,6 +25,7 @@ namespace engine::actor::light {
 
 ALight::ALight(std::string name) : m_Name(std::move(name))
 {
+    std::cout << this->getName() << std::endl;
     g_CachedLights.emplace_back(*this);
 }
 
