@@ -25,14 +25,12 @@ namespace engine::actor::light {
 
 ALight::ALight(std::string name) : m_Name(std::move(name))
 {
-    std::cout << this->getName() << std::endl;
     g_CachedLights.emplace_back(*this);
 }
 
 ALight::~ALight()
 {
-    // g_CachedLights.erase(
-        // std::ranges::remove_if(g_CachedLights, [this](const auto& elem) { return &elem.get() == this; }));
+    std::erase_if(g_CachedLights, [this](const auto& elem) { return &elem.get() == this; });
 }
 
 

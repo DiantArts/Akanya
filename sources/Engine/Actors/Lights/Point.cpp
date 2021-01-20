@@ -28,7 +28,7 @@ Point::~Point()
 // ---------------------------------------------------------------------------- set
 void Point::setIntoThisShader(const engine::Shader& shader) const
 {
-    if (m_Parameters.positions.size() == 1) {
+    if (m_Parameters.positions.size() <= 1) {
         shader.set(this->getName() + ".position", m_Parameters.positions[0]);
         shader.set(this->getName() + ".ambient", m_Parameters.ambient);
         shader.set(this->getName() + ".diffuse", m_Parameters.diffuse);
@@ -37,8 +37,6 @@ void Point::setIntoThisShader(const engine::Shader& shader) const
         shader.set(this->getName() + ".linear", m_Parameters.linear);
         shader.set(this->getName() + ".quadratic", m_Parameters.quadratic);
     } else {
-        std::cout << this->getName() << std::endl;
-        return ;
         size_t i { 0 };
         size_t baseNameSize { this->getName().size() };
         std::string name;
@@ -47,23 +45,24 @@ void Point::setIntoThisShader(const engine::Shader& shader) const
         name += '[';
         for (const auto& position : m_Parameters.positions) {
             std::string indexStr { std::to_string(i) };
-            name.insert(baseNameSize + 1, indexStr);
-            name.insert(baseNameSize + indexStr.size() + 1, "].");
+            name.replace(baseNameSize + 1, std::string::npos, indexStr);
+            name.replace(baseNameSize + indexStr.size() + 1, std::string::npos, "].");
 
-            name.insert(baseNameSize + indexStr.size() + 3, "position");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "position");
             shader.set(name, position);
-            name.insert(baseNameSize + indexStr.size() + 3, "ambient");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "ambient");
             shader.set(name, m_Parameters.ambient);
-            name.insert(baseNameSize + indexStr.size() + 3, "diffuse");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "diffuse");
             shader.set(name, m_Parameters.diffuse);
-            name.insert(baseNameSize + indexStr.size() + 3, "specular");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "specular");
             shader.set(name, m_Parameters.specular);
-            name.insert(baseNameSize + indexStr.size() + 3, "constant");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "constant");
             shader.set(name, m_Parameters.constant);
-            name.insert(baseNameSize + indexStr.size() + 3, "linear");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "linear");
             shader.set(name, m_Parameters.linear);
-            name.insert(baseNameSize + indexStr.size() + 3, "quadratic");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "quadratic");
             shader.set(name, m_Parameters.quadratic);
+            ++i;
         }
     }
 }

@@ -10,6 +10,7 @@
 
 #include "Engine/Actors/BasicShapes/Cube.hpp"
 #include "Engine/Actors/Lights/Point.hpp"
+#include "Engine/Actors/Lights/Spot.hpp"
 
 
 

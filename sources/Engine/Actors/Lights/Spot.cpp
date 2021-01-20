@@ -6,6 +6,7 @@
 */
 
 #include "Spot.hpp"
+#include <iostream>
 
 
 
@@ -47,29 +48,30 @@ void Spot::setIntoThisShader(const engine::Shader& shader) const
         name += '[';
         for (const auto& position : m_Parameters.positions) {
             std::string indexStr { std::to_string(i) };
-            name.insert(baseNameSize + 1, indexStr);
-            name.insert(baseNameSize + indexStr.size() + 1, "].");
+            name.replace(baseNameSize + 1, std::string::npos, indexStr);
+            name.replace(baseNameSize + indexStr.size() + 1, std::string::npos, "].");
 
-            name.insert(baseNameSize + indexStr.size() + 3, "position");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "position");
             shader.set(name, position);
-            name.insert(baseNameSize + indexStr.size() + 3, "direction");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "direction");
             shader.set(name, m_Parameters.direction);
-            name.insert(baseNameSize + indexStr.size() + 3, "ambient");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "ambient");
             shader.set(name, m_Parameters.ambient);
-            name.insert(baseNameSize + indexStr.size() + 3, "diffuse");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "diffuse");
             shader.set(name, m_Parameters.diffuse);
-            name.insert(baseNameSize + indexStr.size() + 3, "specular");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "specular");
             shader.set(name, m_Parameters.specular);
-            name.insert(baseNameSize + indexStr.size() + 3, "constant");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "constant");
             shader.set(name, m_Parameters.constant);
-            name.insert(baseNameSize + indexStr.size() + 3, "linear");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "linear");
             shader.set(name, m_Parameters.linear);
-            name.insert(baseNameSize + indexStr.size() + 3, "quadratic");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "quadratic");
             shader.set(name, m_Parameters.quadratic);
-            name.insert(baseNameSize + indexStr.size() + 3, "cutOff");
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "cutOff");
             shader.set(name, m_Parameters.cutOff);
-            name.insert(baseNameSize + indexStr.size() + 3, "outerCutOff");
+            name.replace(baseNameSize + indexStr.size() + 3,std::string::npos,  "outerCutOff");
             shader.set(name, m_Parameters.outerCutOff);
+            ++i;
         }
     }
 }
