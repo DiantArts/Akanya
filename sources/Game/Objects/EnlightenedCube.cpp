@@ -35,7 +35,7 @@ void EnlightenedCube::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("gamma", true);
-    this->setIntoShader("material.shininess", 32.0F);
+    this->setIntoShader("material.shininess", 8.0F);
     this->setIntoShader("viewPos", camera.getPosition());
 
     for (const auto& light : engine::actor::ALight::getAll()) {

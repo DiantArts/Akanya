@@ -34,7 +34,7 @@ public:
     static size_t getNbLight();
 
 
-private:
+protected:
     struct Parameters {
         const engine::actor::Positions& positions;
 
@@ -49,6 +49,8 @@ private:
     };
     Parameters m_Parameters;
 
+
+private:
     static inline size_t m_NbLight { 0 };
 };
 

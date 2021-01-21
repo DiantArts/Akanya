@@ -36,7 +36,7 @@ void Floor::configureShader(const engine::Camera& camera) const
     this->setIntoShader("viewPos", camera.getPosition());
     this->setIntoShader("gamma", gammaEnabled);
 
-    this->setIntoShader("material.shininess", 32.0F);
+    this->setIntoShader("material.shininess", 1000.0F);
 
     for (auto light : engine::actor::light::ALight::getAll()) {
         this->setIntoShader(light);

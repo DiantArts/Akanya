@@ -28,7 +28,7 @@ LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPo
 void LightSourceCube::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("lightColor", 1.0F, 1.0F, 1.0F);
+    this->setIntoShader("lightColor", m_Parameters.color);
 }
 
 void LightSourceCube::update(float)
