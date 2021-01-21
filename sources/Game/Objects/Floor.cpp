@@ -6,6 +6,7 @@
 */
 
 #include "Floor.hpp"
+#include "Engine/Actors/Lights/ALight.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -22,7 +23,7 @@ Floor::Floor(engine::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, Floor::setAttributes, "floor")
 {
     this->useShader();
-    this->addTexture("woodFloor.jpg", "texture1");
+    this->addTexture("woodFloor.jpg", "material.texture");
 }
 
 
@@ -35,25 +36,11 @@ void Floor::configureShader(const engine::Camera& camera) const
     this->setIntoShader("viewPos", camera.getPosition());
     this->setIntoShader("gamma", gammaEnabled);
 
-    // for (auto light : engine::actor::light::ALight::getAll()) {
-        // this->setIntoShader("lightPos", light.position);
-    // }
+    this->setIntoShader("material.shininess", 32.0F);
 
-    glm::vec3 lightPositions[] = {
-        { -3.0f, 0.0f, 0.0f },
-        { -1.0f, 0.0f, 0.0f },
-        { 1.0f, 0.0f, 0.0f },
-        { 3.0f, 0.0f, 0.0f }
-    };
-    this->setIntoShader("lightPositions", std::span<glm::vec3>(lightPositions));
-
-    glm::vec3 lightColors[] = {
-        { 0.25F, 0.25F, 0.25F },
-        { 0.50F, 0.50F, 0.50F },
-        { 0.75F, 0.75F, 0.75F },
-        { 1.00F, 1.00F, 1.00F }
-    };
-    this->setIntoShader("lightColors", std::span<glm::vec3>(lightColors));
+    for (auto light : engine::actor::light::ALight::getAll()) {
+        this->setIntoShader(light);
+    }
 }
 
 

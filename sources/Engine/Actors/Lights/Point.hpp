@@ -26,21 +26,30 @@ public:
 
 
     // ---------------------------------------------------------------------------- set
-    void setIntoThisShader(const engine::Shader& shader) const override final;
+    void setIntoEnlightenedShader(const engine::Shader& shader) const override final;
+    void setIntoLightSourceShader(const engine::Shader& shader) const override final;
+
+
+    // ---------------------------------------------------------------------------- get
+    static size_t getNbLight();
 
 
 private:
     struct Parameters {
         const engine::actor::Positions& positions;
 
-        glm::vec3 ambient  {   0.5F };
-        glm::vec3 diffuse  {   0.3F };
-        glm::vec3 specular {   1.0F };
-        float constant     {   0.3F };
-        float linear       {   0.3F };
-        float quadratic    { 0.016F };
+        glm::vec3 ambient  {  0.1F  };
+        glm::vec3 diffuse  {  0.5F  };
+        glm::vec3 specular {  1.0F  };
+        float constant     {  1.0F  };
+        float linear       {  1.0F };
+        float quadratic    { 0.064F };
+
+        glm::vec3 color { 1.0F, 1.0F, 1.0F };
     };
     Parameters m_Parameters;
+
+    static inline size_t m_NbLight { 0 };
 };
 
 

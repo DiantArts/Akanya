@@ -46,7 +46,8 @@ public:
 
 
     // ---------------------------------------------------------------------------- Others
-    virtual void setIntoThisShader(const engine::Shader& shader) const = 0;
+    virtual void setIntoEnlightenedShader(const engine::Shader& shader) const = 0;
+    virtual void setIntoLightSourceShader(const engine::Shader& shader) const = 0;
     const std::string& getName() const;
 
 private:

@@ -18,32 +18,53 @@ namespace engine::actor::light {
 
 Spot::Spot(const std::string& name, const engine::actor::Positions& positions, glm::vec3 direction)
     : ALight(name), m_Parameters(positions, direction)
-{}
+{
+    m_NbLight += m_Parameters.positions.size();
+}
 
 Spot::~Spot()
-{}
+{
+    m_NbLight -= m_Parameters.positions.size();
+}
 
 
 
 // ---------------------------------------------------------------------------- set
-void Spot::setIntoThisShader(const engine::Shader& shader) const
+
+void Spot::setIntoEnlightenedShader(const engine::Shader& shader) const
 {
+    size_t baseNameSize { this->getName().size() };
+    std::string name;
+
     if (m_Parameters.positions.size() == 1) {
-        shader.set(this->getName() + ".position", m_Parameters.positions[0]);
-        shader.set(this->getName() + ".direction", m_Parameters.direction);
-        shader.set(this->getName() + ".ambient", m_Parameters.ambient);
-        shader.set(this->getName() + ".diffuse", m_Parameters.diffuse);
-        shader.set(this->getName() + ".specular", m_Parameters.specular);
-        shader.set(this->getName() + ".constant", m_Parameters.constant);
-        shader.set(this->getName() + ".linear", m_Parameters.linear);
-        shader.set(this->getName() + ".quadratic", m_Parameters.quadratic);
-        shader.set(this->getName() + ".cutOff", m_Parameters.cutOff);
-        shader.set(this->getName() + ".outerCutOff", m_Parameters.outerCutOff);
+        name.reserve(baseNameSize + 12);
+        name += this->getName();
+        name += '.';
+        name += "position";
+        shader.set(name, m_Parameters.positions[0]);
+        name.replace(baseNameSize + 1, std::string::npos, "direction");
+        shader.set(name, m_Parameters.direction);
+        name.replace(baseNameSize + 1, std::string::npos, "ambient");
+        shader.set(name, m_Parameters.ambient);
+        name.replace(baseNameSize + 1, std::string::npos, "diffuse");
+        shader.set(name, m_Parameters.diffuse);
+        name.replace(baseNameSize + 1, std::string::npos, "specular");
+        shader.set(name, m_Parameters.specular);
+        name.replace(baseNameSize + 1, std::string::npos, "constant");
+        shader.set(name, m_Parameters.constant);
+        name.replace(baseNameSize + 1, std::string::npos, "linear");
+        shader.set(name, m_Parameters.linear);
+        name.replace(baseNameSize + 1, std::string::npos, "quadratic");
+        shader.set(name, m_Parameters.quadratic);
+        name.replace(baseNameSize + 1, std::string::npos, "cutOff");
+        shader.set(name, m_Parameters.cutOff);
+        name.replace(baseNameSize + 1, std::string::npos, "outerCutOff");
+        shader.set(name, m_Parameters.outerCutOff);
+        name.replace(baseNameSize + 1, std::string::npos, "color");
+        shader.set(name, m_Parameters.color);
     } else {
         size_t i { 0 };
-        size_t baseNameSize { this->getName().size() };
-        std::string name;
-        name.reserve(baseNameSize + 13);
+        name.reserve(baseNameSize + 16);
         name += this->getName();
         name += '[';
         for (const auto& position : m_Parameters.positions) {
@@ -71,9 +92,23 @@ void Spot::setIntoThisShader(const engine::Shader& shader) const
             shader.set(name, m_Parameters.cutOff);
             name.replace(baseNameSize + indexStr.size() + 3,std::string::npos,  "outerCutOff");
             shader.set(name, m_Parameters.outerCutOff);
+            name.replace(baseNameSize + indexStr.size() + 3, std::string::npos, "color");
+            shader.set(name, m_Parameters.color);
             ++i;
         }
     }
+}
+
+void Spot::setIntoLightSourceShader(const engine::Shader&) const
+{}
+
+
+
+// ---------------------------------------------------------------------------- get
+
+size_t Spot::getNbLight()
+{
+    return m_NbLight;
 }
 
 

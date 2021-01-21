@@ -27,7 +27,12 @@ public:
 
 
     // ---------------------------------------------------------------------------- set
-    void setIntoThisShader(const engine::Shader& shader) const override final;
+    void setIntoEnlightenedShader(const engine::Shader& shader) const override final;
+    void setIntoLightSourceShader(const engine::Shader& shader) const override final;
+
+
+    // ---------------------------------------------------------------------------- get
+    static size_t getNbLight();
 
 
 private:
@@ -43,8 +48,12 @@ private:
         float quadratic    { 0.016F };
         float cutOff       { glm::cos(glm::radians(12.5F)) };
         float outerCutOff  { glm::cos(glm::radians(15.0F)) };
+
+        glm::vec3 color { 1.0F, 1.0F, 1.0F };
     };
     Parameters m_Parameters;
+
+    static inline size_t m_NbLight { 0 };
 };
 
 

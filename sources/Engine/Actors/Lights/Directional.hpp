@@ -26,7 +26,12 @@ public:
 
 
     // ---------------------------------------------------------------------------- set
-    void setIntoThisShader(const engine::Shader& shader) const override final;
+    void setIntoEnlightenedShader(const engine::Shader& shader) const override final;
+    void setIntoLightSourceShader(const engine::Shader& shader) const override final;
+
+
+    // ---------------------------------------------------------------------------- get
+    static size_t getNbLight();
 
 
 private:
@@ -36,8 +41,12 @@ private:
         glm::vec3 ambient  { 0.5F };
         glm::vec3 diffuse  { 0.3F };
         glm::vec3 specular { 1.0F };
+
+        glm::vec3 color { 1.0F, 1.0F, 1.0F };
     };
     Parameters m_Parameters;
+
+    static inline size_t m_NbLight { 0 };
 };
 
 

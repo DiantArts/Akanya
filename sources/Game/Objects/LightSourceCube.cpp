@@ -33,12 +33,10 @@ void LightSourceCube::configureShader(const engine::Camera& camera) const
 
 void LightSourceCube::update(float)
 {
-    // auto lampYMouvement = -pow(abs(cos(glfwGetTime() * 2) * 5), 3);
-
-    // getLamp().setPosition(
-    // glm::vec3 { 0, 6 - pow(abs(cos(glfwGetTime() * 2) * 5), 3) / 200, -1 + sin(glfwGetTime() * 2) * 4.0F
-    // });
-    // this->setPosition(glm::vec3 { 0, 4 + lampYMouvement / 200, -1 + sin(glfwGetTime() * 2) * 4.0F });
+    auto z = sin(glfwGetTime() / 1.2) * 3;
+    for (auto& position : this->instances) {
+        position.z = z;
+    }
 }
 
 

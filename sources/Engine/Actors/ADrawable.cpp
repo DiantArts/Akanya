@@ -6,10 +6,14 @@
 */
 
 #include "ADrawable.hpp"
-#include "Lights/ALight.hpp"
-#include "debugMacros.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+
+#include "Lights/ALight.hpp"
+#include "Lights/Directional.hpp"
+#include "Lights/Point.hpp"
+#include "Lights/Spot.hpp"
+#include "debugMacros.hpp"
 
 #include "../Window.hpp"
 
@@ -21,8 +25,7 @@ namespace engine::actor {
 
 // ---------------------------------------------------------------------------- *structors
 
-ADrawable::ADrawable(engine::Shader& shader)
-    : m_Shader(shader)
+ADrawable::ADrawable(engine::Shader& shader) : m_Shader(shader)
 {
     DEBUG_MSG("(" << m_Id << "): created");
 }
@@ -55,6 +58,9 @@ void ADrawable::configureShader(const engine::Camera& camera) const
     this->setIntoShader("projection",
                         glm::perspective(glm::radians(camera.getZoom()),
                                          (float)Window::width / (float)Window::height, 0.1F, 100.0F));
+    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
 }
 
 
@@ -73,7 +79,7 @@ void ADrawable::useShader() const
 
 void ADrawable::setIntoShader(const engine::actor::light::ALight& light) const
 {
-    light.setIntoThisShader(this->getShader());
+    light.setIntoEnlightenedShader(this->getShader());
 }
 
 

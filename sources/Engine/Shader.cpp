@@ -144,6 +144,18 @@ void Shader::set(std::string&& name, const int value) const
 
 //
 
+void Shader::set(const std::string& name, const size_t value) const
+{
+    glUniform1ui(this->getOrCacheUniformLocation(name), value);
+}
+
+void Shader::set(std::string&& name, const size_t value) const
+{
+    glUniform1ui(this->getOrCacheUniformLocation(std::move(name)), value);
+}
+
+//
+
 void Shader::set(const std::string& name, const float value) const
 {
     glUniform1f(this->getOrCacheUniformLocation(name), value);
