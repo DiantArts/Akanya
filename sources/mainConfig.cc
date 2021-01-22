@@ -15,8 +15,13 @@ int main()
 {
     config::PropertyTree config;
 
-    std::string b;
-
+    std::string b = "matrix";
+    
+    auto  c =  config.get< std::vector<std::vector<std::string>> >(b);
+    for (const auto& elems : c)
+        for (const auto& elem : elems)
+            std::cout << elem <<std::endl;
+    /*
     config.readValue("some.complex.path", b);
     b += " guys";
     config.addValue("some.complex.path", b);
@@ -37,6 +42,6 @@ int main()
     
 
 
-    config.saveFile();
+    config.saveFile();//*/
     return 0;
 }

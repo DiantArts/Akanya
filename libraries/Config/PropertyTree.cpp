@@ -21,33 +21,43 @@ void PropertyTree::saveFile()
     pt::write_json(".config.json", this->root);
 }
 
-
-void PropertyTree::readValue(const std::string path, std::string& single)
+/*
+std::string& 
+    PropertyTree::readValue(const std::string path, std::string& single)
 {
     single = this->root.get<std::string>(path);
-}
+    return single;
+}//*/
 
-void PropertyTree::readValue(const std::string path, std::vector<std::string>& fruits)
+std::vector<std::string>& 
+    PropertyTree::readValue(const std::string path, std::vector<std::string>& fruits)
 {
     for (pt::ptree::value_type &fruit : this->root.get_child(path))
     {
         // fruit.first contain the string ""
         fruits.push_back(fruit.second.get_value<std::string>());
     }
+    return fruits;
 }
 
-void PropertyTree::readValue(const std::string path, std::vector< std::vector<std::string> >& matrix)
+std::vector< std::vector<std::string> >& 
+    PropertyTree::readValue(const std::string path, std::vector< std::vector<std::string> >& matrix)
 {
+    matrix.reserve(10);
     for (int x = 0; pt::ptree::value_type &row : this->root.get_child(path)) {
+        std::vector<std::string> cube;
         for (int y = 0; pt::ptree::value_type &cell : row.second) {
-            matrix[x][y] = cell.second.get_value<std::string>();
+            cube.push_back(cell.second.get_value<std::string>());
             y++;
         }
+        matrix.push_back(cube);
         x++;
     }
+    return matrix;
 }
 
-void PropertyTree::readValue(const std::string path, std::map<std::string, std::string>& animals)
+std::map<std::string, std::string>& 
+    PropertyTree::readValue(const std::string path, std::map<std::string, std::string>& animals)
 {
     // A vector to allow storing our animals
 
@@ -59,12 +69,12 @@ void PropertyTree::readValue(const std::string path, std::map<std::string, std::
         std::string color = animal.second.get_value<std::string>();
         animals[name] = color;
     }
+    return animals;
 }
 
-void PropertyTree::readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix)
+std::map<std::string, std::vector<std::string> >& 
+    PropertyTree::readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix)
 {
-    // A vector to allow storing our namedMatrix
-
     // Iterator over all namedMatrix
     for (pt::ptree::value_type &row : this->root.get_child(path))
     {
@@ -78,6 +88,7 @@ void PropertyTree::readValue(const std::string path, std::map<std::string, std::
             namedMatrix[name].push_back(fruit.second.get_value<std::string>());
         }
     }
+    return namedMatrix;
 }
 
 void PropertyTree::addValue(const std::string path, const std::string& single)

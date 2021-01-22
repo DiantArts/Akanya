@@ -13,6 +13,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <map>
+#include <iostream>
 
 // Short alias for this namespace
 namespace pt = boost::property_tree;
@@ -29,12 +30,23 @@ public:
 
 //  PATTERN : varName;value1;value2
 
-    void readValue(const std::string path, std::string& single);
-    void readValue(const std::string path, std::vector<std::string>& fruits);
-    void readValue(const std::string path, std::vector< std::vector<std::string> >& matrix);
-    void readValue(const std::string path, std::map<std::string, std::string>& animals);
-    void readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix);
+    template <typename T>
+    T get(const std::string path)
+    {
+        T var;
+        return this->readValue(path, var);
+    };
 
+    //std::string& readValue(const std::string path, std::string& single);
+    std::vector<std::string>& readValue(const std::string path, std::vector<std::string>& fruits);
+    std::vector< std::vector<std::string> >& readValue(const std::string path, std::vector< std::vector<std::string> >& matrix);
+    std::map<std::string, std::string>& readValue(const std::string path, std::map<std::string, std::string>& animals);
+    std::map<std::string, std::vector<std::string> >& readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix);
+    template <typename T>
+    T readValue(const std::string path, T single)
+    {
+        return this->root.get<T>(path);
+    };
     void saveFile();
     
     void addValue(const std::string path, const std::string& single);
