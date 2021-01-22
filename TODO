@@ -1,13 +1,23 @@
+Doing:
+Trying to draw things with only 1 light
+
 TODO:
-finish event system
-iterate over lights, dynamic light number
+finish event system + adding key system (isPressed / released)
 
 TODO Later:
+PBR
 optimise GLSL (shadered memory) : https://learnopengl.com/Advanced-OpenGL/Advanced-GLSL
 Batch rendering
 Particule system
 Skeletal Animation system
 Mouse picking
+Physic Engine
 
 TODO if needed:
 Transparancy : https://learnopengl.com/Advanced-OpenGL/Blending
+
+
+
+Done:
+iterate over lights, dynamic light number
+multiple light type (directional, point, spot)
