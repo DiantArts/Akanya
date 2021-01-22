@@ -6,11 +6,17 @@
 */
 
 #include "Floor.hpp"
-#include "Engine/Actors/Lights/ALight.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-bool gammaEnabled { false };
+#include "Engine/Actors/Lights/ALight.hpp"
+#include "Engine/Actors/Lights/Directional.hpp"
+#include "Engine/Actors/Lights/Point.hpp"
+#include "Engine/Actors/Lights/Spot.hpp"
+
+extern bool gammaEnabled;
+extern bool blinnEnabled;
+
 
 
 namespace game::object {
@@ -24,6 +30,7 @@ Floor::Floor(engine::Shader& shader, const size_t numberOfPositions)
 {
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");
+    this->setIntoShader("material.shininess", 1000.0F);
 }
 
 
@@ -34,10 +41,13 @@ void Floor::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
+
     this->setIntoShader("gamma", gammaEnabled);
+    this->setIntoShader("blinn", blinnEnabled);
 
-    this->setIntoShader("material.shininess", 1000.0F);
-
+    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
     for (auto light : engine::actor::light::ALight::getAll()) {
         this->setIntoShader(light);
     }

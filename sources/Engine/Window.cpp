@@ -27,7 +27,9 @@ static void GLAPIENTRY messageCallback(GLenum        source,
                                        const GLchar* message,
                                        const void*   userParam);
 
-extern bool gammaEnabled;
+bool gammaEnabled { false };
+bool blinnEnabled { true };
+
 
 
 namespace engine {
@@ -99,11 +101,18 @@ void Window::processInput(const float deltaTime)
         this->camera.moveBot(deltaTime);
     }
 
-    if (glfwGetKey(m_Window.get(), GLFW_KEY_TAB) == GLFW_PRESS && !this->gammaKeyPressed) {
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_G) == GLFW_PRESS && !this->gammaKeyPressed) {
         gammaEnabled = !gammaEnabled;
         this->gammaKeyPressed = true;
-    } if (glfwGetKey(m_Window.get(), GLFW_KEY_TAB) == GLFW_RELEASE) {
+    } if (glfwGetKey(m_Window.get(), GLFW_KEY_G) == GLFW_RELEASE) {
         this->gammaKeyPressed = false;
+    }
+
+    if (glfwGetKey(m_Window.get(), GLFW_KEY_B) == GLFW_PRESS && !this->blinnKeyPressed) {
+        blinnEnabled = !blinnEnabled;
+        this->blinnKeyPressed = true;
+    } if (glfwGetKey(m_Window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
+        this->blinnKeyPressed = false;
     }
 }
 

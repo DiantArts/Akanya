@@ -57,6 +57,7 @@ public:
 private:
     std::unique_ptr<GLFWwindow, WindowDeleter> m_Window;
     bool gammaKeyPressed { false };
+    bool blinnKeyPressed { false };
 
 
     // ---------------------------------------------------------------------------- singleton

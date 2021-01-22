@@ -10,9 +10,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Lights/ALight.hpp"
-#include "Lights/Directional.hpp"
-#include "Lights/Point.hpp"
-#include "Lights/Spot.hpp"
 #include "debugMacros.hpp"
 
 #include "../Window.hpp"
@@ -58,9 +55,6 @@ void ADrawable::configureShader(const engine::Camera& camera) const
     this->setIntoShader("projection",
                         glm::perspective(glm::radians(camera.getZoom()),
                                          (float)Window::width / (float)Window::height, 0.1F, 100.0F));
-    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
 }
 
 

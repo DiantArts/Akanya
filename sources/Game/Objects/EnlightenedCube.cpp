@@ -10,7 +10,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Engine/Actors/Lights/ALight.hpp"
+#include "Engine/Actors/Lights/Directional.hpp"
+#include "Engine/Actors/Lights/Point.hpp"
+#include "Engine/Actors/Lights/Spot.hpp"
 
+extern bool gammaEnabled;
+extern bool blinnEnabled;
 
 
 namespace game::object {
@@ -23,8 +28,13 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPo
     : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
 {
     this->useShader();
+
     this->addTexture("container.png", "material.diffuse");
     this->addTexture("containerBorders.png", "material.specular");
+
+    this->setIntoShader("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
+    this->setIntoShader("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
+    this->setIntoShader("material.shininess", 8.0F);
 }
 
 
@@ -34,16 +44,17 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPo
 void EnlightenedCube::configureShader(const engine::Camera& camera) const
 {
     engine::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("gamma", true);
-    this->setIntoShader("material.shininess", 8.0F);
     this->setIntoShader("viewPos", camera.getPosition());
 
+    this->setIntoShader("gamma", gammaEnabled);
+    this->setIntoShader("blinn", blinnEnabled);
+
+    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
     for (const auto& light : engine::actor::ALight::getAll()) {
         this->setIntoShader(light);
     }
-
-    this->setIntoShader("spotLight.cutOff", glm::cos(glm::radians(12.5F)));
-    this->setIntoShader("spotLight.outerCutOff", glm::cos(glm::radians(15.0F)));
 }
 
 

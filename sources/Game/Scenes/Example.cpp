@@ -39,9 +39,9 @@ Example::Example()
     cube.instances[4] = glm::vec3(2.0F, 0.2F, -1.5F);
     cube.instances[5] = glm::vec3(-1.3F, 1.0F, -1.5F);
 
-    auto& backpack { this->emplaceActor<game::object::Backpack>(m_ShaderMap["model3d"], 2) };
-    backpack.instances[0] = glm::vec3(-5.0F, 2.0F, 0.0F);
-    backpack.instances[1] = glm::vec3(5.0F, 2.0F, 0.0F);
+    // auto& backpack { this->emplaceActor<game::object::Backpack>(m_ShaderMap["model3d"], 2) };
+    // backpack.instances[0] = glm::vec3(-5.0F, 2.0F, 0.0F);
+    // backpack.instances[1] = glm::vec3(5.0F, 2.0F, 0.0F);
 }
 
 Example::~Example()
