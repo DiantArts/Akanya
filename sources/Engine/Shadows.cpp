@@ -84,8 +84,6 @@ void Shadows::unbind() const
     m_Fbo.unbind();
     glViewport(0, 0, this->width, this->height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glViewport(0, 0, this->width, this->height);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 
