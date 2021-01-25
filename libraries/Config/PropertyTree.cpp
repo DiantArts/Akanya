@@ -9,28 +9,36 @@
 
 namespace config {
 
-PropertyTree::PropertyTree()
+PropertyTree::PropertyTree(const std::string& filepath)
 {
     // Load the json file in this ptree
-    pt::read_json(".config.json", this->root);
+    pt::read_json(filepath, this->root);
+    this->filepath = filepath;
+}
 
+void PropertyTree::loadFile(const std::string& filepath)
+{
+    this->root.clear();
+    pt::read_json(filepath, this->root);
+    this->filepath = filepath;
 }
 
 void PropertyTree::saveFile()
 {
-    pt::write_json(".config.json", this->root);
+    std::stringstream ss;
+    pt::write_json(ss, this->root);
+    pt::write_json(this->filepath, this->root);
 }
 
-/*
-std::string& 
-    PropertyTree::readValue(const std::string path, std::string& single)
+void PropertyTree::saveFile(const std::string& filepath)
 {
-    single = this->root.get<std::string>(path);
-    return single;
-}//*/
+    std::stringstream ss;
+    pt::write_json(ss, this->root);
+    pt::write_json(filepath, this->root);
+}
 
 std::vector<std::string>& 
-    PropertyTree::readValue(const std::string path, std::vector<std::string>& fruits)
+    PropertyTree::readValue(const std::string& path, std::vector<std::string>& fruits)
 {
     for (pt::ptree::value_type &fruit : this->root.get_child(path))
     {
@@ -41,9 +49,8 @@ std::vector<std::string>&
 }
 
 std::vector< std::vector<std::string> >& 
-    PropertyTree::readValue(const std::string path, std::vector< std::vector<std::string> >& matrix)
+    PropertyTree::readValue(const std::string& path, std::vector< std::vector<std::string> >& matrix)
 {
-    matrix.reserve(10);
     for (int x = 0; pt::ptree::value_type &row : this->root.get_child(path)) {
         std::vector<std::string> cube;
         for (int y = 0; pt::ptree::value_type &cell : row.second) {
@@ -57,7 +64,7 @@ std::vector< std::vector<std::string> >&
 }
 
 std::map<std::string, std::string>& 
-    PropertyTree::readValue(const std::string path, std::map<std::string, std::string>& animals)
+    PropertyTree::readValue(const std::string& path, std::map<std::string, std::string>& animals)
 {
     // A vector to allow storing our animals
 
@@ -73,7 +80,7 @@ std::map<std::string, std::string>&
 }
 
 std::map<std::string, std::vector<std::string> >& 
-    PropertyTree::readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix)
+    PropertyTree::readValue(const std::string& path, std::map<std::string, std::vector<std::string> >& namedMatrix)
 {
     // Iterator over all namedMatrix
     for (pt::ptree::value_type &row : this->root.get_child(path))
@@ -91,12 +98,7 @@ std::map<std::string, std::vector<std::string> >&
     return namedMatrix;
 }
 
-void PropertyTree::addValue(const std::string path, const std::string& single)
-{
-    this->root.put(path, single);
-}
-
-void PropertyTree::addValue(const std::string path, const std::vector<std::string>& fruits)
+void PropertyTree::addValue(const std::string& path, const std::vector<std::string>& fruits)
 {
     pt::ptree fruits_node;
     for (auto &fruit : fruits)
@@ -111,7 +113,7 @@ void PropertyTree::addValue(const std::string path, const std::vector<std::strin
     this->root.put_child(path, fruits_node);
 }
 
-void PropertyTree::addValue(const std::string path, const std::vector< std::vector<std::string> >& matrix)
+void PropertyTree::addValue(const std::string& path, const std::vector< std::vector<std::string> >& matrix)
 {
     pt::ptree matrix_node;
     auto sizeI = matrix.size();
@@ -134,7 +136,7 @@ void PropertyTree::addValue(const std::string path, const std::vector< std::vect
     this->root.put_child(path, matrix_node);
 }
 
-void PropertyTree::addValue(const std::string path,
+void PropertyTree::addValue(const std::string& path,
     const std::map<std::string, std::string>& animals)
 {
     pt::ptree animals_node;
@@ -145,7 +147,7 @@ void PropertyTree::addValue(const std::string path,
     this->root.put_child(path, animals_node);
 }
 
-void PropertyTree::addValue(const std::string path,
+void PropertyTree::addValue(const std::string& path,
     const std::map<std::string, std::vector<std::string> >& namedMatrix)
 {
     pt::ptree animals_node;

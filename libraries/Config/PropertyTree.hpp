@@ -25,43 +25,70 @@ namespace config {
 
 class PropertyTree {
 public:
-    PropertyTree();
+    PropertyTree(const std::string& filepath);
     ~PropertyTree() = default;
 
-//  PATTERN : varName;value1;value2
+    void loadFile(const std::string& filepath);
 
+    void saveFile();
+    void saveFile(const std::string& filepath);
+
+
+//  PATTERN : varName;value1;value2
+public:
     template <typename T>
-    T get(const std::string path)
+    T& get(const std::string& path)
     {
         T var;
-        return this->readValue(path, var);
+        try {
+            return this->readValue(path, var);
+        } catch (const boost::wrapexcept<boost::property_tree::ptree_bad_path>& e) {
+            throw std::runtime_error(std::string("While get node '") + path +
+                                     std::string("' (") + e.what() + ')');
+        }
     };
 
-    //std::string& readValue(const std::string path, std::string& single);
-    std::vector<std::string>& readValue(const std::string path, std::vector<std::string>& fruits);
-    std::vector< std::vector<std::string> >& readValue(const std::string path, std::vector< std::vector<std::string> >& matrix);
-    std::map<std::string, std::string>& readValue(const std::string path, std::map<std::string, std::string>& animals);
-    std::map<std::string, std::vector<std::string> >& readValue(const std::string path, std::map<std::string, std::vector<std::string> >& namedMatrix);
+private:
+    std::vector<std::string>&                         readValue(const std::string& path, std::vector<std::string>& fruits);
+    std::vector< std::vector<std::string> >&          readValue(const std::string& path, std::vector< std::vector<std::string> >& matrix);
+    std::map<std::string, std::string>&               readValue(const std::string& path, std::map<std::string, std::string>& animals);
+    std::map<std::string, std::vector<std::string> >& readValue(const std::string& path, std::map<std::string, std::vector<std::string> >& namedMatrix);
     template <typename T>
-    T readValue(const std::string path, T single)
+    T& readValue(const std::string& path, T& single)
     {
         return this->root.get<T>(path);
     };
-    void saveFile();
+
+public:
+    template <typename T>
+    void add(const std::string& path, const T& value)
+    {
+        try {
+            this->addValue(path, value);
+            return;
+        } catch (const boost::wrapexcept<boost::property_tree::ptree_bad_path>& e) {
+            throw std::runtime_error(std::string("While add node '") + path +
+                                     std::string("' (") + e.what() + ')');
+        }
+    };
+
+private:
+    void addValue(const std::string& path, const std::vector<std::string>& fruits);
+    void addValue(const std::string& path, const std::vector< std::vector<std::string> >& matrix);
+    void addValue(const std::string& path, const std::map<std::string, std::string>& animals);
+    void addValue(const std::string& path, const std::map<std::string, std::vector<std::string> >& namedMatrix);
     
-    void addValue(const std::string path, const std::string& single);
-    void addValue(const std::string path, const std::vector<std::string>& fruits);
-    void addValue(const std::string path, const std::vector< std::vector<std::string> >& matrix);
-    void addValue(const std::string path, const std::map<std::string, std::string>& animals);
-    void addValue(const std::string path, const std::map<std::string, std::vector<std::string> >& namedMatrix);
-    
-    /*
-    - operator<< // file << varName << value1 << value2 ...
-    //*/
+    template <typename T>
+    void addValue(const std::string& path, const T& single)
+    {
+        this->root.put(path, single);
+    };
+
 private:
 //------------------------ info config
     // Create a root
     pt::ptree root;
+    std::string filepath;
 
 };
 
