@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** macros
-** File description:
 ** macros of the program
 */
 
@@ -89,10 +88,10 @@ namespace debuging {
 class check_time {
 public:
     check_time(const std::string file, const std::string function, const int line)
-        : m_ClockStart(std::chrono::high_resolution_clock::now())
-        , m_File(file)
-        , m_Function(function)
-        , m_Line(line)
+        : m_clockStart(std::chrono::high_resolution_clock::now())
+        , m_file(file)
+        , m_function(function)
+        , m_line(line)
     {
         std::lock_guard<std::recursive_mutex> debugClogLockGuard(debugClogMutex);
 
@@ -100,22 +99,22 @@ public:
             std::clog << "\n";
             isDebugClogMutexLocked--;
         }
-        std::clog << "[" << m_File << ":" << m_Line << "] (" << m_Function << ")\n";
+        std::clog << "[" << m_file << ":" << m_line << "] (" << m_function << ")\n";
     }
 
     ~check_time()
     {
-        m_ClockEnd = std::chrono::high_resolution_clock::now();
+        m_clockEnd = std::chrono::high_resolution_clock::now();
 
-        std::clog << "[" << m_File << ":" << m_Line << "] (" << m_Function << ") - "
-                  << std::chrono::duration<float>(m_ClockEnd - m_ClockStart).count() * 1000.0f << "ms\n";
+        std::clog << "[" << m_file << ":" << m_line << "] (" << m_function << ") - "
+                  << std::chrono::duration<float>(m_clockEnd - m_clockStart).count() * 1000.0f << "ms\n";
         isDebugClogMutexLocked = false;
     }
 
 private:
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_ClockStart, m_ClockEnd;
-    std::string                                                 m_File, m_Function;
-    int                                                         m_Line;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_clockStart, m_clockEnd;
+    std::string                                                 m_file, m_function;
+    int                                                         m_line;
 };
 } // namespace debuging
 #define DEBUG_TIME debuging::check_time checking_time_class(__FILE__, __FUNCTION__, __LINE__)
@@ -128,7 +127,7 @@ namespace debuging {
 class check_time {
 public:
     check_time(const std::string file, const std::string function, const int line)
-        : m_File(file), m_Function(function), m_Line(line)
+        : m_file(file), m_function(function), m_line(line)
     {
         std::lock_guard<std::recursive_mutex> debugClogLockGuard(debugClogMutex);
 
@@ -136,19 +135,19 @@ public:
             std::clog << "\n";
             isDebugClogMutexLocked--;
         }
-        std::clog << "[" << m_File << ":" << m_Line << "] (" << m_Function << ")\n";
+        std::clog << "[" << m_file << ":" << m_line << "] (" << m_function << ")\n";
     }
 
     ~check_time()
     {
         std::lock_guard<std::recursive_mutex> debugClogLockGuard(debugClogMutex);
 
-        std::clog << "[" << m_File << ":" << m_Line << "] (" << m_Function << ") - Exit\n";
+        std::clog << "[" << m_file << ":" << m_line << "] (" << m_function << ") - Exit\n";
     }
 
 private:
-    std::string m_File, m_Function;
-    int         m_Line;
+    std::string m_file, m_function;
+    int         m_line;
 };
 } // namespace debuging
 #define DEBUG_TIME debuging::check_time checking_time_class(__FILE__, __FUNCTION__, __LINE__)

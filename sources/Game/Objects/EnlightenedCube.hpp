@@ -1,14 +1,13 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/EnlightenedCube
-** File description:
 ** An enlightened cube lol
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_ENLIGHTENEDCUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_ENLIGHTENEDCUBE_HPP___
 
-#include "Engine/Actors/BasicShapes/Cube.hpp"
+#include "Engine/Graphic/Actors/BasicShapes/Cube.hpp"
 
 
 
@@ -16,19 +15,19 @@ namespace game::object {
 
 
 
-class EnlightenedCube : public engine::actor::basicShape::Cube {
+class EnlightenedCube : public engine::graphic::actor::basicShape::Cube {
 public:
-    // ---------------------------------------------------------------------------- *structors
-    explicit EnlightenedCube(engine::Shader& shader, size_t numberOfPositions = 1);
+    // ---------------------------------- *structors
+    explicit EnlightenedCube(::engine::graphic::opengl::Shader& shader, size_t numberOfPositions = 1);
     ~EnlightenedCube() = default;
 
 
-    // ---------------------------------------------------------------------------- override
-    void configureShader(const engine::Camera& camera) const final;
+    // ---------------------------------- override
+    void configureShader(const engine::graphic::Camera& camera) const final;
 
 
 private:
-    // ---------------------------------------------------------------------------- Attributes
+    // ---------------------------------- Attributes
     static void setAttributes();
 };
 

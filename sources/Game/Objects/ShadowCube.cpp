@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/ShadowCube
-** File description:
 ** Trying to implement shadows, just a trial
 */
 
@@ -16,9 +15,9 @@ namespace game::object {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
-ShadowCube::ShadowCube(engine::Shader& shader, const size_t numberOfPositions)
+ShadowCube::ShadowCube(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, ShadowCube::setAttributes, "cube")
 {
     this->useShader();
@@ -28,9 +27,9 @@ ShadowCube::ShadowCube(engine::Shader& shader, const size_t numberOfPositions)
 
 
 
-// ---------------------------------------------------------------------------- override
+// ---------------------------------- override
 
-void ShadowCube::configureShader(const engine::Camera& camera) const
+void ShadowCube::configureShader(const engine::graphic::Camera& camera) const
 {
     ABasicShape::configureShader(camera);
 
@@ -59,7 +58,7 @@ void ShadowCube::configureShader(const engine::Camera& camera) const
 
 
 
-// ---------------------------------------------------------------------------- Attributes
+// ---------------------------------- Attributes
 
 void ShadowCube::setAttributes()
 {

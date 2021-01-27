@@ -1,15 +1,14 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Game/Scenes/AdvancedLight
-** File description:
 ** Scene to test lightnings
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___
 
-#include "Engine/AScene.hpp"
-#include "Engine/Actors/Model.hpp"
+#include "Engine/Graphic/AScene.hpp"
+#include "Engine/Graphic/Actors/Model.hpp"
 
 
 
@@ -17,15 +16,11 @@ namespace game::scene {
 
 
 
-class AdvancedLight : public engine::AScene {
+class AdvancedLight : public ::engine::graphic::AScene {
 public:
-    // ---------------------------------------------------------------------------- *structors
+    // ---------------------------------- *structors
     AdvancedLight();
     ~AdvancedLight();
-
-
-    // ---------------------------------------------------------------------------- hardcoded
-    void additionalDraws() const override;
 
 private:
 };

@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/EnlightenedCube
-** File description:
 ** An enlightened cube lol
 */
 
@@ -9,10 +8,10 @@
 
 #include "EnlightenedCube.hpp"
 
-#include "Engine/Actors/Lights/ALight.hpp"
-#include "Engine/Actors/Lights/Directional.hpp"
-#include "Engine/Actors/Lights/Point.hpp"
-#include "Engine/Actors/Lights/Spot.hpp"
+#include "Engine/Graphic/Actors/Lights/ALight.hpp"
+#include "Engine/Graphic/Actors/Lights/Directional.hpp"
+#include "Engine/Graphic/Actors/Lights/Point.hpp"
+#include "Engine/Graphic/Actors/Lights/Spot.hpp"
 
 extern bool gammaEnabled;
 extern bool blinnEnabled;
@@ -22,9 +21,9 @@ namespace game::object {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
-EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPositions)
+EnlightenedCube::EnlightenedCube(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
 {
     this->useShader();
@@ -39,27 +38,27 @@ EnlightenedCube::EnlightenedCube(engine::Shader& shader, const size_t numberOfPo
 
 
 
-// ---------------------------------------------------------------------------- override
+// ---------------------------------- override
 
-void EnlightenedCube::configureShader(const engine::Camera& camera) const
+void EnlightenedCube::configureShader(const engine::graphic::Camera& camera) const
 {
-    engine::actor::ABasicShape::configureShader(camera);
+    engine::graphic::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("gamma", gammaEnabled);
     this->setIntoShader("blinn", blinnEnabled);
 
-    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
-    for (const auto& light : engine::actor::ALight::getAll()) {
+    this->setIntoShader("nrDirLight", engine::graphic::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", engine::graphic::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", engine::graphic::actor::light::Spot::getNbLight());
+    for (const auto& light : engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);
     }
 }
 
 
 
-// ---------------------------------------------------------------------------- Attributes
+// ---------------------------------- Attributes
 
 void EnlightenedCube::setAttributes()
 {

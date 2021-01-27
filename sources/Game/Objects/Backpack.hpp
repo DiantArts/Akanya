@@ -1,14 +1,13 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/Backpack
-** File description:
 ** basic model backpack
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_BACKPACK_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_BACKPACK_HPP___
 
-#include "Engine/Actors/Model.hpp"
+#include "Engine/Graphic/Actors/Model.hpp"
 
 
 
@@ -16,15 +15,15 @@ namespace game::object {
 
 
 
-class Backpack : public engine::actor::Model {
+class Backpack : public engine::graphic::actor::Model {
 public:
-    // ---------------------------------------------------------------------------- *structors
-    explicit Backpack(engine::Shader& shader, const size_t numberOfPositions);
+    // ---------------------------------- *structors
+    explicit Backpack(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions);
     ~Backpack();
 
 
-    // ---------------------------------------------------------------------------- override
-    void configureShader(const engine::Camera& camera) const final;
+    // ---------------------------------- override
+    void configureShader(const engine::graphic::Camera& camera) const final;
 
 
 private:

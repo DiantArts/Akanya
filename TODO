@@ -13,6 +13,7 @@ Particule system
 Skeletal Animation system
 Mouse picking
 Physic Engine
+modifies how fps are calculated
 
 TODO if needed:
 Transparancy : https://learnopengl.com/Advanced-OpenGL/Blending

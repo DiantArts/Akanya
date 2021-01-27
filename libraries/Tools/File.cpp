@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** File
-** File description:
 ** file tools to help easier code
 */
 
@@ -24,6 +23,8 @@ namespace tool::file {
 
 std::string read(const std::string_view filepath)
 {
+    using std::string_literals::operator""s;
+
     std::stringstream shaderStream;
     {
         std::ifstream shaderFile;
@@ -32,8 +33,8 @@ std::string read(const std::string_view filepath)
         try {
             shaderFile.open(std::string(filepath));
         } catch (const std::ifstream::failure& e) {
-            throw std::runtime_error(std::string("unable to open '") + std::string(filepath) +
-                                     std::string("' file (") + e.what() + ')');
+            throw std::runtime_error("unable to open '"s + std::string(filepath) +
+                                     "' file ("s + e.what() + ')');
         }
 
 

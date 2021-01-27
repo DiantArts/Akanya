@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Game/Scenes/AdvancedLight
-** File description:
 ** Scene to test lightnings
 */
 
@@ -21,23 +20,16 @@ namespace game::scene {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
 AdvancedLight::AdvancedLight()
 {
-    this->emplaceActor<game::object::LightSourceCube>(m_ShaderMap["lightSource"]);
-    m_ShaderMap["pointShadow"].use();
-    m_ShaderMap["pointShadow"].set("depthMap", 1);
+    this->emplaceActor<game::object::LightSourceCube>(m_shaderMap["lightSource"]);
+    m_shaderMap["pointShadow"].use();
+    m_shaderMap["pointShadow"].set("depthMap", 1);
 }
 
 AdvancedLight::~AdvancedLight()
-{}
-
-
-
-// ---------------------------------------------------------------------------- hardcoded
-
-void AdvancedLight::additionalDraws() const
 {}
 
 

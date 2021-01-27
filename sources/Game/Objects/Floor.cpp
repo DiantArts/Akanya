@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/Floor
-** File description:
 ** Just a floor lol
 */
 
@@ -9,10 +8,10 @@
 
 #include "Floor.hpp"
 
-#include "Engine/Actors/Lights/ALight.hpp"
-#include "Engine/Actors/Lights/Directional.hpp"
-#include "Engine/Actors/Lights/Point.hpp"
-#include "Engine/Actors/Lights/Spot.hpp"
+#include "Engine/Graphic/Actors/Lights/ALight.hpp"
+#include "Engine/Graphic/Actors/Lights/Directional.hpp"
+#include "Engine/Graphic/Actors/Lights/Point.hpp"
+#include "Engine/Graphic/Actors/Lights/Spot.hpp"
 
 extern bool gammaEnabled;
 extern bool blinnEnabled;
@@ -23,9 +22,9 @@ namespace game::object {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
-Floor::Floor(engine::Shader& shader, const size_t numberOfPositions)
+Floor::Floor(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
     : Cube(shader, numberOfPositions, 1, Floor::setAttributes, "floor")
 {
     this->useShader();
@@ -35,27 +34,27 @@ Floor::Floor(engine::Shader& shader, const size_t numberOfPositions)
 
 
 
-// ---------------------------------------------------------------------------- override
+// ---------------------------------- override
 
-void Floor::configureShader(const engine::Camera& camera) const
+void Floor::configureShader(const engine::graphic::Camera& camera) const
 {
-    engine::actor::ABasicShape::configureShader(camera);
+    engine::graphic::actor::ABasicShape::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("gamma", gammaEnabled);
     this->setIntoShader("blinn", blinnEnabled);
 
-    this->setIntoShader("nrDirLight", engine::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", engine::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", engine::actor::light::Spot::getNbLight());
-    for (auto light : engine::actor::light::ALight::getAll()) {
+    this->setIntoShader("nrDirLight", engine::graphic::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", engine::graphic::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", engine::graphic::actor::light::Spot::getNbLight());
+    for (auto light : engine::graphic::actor::light::ALight::getAll()) {
         this->setIntoShader(light);
     }
 }
 
 
 
-// ---------------------------------------------------------------------------- Attributes
+// ---------------------------------- Attributes
 
 void Floor::setAttributes()
 {

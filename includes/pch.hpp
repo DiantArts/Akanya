@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** includes/pch
-** File description:
 ** g++ -x c++-header -Wpedantic -Wall -Wextra -Wno-volatile -Wno-address -Wno-nonnull-compare -std=c++20 -Ofast -pipe -o includes/pch.hpp.gch -Iincludes -Isources -Ilibraries -Iexterns includes/pch.hpp
 */
 
@@ -59,8 +58,11 @@
 #include "Tools/Iterator.hpp"
 #include "Tools/String.hpp"
 
-#include "Engine/Filepaths.hpp"
-#include "Engine/Window.hpp"
+#include "Engine/Core/Config/Filepaths.hpp"
+#include "Engine/Graphic/Window.hpp"
+
+using std::string_literals::operator""s;
+using std::literals::string_view_literals::operator""sv;
 
 
 

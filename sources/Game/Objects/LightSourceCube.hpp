@@ -1,16 +1,15 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/LightSourceCube
-** File description:
 ** A lamp ?
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 
-#include "Engine/Actors/BasicShapes/Cube.hpp"
-#include "Engine/Actors/Lights/Point.hpp"
-#include "Engine/Actors/Lights/Spot.hpp"
+#include "Engine/Graphic/Actors/BasicShapes/Cube.hpp"
+#include "Engine/Graphic/Actors/Lights/Point.hpp"
+#include "Engine/Graphic/Actors/Lights/Spot.hpp"
 
 
 
@@ -19,16 +18,16 @@ namespace game::object {
 
 
 class LightSourceCube
-    : public engine::actor::basicShape::Cube
-    , public engine::actor::light::Point {
+    : public engine::graphic::actor::basicShape::Cube
+    , public engine::graphic::actor::light::Point {
 public:
-    // ---------------------------------------------------------------------------- *structors
-    explicit LightSourceCube(engine::Shader& shaderProgram, size_t numberOfPositions = 1);
+    // ---------------------------------- *structors
+    explicit LightSourceCube(::engine::graphic::opengl::Shader& shaderProgram, size_t numberOfPositions = 1);
     ~LightSourceCube() = default;
 
 
-    // ---------------------------------------------------------------------------- override
-    void configureShader(const engine::Camera& camera) const override;
+    // ---------------------------------- override
+    void configureShader(const engine::graphic::Camera& camera) const override;
     void update(float deltaTime) override;
 };
 

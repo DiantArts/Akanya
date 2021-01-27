@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** File
-** File description:
 ** file tools to help easier code
 */
 

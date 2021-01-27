@@ -1,15 +1,14 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Game/Scenes/Example
-** File description:
 ** Simple example of a scene to test things
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_GAME_SCENES_EXAMPLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_GAME_SCENES_EXAMPLE_HPP___
 
-#include "Engine/AScene.hpp"
-#include "Engine/Actors/Model.hpp"
+#include "Engine/Graphic/AScene.hpp"
+#include "Engine/Graphic/Actors/Model.hpp"
 
 
 
@@ -18,9 +17,9 @@ namespace game::scene {
 
 
 
-class Example : public engine::AScene {
+class Example : public engine::graphic::AScene {
 public:
-    // ---------------------------------------------------------------------------- *structors
+    // ---------------------------------- *structors
     Example();
     ~Example();
 

@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/LightSourceCube
-** File description:
 ** A lamp ?
 */
 
@@ -14,23 +13,23 @@ namespace game::object {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
-LightSourceCube::LightSourceCube(engine::Shader& shader, const size_t numberOfPositions /* = 1 */)
-    : engine::actor::basicShape::Cube(shader, numberOfPositions)
-    , engine::actor::light::Point("pointLights", this->instances)
+LightSourceCube::LightSourceCube(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions /* = 1 */)
+    : engine::graphic::actor::basicShape::Cube(shader, numberOfPositions)
+    , engine::graphic::actor::light::Point("pointLights", this->instances)
 {
     this->setScale(0.1F);
 }
 
 
 
-// ---------------------------------------------------------------------------- override
+// ---------------------------------- override
 
-void LightSourceCube::configureShader(const engine::Camera& camera) const
+void LightSourceCube::configureShader(const engine::graphic::Camera& camera) const
 {
-    engine::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("lightColor", m_Parameters.color);
+    engine::graphic::actor::ABasicShape::configureShader(camera);
+    this->setIntoShader("lightColor", m_parameters.color);
 }
 
 void LightSourceCube::update(float)

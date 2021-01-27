@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** optimizationBuiltins
-** File description:
 ** builtins
 */
 

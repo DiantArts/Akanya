@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** libraries/Tools/FuncAlias
-** File description:
 ** Just a define
 */
 

@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** sources/Objects/Backpack
-** File description:
 ** basic model backpack
 */
 
@@ -9,7 +8,7 @@
 
 #include "Backpack.hpp"
 
-#include "Engine/Actors/Lights/ALight.hpp"
+#include "Engine/Graphic/Actors/Lights/ALight.hpp"
 
 
 
@@ -17,10 +16,10 @@ namespace game::object {
 
 
 
-// ---------------------------------------------------------------------------- *structors
+// ---------------------------------- *structors
 
-Backpack::Backpack(engine::Shader& shader, const size_t numberOfPositions)
-    : engine::actor::Model(shader, "backpack/backpack.obj", numberOfPositions)
+Backpack::Backpack(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
+    : engine::graphic::actor::Model(shader, "backpack/backpack.obj", numberOfPositions)
 {}
 
 Backpack::~Backpack()
@@ -28,12 +27,12 @@ Backpack::~Backpack()
 
 
 
-// ---------------------------------------------------------------------------- override
-void Backpack::configureShader(const engine::Camera& camera) const
+// ---------------------------------- override
+void Backpack::configureShader(const engine::graphic::Camera& camera) const
 {
-    engine::actor::ADrawable::configureShader(camera);
+    engine::graphic::actor::ADrawable::configureShader(camera);
 
-    for (const auto& light : engine::actor::ALight::getAll()) {
+    for (const auto& light : engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);
     }
 

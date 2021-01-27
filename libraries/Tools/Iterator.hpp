@@ -1,7 +1,6 @@
 /*
-** EPITECH PROJECT, 2020
+** Akanya, Engine
 ** libraries/Tools/Iterator
-** File description:
 ** help to create Iterators
 */
 
@@ -27,22 +26,22 @@ public:
         using pointer           = value_type*;
         using reference         = value_type&;
 
-        explicit iterator(const pointer ptr) : m_Ptr(std::move(ptr))
+        explicit iterator(const pointer ptr) : m_ptr(std::move(ptr))
         {}
 
         reference operator*()
         {
-            return *m_Ptr;
+            return *m_ptr;
         }
 
         pointer operator->()
         {
-            return m_Ptr;
+            return m_ptr;
         }
 
         iterator& operator++()
         {
-            m_Ptr++;
+            m_ptr++;
             return *this;
         }
 
@@ -55,16 +54,16 @@ public:
 
         bool operator==(const Iterator::iterator& that)
         {
-            return m_Ptr == that.m_Ptr;
+            return m_ptr == that.m_ptr;
         }
 
         bool operator!=(const Iterator::iterator& that)
         {
-            return m_Ptr != that.m_Ptr;
+            return m_ptr != that.m_ptr;
         }
 
     private:
-        pointer m_Ptr;
+        pointer m_ptr;
     };
 
     class const_iterator {
@@ -75,22 +74,22 @@ public:
         using pointer           = const value_type*;
         using reference         = const value_type&;
 
-        const_iterator(pointer ptr) : m_Ptr(std::move(ptr))
+        const_iterator(pointer ptr) : m_ptr(std::move(ptr))
         {}
 
         reference operator*()
         {
-            return *m_Ptr;
+            return *m_ptr;
         }
 
         pointer operator->()
         {
-            return m_Ptr;
+            return m_ptr;
         }
 
         const const_iterator& operator++()
         {
-            m_Ptr++;
+            m_ptr++;
             return *this;
         }
 
@@ -103,16 +102,16 @@ public:
 
         bool operator==(const Iterator::const_iterator& that)
         {
-            return m_Ptr == that.m_Ptr;
+            return m_ptr == that.m_ptr;
         }
 
         bool operator!=(const Iterator::const_iterator& that)
         {
-            return m_Ptr != that.m_Ptr;
+            return m_ptr != that.m_ptr;
         }
 
     private:
-        pointer m_Ptr;
+        pointer m_ptr;
     };
 
     virtual Iterator::iterator       begin()        = 0;
