@@ -5,6 +5,8 @@
 ** Trying to implement shadows, just a trial
 */
 
+#include "pch.hpp"
+
 #include "ShadowCube.hpp"
 
 extern const glm::mat4* shadowsSpaceMatrix;

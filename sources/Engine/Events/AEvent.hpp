@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
 
-#include "pch.hpp"
-
 #include "../Events/Category.hpp"
 #include "../Events/DefinitionMacros.hpp"
 #include "../Events/Type.hpp"

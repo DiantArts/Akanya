@@ -39,7 +39,7 @@ PCHEXT			:=	.gch
 ## wflags
 COMMON_WFLAGS	:=	pedantic all extra
 C_WFLAGS		:=	
-CPP_WFLAGS		:=	no-volatile no-address no-nonnull-compare
+CPP_WFLAGS		:=	no-volatile no-address no-nonnull-compare invalid-pch
 CPPM_WFLAGS		:=
 
 ## flags

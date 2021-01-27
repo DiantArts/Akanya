@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CUBEMAP_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CUBEMAP_HPP___
 
-#include "pch.hpp"
-
 #include "AActor.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"

@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VAO_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VAO_HPP___
 
-#include "pch.hpp"
-
 #include "../../NonCopyable.hpp"
 
 

@@ -5,6 +5,8 @@
 ** Vertex Buffer Object: stores a large number of vertices
 */
 
+#include "pch.hpp"
+
 #include "Vbo.hpp"
 
 

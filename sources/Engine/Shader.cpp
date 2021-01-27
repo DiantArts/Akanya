@@ -5,6 +5,8 @@
 ** Controls graphic pipeline
 */
 
+#include "pch.hpp"
+
 #include "Shader.hpp"
 
 #include "Actors/Lights/ALight.hpp"

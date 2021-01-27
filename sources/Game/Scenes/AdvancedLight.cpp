@@ -5,6 +5,8 @@
 ** Scene to test lightnings
 */
 
+#include "pch.hpp"
+
 #include "AdvancedLight.hpp"
 
 #include "../Objects/Floor.hpp"

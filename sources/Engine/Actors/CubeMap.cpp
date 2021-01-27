@@ -5,6 +5,8 @@
 ** allow sky or things like that
 */
 
+#include "pch.hpp"
+
 #include "CubeMap.hpp"
 
 #include "Vertexes/Vertices.hpp"

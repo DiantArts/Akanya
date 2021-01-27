@@ -5,6 +5,8 @@
 ** frst try of shadows
 */
 
+#include "pch.hpp"
+
 #include "Shadows.hpp"
 
 const glm::mat4* shadowsSpaceMatrix;

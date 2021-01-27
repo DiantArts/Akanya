@@ -5,6 +5,8 @@
 ** Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
 */
 
+#include "pch.hpp"
+
 #include "Vao.hpp"
 
 

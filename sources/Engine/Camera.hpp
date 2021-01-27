@@ -8,12 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
 
-#include <glm/mat4x4.hpp>
-
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
-
 
 namespace engine {
 

@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 
-#include "pch.hpp"
-
 #include "NonCopyable.hpp"
 
 

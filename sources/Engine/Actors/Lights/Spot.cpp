@@ -5,6 +5,8 @@
 ** Light source shooting in a specifique direction
 */
 
+#include "pch.hpp"
+
 #include "Spot.hpp"
 
 

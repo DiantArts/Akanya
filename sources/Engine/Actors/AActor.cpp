@@ -5,6 +5,8 @@
 ** An actor is a drawable and a transformable
 */
 
+#include "pch.hpp"
+
 #include "AActor.hpp"
 
 

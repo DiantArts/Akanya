@@ -5,12 +5,11 @@
 ** Describes how the world is composed and how it interact with players
 */
 
+#include "pch.hpp"
+
 #include "AScene.hpp"
 
-#include <iostream>
-
 #include "Actors/Lights/ALight.hpp"
-#include "Tools/File.hpp"
 #include "debugMacros.hpp"
 
 

@@ -5,6 +5,8 @@
 ** Light base class
 */
 
+#include "pch.hpp"
+
 #include "ALight.hpp"
 
 

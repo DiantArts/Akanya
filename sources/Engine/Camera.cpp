@@ -5,13 +5,9 @@
 ** Allow user to visualise the world through a point of view
 */
 
+#include "pch.hpp"
+
 #include "Camera.hpp"
-
-#include <stdexcept>
-
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "optimizationBuiltins.hpp"
 
 
 

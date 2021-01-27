@@ -5,6 +5,8 @@
 ** Element Buffer Object: help to determine which vertex to draw
 */
 
+#include "pch.hpp"
+
 #include "Ebo.hpp"
 
 

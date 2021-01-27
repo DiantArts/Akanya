@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** includes/pch
 ** File description:
-** g++ -x c++-header pch.hpp -I../externs/
+** g++ -x c++-header -Wpedantic -Wall -Wextra -Wno-volatile -Wno-address -Wno-nonnull-compare -std=c++20 -Ofast -pipe -o includes/pch.hpp.gch -Iincludes -Isources -Ilibraries -Iexterns includes/pch.hpp
 */
 
 #ifndef ___INCLUDE_GUARD_INCLUDES_PCH_HPP___
@@ -23,9 +23,20 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
-#include <unordered_map>
 #include <variant>
 #include <vector>
+#include <thread>
+#include <utility>
+#include <stack>
+
+#include <deque>
+#include <array>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+
+#include "optimizationBuiltins.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -43,9 +54,6 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-#include "debugMacros.hpp"
-#include "optimizationBuiltins.hpp"
-
 #include "Tools/File.hpp"
 #include "Tools/FuncAlias.hpp"
 #include "Tools/Iterator.hpp"
@@ -53,12 +61,6 @@
 
 #include "Engine/Filepaths.hpp"
 #include "Engine/Window.hpp"
-#include "Engine/Actors/Vertexes/Vao.hpp"
-#include "Engine/Actors/Vertexes/Vbo.hpp"
-#include "Engine/Actors/Vertexes/Ebo.hpp"
-#include "Engine/Actors/Vertexes/Fbo.hpp"
-#include "Engine/Clock.hpp"
-#include "Engine/Shader.hpp"
 
 
 

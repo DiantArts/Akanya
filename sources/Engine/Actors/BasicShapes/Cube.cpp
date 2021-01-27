@@ -5,6 +5,8 @@
 ** this is a default built-in cube
 */
 
+#include "pch.hpp"
+
 #include "Cube.hpp"
 
 namespace engine::actor::basicShape {

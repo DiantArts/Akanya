@@ -5,6 +5,8 @@
 ** Simple OpenGL abstractiong of the time
 */
 
+#include "pch.hpp"
+
 #include "Clock.hpp"
 
 

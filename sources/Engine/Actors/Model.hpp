@@ -17,7 +17,6 @@
 #include "Vertexes/Ebo.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
-#include "pch.hpp"
 
 
 

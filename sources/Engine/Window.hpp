@@ -11,8 +11,6 @@
 #include "Engine/Camera.hpp"
 #include "Engine/NonCopyable.hpp"
 
-#include <memory>
-
 
 struct GLFWwindow;
 

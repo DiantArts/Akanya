@@ -5,6 +5,8 @@
 ** Light source comming from infinitly far away
 */
 
+#include "pch.hpp"
+
 #include "Directional.hpp"
 
 

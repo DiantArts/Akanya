@@ -5,6 +5,8 @@
 ** Every class inheriting from this one should be able to be drawn. Must be inheriting with ATransformable
 */
 
+#include "pch.hpp"
+
 #include "ADrawable.hpp"
 
 #include "Lights/ALight.hpp"
@@ -20,9 +22,7 @@ namespace engine::actor {
 // ---------------------------------------------------------------------------- *structors
 
 ADrawable::ADrawable(engine::Shader& shader) : m_Shader(shader)
-{
-    DEBUG_MSG("(" << m_Id << "): created");
-}
+{}
 
 ADrawable::~ADrawable()
 {}

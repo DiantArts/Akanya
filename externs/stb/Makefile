@@ -69,21 +69,21 @@ all : $(BINNAME)
 
 $(BINNAME): $(C_OBJ) $(CPP_OBJ) | $(BINDIR)
 	ar -rc $@ $^
-	$(PRINTF) "$(LCYAN)[Library:$(NAME)][Linkage]$(NORMAL) lib$(NAME).a\n"
+	$(PRINTF) "$(LCYAN)[Extern:$(NAME)][Linkage]$(NORMAL) lib$(NAME).a\n"
 
 # .c
 $(OBJDIR)/%$(OBJEXT): %$(C_SRCEXT)
 	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
 	$(CC) -c $(OUTPUT_OPTION) -c $(CPPFLAGS) $(CFLAGS) $< \
 		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
-	$(PRINTF) "$(LCYAN)[Library:$(NAME)][Compilation]$(NORMAL) $<\n"
+	$(PRINTF) "$(LCYAN)[Extern:$(NAME)][Compilation]$(NORMAL) $<\n"
 
 # .cpp
 $(OBJDIR)/%$(OBJEXT): %$(CPP_SRCEXT) | $(CPPM_OBJ)
 	mkdir -p $(@D) $(patsubst $(OBJDIR)%,$(DEPDIR)%,$(@D))
 	$(CXX) -c $(OUTPUT_OPTION) $(CPPFLAGS) $(CXXFLAGS) $< \
 		-MT $@ -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),./$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
-	$(PRINTF) "$(LCYAN)[Library:$(NAME)][Compilation]$(NORMAL) $<\n"
+	$(PRINTF) "$(LCYAN)[Extern:$(NAME)][Compilation]$(NORMAL) $<\n"
 
 # .cppm
 $(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT)
@@ -91,7 +91,7 @@ $(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT)
 	$(CXX) -o $(patsubst %$(OBJEXT),%$(PCMEXT),$(patsubst ./%,%,$@)) $(CXXMFLAGS) $< \
 		-MT $(patsubst %$(OBJEXT),%$(PCMEXT),$(patsubst ./%,%,$@)) -MMD -MP -MF $(patsubst $(OBJDIR)%$(OBJEXT),$(DEPDIR)/%$(DEPEXT),$(patsubst ./%,%,$@))
 	$(CXX) $(OUTPUT_OPTION) -c $(CXXFLAGS) $(patsubst %$(OBJEXT),%$(PCMEXT),$(patsubst ./%,%,$@))
-	$(PRINTF) "$(LCYAN)[Library:$(NAME)][Compilation][Module]$(NORMAL) $<\n"
+	$(PRINTF) "$(LCYAN)[Extern:$(NAME)][Compilation][Module]$(NORMAL) $<\n"
 
 $(BINDIR) :; mkdir -p $(BINDIR)
 

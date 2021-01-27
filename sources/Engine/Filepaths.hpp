@@ -8,8 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_FILEPATHS_HPP___
 
-#include "pch.hpp"
-
+#include <string>
 
 
 namespace engine::filepath {

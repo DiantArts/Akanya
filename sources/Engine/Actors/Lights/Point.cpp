@@ -5,6 +5,8 @@
 ** Light source illuminating in all direction from a point
 */
 
+#include "pch.hpp"
+
 #include "Point.hpp"
 
 

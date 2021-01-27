@@ -5,6 +5,8 @@
 ** Event main class that defines what an event is and that should be inherient from every events
 */
 
+#include "pch.hpp"
+
 #include "AEvent.hpp"
 
 

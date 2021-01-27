@@ -5,6 +5,8 @@
 ** Regroup every built-in shapes like Cube and Sphere
 */
 
+#include "pch.hpp"
+
 #include "ABasicShape.hpp"
 
 #include "Vertexes/Vertices.hpp"
@@ -31,8 +33,6 @@ ABasicShape::ABasicShape(engine::Shader&              shader,
     m_Vao.bind();
     setAttributesFunc();
     engine::Vertices(verticesFilename, m_NumberOfArrayToDraw).createBuffer();
-
-    DEBUG_MSG("basic shape created");
 }
 
 ABasicShape::~ABasicShape()

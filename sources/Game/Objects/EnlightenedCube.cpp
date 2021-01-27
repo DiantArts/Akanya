@@ -5,9 +5,9 @@
 ** An enlightened cube lol
 */
 
-#include "EnlightenedCube.hpp"
-
 #include "pch.hpp"
+
+#include "EnlightenedCube.hpp"
 
 #include "Engine/Actors/Lights/ALight.hpp"
 #include "Engine/Actors/Lights/Directional.hpp"

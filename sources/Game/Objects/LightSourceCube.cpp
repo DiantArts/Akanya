@@ -5,6 +5,8 @@
 ** A lamp ?
 */
 
+#include "pch.hpp"
+
 #include "LightSourceCube.hpp"
 
 

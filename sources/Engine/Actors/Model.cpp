@@ -5,6 +5,8 @@
 ** This class loads models from .objs (at least and for the moment)
 */
 
+#include "pch.hpp"
+
 #include "Model.hpp"
 
 
@@ -21,7 +23,6 @@ Model::Model(engine::Shader&    shader,
     : engine::AActor(shader, numberOfPositions), m_GammaCorrection(gamma)
 {
     this->loadModel(filename);
-    DEBUG_MSG("model created");
 }
 
 Model::~Model()

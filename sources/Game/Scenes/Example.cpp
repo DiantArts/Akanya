@@ -5,6 +5,8 @@
 ** Simple example of a scene to test things
 */
 
+#include "pch.hpp"
+
 #include "Example.hpp"
 
 #include "Game/Objects/Backpack.hpp"

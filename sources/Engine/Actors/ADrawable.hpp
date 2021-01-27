@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ADRAWABLE_HPP___
 
-#include "pch.hpp"
-
 #include "../Camera.hpp"
 #include "../Shader.hpp"
 

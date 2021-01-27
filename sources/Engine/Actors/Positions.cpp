@@ -5,9 +5,9 @@
 ** A vector of position that allow multiple draw from the same object
 */
 
-#include "Positions.hpp"
-
 #include "pch.hpp"
+
+#include "Positions.hpp"
 
 
 namespace engine::actor {
