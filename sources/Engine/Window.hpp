@@ -8,11 +8,10 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_WINDOW_HPP___
 
-#include <memory>
-
 #include "Engine/Camera.hpp"
 #include "Engine/NonCopyable.hpp"
 
+#include <memory>
 
 
 struct GLFWwindow;
@@ -56,8 +55,8 @@ public:
 
 private:
     std::unique_ptr<GLFWwindow, WindowDeleter> m_Window;
-    bool gammaKeyPressed { false };
-    bool blinnKeyPressed { false };
+    bool                                       gammaKeyPressed { false };
+    bool                                       blinnKeyPressed { false };
 
 
     // ---------------------------------------------------------------------------- singleton
@@ -67,7 +66,6 @@ public:
 private:
     Window();
     static Window m_SingleInstance;
-
 };
 
 

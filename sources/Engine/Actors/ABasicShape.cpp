@@ -6,13 +6,8 @@
 */
 
 #include "ABasicShape.hpp"
-#include "debugMacros.hpp"
-
-#include <stb/stb_image.h>
 
 #include "Vertexes/Vertices.hpp"
-
-#include "../Filepaths.hpp"
 
 extern bool gammaEnabled;
 
@@ -65,7 +60,7 @@ ABasicShape::Texture::Texture(const std::string& filename, bool gammaCorrection)
     : engine::actor::Texture(filename)
 {
     if (m_Id.use_count() == 1) { // if need initialisation
-        int        width, height, nrComponents;
+        int width, height, nrComponents;
 
         std::string filepath;
         filepath.reserve(filename.size() + engine::filepath::textures.size());
@@ -81,8 +76,14 @@ ABasicShape::Texture::Texture(const std::string& filename, bool gammaCorrection)
         GLenum internalFormat;
         switch (nrComponents) {
         case 1: internalFormat = dataFormat = GL_RED; break;
-        case 3: internalFormat = gammaCorrection ? GL_SRGB : GL_RGB; dataFormat = GL_RGB; break;
-        case 4: internalFormat = gammaCorrection ? GL_SRGB_ALPHA : GL_RGBA; dataFormat = GL_RGBA;  break;
+        case 3:
+            internalFormat = gammaCorrection ? GL_SRGB : GL_RGB;
+            dataFormat     = GL_RGB;
+            break;
+        case 4:
+            internalFormat = gammaCorrection ? GL_SRGB_ALPHA : GL_RGBA;
+            dataFormat     = GL_RGBA;
+            break;
         default:
             stbi_image_free(const_cast<unsigned char*>(data));
             throw std::runtime_error("unsupported texture format found");

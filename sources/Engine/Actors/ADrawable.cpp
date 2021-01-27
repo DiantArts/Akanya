@@ -7,12 +7,9 @@
 
 #include "ADrawable.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Lights/ALight.hpp"
 #include "debugMacros.hpp"
-
-#include "../Window.hpp"
+#include "pch.hpp"
 
 
 

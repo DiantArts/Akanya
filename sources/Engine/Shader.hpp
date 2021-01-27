@@ -8,19 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
 
-#include <span>
-#include <string>
-#include <string_view>
-#include <unordered_map>
-
-#include <glm/mat2x2.hpp>
-#include <glm/mat3x3.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-
-#include <glad/glad.h>
+#include "pch.hpp"
 
 #include "NonCopyable.hpp"
 

@@ -6,10 +6,6 @@
 */
 
 #include "ALight.hpp"
-#include <iostream>
-
-#include <functional>
-#include <algorithm>
 
 
 

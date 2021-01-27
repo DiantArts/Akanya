@@ -8,7 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADOWS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADOWS_HPP___
 
-#include <cstddef>
+#include "pch.hpp"
 
 #include "Actors/Vertexes/Fbo.hpp"
 #include "Shader.hpp"

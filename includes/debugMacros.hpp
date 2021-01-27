@@ -8,15 +8,9 @@
 #ifndef ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___
 #define ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___
 
-#include <chrono>
-#include <iostream>
-#include <mutex>
+#include "pch.hpp"
 
 #if DEBUG > 0
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 inline std::ostream& operator<<(std::ostream& os, const glm::vec2& vec)
 {

@@ -8,10 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
 
-#include <variant>
-#include <vector>
-
-#include <glm/vec3.hpp>
+#include "pch.hpp"
 
 #include "Tools/FuncAlias.hpp"
 #include "Tools/Iterator.hpp"

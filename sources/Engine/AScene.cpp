@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+#include "Actors/Lights/ALight.hpp"
 #include "Tools/File.hpp"
 #include "debugMacros.hpp"
 
@@ -56,16 +57,17 @@ void AScene::draw() const
 {
     m_Window.clear();
 
-    // auto light { *engine::actor::ALight::getAll().begin() };
-    // m_Shadows.generateSpaceMatrix(light.position);
-    // m_Shadows.bindSpaceMatrix();
-    // m_Shadows.bind();
+    // for (auto& light : engine::actor::ALight::getAll()) {
+        // m_Shadows.generateSpaceMatrix(light.get().positions);
+        // m_Shadows.bindSpaceMatrix();
+        // m_Shadows.bind();
 
-    // for (auto& actor : m_VectorActors) {
-        // actor->draw(m_Window.camera);
+        // for (auto& actor : m_VectorActors) {
+            // actor->draw(m_Window.camera);
+        // }
+
+        // m_Shadows.unbind();
     // }
-
-    // m_Shadows.unbind();
 
     for (auto& actor : m_VectorActors) {
         actor->draw(m_Window.camera);

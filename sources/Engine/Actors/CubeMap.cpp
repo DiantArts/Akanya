@@ -7,19 +7,7 @@
 
 #include "CubeMap.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <stdexcept>
-#include <unordered_map>
-
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <stb/stb_image.h>
-
 #include "Vertexes/Vertices.hpp"
-
-#include "../Filepaths.hpp"
-#include "../Window.hpp"
 
 
 

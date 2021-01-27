@@ -6,7 +6,6 @@
 */
 
 #include "Spot.hpp"
-#include <iostream>
 
 
 

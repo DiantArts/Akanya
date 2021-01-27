@@ -8,8 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
 
-#include <list>
-#include <string>
+#include "pch.hpp"
 
 #include "../../Shadows.hpp"
 #include "../Positions.hpp"

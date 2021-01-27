@@ -119,7 +119,8 @@ NO_PCH_SRC		:=	$(foreach directory,$(NO_PCH_SRC),! -path ./$(SRCDIR)/$(directory
 NO_PCH_LIB		:=	$(foreach directory,$(NO_PCH_LIB),! -path ./$(LIBDIR)/$(directory)/\*)
 NO_PCH_EXTERN	:=	$(foreach directory,$(NO_PCH_EXTERN),! -path ./$(EXTERNDIR)/$(directory)/\*)
 # C_HDR			!=	find . -type f -name \*$(C_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB) $(NO_PCH_SRC)
-# CPP_HDR			!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)  $(NO_PCH_SRC)
+# CPP_HDR		!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)  $(NO_PCH_SRC)
+CPP_HDR			:=	$(INCDIR)/pch.hpp
 
 # .x=.o
 C_OBJ			:=	$(patsubst %$(C_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(C_SRC))

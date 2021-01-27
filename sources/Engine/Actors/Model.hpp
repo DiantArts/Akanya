@@ -8,11 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
 
-#include <string_view>
-
 #include <assimp/Importer.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
@@ -21,6 +17,7 @@
 #include "Vertexes/Ebo.hpp"
 #include "Vertexes/Vao.hpp"
 #include "Vertexes/Vbo.hpp"
+#include "pch.hpp"
 
 
 

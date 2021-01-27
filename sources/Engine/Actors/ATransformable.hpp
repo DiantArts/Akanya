@@ -8,10 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
 
-#include <functional>
-#include <memory>
-
-#include <glm/vec3.hpp>
+#include "pch.hpp"
 
 #include "Positions.hpp"
 

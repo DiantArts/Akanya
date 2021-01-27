@@ -7,12 +7,6 @@
 
 #include "Vertices.hpp"
 
-#include <iostream>
-#include <sstream>
-
-#include <glad/glad.h>
-
-#include "Engine/Filepaths.hpp"
 #include "Tools/File.hpp"
 
 

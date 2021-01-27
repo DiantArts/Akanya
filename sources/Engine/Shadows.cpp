@@ -7,8 +7,6 @@
 
 #include "Shadows.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
-
 const glm::mat4* shadowsSpaceMatrix;
 
 

@@ -8,6 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CLOCK_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CLOCK_HPP___
 
+#include "pch.hpp"
 
 
 namespace engine {

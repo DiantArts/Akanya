@@ -8,9 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
 
-#include <string>
-#include <iostream>
-#include <functional>
+#include "pch.hpp"
 
 #include "../Events/Category.hpp"
 #include "../Events/DefinitionMacros.hpp"
@@ -34,8 +32,8 @@ public:
 
     // ---------------------------------------------------------------------------- Get
     virtual engine::event::Category getCategory() const = 0;
-    virtual engine::event::Type     getType()     const = 0;
-    virtual std::string             getName()     const = 0;
+    virtual engine::event::Type     getType() const     = 0;
+    virtual std::string             getName() const     = 0;
 
 
     // ---------------------------------------------------------------------------- Dispatcher
@@ -60,7 +58,9 @@ public:
 
 } // namespace engine::event
 
-namespace engine { using AEvent = engine::event::AEvent; }
+namespace engine {
+using AEvent = engine::event::AEvent;
+}
 
 
 

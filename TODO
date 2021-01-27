@@ -3,6 +3,7 @@ Trying to draw things with only 1 light
 
 TODO:
 finish event system + adding key system (isPressed / released)
+emplaceActor ::std::initializer_list
 
 TODO Later:
 PBR

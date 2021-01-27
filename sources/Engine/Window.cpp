@@ -8,8 +8,8 @@
 #include "Window.hpp"
 
 #include <iostream>
-
 #include <glad/glad.h>
+
 #include <stb/stb_image.h>
 
 

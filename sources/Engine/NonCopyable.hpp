@@ -24,6 +24,4 @@ public:
 
 } // namespace engine
 
-
-
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_NONCOPYABLE_HPP___

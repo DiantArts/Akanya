@@ -8,8 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
 
-#include <string_view>
-#include <vector>
+#include "pch.hpp"
 
 
 

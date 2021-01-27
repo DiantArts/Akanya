@@ -8,8 +8,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_POINT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_POINT_HPP___
 
-#include <glm/vec3.hpp>
-
 #include "ALight.hpp"
 
 

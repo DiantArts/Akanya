@@ -6,14 +6,10 @@
 */
 
 #include "Camera.hpp"
-#include "Camera.hpp"
 
 #include <stdexcept>
 
 #include <glm/gtc/matrix_transform.hpp>
-
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 #include "optimizationBuiltins.hpp"
 
@@ -24,6 +20,7 @@ namespace engine {
 
 
 // ---------------------------------------------------------------------------- *structors
+
 Camera::Camera()
 {}
 
@@ -186,17 +183,17 @@ void Camera::setOrientation(const glm::vec2& offset)
 
 void Camera::adjustOrientation()
 {
-    m_ReversedDirection.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-    m_ReversedDirection.y = sin(glm::radians(m_Pitch));
-    m_ReversedDirection.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-    m_Front               = glm::normalize(m_ReversedDirection);
+    m_Orientation.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+    m_Orientation.y = sin(glm::radians(m_Pitch));
+    m_Orientation.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+    m_Front         = glm::normalize(m_Orientation);
 }
 
 
 
 const glm::vec3& Camera::getOrientation() const
 {
-    return m_ReversedDirection;
+    return m_Orientation;
 }
 
 const glm::vec3& Camera::getFront() const
@@ -207,6 +204,7 @@ const glm::vec3& Camera::getFront() const
 
 
 // ---------------------------------------------------------------------------- Zoom
+
 void Camera::zoom(const float value)
 {
     m_Zoom -= value;
@@ -236,7 +234,7 @@ float Camera::getZoom() const
 
 glm::mat4 Camera::getView() const
 {
-    return std::move(glm::lookAt(m_Position, m_Position + m_Front, m_Up));
+    return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 }
 
 } // namespace engine

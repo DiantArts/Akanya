@@ -7,12 +7,6 @@
 
 #include "Model.hpp"
 
-#include <stb/stb_image.h>
-
-#include "debugMacros.hpp"
-
-#include "../Filepaths.hpp"
-
 
 namespace engine::actor {
 

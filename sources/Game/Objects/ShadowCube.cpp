@@ -7,8 +7,6 @@
 
 #include "ShadowCube.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
-
 extern const glm::mat4* shadowsSpaceMatrix;
 
 

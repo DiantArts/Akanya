@@ -5,12 +5,11 @@
 ** Main of the program, must be simple
 */
 
-#include <iostream>
+#include "pch.hpp"
 
 #include "Game/Scenes/Example.hpp"
 #include "Game/Scenes/AdvancedLight.hpp"
 
-#include "Engine/Events/Window.hpp"
 #include "Engine/Events/Keyboard.hpp"
 
 void keyPressedHandler(engine::event::KeyPressed& event)

@@ -8,18 +8,13 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ASCENE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_ASCENE_HPP___
 
-#include <string>
-#include <unordered_map>
-#include <vector>
-
-#include <glad/glad.h>
+#include "pch.hpp"
 
 #include "Actors/ABasicShape.hpp"
 #include "Actors/CubeMap.hpp"
 #include "Camera.hpp"
 #include "Clock.hpp"
 #include "Shader.hpp"
-#include "Window.hpp"
 #include "Shadows.hpp"
 
 

@@ -8,10 +8,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_TEXTURE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_TEXTURE_HPP___
 
-#include <string>
-#include <memory>
-
-#include <glad/glad.h>
+#include "pch.hpp"
 
 
 namespace engine::actor {
