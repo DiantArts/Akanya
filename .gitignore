@@ -10,3 +10,4 @@
 *.gch
 binaries/*
 *vgcore.*
+*a.out

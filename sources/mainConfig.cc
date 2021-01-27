@@ -23,7 +23,10 @@ int main()
         //    for (const auto& elem : elems)
         //        std::cout << elem <<std::endl;
         double m = 320.51;
-        config.add("height", m);
+        auto res = config.getFilepaths();
+        for (auto &cell : res) {
+            std::cout << cell.first << " " << cell.second << std::endl;
+        }
         /*
         config.readValue("some.complex.path", b);
         b += " guys";

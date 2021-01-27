@@ -32,6 +32,14 @@
             "9"
         ]
     ],
+    "filepaths": {
+        "textures": ".\/data\/textures\/",
+        "vertices": ".\/data\/vertices\/",
+        "model": ".\/data\/3dModels\/",
+        "fragments": ".\/data\/shaders\/fragments\/",
+        "vertexes": ".\/data\/shaders\/vertexes\/",
+        "geometries": ".\/data\/shaders\/geometries\/"
+    },
     "namedMatrix": {
         "cat": [
             "grey",

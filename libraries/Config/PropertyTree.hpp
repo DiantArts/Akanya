@@ -18,8 +18,10 @@
 // Short alias for this namespace
 namespace pt = boost::property_tree;
 
+namespace engine {
 
 
+} // namespace engine
 
 namespace config {
 
@@ -33,11 +35,11 @@ public:
     void saveFile();
     void saveFile(const std::string& filepath);
 
-
+    std::map<std::string, std::string> getFilepaths();
 //  PATTERN : varName;value1;value2
 public:
     template <typename T>
-    T& get(const std::string& path)
+    T get(const std::string& path)
     {
         try {
             T var;

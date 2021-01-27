@@ -37,6 +37,12 @@ void PropertyTree::saveFile(const std::string& filepath)
     pt::write_json(filepath, this->root);
 }
 
+std::map<std::string, std::string>
+    PropertyTree::getFilepaths()
+{
+    return this->get<std::map<std::string, std::string>>("filepaths");
+}
+
 std::vector<std::string>& 
     PropertyTree::readValue(const std::string& path, std::vector<std::string>& fruits)
 {
