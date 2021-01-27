@@ -39,10 +39,10 @@ public:
     template <typename T>
     T& get(const std::string& path)
     {
-        T var;
         try {
+            T var;
             return this->readValue(path, var);
-        } catch (const boost::wrapexcept<boost::property_tree::ptree_bad_path>& e) {
+        } catch (const std::exception& e) {
             throw std::runtime_error(std::string("While get node '") + path +
                                      std::string("' (") + e.what() + ')');
         }
@@ -56,7 +56,8 @@ private:
     template <typename T>
     T& readValue(const std::string& path, T& single)
     {
-        return this->root.get<T>(path);
+        single = this->root.get<T>(path);
+        return single;
     };
 
 public:
@@ -64,8 +65,7 @@ public:
     void add(const std::string& path, const T& value)
     {
         try {
-            this->addValue(path, value);
-            return;
+            return this->addValue(path, value);
         } catch (const boost::wrapexcept<boost::property_tree::ptree_bad_path>& e) {
             throw std::runtime_error(std::string("While add node '") + path +
                                      std::string("' (") + e.what() + ')');
@@ -77,7 +77,6 @@ private:
     void addValue(const std::string& path, const std::vector< std::vector<std::string> >& matrix);
     void addValue(const std::string& path, const std::map<std::string, std::string>& animals);
     void addValue(const std::string& path, const std::map<std::string, std::vector<std::string> >& namedMatrix);
-    
     template <typename T>
     void addValue(const std::string& path, const T& single)
     {
