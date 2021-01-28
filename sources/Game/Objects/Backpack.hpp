@@ -23,7 +23,7 @@ public:
 
 
     // ---------------------------------- override
-    void configureShader(const engine::graphic::Camera& camera) const final;
+    void configureShader(const ::engine::graphic::Window& window) const override final;
 
 
 private:

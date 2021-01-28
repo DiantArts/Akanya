@@ -32,22 +32,26 @@ Floor::Floor(::engine::graphic::opengl::Shader& shader, const size_t numberOfPos
     this->setIntoShader("material.shininess", 1000.0F);
 }
 
+Floor::~Floor() = default;
+
 
 
 // ---------------------------------- override
 
-void Floor::configureShader(const engine::graphic::Camera& camera) const
+void Floor::configureShader(
+    const engine::graphic::Window& window
+) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(camera);
-    this->setIntoShader("viewPos", camera.getPosition());
+    engine::graphic::actor::ABasicShape::configureShader(window);
+    this->setIntoShader("viewPos", window.getCamera().getPosition());
 
-    this->setIntoShader("gamma", gammaEnabled);
-    this->setIntoShader("blinn", blinnEnabled);
+    this->setIntoShader("gamma", window.getConfig().gamma);
+    this->setIntoShader("blinn", window.getConfig().blinn);
 
-    this->setIntoShader("nrDirLight", engine::graphic::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", engine::graphic::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", engine::graphic::actor::light::Spot::getNbLight());
-    for (auto light : engine::graphic::actor::light::ALight::getAll()) {
+    this->setIntoShader("nrDirLight", ::engine::graphic::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", ::engine::graphic::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", ::engine::graphic::actor::light::Spot::getNbLight());
+    for (auto light : ::engine::graphic::actor::light::ALight::getAll()) {
         this->setIntoShader(light);
     }
 }

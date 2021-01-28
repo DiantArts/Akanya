@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Positions
+** sources/Engine/Graphic/Actors/Positions
 ** A vector of position that allow multiple draw from the same object
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___
 
 #include "Tools/FuncAlias.hpp"
 #include "Tools/Iterator.hpp"
@@ -91,4 +91,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_POSITIONS_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___

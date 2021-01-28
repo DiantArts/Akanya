@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Vertices
+** sources/Engine/Graphic/OpenGL/Vertices
 ** Extract vertices from files and alloc buffers to binded ones
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VERTICES_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VERTICES_HPP___
 
 
 
@@ -34,4 +34,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VERTICES_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VERTICES_HPP___

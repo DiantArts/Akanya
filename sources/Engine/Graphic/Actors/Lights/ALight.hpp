@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/ALight
+** sources/Engine/Graphic/Actors/Lights/ALight
 ** Light base class
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___
 
 #include "../../Shadows.hpp"
 #include "../Positions.hpp"
@@ -58,4 +58,4 @@ namespace engine::graphic::actor { using ALight = engine::graphic::actor::light:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_ALIGHT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___

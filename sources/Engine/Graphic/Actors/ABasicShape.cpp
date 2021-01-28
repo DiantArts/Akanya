@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/ABasicShape
+** sources/Engine/Graphic/Actors/ABasicShape
 ** Regroup every built-in shapes like Cube and Sphere
 */
 
@@ -18,7 +18,7 @@ namespace engine::graphic::actor {
 
 // ---------------------------------- *structors
 
-ABasicShape::ABasicShape(::engine::graphic::opengl::Shader&              shader,
+ABasicShape::ABasicShape(::engine::graphic::opengl::Shader& shader,
                          const std::function<void()>& setAttributesFunc,
                          const std::string_view       verticesFilename,
                          const size_t                 numberOfPositions /* = 1 */,
@@ -33,8 +33,7 @@ ABasicShape::ABasicShape(::engine::graphic::opengl::Shader&              shader,
     engine::graphic::opengl::Vertices(verticesFilename, m_numberOfArrayToDraw).createBuffer();
 }
 
-ABasicShape::~ABasicShape()
-{}
+ABasicShape::~ABasicShape() = default;
 
 
 

@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/ABasicShape
+** sources/Engine/Graphic/Actors/ABasicShape
 ** Regroup every built-in shapes like Cube and Sphere
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___
 
 #include "AActor.hpp"
 #include "Texture.hpp"
@@ -21,11 +21,13 @@ namespace engine::graphic::actor {
 class ABasicShape : public engine::graphic::AActor {
 public:
     // ---------------------------------- *structors
-    ABasicShape(::engine::graphic::opengl::Shader&              shader,
-                const std::function<void()>& setAttributesFunc,
-                std::string_view             verticesFilename,
-                size_t                       numberOfPositions = 1,
-                size_t                       numberOfTextures  = 1);
+    ABasicShape(
+        ::engine::graphic::opengl::Shader& shader,
+        const std::function<void()>& setAttributesFunc,
+        std::string_view verticesFilename,
+        size_t numberOfPositions = 1,
+        size_t numberOfTextures  = 1
+    );
     virtual ~ABasicShape() = 0;
 
 
@@ -61,4 +63,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ABASICSHAPE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___

@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/CubeMap
+** sources/Engine/Graphic/Actor/CubeMap
 ** allow sky or things like that
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CUBEMAP_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_CUBEMAP_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTOR_CUBEMAP_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORèCUBEMAP_HPP___
 
 #include "AActor.hpp"
 #include "../OpenGL/Vao.hpp"
@@ -18,7 +18,9 @@ namespace engine::graphic::actor {
 
 
 
-class CubeMap : public engine::graphic::AActor {
+class CubeMap
+    : public engine::graphic::AActor
+{
 public:
     // ---------------------------------- *structors
     CubeMap(::engine::graphic::opengl::Shader&              shader,
@@ -29,36 +31,52 @@ public:
 
 
     // ---------------------------------- Drawable
-    void draw(const engine::graphic::Camera& camera) const override;
+    void draw(const engine::graphic::Window& window) const override;
     void drawModels(const engine::graphic::Camera& camera) const override;
-    void configureShader(const engine::graphic::Camera& camera) const override;
+
+
+
+    // ---------------------------------- Shader
+
+    void configureShader(const engine::graphic::Window& window) const override;
 
 
     // ---------------------------------- defaultAttributes
+
     static void setAttributes();
 
 
 public:
-    // ---------------------------------- Textures
+protected:
+protected:
+private:
+private:
+
     class Texture {
     public:
         // ------------------------------------------------ *structors
         Texture(const std::string& configFilepath);
         ~Texture();
 
+
         // ------------------------------------------------ bind
         void bind() const;
         GLuint get();
 
+
+    public:
+    protected:
+    protected:
+    private:
     private:
         std::shared_ptr<GLuint> m_id;
     };
-
-private:
     CubeMap::Texture m_texture;
-    size_t           m_numberOfArrayToDraw;
-    ::engine::graphic::opengl::Vao      m_vao;
-    ::engine::graphic::opengl::Vbo      m_vbo;
+
+    size_t m_numberOfArrayToDraw;
+    ::engine::graphic::opengl::Vao m_vao;
+    ::engine::graphic::opengl::Vbo m_vbo;
+
 };
 
 
@@ -67,4 +85,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CUBEMAP_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTOR_CUBEMAP_HPP___

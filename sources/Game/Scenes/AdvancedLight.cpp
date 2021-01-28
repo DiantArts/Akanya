@@ -11,7 +11,6 @@
 #include "../Objects/Floor.hpp"
 #include "../Objects/EnlightenedCube.hpp"
 #include "../Objects/LightSourceCube.hpp"
-#include "../Objects/ShadowCube.hpp"
 #include "debugMacros.hpp"
 
 

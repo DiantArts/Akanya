@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/BasicShapes/Cube
+** sources/Engine/Graphic/Actors/BasicShapes/Cube
 ** this is a default built-in cube
 */
 

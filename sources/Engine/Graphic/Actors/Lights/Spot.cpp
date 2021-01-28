@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Spot
+** sources/Engine/Graphic/Actors/Lights/Spot
 ** Light source shooting in a specifique direction
 */
 

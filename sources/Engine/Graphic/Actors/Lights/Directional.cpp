@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Directional
+** sources/Engine/Graphic/Actors/Lights/Directional
 ** Light source comming from infinitly far away
 */
 

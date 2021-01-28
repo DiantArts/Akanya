@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Positions
+** sources/Engine/Graphic/Actors/Positions
 ** A vector of position that allow multiple draw from the same object
 */
 

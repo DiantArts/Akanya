@@ -5,131 +5,68 @@
 */
 
 #include "pch.hpp"
-
 #include "Window.hpp"
 
 
-static void initGLWF();
-static void initGLAD();
+namespace {
 
-static void            mouseDirectionCallback(GLFWwindow* window, double xPos, double yPos);
-static void            mouseScrollcallback(GLFWwindow* window, double xPos, double yPos);
-static void            framebufferSizeCallback(GLFWwindow* window, int width, int height);
-static void GLAPIENTRY messageCallback(GLenum        source,
-                                       GLenum        type,
-                                       GLuint        id,
-                                       GLenum        severity,
-                                       GLsizei       length,
-                                       const GLchar* message,
-                                       const void*   userParam);
 
-bool gammaEnabled { false };
-bool blinnEnabled { true };
+
+void mouseDirectionCallback(
+    GLFWwindow*,
+    double xPos,
+    double yPos
+);
+
+void mouseScrollcallback(
+    GLFWwindow*,
+    double,
+    double yOffset
+);
+
+void framebufferSizeCallback(
+    GLFWwindow*,
+    int width,
+    int height
+);
+
+void GLAPIENTRY messageCallback(
+    GLenum source,
+    GLenum type,
+    GLuint,
+    GLenum severity,
+    GLsizei,
+    const GLchar* message,
+    const void*
+);
+
+
+
+} // namespace
 
 
 
 namespace engine::graphic {
 
 
-// ---------------------------------- OpenGL stuff
 
-auto Window::shouldClose() const
-    -> bool
-{
-    return glfwWindowShouldClose(m_window.get());
-}
+// ---------------------------------- *structors
 
-void Window::clear() const
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-}
-
-void Window::swapBuffers()
-{
-    glfwSwapBuffers(m_window.get());
-}
-
-void Window::pollEvents()
-{
-    glfwPollEvents();
-}
-
-
-
-void Window::setClearColor(const float rgb, const float alpha /* = 1.0F */)
-{
-    glClearColor(rgb, rgb, rgb, alpha);
-}
-
-void Window::setClearColor(const float red,
-                           const float green,
-                           const float blue,
-                           const float alpha /* = 1.0F */)
-{
-    glClearColor(red, green, blue, alpha);
-}
-
-
-
-// ---------------------------------- input
-
-void Window::processInput(const float deltaTime)
-{
-    this->pollEvents();
-    if (glfwGetKey(m_window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(m_window.get(), true);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_W) == GLFW_PRESS) {
-        this->camera.moveForward(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_S) == GLFW_PRESS) {
-        this->camera.moveBackward(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_A) == GLFW_PRESS) {
-        this->camera.moveLeft(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_D) == GLFW_PRESS) {
-        this->camera.moveRight(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
-        this->camera.moveTop(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_X) == GLFW_PRESS) {
-        this->camera.moveBot(deltaTime);
-    }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS && !this->gammaKeyPressed) {
-        gammaEnabled = !gammaEnabled;
-        this->gammaKeyPressed = true;
-    } if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_RELEASE) {
-        this->gammaKeyPressed = false;
-    }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_PRESS && !this->blinnKeyPressed) {
-        blinnEnabled = !blinnEnabled;
-        this->blinnKeyPressed = true;
-    } if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
-        this->blinnKeyPressed = false;
-    }
-}
-
-
-
-// ---------------------------------- singleton
-
-void WindowDeleter::operator()(GLFWwindow* window)
-{
-    glfwTerminate();
-    glfwDestroyWindow(window);
-}
-
-engine::graphic::Camera engine::graphic::Window::camera; // static member
 Window::Window()
 {
-    initGLWF();
+    // provides a simple API for creating windows, contexts and surfaces,
+    // receiving input and events. (compatible window, X, wayland)
+    if (!glfwInit()) {
+        throw std::runtime_error("glwfInit failed");
+    }
 
-    // glfwGetPrimaryMonitor function returns the primary monitor to allow a fullscreen rendering
-    m_window.reset(glfwCreateWindow(this->width, this->height, "", glfwGetPrimaryMonitor(), nullptr));
+    m_window.reset(glfwCreateWindow(
+            this->getSize().width,
+            this->getSize().height,
+            "MainWindow",
+            glfwGetPrimaryMonitor(), // allows a fullscreen rendering
+            nullptr
+        ));
     if (!m_window) {
         glfwTerminate();
         throw std::runtime_error("Window creation failed");
@@ -141,12 +78,206 @@ Window::Window()
     glfwSetFramebufferSizeCallback(m_window.get(), framebufferSizeCallback);
 
     // GLAD
-    initGLAD();
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        glfwTerminate();
+        throw std::runtime_error("glad initialization failed");
+    }
 
-    this->configure();
+    this->configureDefault();
+
+    stbi_set_flip_vertically_on_load(true);
 }
 
-void Window::configure()
+Window::~Window()
+{
+    glfwTerminate();
+}
+
+
+
+// ---------------------------------- Loop
+
+auto Window::shouldClose() const
+    -> bool
+{
+    return glfwWindowShouldClose(m_window.get());
+}
+
+
+
+// ---------------------------------- OpenGL stuff
+
+void Window::clear() const
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
+void Window::swapBuffers() const
+{
+    glfwSwapBuffers(m_window.get());
+}
+
+void Window::pollEvents()
+{
+    glfwPollEvents();
+}
+
+
+
+// ---------------------------------- input
+
+void Window::processInput(
+    const float deltaTime
+)
+{
+    this->pollEvents();
+
+    if (glfwGetKey(m_window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(m_window.get(), true);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_W) == GLFW_PRESS) {
+        m_camera.moveForward(deltaTime);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_S) == GLFW_PRESS) {
+        m_camera.moveBackward(deltaTime);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_A) == GLFW_PRESS) {
+        m_camera.moveLeft(deltaTime);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_D) == GLFW_PRESS) {
+        m_camera.moveRight(deltaTime);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
+        m_camera.moveTop(deltaTime);
+    }
+    if (glfwGetKey(m_window.get(), GLFW_KEY_X) == GLFW_PRESS) {
+        m_camera.moveBot(deltaTime);
+    }
+
+    if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS && !m_keyPressed.gamma) {
+        m_config.gamma = !m_config.gamma;
+        m_keyPressed.gamma = true;
+    } if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_RELEASE) {
+        m_keyPressed.gamma = false;
+    }
+
+    if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_PRESS && !m_keyPressed.blinn) {
+        m_config.blinn = !m_config.blinn;
+        m_keyPressed.blinn = true;
+    } if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
+        m_keyPressed.blinn = false;
+    }
+}
+
+
+// ---------------------------------- Camera
+
+auto Window::getCamera() const
+    -> const ::engine::graphic::Camera&
+{
+    return m_camera;
+}
+
+
+
+void Window::setCameraSpeed(
+    float value
+)
+{
+    m_camera.setSpeed(value);
+}
+
+
+
+void Window::setCameraPosition(
+    float xOffset,
+    float yOffset,
+    float zOffset
+)
+{
+    m_camera.setPosition(xOffset, yOffset, zOffset);
+}
+
+void Window::setCameraPosition(
+    const ::glm::vec3& offset
+)
+{
+    m_camera.setPosition(offset);
+}
+
+
+
+void Window::orienteCamera(
+    float xOffset,
+    float yOffset
+)
+{
+    m_camera.oriente(xOffset, yOffset);
+}
+
+void Window::orienteCamera(
+    const ::glm::vec2& offset
+)
+{
+    m_camera.oriente(offset);
+}
+
+void Window::setCameraOrientation(
+    float xOffset,
+    float yOffset
+)
+{
+    m_camera.setOrientation(xOffset, yOffset);
+}
+
+void Window::setCameraOrientation(
+    const ::glm::vec2& offset
+)
+{
+    m_camera.setOrientation(offset);
+}
+
+
+
+void Window::zoomCamera(
+    float value
+)
+{
+    m_camera.zoom(value);
+}
+
+void Window::setCameraZoom(
+    float value
+)
+{
+    m_camera.setZoom(value);
+}
+
+
+
+// ---------------------------------- Size
+
+auto Window::getSize() const
+    -> const Window::Size&
+{
+    return m_size;
+}
+
+
+
+// ---------------------------------- Config
+
+auto Window::getConfig() const
+    -> const Window::Config&
+{
+    return m_config;
+}
+
+
+
+// ---------------------------------- Configuration
+
+void Window::configureDefault()
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -154,22 +285,16 @@ void Window::configure()
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
+    glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
+    glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
+
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif // __APPLE__
 
     // uncomment this call to draw in wireframe polygons.
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-    // specifies the color values used by glClear to clear the color buffers
-    // glClearColor(0.3F); // clear grey
-
-    // mouse events
-    glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
-    glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
-
-    stbi_set_flip_vertically_on_load(true);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -189,16 +314,38 @@ void Window::configure()
     glDebugMessageCallback(messageCallback, 0);
 
 #ifdef DEBUG
-    glfwSwapInterval(0); // disable vsync (testing purpuses)
+    glfwSwapInterval(0); // disable vsync
 #endif
 }
 
-Window& Window::get()
+void Window::configureClearColor(
+    const float rgb,
+    const float alpha
+)
 {
-    return m_singleInstance;
+    glClearColor(rgb, rgb, rgb, alpha);
 }
 
-Window Window::m_singleInstance;
+void Window::configureClearColor(
+    const float red,
+    const float green,
+    const float blue,
+    const float alpha
+)
+{
+    glClearColor(red, green, blue, alpha);
+}
+
+
+
+// ---------------------------------- Deleter
+
+void Window::Deleter::operator()(
+    GLFWwindow* window
+)
+{
+    glfwDestroyWindow(window);
+}
 
 
 
@@ -206,30 +353,18 @@ Window Window::m_singleInstance;
 
 
 
-// ---------------------------------- init helpers
-
-// provides a simple API for creating windows, contexts and surfaces,
-// receiving input and events. (compatible window, X, wayland)
-static void initGLWF()
-{
-    if (!glfwInit()) {
-        throw std::runtime_error("glwfInit failed");
-    }
-}
-
-static void initGLAD()
-{
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        glfwTerminate();
-        throw std::runtime_error("glad initialization failed");
-    }
-}
-
-
 
 // ---------------------------------- callbacks
 
-static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
+namespace {
+
+
+
+void mouseDirectionCallback(
+    GLFWwindow*,
+    double xPos,
+    double yPos
+)
 {
     static float lastX;
     static float lastY;
@@ -239,7 +374,7 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
         lastX = xPos;
         lastY = yPos;
         numberOfEmptyCAll--;
-        engine::graphic::Window::camera.oriente(0, 0);
+        // engine::graphic::Window::camera.oriente(0, 0);
     }
 
     float xOffset = xPos - lastX;
@@ -248,31 +383,39 @@ static void mouseDirectionCallback(GLFWwindow*, double xPos, double yPos)
     lastY         = yPos;
 
 
-    engine::graphic::Window::camera.oriente(xOffset, yOffset);
+    // engine::graphic::Window::camera.oriente(xOffset, yOffset);
 }
 
-static void mouseScrollcallback(GLFWwindow*, double, double yOffset)
+void mouseScrollcallback(
+    GLFWwindow*,
+    double,
+    double yOffset
+)
 {
-    engine::graphic::Window::camera.zoom(yOffset);
+    // engine::graphic::Window::camera.zoom(yOffset);
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback
-// function executes
-static void framebufferSizeCallback(GLFWwindow*, int width, int height)
+// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+void framebufferSizeCallback(
+    GLFWwindow*,
+    int width,
+    int height
+)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
 
-// GLAPIENTRY: Windows compatibility tool
-static void GLAPIENTRY messageCallback(GLenum source,
-                                       GLenum type,
-                                       GLuint,
-                                       GLenum severity,
-                                       GLsizei,
-                                       const GLchar* message,
-                                       const void*)
+void GLAPIENTRY messageCallback(
+    GLenum source,
+    GLenum type,
+    GLuint,
+    GLenum severity,
+    GLsizei,
+    const GLchar* message,
+    const void*
+)
 {
     std::clog << "ERROR (GL): " << message;
     std::clog << " (src: " << source << ", type: " << type;
@@ -285,3 +428,7 @@ static void GLAPIENTRY messageCallback(GLenum source,
     }
     std::clog << ")" << std::endl;
 }
+
+
+
+} // namespace

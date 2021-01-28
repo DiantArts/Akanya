@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Directional
+** sources/Engine/Graphic/Actors/Lights/Directional
 ** Light source comming from infinitly far away
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DIRECTIONAL_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DIRECTIONAL_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_DIRECTIONAL_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_DIRECTIONAL_HPP___
 
 #include "ALight.hpp"
 
@@ -50,4 +50,4 @@ private:
 
 } // namespace engine::graphic::actor::light
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_DIRECTIONAL_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_DIRECTIONAL_HPP___

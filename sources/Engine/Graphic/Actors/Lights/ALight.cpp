@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/ALight
+** sources/Engine/Graphic/Actors/Lights/ALight
 ** Light base class
 */
 

@@ -15,25 +15,37 @@ namespace game::object {
 
 
 
-class Floor : public engine::graphic::actor::basicShape::Cube {
+class Floor
+    : public engine::graphic::actor::basicShape::Cube
+{
+
 public:
+
     // ---------------------------------- *structors
+
     explicit Floor(
         ::engine::graphic::opengl::Shader& shader,
         size_t numberOfPositions = 1
     );
-    ~Floor() = default;
+
+    ~Floor();
 
 
     // ---------------------------------- override
+
     void configureShader(
-        const engine::graphic::Camera& camera
-    ) const final;
+        const engine::graphic::Window& window
+    ) const override final;
 
-
+public:
+protected:
+protected:
 private:
+private:
+
     // ---------------------------------- Attributes
     static void setAttributes();
+
 };
 
 

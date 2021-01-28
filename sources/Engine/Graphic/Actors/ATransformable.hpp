@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/ATransformable
+** sources/Engine/Graphic/Actors/ATransformable
 ** Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___
 
 #include "Positions.hpp"
 
@@ -81,4 +81,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_ATRANSFORMABLE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___

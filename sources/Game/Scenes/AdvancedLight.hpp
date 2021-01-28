@@ -16,13 +16,20 @@ namespace game::scene {
 
 
 
-class AdvancedLight : public ::engine::graphic::AScene {
+class AdvancedLight
+    : public ::engine::graphic::AScene
+{
 public:
     // ---------------------------------- *structors
     AdvancedLight();
     ~AdvancedLight();
 
+public:
+protected:
+protected:
 private:
+private:
+
 };
 
 

@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Fbo
+** sources/Engine/Graphic/OpenGL/Fbo
 ** FrameBuffer Object
 */
 

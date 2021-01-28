@@ -103,6 +103,7 @@ public:
     );
 
 
+
     // ---------------------------------- Position
 
     auto getPosition() const
@@ -121,41 +122,45 @@ public:
     );
 
 
+
     // ---------------------------------- Orientation
-
-    void oriente(
-        float xOffset,
-        float yOffset
-    );
-
-    void oriente(
-        const ::glm::vec2& offset
-    );
-
-    void setOrientation(
-        float xOffset,
-        float yOffset
-    );
-
-
-
-    void setOrientation(
-        const ::glm::vec2& offset
-    );
-
-    void adjustOrientation();
 
     auto getOrientation() const
         -> const ::glm::vec3&;
-
-
 
     auto getFront() const
         -> const ::glm::vec3&;
 
 
 
+    void oriente(
+        float xOffset,
+        float yOffset
+    );
+
+    void oriente(
+        const ::glm::vec2& offset
+    );
+
+
+
+    void setOrientation(
+        float xOffset,
+        float yOffset
+    );
+
+    void setOrientation(
+        const ::glm::vec2& offset
+    );
+
+
+
     // ---------------------------------- Zoom
+
+    auto getZoom() const
+        -> float;
+
+
 
     void zoom(
         float value
@@ -164,9 +169,6 @@ public:
     void setZoom(
         float value
     );
-
-    auto getZoom() const
-        -> float;
 
 
 
@@ -186,6 +188,14 @@ public:
 
 
 
+protected:
+protected:
+private:
+
+    void adjustOrientation();
+
+
+
 private:
 
     float m_speed { 2.5F };
@@ -202,6 +212,7 @@ private:
     float m_zoom { 45.05F };
     float m_yaw { -90.00F };
     float m_pitch { 0.00F };
+
 };
 
 

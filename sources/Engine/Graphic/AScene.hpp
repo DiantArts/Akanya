@@ -104,6 +104,8 @@ public:
 public:
 protected:
 
+    ::engine::graphic::Window m_window;
+
     class ShaderMap {
 
     public:
@@ -153,9 +155,8 @@ protected:
         std::unordered_map<std::string, ::engine::graphic::opengl::Shader> m_shaderMap;
 
     };
-    AScene::ShaderMap m_shaderMap;
 
-    ::engine::graphic::Window& m_window { ::engine::graphic::Window::get() };
+    AScene::ShaderMap m_shaderMap;
 
     std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
@@ -174,6 +175,7 @@ private:
     mutable ::engine::core::Clock m_fpsClock;
     mutable float m_elapsed { 0 };
     mutable int m_fps { 0 };
+
 };
 
 

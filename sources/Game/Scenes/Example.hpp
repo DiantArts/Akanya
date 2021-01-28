@@ -11,6 +11,7 @@
 #include "Engine/Graphic/Actors/Model.hpp"
 
 
+#include "Game/Objects/Floor.hpp"
 
 
 namespace game::scene {

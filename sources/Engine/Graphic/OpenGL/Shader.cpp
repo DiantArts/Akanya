@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Shader
+** sources/Engine/Graphic/OpenGL/Shader
 ** Controls graphic pipeline
 */
 
@@ -25,7 +25,8 @@ namespace engine::graphic::opengl {
 // ---------------------------------- *structors
 
 
-Shader::Shader(const std::string_view filepaths) : m_shaderId(glCreateProgram())
+Shader::Shader(const std::string_view filepaths)
+    : m_shaderId(glCreateProgram())
 {
     std::string vertexFilepath;
     vertexFilepath.reserve(::engine::core::config::filepath::shader::vertexes.size() + filepaths.size() + 5);

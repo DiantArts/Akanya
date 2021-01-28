@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Model
+** sources/Engine/Graphic/Actors/Model
 ** This class loads models from .objs (at least and for the moment)
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_MODEL_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_MODEL_HPP___
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -132,4 +132,4 @@ private:
 
 } // namespace engine::graphic::actor
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_MODEL_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_MODEL_HPP___

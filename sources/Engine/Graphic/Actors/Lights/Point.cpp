@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Point
+** sources/Engine/Graphic/Actors/Lights/Point
 ** Light source illuminating in all direction from a point
 */
 

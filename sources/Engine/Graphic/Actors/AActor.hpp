@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/AActor
+** sources/Engine/Graphic/Actors/AActor
 ** An actor is a drawable and a transformable
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___
 
 #include "ADrawable.hpp"
 #include "ATransformable.hpp"
@@ -47,4 +47,4 @@ namespace engine::graphic { using AActor = engine::graphic::actor::AActor; }
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_AACTOR_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___

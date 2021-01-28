@@ -18,73 +18,185 @@ namespace engine::graphic {
 
 
 
-struct WindowDeleter {
-    void operator()(
-        GLFWwindow* window
-    );
-};
-
-
-
 class Window {
-public:
-    Window(const Window&) = delete;
-    Window(Window&&) = delete;
-
-    Window& operator=(const Window&) = delete;
-    Window& operator=(Window&&) = delete;
 
 public:
-    // ---------------------------------- OpenGL stuff
+
+    // ---------------------------------- *structors
+
+    Window();
+    ~Window();
+
+
+
+    // ---------------------------------- Copy sementic
+
+    Window(
+        const Window&
+    ) noexcept = delete;
+
+    auto operator=(
+        const Window&
+    ) noexcept -> Window& = delete;
+
+
+
+    // ---------------------------------- Move sementic
+
+    Window(
+        Window&&
+    ) noexcept = delete;
+
+    auto operator=(
+        Window&&
+    ) noexcept -> Window& = delete;
+
+
+    // ---------------------------------- Loop
+
     bool shouldClose() const;
+
+
+
+    // ---------------------------------- OpenGL stuff
 
     void clear() const;
 
-    void swapBuffers();
+    void swapBuffers() const;
 
     void pollEvents();
 
-    void setClearColor(
+
+
+    // ---------------------------------- Input
+
+    void processInput(
+        float deltaTime
+    );
+
+
+
+    // ---------------------------------- Camera
+
+    auto getCamera() const
+        -> const ::engine::graphic::Camera&;
+
+
+
+    void setCameraSpeed(
+        float value
+    );
+
+
+
+    void setCameraPosition(
+        float xOffset,
+        float yOffset,
+        float zOffset
+    );
+
+    void setCameraPosition(
+        const ::glm::vec3& offset
+    );
+
+
+
+    void orienteCamera(
+        float xOffset,
+        float yOffset
+    );
+
+    void orienteCamera(
+        const ::glm::vec2& offset
+    );
+
+    void setCameraOrientation(
+        float xOffset,
+        float yOffset
+    );
+
+    void setCameraOrientation(
+        const ::glm::vec2& offset
+    );
+
+
+
+    void zoomCamera(
+        float value
+    );
+
+    void setCameraZoom(
+        float value
+    );
+
+
+
+    // ---------------------------------- Size
+
+    struct Size {
+        float width  { 1920 };
+        float height { 1080 };
+    };
+
+    auto getSize() const
+        -> const Window::Size&;
+
+
+
+    // ---------------------------------- Size
+
+    struct Config {
+        bool gamma { false };
+        bool blinn { true };
+    };
+
+    auto getConfig() const
+        -> const Window::Config&;
+
+
+public:
+protected:
+protected:
+private:
+
+    // ---------------------------------- Config
+
+    void configureDefault();
+
+    void configureClearColor(
         float rgb,
         float alpha = 1.0F
     );
 
-    void setClearColor(
+    void configureClearColor(
         float red,
         float green,
         float blue,
         float alpha = 1.0F
     );
 
-    void configure();
-
-
-    // ---------------------------------- input
-    void processInput(
-        float deltaTime
-    );
-
-
-    // ---------------------------------- singleton
-public:
-    static Window& get();
-
-
-public:
-    static constexpr GLuint width  = 1920;
-    static constexpr GLuint height = 1080;
-
-    static ::engine::graphic::Camera camera;
 
 
 private:
-    std::unique_ptr<GLFWwindow, WindowDeleter> m_window;
-    bool gammaKeyPressed { false };
-    bool blinnKeyPressed { false };
 
-private:
-    Window();
-    static Window m_singleInstance;
+    struct Deleter {
+        void operator()(
+            GLFWwindow* window
+        );
+    };
+    std::unique_ptr<GLFWwindow, Window::Deleter> m_window;
+
+    ::engine::graphic::Camera m_camera;
+
+    Window::Size m_size;
+    Window::Config m_config;
+
+
+    struct KeyPressed {
+        bool gamma { false };
+        bool blinn { false };
+    };
+    Window::KeyPressed m_keyPressed;
 };
 
 

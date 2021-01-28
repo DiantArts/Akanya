@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Ebo
+** sources/Engine/Graphic/OpenGL/Ebo
 ** Element Buffer Object: help to determine which vertex to draw
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_EBO_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_EBO_HPP___
 
 
 
@@ -62,4 +62,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_EBO_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_EBO_HPP___

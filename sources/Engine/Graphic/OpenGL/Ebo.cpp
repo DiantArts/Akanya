@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Ebo
+** sources/Engine/Graphic/OpenGL/Ebo
 ** Element Buffer Object: help to determine which vertex to draw
 */
 

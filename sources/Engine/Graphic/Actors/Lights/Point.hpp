@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Point
+** sources/Engine/Graphic/Actors/Lights/Point
 ** Light source illuminating in all direction from a point
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_POINT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_POINT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
 
 #include "ALight.hpp"
 
@@ -55,4 +55,4 @@ private:
 
 } // namespace engine::graphic::actor::light
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_POINT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___

@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Model
+** sources/Engine/Graphic/Actors/Model
 ** This class loads models from .objs (at least and for the moment)
 */
 

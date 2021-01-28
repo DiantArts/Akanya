@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Vbo
+** sources/Engine/Graphic/OpenGL/Vbo
 ** Vertex Buffer Object: stores a large number of vertices
 */
 

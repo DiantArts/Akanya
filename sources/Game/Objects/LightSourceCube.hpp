@@ -19,16 +19,33 @@ namespace game::object {
 
 class LightSourceCube
     : public engine::graphic::actor::basicShape::Cube
-    , public engine::graphic::actor::light::Point {
+    , public engine::graphic::actor::light::Point
+{
+
 public:
+
     // ---------------------------------- *structors
-    explicit LightSourceCube(::engine::graphic::opengl::Shader& shaderProgram, size_t numberOfPositions = 1);
-    ~LightSourceCube() = default;
+    explicit LightSourceCube(
+        ::engine::graphic::opengl::Shader& shaderProgram,
+        size_t numberOfPositions = 1
+    );
+
+    ~LightSourceCube();
 
 
     // ---------------------------------- override
-    void configureShader(const engine::graphic::Camera& camera) const override;
+    void configureShader(
+        const engine::graphic::Window& window
+    ) const override;
+
     void update(float deltaTime) override;
+
+public:
+protected:
+protected:
+private:
+private:
+
 };
 
 

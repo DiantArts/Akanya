@@ -9,37 +9,38 @@
 #include "LightSourceCube.hpp"
 
 
-namespace game::object {
-
-
-
 // ---------------------------------- *structors
 
-LightSourceCube::LightSourceCube(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions /* = 1 */)
+::game::object::LightSourceCube::LightSourceCube(
+    ::engine::graphic::opengl::Shader& shader,
+    const size_t numberOfPositions
+)
     : engine::graphic::actor::basicShape::Cube(shader, numberOfPositions)
     , engine::graphic::actor::light::Point("pointLights", this->instances)
 {
     this->setScale(0.1F);
 }
 
+::game::object::LightSourceCube::~LightSourceCube() = default;
+
 
 
 // ---------------------------------- override
 
-void LightSourceCube::configureShader(const engine::graphic::Camera& camera) const
+void ::game::object::LightSourceCube::configureShader(
+    const engine::graphic::Window& window
+) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(camera);
+    engine::graphic::actor::ABasicShape::configureShader(window);
     this->setIntoShader("lightColor", m_parameters.color);
 }
 
-void LightSourceCube::update(float)
+void ::game::object::LightSourceCube::update(
+    float
+)
 {
     auto z = sin(glfwGetTime() / 1.2) * 3;
     for (auto& position : this->instances) {
         position.z = z;
     }
 }
-
-
-
-} // namespace game::object

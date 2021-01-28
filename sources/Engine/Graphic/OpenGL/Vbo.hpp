@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Vbo
+** sources/Engine/Graphic/OpenGL/Vbo
 ** Vertex Buffer Object: stores a large number of vertices
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VBO_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VBO_HPP___
 
 
 
@@ -62,4 +62,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_VERTEXES_VBO_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VBO_HPP___

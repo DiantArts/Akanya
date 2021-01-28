@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Shader
+** sources/Engine/Graphic/OpenGL/Shader
 ** Controls graphic pipeline
 */
 

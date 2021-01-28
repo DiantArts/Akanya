@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/AActor
+** sources/Engine/Graphic/Actors/AActor
 ** An actor is a drawable and a transformable
 */
 

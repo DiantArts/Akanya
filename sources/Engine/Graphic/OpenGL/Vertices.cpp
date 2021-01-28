@@ -1,6 +1,6 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Vertexes/Vertices
+** sources/Engine/Graphic/OpenGL/Vertices
 ** Extract vertices from files and alloc buffers to binded ones
 */
 

@@ -1,11 +1,11 @@
 /*
 ** Akanya, Engine
-** sources/Engine/Actors/Lights/Spot
+** sources/Engine/Graphic/Actors/Lights/Spot
 ** Light source shooting in a specifique direction
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_SPOT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_SPOT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 
 #include "ALight.hpp"
 
@@ -56,4 +56,4 @@ private:
 
 } // namespace engine::graphic::actor::light
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_ACTORS_LIGHTS_SPOT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___

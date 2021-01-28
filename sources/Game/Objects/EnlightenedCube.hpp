@@ -15,20 +15,37 @@ namespace game::object {
 
 
 
-class EnlightenedCube : public engine::graphic::actor::basicShape::Cube {
+class EnlightenedCube
+    : public engine::graphic::actor::basicShape::Cube
+{
 public:
     // ---------------------------------- *structors
-    explicit EnlightenedCube(::engine::graphic::opengl::Shader& shader, size_t numberOfPositions = 1);
-    ~EnlightenedCube() = default;
+    explicit EnlightenedCube(
+        ::engine::graphic::opengl::Shader& shader,
+        size_t numberOfPositions = 1
+    );
+
+    ~EnlightenedCube();
+
 
 
     // ---------------------------------- override
-    void configureShader(const engine::graphic::Camera& camera) const final;
+
+    void configureShader(
+        const engine::graphic::Window& window
+    ) const override;
 
 
+
+public:
+protected:
+protected:
 private:
+private:
+
     // ---------------------------------- Attributes
     static void setAttributes();
+
 };
 
 

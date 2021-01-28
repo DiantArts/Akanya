@@ -103,11 +103,11 @@ CubeMap::~CubeMap()
 
 // ---------------------------------- Drawable
 
-void CubeMap::draw(const engine::graphic::Camera& camera) const
+void CubeMap::draw(const engine::graphic::Window& window) const
 {
     glDepthFunc(GL_LEQUAL); // change depth function so depth test passes when values are equal to depth
                             // buffer's content
-    ADrawable::draw(camera);
+    ADrawable::draw(window);
     glDepthFunc(GL_LESS); // set depth function back to default
 }
 
@@ -118,12 +118,15 @@ void CubeMap::drawModels(const engine::graphic::Camera&) const
     glDrawArrays(GL_TRIANGLES, 0, m_numberOfArrayToDraw);
 }
 
-void CubeMap::configureShader(const engine::graphic::Camera& camera) const
+void CubeMap::configureShader(const engine::graphic::Window& window) const
 {
-    this->setIntoShader("view", glm::mat4(glm::mat3(camera.getView())));
-    this->setIntoShader("projection",
-                        glm::perspective(glm::radians(camera.getZoom()),
-                                         (float)Window::width / (float)Window::height, 0.1F, 100.0F));
+    this->setIntoShader("view", glm::mat4(glm::mat3(window.getCamera().getView())));
+    this->setIntoShader("projection", glm::perspective(
+            glm::radians(window.getCamera().getZoom()),
+            window.getSize().width / window.getSize().height,
+            0.1F,
+            100.0F
+        ));
 }
 
 

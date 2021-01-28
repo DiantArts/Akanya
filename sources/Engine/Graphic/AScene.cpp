@@ -14,9 +14,9 @@
 
 ::engine::graphic::AScene::AScene()
 {
-    m_window.camera.setSpeed(5);
-    m_window.camera.setPosition(1.5, 3.0F, 7.5F);
-    m_window.camera.setOrientation(-98, -15);
+    m_window.setCameraSpeed(5);
+    m_window.setCameraPosition(1.5, 3.0F, 7.5F);
+    m_window.setCameraOrientation(-98, -15);
 }
 
 ::engine::graphic::AScene::~AScene() = default;
@@ -53,10 +53,10 @@ void ::engine::graphic::AScene::draw() const
 void ::engine::graphic::AScene::drawActors() const
 {
     for (const auto& actor : m_vectorActors) {
-        actor->draw(m_window.camera);
+        actor->draw(m_window);
     }
     for (const auto& cubeMap : m_vectorCubeMap) {
-        cubeMap.draw(m_window.camera);
+        cubeMap.draw(m_window);
     }
 }
 
