@@ -120,7 +120,7 @@ NO_PCH_LIB		:=	$(foreach directory,$(NO_PCH_LIB),! -path ./$(LIBDIR)/$(directory
 NO_PCH_EXTERN	:=	$(foreach directory,$(NO_PCH_EXTERN),! -path ./$(EXTERNDIR)/$(directory)/\*)
 # C_HDR			!=	find . -type f -name \*$(C_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB) $(NO_PCH_SRC)
 # CPP_HDR		!=	find . -type f -name \*$(CPP_HDREXT) $(NO_PCH_EXTERN) $(NO_PCH_LIB)  $(NO_PCH_SRC)
-CPP_HDR			:=	$(INCDIR)/pch.hpp
+CPP_HDR			:=	$(INCDIR)/pch$(CPP_HDREXT)
 
 # .x=.o
 C_OBJ			:=	$(patsubst %$(C_SRCEXT),$(OBJDIR)/%$(OBJEXT),$(C_SRC))
@@ -252,7 +252,7 @@ $(NAME)$(MODE_EXT): compilation | libraries externs $(BINDIR)
 
 force :;
 # libX.a
-./$(BINDIR)/lib%.a : force | precompilation
+./$(BINDIR)/lib%.a : force
 	$(eval DIRNAME = $(patsubst $(BINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
 ifneq "$(DEBUG_MAKEFILE)" "true"
 	$(MAKE) -C $(LIBDIR)/$(DIRNAME) \
@@ -278,7 +278,7 @@ else
 endif
 
 # externs/libX.a
-./$(EXTERNBINDIR)/lib%.a : force | precompilation
+./$(EXTERNBINDIR)/lib%.a : force
 	$(eval DIRNAME = $(patsubst $(EXTERNBINDIR)/lib%.a,%,$(patsubst ./%,%,$@)))
 ifneq "$(DEBUG_MAKEFILE)" "true"
 	$(MAKE) -C $(EXTERNDIR)/$(DIRNAME) \
@@ -331,6 +331,19 @@ $(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT) | precompilation
 	$(CC) $(C_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<
 	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) $<\n"
 .PRECIOUS: %$(C_HDREXT)$(PCHEXT)
+
+$(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
+	$(SRCDIR)/Engine/Graphic/Window$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Camera$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/AActor$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/Lights/ALight$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Vao$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Vbo$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Ebo$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Fbo$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Vertices$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Shader$(CPP_HDREXT)
+
 
 %$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)
 	$(CXX) $(CPP_PCHFLAGS) $(OUTPUT_OPTION) $(CPPFLAGS) $<

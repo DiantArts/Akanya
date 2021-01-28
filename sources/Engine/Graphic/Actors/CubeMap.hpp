@@ -7,9 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTOR_CUBEMAP_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORèCUBEMAP_HPP___
 
-#include "AActor.hpp"
-#include "../OpenGL/Vao.hpp"
-#include "../OpenGL/Vbo.hpp"
 #include "Texture.hpp"
 
 
@@ -31,14 +28,23 @@ public:
 
 
     // ---------------------------------- Drawable
-    void draw(const engine::graphic::Window& window) const override;
-    void drawModels(const engine::graphic::Camera& camera) const override;
+    void draw(
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
+    ) const override;
+
+    void drawModels(
+        const engine::graphic::Camera& camera
+    ) const override;
 
 
 
     // ---------------------------------- Shader
 
-    void configureShader(const engine::graphic::Window& window) const override;
+    void configureShader(
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
+    ) const override;
 
 
     // ---------------------------------- defaultAttributes

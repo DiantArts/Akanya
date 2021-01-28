@@ -5,7 +5,6 @@
 */
 
 #include "pch.hpp"
-#include "Window.hpp"
 
 
 namespace {
@@ -118,6 +117,7 @@ void Window::pollEvents()
 // ---------------------------------- input
 
 void Window::processInput(
+    ::engine::graphic::Camera& camera,
     const float deltaTime
 )
 {
@@ -127,22 +127,22 @@ void Window::processInput(
         glfwSetWindowShouldClose(m_window.get(), true);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_W) == GLFW_PRESS) {
-        m_camera.moveForward(deltaTime);
+        camera.moveForward(deltaTime);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_S) == GLFW_PRESS) {
-        m_camera.moveBackward(deltaTime);
+        camera.moveBackward(deltaTime);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_A) == GLFW_PRESS) {
-        m_camera.moveLeft(deltaTime);
+        camera.moveLeft(deltaTime);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_D) == GLFW_PRESS) {
-        m_camera.moveRight(deltaTime);
+        camera.moveRight(deltaTime);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
-        m_camera.moveTop(deltaTime);
+        camera.moveTop(deltaTime);
     }
     if (glfwGetKey(m_window.get(), GLFW_KEY_X) == GLFW_PRESS) {
-        m_camera.moveBot(deltaTime);
+        camera.moveBot(deltaTime);
     }
 
     if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS && !m_keyPressed.gamma) {
@@ -158,90 +158,6 @@ void Window::processInput(
     } if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
         m_keyPressed.blinn = false;
     }
-}
-
-
-// ---------------------------------- Camera
-
-auto Window::getCamera() const
-    -> const ::engine::graphic::Camera&
-{
-    return m_camera;
-}
-
-
-
-void Window::setCameraSpeed(
-    float value
-)
-{
-    m_camera.setSpeed(value);
-}
-
-
-
-void Window::setCameraPosition(
-    float xOffset,
-    float yOffset,
-    float zOffset
-)
-{
-    m_camera.setPosition(xOffset, yOffset, zOffset);
-}
-
-void Window::setCameraPosition(
-    const ::glm::vec3& offset
-)
-{
-    m_camera.setPosition(offset);
-}
-
-
-
-void Window::orienteCamera(
-    float xOffset,
-    float yOffset
-)
-{
-    m_camera.oriente(xOffset, yOffset);
-}
-
-void Window::orienteCamera(
-    const ::glm::vec2& offset
-)
-{
-    m_camera.oriente(offset);
-}
-
-void Window::setCameraOrientation(
-    float xOffset,
-    float yOffset
-)
-{
-    m_camera.setOrientation(xOffset, yOffset);
-}
-
-void Window::setCameraOrientation(
-    const ::glm::vec2& offset
-)
-{
-    m_camera.setOrientation(offset);
-}
-
-
-
-void Window::zoomCamera(
-    float value
-)
-{
-    m_camera.zoom(value);
-}
-
-void Window::setCameraZoom(
-    float value
-)
-{
-    m_camera.setZoom(value);
 }
 
 
@@ -368,7 +284,6 @@ class OpenglMemoryManager {
 
     static constinit const OpenglMemoryManager _;
 };
-
 const OpenglMemoryManager OpenglMemoryManager::_;
 
 

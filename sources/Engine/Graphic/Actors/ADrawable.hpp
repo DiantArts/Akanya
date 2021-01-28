@@ -7,9 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 
-#include "../Camera.hpp"
-#include "../OpenGL/Shader.hpp"
-
 
 
 namespace engine::graphic::actor::light { class ALight; }
@@ -37,11 +34,12 @@ public:
     // ---------------------------------- Draw
 
     virtual void draw(
-        const engine::graphic::Window& camera
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
     ) const;
 
     virtual void drawModels(
-        const engine::graphic::Camera& camera
+        const ::engine::graphic::Camera& camera
     ) const = 0;
 
 
@@ -54,7 +52,8 @@ public:
     void useShader() const;
 
     virtual void configureShader(
-        const engine::graphic::Window& window
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
     ) const;
 
 

@@ -7,10 +7,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___
 
-#include "AActor.hpp"
 #include "Texture.hpp"
-#include "../OpenGL/Vao.hpp"
-#include "../OpenGL/Vbo.hpp"
 
 
 

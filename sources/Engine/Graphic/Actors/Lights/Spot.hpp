@@ -7,8 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 
-#include "ALight.hpp"
-
 
 
 namespace engine::graphic::actor::light {

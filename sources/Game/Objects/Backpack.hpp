@@ -18,12 +18,18 @@ namespace game::object {
 class Backpack : public engine::graphic::actor::Model {
 public:
     // ---------------------------------- *structors
-    explicit Backpack(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions);
+    explicit Backpack(
+        ::engine::graphic::opengl::Shader& shader,
+        const size_t numberOfPositions
+    );
     ~Backpack();
 
 
     // ---------------------------------- override
-    void configureShader(const ::engine::graphic::Window& window) const override final;
+    void configureShader(
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
+    ) const override final;
 
 
 private:

@@ -6,7 +6,6 @@
 
 #include "pch.hpp"
 #include "AScene.hpp"
-#include "../Graphic/Actors/Lights/ALight.hpp"
 
 
 
@@ -17,9 +16,9 @@
 )
     : m_window(window)
 {
-    m_window.setCameraSpeed(5);
-    m_window.setCameraPosition(1.5, 3.0F, 7.5F);
-    m_window.setCameraOrientation(-98, -15);
+    m_camera.setSpeed(5);
+    m_camera.setPosition(1.5, 3.0F, 7.5F);
+    m_camera.setOrientation(-98, -15);
 }
 
 ::engine::graphic::AScene::~AScene() = default;
@@ -36,7 +35,7 @@ auto ::engine::graphic::AScene::isOver() const
 
 void ::engine::graphic::AScene::manageEvents()
 {
-    m_window.processInput(m_eventClock.getElapsedTime());
+    m_window.processInput(m_camera, m_eventClock.getElapsedTime());
 }
 
 
@@ -56,10 +55,10 @@ void ::engine::graphic::AScene::draw() const
 void ::engine::graphic::AScene::drawActors() const
 {
     for (const auto& actor : m_vectorActors) {
-        actor->draw(m_window);
+        actor->draw(m_window, m_camera);
     }
     for (const auto& cubeMap : m_vectorCubeMap) {
-        cubeMap.draw(m_window);
+        cubeMap.draw(m_window, m_camera);
     }
 }
 

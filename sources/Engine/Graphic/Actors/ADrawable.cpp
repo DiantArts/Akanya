@@ -5,50 +5,44 @@
 */
 
 #include "pch.hpp"
-#include "ADrawable.hpp"
-
-#include "Lights/ALight.hpp"
 #include "debugMacros.hpp"
-#include "pch.hpp"
-
-
-
-namespace engine::graphic::actor {
 
 
 
 // ---------------------------------- *structors
 
-ADrawable::ADrawable(
+::engine::graphic::actor::ADrawable::ADrawable(
     ::engine::graphic::opengl::Shader& shader
 )
     : m_shader(shader)
 {}
 
-ADrawable::~ADrawable() = default;
+::engine::graphic::actor::ADrawable::~ADrawable() = default;
 
 
 
 // ---------------------------------- Draw
-void ADrawable::draw(
-    const ::engine::graphic::Window& window
+void ::engine::graphic::actor::ADrawable::draw(
+    const ::engine::graphic::Window& window,
+    const ::engine::graphic::Camera& camera
 ) const
 {
     this->useShader();
-    this->configureShader(window);
-    this->drawModels(window.getCamera());
+    this->configureShader(window, camera);
+    this->drawModels(camera);
 }
 
 
 
 // ---------------------------------- Update
-void ADrawable::configureShader(
-    const ::engine::graphic::Window& window
+void ::engine::graphic::actor::ADrawable::configureShader(
+    const ::engine::graphic::Window& window,
+    const ::engine::graphic::Camera& camera
 ) const
 {
-    this->setIntoShader("view", window.getCamera().getView());
+    this->setIntoShader("view", camera.getView());
     this->setIntoShader("projection", glm::perspective(
-            glm::radians(window.getCamera().getZoom()),
+            glm::radians(camera.getZoom()),
             window.getSize().width / window.getSize().height,
             0.1F,
             100.0F
@@ -59,24 +53,20 @@ void ADrawable::configureShader(
 
 // ---------------------------------- Shader
 
-auto ADrawable::getShader() const
+auto ::engine::graphic::actor::ADrawable::getShader() const
     -> const ::engine::graphic::opengl::Shader&
 {
     return m_shader;
 }
 
-void ADrawable::useShader() const
+void ::engine::graphic::actor::ADrawable::useShader() const
 {
     m_shader.use();
 }
 
-void ADrawable::setIntoShader(
+void ::engine::graphic::actor::ADrawable::setIntoShader(
     const engine::graphic::actor::light::ALight& light
 ) const
 {
     light.setIntoEnlightenedShader(this->getShader());
 }
-
-
-
-} // namespace engine::graphic::actor

@@ -7,7 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 
-#include "Camera.hpp"
 
 
 struct GLFWwindow;
@@ -15,6 +14,10 @@ struct GLFWwindow;
 
 
 namespace engine::graphic {
+
+
+
+class Camera;
 
 
 
@@ -45,11 +48,11 @@ public:
 
     Window(
         Window&&
-    ) noexcept = delete;
+    ) noexcept;
 
     auto operator=(
         Window&&
-    ) noexcept -> Window& = delete;
+    ) noexcept -> Window&;
 
 
     // ---------------------------------- Loop
@@ -71,62 +74,8 @@ public:
     // ---------------------------------- Input
 
     void processInput(
+        ::engine::graphic::Camera& camera,
         float deltaTime
-    );
-
-
-
-    // ---------------------------------- Camera
-
-    auto getCamera() const
-        -> const ::engine::graphic::Camera&;
-
-
-
-    void setCameraSpeed(
-        float value
-    );
-
-
-
-    void setCameraPosition(
-        float xOffset,
-        float yOffset,
-        float zOffset
-    );
-
-    void setCameraPosition(
-        const ::glm::vec3& offset
-    );
-
-
-
-    void orienteCamera(
-        float xOffset,
-        float yOffset
-    );
-
-    void orienteCamera(
-        const ::glm::vec2& offset
-    );
-
-    void setCameraOrientation(
-        float xOffset,
-        float yOffset
-    );
-
-    void setCameraOrientation(
-        const ::glm::vec2& offset
-    );
-
-
-
-    void zoomCamera(
-        float value
-    );
-
-    void setCameraZoom(
-        float value
     );
 
 
@@ -185,8 +134,6 @@ private:
         );
     };
     std::unique_ptr<GLFWwindow, Window::Deleter> m_window;
-
-    ::engine::graphic::Camera m_camera;
 
     Window::Size m_size;
     Window::Config m_config;

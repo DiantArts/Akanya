@@ -8,7 +8,6 @@
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___
 
 #include "../../Shadows.hpp"
-#include "../Positions.hpp"
 
 
 

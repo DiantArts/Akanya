@@ -34,7 +34,8 @@ public:
     // ---------------------------------- override
 
     void configureShader(
-        const engine::graphic::Window& window
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
     ) const override final;
 
 public:

@@ -6,8 +6,6 @@
 
 #include "pch.hpp"
 
-#include "ALight.hpp"
-
 
 
 namespace { std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> g_CachedLights; }

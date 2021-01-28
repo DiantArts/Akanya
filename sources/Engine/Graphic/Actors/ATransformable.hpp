@@ -9,8 +9,6 @@
 
 #include "Positions.hpp"
 
-#include "../Camera.hpp"
-
 
 
 namespace engine::graphic::actor {

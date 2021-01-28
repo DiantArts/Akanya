@@ -6,10 +6,6 @@
 
 #include "pch.hpp"
 
-#include "Shader.hpp"
-
-#include "../Actors/Lights/ALight.hpp"
-
 
 
 static GLuint compileShader(GLenum shaderType, const std::string filepath);

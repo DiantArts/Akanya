@@ -16,7 +16,7 @@ namespace game::object {
 
 
 class EnlightenedCube
-    : public engine::graphic::actor::basicShape::Cube
+    : public ::engine::graphic::actor::basicShape::Cube
 {
 public:
     // ---------------------------------- *structors
@@ -32,7 +32,8 @@ public:
     // ---------------------------------- override
 
     void configureShader(
-        const engine::graphic::Window& window
+        const ::engine::graphic::Window& window,
+        const ::engine::graphic::Camera& camera
     ) const override;
 
 

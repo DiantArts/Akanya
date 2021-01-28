@@ -10,8 +10,6 @@
 #include "../Core/Clock.hpp"
 #include "Actors/ABasicShape.hpp"
 #include "Actors/CubeMap.hpp"
-#include "Camera.hpp"
-#include "OpenGL/Shader.hpp"
 #include "Shadows.hpp"
 
 
@@ -168,6 +166,8 @@ protected:
 protected:
 private:
 private:
+
+    ::engine::graphic::Camera m_camera;
 
     bool m_isOver { false };
 

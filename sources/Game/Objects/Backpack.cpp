@@ -8,8 +8,6 @@
 
 #include "Backpack.hpp"
 
-#include "Engine/Graphic/Actors/Lights/ALight.hpp"
-
 
 
 // ---------------------------------- *structors
@@ -24,9 +22,12 @@
 
 // ---------------------------------- override
 
-void ::game::object::Backpack::configureShader(const engine::graphic::Window& window) const
+void ::game::object::Backpack::configureShader(
+    const ::engine::graphic::Window& window,
+    const ::engine::graphic::Camera& camera
+) const
 {
-    engine::graphic::actor::ADrawable::configureShader(window);
+    engine::graphic::actor::ADrawable::configureShader(window, camera);
 
     for (const auto& light : engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);

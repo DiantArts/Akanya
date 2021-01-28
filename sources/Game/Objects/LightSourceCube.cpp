@@ -28,10 +28,11 @@
 // ---------------------------------- override
 
 void ::game::object::LightSourceCube::configureShader(
-    const engine::graphic::Window& window
+    const ::engine::graphic::Window& window,
+    const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(window);
+    engine::graphic::actor::ABasicShape::configureShader(window, camera);
     this->setIntoShader("lightColor", m_parameters.color);
 }
 

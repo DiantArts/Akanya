@@ -11,11 +11,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "AActor.hpp"
 #include "Texture.hpp"
-#include "../OpenGL/Ebo.hpp"
-#include "../OpenGL/Vao.hpp"
-#include "../OpenGL/Vbo.hpp"
 
 
 

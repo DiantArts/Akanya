@@ -5,7 +5,6 @@
 */
 
 #include "pch.hpp"
-
 #include "EnlightenedCube.hpp"
 
 #include "Engine/Graphic/Actors/Lights/ALight.hpp"
@@ -39,10 +38,13 @@
 
 // ---------------------------------- override
 
-void ::game::object::EnlightenedCube::configureShader(const engine::graphic::Window& window) const
+void ::game::object::EnlightenedCube::configureShader(
+    const ::engine::graphic::Window& window,
+    const ::engine::graphic::Camera& camera
+) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(window);
-    this->setIntoShader("viewPos", window.getCamera().getPosition());
+    engine::graphic::actor::ABasicShape::configureShader(window, camera);
+    this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("gamma", window.getConfig().gamma);
     this->setIntoShader("blinn", window.getConfig().blinn);

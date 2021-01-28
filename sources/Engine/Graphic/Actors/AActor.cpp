@@ -6,8 +6,6 @@
 
 #include "pch.hpp"
 
-#include "AActor.hpp"
-
 
 namespace engine::graphic::actor {
 
