@@ -11,7 +11,6 @@
 namespace {
 
 
-
 void mouseDirectionCallback(
     GLFWwindow*,
     double xPos,
@@ -56,9 +55,6 @@ Window::Window()
 {
     // provides a simple API for creating windows, contexts and surfaces,
     // receiving input and events. (compatible window, X, wayland)
-    if (!glfwInit()) {
-        throw std::runtime_error("glwfInit failed");
-    }
 
     m_window.reset(glfwCreateWindow(
             this->getSize().width,
@@ -77,21 +73,16 @@ Window::Window()
     glfwMakeContextCurrent(m_window.get());
     glfwSetFramebufferSizeCallback(m_window.get(), framebufferSizeCallback);
 
-    // GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         glfwTerminate();
         throw std::runtime_error("glad initialization failed");
     }
 
     this->configureDefault();
-
-    stbi_set_flip_vertically_on_load(true);
 }
 
 Window::~Window()
-{
-    glfwTerminate();
-}
+{}
 
 
 
@@ -358,6 +349,24 @@ void Window::Deleter::operator()(
 
 namespace {
 
+
+
+struct OpenglMemoryManager {
+    OpenglMemoryManager()
+    {
+        if (!glfwInit()) {
+            throw std::runtime_error("glwfInit failed");
+        }
+
+        stbi_set_flip_vertically_on_load(true);
+    }
+
+    ~OpenglMemoryManager()
+    {
+        glfwTerminate();
+    }
+};
+const OpenglMemoryManager _openglMemoryManager;
 
 
 void mouseDirectionCallback(
