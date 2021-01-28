@@ -22,8 +22,18 @@ public:
     // ---------------------------------- *structors
     explicit EnlightenedCube(
         ::engine::graphic::opengl::Shader& shader,
-        size_t numberOfPositions = 1
+        size_t numberOfPositions = 1,
+        const std::function<void()>& setAttributesFunc = []{
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+            glEnableVertexAttribArray(1);
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+            glEnableVertexAttribArray(2);
+        },
+        const std::string_view verticesFilename  = "lightningMap"
     );
+
 
     ~EnlightenedCube();
 
@@ -43,9 +53,6 @@ protected:
 protected:
 private:
 private:
-
-    // ---------------------------------- Attributes
-    static void setAttributes();
 
 };
 

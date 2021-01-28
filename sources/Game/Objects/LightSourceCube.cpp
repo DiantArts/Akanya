@@ -32,7 +32,7 @@ void ::game::object::LightSourceCube::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(window, camera);
+    engine::graphic::actor::ADrawable::configureShader(window, camera);
     this->setIntoShader("lightColor", m_parameters.color);
 }
 

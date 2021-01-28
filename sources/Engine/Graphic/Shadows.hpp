@@ -39,8 +39,8 @@ public:
 
 
 public:
-    constexpr static size_t width { 1024 };
-    constexpr static size_t height { 1024 };
+    static constexpr size_t width { 1024 };
+    static constexpr size_t height { 1024 };
 
 
 private:

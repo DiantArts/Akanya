@@ -80,7 +80,7 @@ void ATransformable::scaleZ(const float scale)
     m_scale.z += scale;
 }
 
-//
+
 
 void ATransformable::setScale(const float scale)
 {
@@ -121,7 +121,7 @@ void ATransformable::setScaleZ(const float scale)
     m_scale.z = std::move(scale);
 }
 
-//
+
 
 const glm::vec3& ATransformable::getScale() const
 {
@@ -248,7 +248,7 @@ void ATransformable::rotateZ(const float rotation)
     }
 }
 
-//
+
 
 void ATransformable::setRotation(const float rotation)
 {
@@ -289,7 +289,7 @@ void ATransformable::setRotationZ(const float rotation)
     m_rotation.z = std::move(rotation);
 }
 
-//
+
 
 const glm::vec3& ATransformable::getRotation() const
 {

@@ -4,8 +4,8 @@
 ** Controls graphic pipeline
 */
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_SHADER_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_SHADER_HPP___
 
 namespace engine::graphic::opengl {
 
@@ -16,6 +16,7 @@ class Shader {
 public:
 
     // ---------------------------------- *structors
+
     Shader(
         std::string_view filepathes
     );
@@ -303,6 +304,7 @@ public:
 private:
 
     // ---------------------------------- Shader compilation
+
     void compile(
         std::string&& vertexFilepath,
         std::string&& fragmentFilepath
@@ -316,7 +318,7 @@ private:
 
 
 
-    // ---------------------------------- Optimizations
+    // ---------------------------------- Optimization
 
     auto getOrCacheUniformLocation(
         const std::string& uniformId
@@ -338,4 +340,4 @@ private:
 
 } // namespace engine::graphic::opengl
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_SHADER_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_SHADER_HPP___

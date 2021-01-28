@@ -40,7 +40,7 @@ void Model::drawModels(const engine::graphic::Camera&) const
     }
 }
 
-//
+
 
 void Model::update(float deltaTime)
 {
@@ -102,7 +102,7 @@ Model::Mesh::Mesh(const ::engine::graphic::opengl::Shader&         shader,
 Model::Mesh::~Mesh()
 {}
 
-//
+
 
 void Model::Mesh::draw() const
 {
@@ -115,7 +115,7 @@ void Model::Mesh::draw() const
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-//
+
 
 void Model::Mesh::update(float)
 {}

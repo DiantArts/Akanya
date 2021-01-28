@@ -15,8 +15,13 @@
 
 // ---------------------------------- *structors
 
-::game::object::Floor::Floor(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
-    : Cube(shader, numberOfPositions, 1, Floor::setAttributes, "floor")
+::game::object::Floor::Floor(
+    ::engine::graphic::opengl::Shader& shader,
+    const size_t numberOfPositions,
+    const std::function<void()>& setAttributesFunc,
+    const std::string_view verticesFilename
+)
+    : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");
@@ -34,7 +39,7 @@ void ::game::object::Floor::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(window, camera);
+    ::engine::graphic::actor::ADrawable::configureShader(window, camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("gamma", window.getConfig().gamma);
@@ -43,26 +48,7 @@ void ::game::object::Floor::configureShader(
     this->setIntoShader("nrDirLight", ::engine::graphic::actor::light::Directional::getNbLight());
     this->setIntoShader("nrPointLight", ::engine::graphic::actor::light::Point::getNbLight());
     this->setIntoShader("nrSpotLight", ::engine::graphic::actor::light::Spot::getNbLight());
-    for (auto light : ::engine::graphic::actor::light::ALight::getAll()) {
+    for (const auto& light : ::engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);
     }
-}
-
-
-
-// ---------------------------------- Attributes
-
-void ::game::object::Floor::setAttributes()
-{
-    // vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // normal attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
 }

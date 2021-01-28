@@ -7,7 +7,6 @@
 #include "pch.hpp"
 #include "EnlightenedCube.hpp"
 
-#include "Engine/Graphic/Actors/Lights/ALight.hpp"
 #include "Engine/Graphic/Actors/Lights/Directional.hpp"
 #include "Engine/Graphic/Actors/Lights/Point.hpp"
 #include "Engine/Graphic/Actors/Lights/Spot.hpp"
@@ -18,9 +17,11 @@
 
 ::game::object::EnlightenedCube::EnlightenedCube(
     ::engine::graphic::opengl::Shader& shader,
-    const size_t numberOfPositions
+    const size_t numberOfPositions,
+    const std::function<void()>& setAttributesFunc,
+    const std::string_view verticesFilename
 )
-    : Cube(shader, numberOfPositions, 1, EnlightenedCube::setAttributes, "lightningMap")
+    : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
     this->useShader();
 
@@ -43,35 +44,16 @@ void ::game::object::EnlightenedCube::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ABasicShape::configureShader(window, camera);
+    ::engine::graphic::actor::ADrawable::configureShader(window, camera);
     this->setIntoShader("viewPos", camera.getPosition());
 
     this->setIntoShader("gamma", window.getConfig().gamma);
     this->setIntoShader("blinn", window.getConfig().blinn);
 
-    this->setIntoShader("nrDirLight", engine::graphic::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", engine::graphic::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", engine::graphic::actor::light::Spot::getNbLight());
-    for (const auto& light : engine::graphic::actor::ALight::getAll()) {
+    this->setIntoShader("nrDirLight", ::engine::graphic::actor::light::Directional::getNbLight());
+    this->setIntoShader("nrPointLight", ::engine::graphic::actor::light::Point::getNbLight());
+    this->setIntoShader("nrSpotLight", ::engine::graphic::actor::light::Spot::getNbLight());
+    for (const auto& light : ::engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);
     }
-}
-
-
-
-// ---------------------------------- Attributes
-
-void ::game::object::EnlightenedCube::setAttributes()
-{
-    // vertex attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // normal attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
 }

@@ -5,7 +5,7 @@
 */
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTOR_CUBEMAP_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORèCUBEMAP_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTOR_CUBEMAP_HPP___
 
 #include "Texture.hpp"
 
@@ -20,10 +20,16 @@ class CubeMap
 {
 public:
     // ---------------------------------- *structors
-    CubeMap(::engine::graphic::opengl::Shader&              shader,
-            const std::function<void()>& setAttributesFunc = CubeMap::setAttributes,
-            const std::string_view       verticesFilename  = "cubeMap",
-            const std::string_view       textureDirectory  = "cubeMap");
+    CubeMap(
+        ::engine::graphic::opengl::Shader& shader,
+        const std::function<void()>& setAttributesFunc = []{
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        },
+        const std::string_view verticesFilename  = "cubeMap",
+        const std::string_view textureDirectory  = "cubeMap"
+    );
+
     ~CubeMap();
 
 
@@ -46,10 +52,6 @@ public:
         const ::engine::graphic::Camera& camera
     ) const override;
 
-
-    // ---------------------------------- defaultAttributes
-
-    static void setAttributes();
 
 
 public:

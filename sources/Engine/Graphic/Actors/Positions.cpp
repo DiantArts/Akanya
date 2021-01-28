@@ -63,7 +63,7 @@ const glm::vec3& Positions::operator[](size_t index) const
     }
 }
 
-//
+
 
 glm::vec3* Positions::operator->()
 {
@@ -125,7 +125,7 @@ engine::graphic::actor::Positions::const_iterator Positions::cbegin() const
     }
 }
 
-//
+
 
 engine::graphic::actor::Positions::iterator Positions::end()
 {
@@ -225,7 +225,7 @@ void Positions::setPosition(const float positionX, const float positionY, const 
     pos.z = std::move(positionZ);
 }
 
-//
+
 
 void Positions::setPositionX(const float positionX)
 {
@@ -259,7 +259,7 @@ void Positions::move(const float offsetX, const float offsetY, const float offse
     pos.z += std::move(offsetZ);
 }
 
-//
+
 
 void Positions::moveX(const float offsetX)
 {

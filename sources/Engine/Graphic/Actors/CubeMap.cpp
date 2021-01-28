@@ -14,6 +14,8 @@
 
 namespace {
 
+
+
 class TextureMap {
 public:
     using DataType   = GLuint;
@@ -69,20 +71,20 @@ private:
 
 TextureMap g_CachedTextures;
 
+
+
 } // namespace
-
-
-
-namespace engine::graphic::actor {
 
 
 
 // ---------------------------------- *structors
 
-CubeMap::CubeMap(::engine::graphic::opengl::Shader&              shader,
-                 const std::function<void()>& setAttributesFunc /* = CubeMap::setAttributes */,
-                 const std::string_view       verticesFilename,
-                 const std::string_view       textureDirectory)
+::engine::graphic::actor::CubeMap::CubeMap(
+    ::engine::graphic::opengl::Shader& shader,
+    const std::function<void()>& setAttributesFunc,
+    const std::string_view verticesFilename,
+    const std::string_view textureDirectory
+)
     : engine::graphic::AActor(shader, 1), m_texture(textureDirectory.data())
 {
     m_vbo.bind();
@@ -96,14 +98,14 @@ CubeMap::CubeMap(::engine::graphic::opengl::Shader&              shader,
     this->setIntoShader("skybox", static_cast<int>(0));
 }
 
-CubeMap::~CubeMap()
+::engine::graphic::actor::CubeMap::~CubeMap()
 {}
 
 
 
 // ---------------------------------- Drawable
 
-void CubeMap::draw(
+void ::engine::graphic::actor::CubeMap::draw(
     const ::engine::graphic::Window& window,
     const ::engine::graphic::Camera& camera
 ) const
@@ -114,7 +116,7 @@ void CubeMap::draw(
     glDepthFunc(GL_LESS); // set depth function back to default
 }
 
-void CubeMap::drawModels(
+void ::engine::graphic::actor::CubeMap::drawModels(
     const engine::graphic::Camera&
 ) const
 {
@@ -123,7 +125,7 @@ void CubeMap::drawModels(
     glDrawArrays(GL_TRIANGLES, 0, m_numberOfArrayToDraw);
 }
 
-void CubeMap::configureShader(
+void ::engine::graphic::actor::CubeMap::configureShader(
     const ::engine::graphic::Window& window,
     const ::engine::graphic::Camera& camera
 ) const
@@ -139,19 +141,9 @@ void CubeMap::configureShader(
 
 
 
-// ---------------------------------- defaultAttributes
-
-void CubeMap::setAttributes()
-{
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-}
-
-
-
 // ---------------------------------- Textures
 
-CubeMap::Texture::Texture(const std::string& textureDirectory)
+::engine::graphic::actor::CubeMap::Texture::Texture(const std::string& textureDirectory)
     : m_id(g_CachedTextures[textureDirectory])
 {
     if (m_id.use_count() == 1) { // if just created
@@ -211,15 +203,10 @@ CubeMap::Texture::Texture(const std::string& textureDirectory)
     }
 }
 
-CubeMap::Texture::~Texture()
-{}
+::engine::graphic::actor::CubeMap::Texture::~Texture() = default;
 
-void CubeMap::Texture::bind() const
+void ::engine::graphic::actor::CubeMap::Texture::bind() const
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, *m_id);
 }
-
-
-
-} // namespace engine::graphic::actor
