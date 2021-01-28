@@ -22,7 +22,10 @@ namespace game::scene {
 
 // ---------------------------------- *structors
 
-Example::Example()
+Example::Example(
+    ::engine::graphic::Window& window
+)
+    : ::engine::graphic::AScene(window)
 {
     this->emplaceActor<game::object::Floor>(m_shaderMap["floor"]);
 

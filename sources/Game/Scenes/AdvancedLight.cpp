@@ -21,7 +21,10 @@ namespace game::scene {
 
 // ---------------------------------- *structors
 
-AdvancedLight::AdvancedLight()
+AdvancedLight::AdvancedLight(
+    ::engine::graphic::Window& window
+)
+    : ::engine::graphic::AScene(window)
 {
     this->emplaceActor<game::object::LightSourceCube>(m_shaderMap["lightSource"]);
     m_shaderMap["pointShadow"].use();

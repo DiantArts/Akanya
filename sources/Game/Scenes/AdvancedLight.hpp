@@ -21,7 +21,10 @@ class AdvancedLight
 {
 public:
     // ---------------------------------- *structors
-    AdvancedLight();
+    AdvancedLight(
+        ::engine::graphic::Window& window
+    );
+
     ~AdvancedLight();
 
 public:

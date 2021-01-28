@@ -351,7 +351,7 @@ namespace {
 
 
 
-struct OpenglMemoryManager {
+class OpenglMemoryManager {
     OpenglMemoryManager()
     {
         if (!glfwInit()) {
@@ -365,8 +365,11 @@ struct OpenglMemoryManager {
     {
         glfwTerminate();
     }
+
+    static const OpenglMemoryManager _;
 };
-const OpenglMemoryManager _openglMemoryManager;
+
+const OpenglMemoryManager OpenglMemoryManager::_;
 
 
 void mouseDirectionCallback(

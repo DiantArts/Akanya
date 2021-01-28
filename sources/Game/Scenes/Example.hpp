@@ -21,7 +21,10 @@ namespace game::scene {
 class Example : public engine::graphic::AScene {
 public:
     // ---------------------------------- *structors
-    Example();
+    Example(
+        ::engine::graphic::Window& window
+    );
+
     ~Example();
 
 private:

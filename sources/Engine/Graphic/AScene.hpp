@@ -26,7 +26,9 @@ public:
 
     // ---------------------------------- *structors
 
-    AScene();
+    AScene(
+        ::engine::graphic::Window& m_window
+    );
 
     virtual ~AScene() = 0;
 
@@ -104,8 +106,6 @@ public:
 public:
 protected:
 
-    ::engine::graphic::Window m_window;
-
     class ShaderMap {
 
     public:
@@ -155,6 +155,8 @@ protected:
         std::unordered_map<std::string, ::engine::graphic::opengl::Shader> m_shaderMap;
 
     };
+
+    ::engine::graphic::Window& m_window;
 
     AScene::ShaderMap m_shaderMap;
 

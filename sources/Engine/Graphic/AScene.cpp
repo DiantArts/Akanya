@@ -12,7 +12,10 @@
 
 // ---------------------------------- *structors
 
-::engine::graphic::AScene::AScene()
+::engine::graphic::AScene::AScene(
+    ::engine::graphic::Window& window
+)
+    : m_window(window)
 {
     m_window.setCameraSpeed(5);
     m_window.setCameraPosition(1.5, 3.0F, 7.5F);

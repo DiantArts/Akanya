@@ -32,7 +32,8 @@ int main()
     // event->handleWith(func2);
     // return 0;
     try {
-        ::game::scene::Example scene;
+        ::engine::graphic::Window window;
+        ::game::scene::Example scene(window);
         // game::scene::AdvancedLight scene;
 
         while (!scene.isOver()) {
