@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Core/AScene
-** Basic scene template
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/AScene
+// Basic scene template
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_ASCENE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_ASCENE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ASCENE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ASCENE_HPP___
 
 #include "../Core/Clock.hpp"
 #include "Actors/ABasicShape.hpp"
@@ -184,4 +184,4 @@ private:
 
 } // namespace engine::graphic
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_ASCENE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ASCENE_HPP___

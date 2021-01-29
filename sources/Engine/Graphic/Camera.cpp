@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Camera
-** Allow user to visualise the world through a point of view
-*/
+//
+// Akanya, Engine
+// sources/Engine/Camera
+// Allow user to visualise the world through a point of view
+//
 
 #include "pch.hpp"
 

@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Model
-** This class loads models from .objs (at least and for the moment)
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Model
+// This class loads models from .objs (at least and for the moment)
+//
 
 #include "pch.hpp"
 #include "Model.hpp"

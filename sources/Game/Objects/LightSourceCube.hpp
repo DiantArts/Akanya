@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/LightSourceCube
-** A lamp ?
-*/
+//
+// Akanya, Engine
+// sources/Objects/LightSourceCube
+// A lamp ?
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___

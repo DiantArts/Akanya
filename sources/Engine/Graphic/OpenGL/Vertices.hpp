@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Vertices
-** Extract vertices from files and alloc buffers to binded ones
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Vertices
+// Extract vertices from files and alloc buffers to binded ones
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VERTICES_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VERTICES_HPP___

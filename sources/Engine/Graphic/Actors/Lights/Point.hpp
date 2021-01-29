@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/Point
-** Light source illuminating in all direction from a point
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/Point
+// Light source illuminating in all direction from a point
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___

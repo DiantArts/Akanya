@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Shadows
-** frst try of shadows
-*/
+//
+// Akanya, Engine
+// sources/Engine/Shadows
+// frst try of shadows
+//
 
 #include "pch.hpp"
 

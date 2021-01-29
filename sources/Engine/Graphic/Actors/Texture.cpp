@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Texture
-** Optimise texture loading as allow textures to be used multiple times
-*/
+//
+// Akanya, Engine
+// sources/Texture
+// Optimise texture loading as allow textures to be used multiple times
+//
 
 #include "pch.hpp"
 

@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/AEvent
-** Event main class that defines what an event is and that should be inherient from every events
-*/
+//
+// Akanya, Engine
+// sources/Engine/Events/AEvent
+// Event main class that defines what an event is and that should be inherient from every events
+//
 
 #include "pch.hpp"
 

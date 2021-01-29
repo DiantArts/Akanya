@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Game/Scenes/Example
-** Simple example of a scene to test things
-*/
+//
+// Akanya, Engine
+// sources/Game/Scenes/Example
+// Simple example of a scene to test things
+//
 
 #include "pch.hpp"
 

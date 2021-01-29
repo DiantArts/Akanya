@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/Backpack
-** basic model backpack
-*/
+//
+// Akanya, Engine
+// sources/Objects/Backpack
+// basic model backpack
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_BACKPACK_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_BACKPACK_HPP___

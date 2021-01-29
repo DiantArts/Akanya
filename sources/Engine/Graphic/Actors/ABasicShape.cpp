@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/ABasicShape
-** Regroup every built-in shapes like Cube and Sphere
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/ABasicShape
+// Regroup every built-in shapes like Cube and Sphere
+//
 
 #include "pch.hpp"
 #include "ABasicShape.hpp"

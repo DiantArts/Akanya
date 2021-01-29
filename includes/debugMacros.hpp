@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** macros
-** macros of the program
-*/
+//
+// Akanya, Engine
+// macros
+// macros of the program
+//
 
 #ifndef ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___
 #define ___INCLUDE_GUARD_INCLUDES_DEBUGMACROS_HPP___

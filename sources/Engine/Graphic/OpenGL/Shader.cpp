@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Shader
-** Controls graphic pipeline
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Shader
+// Controls graphic pipeline
+//
 
 #include "pch.hpp"
 

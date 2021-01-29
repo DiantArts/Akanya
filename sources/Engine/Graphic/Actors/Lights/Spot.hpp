@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/Spot
-** Light source shooting in a specifique direction
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/Spot
+// Light source shooting in a specifique direction
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___

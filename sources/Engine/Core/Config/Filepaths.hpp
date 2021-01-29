@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Core/Config/Filepaths
-** While waiting config file, filepaths are described here
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Config/Filepaths
+// While waiting config file, filepaths are described here
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CONFIG_FILEPATHS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CONFIG_FILEPATHS_HPP___

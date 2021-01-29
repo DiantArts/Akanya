@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/LightSourceCube
-** A lamp ?
-*/
+//
+// Akanya, Engine
+// sources/Objects/LightSourceCube
+// A lamp ?
+//
 
 #include "pch.hpp"
 

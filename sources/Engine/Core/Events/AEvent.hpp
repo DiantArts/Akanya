@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/AEvent
-** Event main class that defines what an event is and that should be inherient from every events
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Events/AEvent
+// Event main class that defines what an event is and that should be inherient from every events
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___
 
 #include "../Events/Category.hpp"
 #include "../Events/DefinitionMacros.hpp"
@@ -59,4 +59,4 @@ namespace engine::core { using AEvent = ::engine::core::event::AEvent; }
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_AEVENT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___

@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/main
-** Main of the program, must be simple
-*/
+//
+// Akanya
+// sources/main
+// Main of the program, must be simple
+//
 
 #include "pch.hpp"
 

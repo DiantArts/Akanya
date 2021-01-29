@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Model
-** This class loads models from .objs (at least and for the moment)
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Model
+// This class loads models from .objs (at least and for the moment)
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_MODEL_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_MODEL_HPP___

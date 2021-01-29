@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Shader
-** Controls graphic pipeline
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Shader
+// Controls graphic pipeline
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_SHADER_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_SHADER_HPP___

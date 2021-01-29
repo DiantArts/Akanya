@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/AScene
-** Basic scene template
-*/
+//
+// Akanya, Engine
+// sources/Engine/AScene
+// Basic scene template
+//
 
 #include "pch.hpp"
 #include "AScene.hpp"

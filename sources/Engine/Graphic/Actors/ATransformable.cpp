@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/ATransformable
-** Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/ATransformable
+// Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
+//
 
 #include "pch.hpp"
 

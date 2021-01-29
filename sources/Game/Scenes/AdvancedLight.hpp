@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Game/Scenes/AdvancedLight
-** Scene to test lightnings
-*/
+//
+// Akanya, Engine
+// sources/Game/Scenes/AdvancedLight
+// Scene to test lightnings
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_GAME_SCENES_ADVANCEDLIGHT_HPP___

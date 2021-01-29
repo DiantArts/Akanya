@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Shadows
-** frst try of shadows
-*/
+//
+// Akanya, Engine
+// sources/Engine/Shadows
+// frst try of shadows
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_SHADOWS_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_SHADOWS_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_SHADOWS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_SHADOWS_HPP___
 
 #include "OpenGL/Fbo.hpp"
 #include "OpenGL/Shader.hpp"
@@ -54,4 +54,4 @@ private:
 
 } // namespace engine
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_SHADOWS_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_SHADOWS_HPP___

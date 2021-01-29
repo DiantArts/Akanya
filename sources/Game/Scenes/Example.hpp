@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Game/Scenes/Example
-** Simple example of a scene to test things
-*/
+//
+// Akanya, Engine
+// sources/Game/Scenes/Example
+// Simple example of a scene to test things
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_GAME_SCENES_EXAMPLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_GAME_SCENES_EXAMPLE_HPP___

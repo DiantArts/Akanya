@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Vao
-** Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Vao
+// Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VAO_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_VAO_HPP___

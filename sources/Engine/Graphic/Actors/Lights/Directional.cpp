@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/Directional
-** Light source comming from infinitly far away
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/Directional
+// Light source comming from infinitly far away
+//
 
 #include "pch.hpp"
 

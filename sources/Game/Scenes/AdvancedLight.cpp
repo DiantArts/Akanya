@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Game/Scenes/AdvancedLight
-** Scene to test lightnings
-*/
+//
+// Akanya, Engine
+// sources/Game/Scenes/AdvancedLight
+// Scene to test lightnings
+//
 
 #include "pch.hpp"
 

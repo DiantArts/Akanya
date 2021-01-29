@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Texture
-** Optimise texture loading as allow textures to be used multiple times
-*/
+//
+// Akanya, Engine
+// sources/Texture
+// Optimise texture loading as allow textures to be used multiple times
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_TEXTURE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_TEXTURE_HPP___

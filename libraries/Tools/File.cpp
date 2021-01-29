@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** File
-** file tools to help easier code
-*/
+//
+// Akanya, Engine
+// File
+// file tools to help easier code
+//
 
 #include "File.hpp" // std::string_view
 

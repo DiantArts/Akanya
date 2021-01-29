@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/AActor
-** An actor is a drawable and a transformable
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/AActor
+// An actor is a drawable and a transformable
+//
 
 #include "pch.hpp"
 

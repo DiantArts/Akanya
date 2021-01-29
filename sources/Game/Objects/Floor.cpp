@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/Floor
-** Just a floor lol
-*/
+//
+// Akanya, Engine
+// sources/Objects/Floor
+// Just a floor lol
+//
 
 #include "pch.hpp"
 #include "Floor.hpp"

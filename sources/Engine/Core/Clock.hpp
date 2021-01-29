@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Core/Clock
-** Simple OpenGL abstractiong of the time
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Clock
+// Simple OpenGL abstractiong of the time
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CLOCK_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CLOCK_HPP___

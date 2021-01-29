@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Fbo
-** FrameBuffer Object
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Fbo
+// FrameBuffer Object
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_FBO_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_VERTEXES_FBO_HPP___

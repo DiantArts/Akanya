@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Positions
-** A vector of position that allow multiple draw from the same object
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Positions
+// A vector of position that allow multiple draw from the same object
+//
 
 #include "pch.hpp"
 

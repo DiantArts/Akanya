@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** includes/pch
-** g++ -x c++-header -Wpedantic -Wall -Wextra -Wno-volatile -Wno-address -Wno-nonnull-compare -std=c++20 -Ofast -pipe -o includes/pch.hpp.gch -Iincludes -Isources -Ilibraries -Iexterns includes/pch.hpp
-*/
+//
+// Akanya, Engine
+// includes/pch
+// g++ -x c++-header -Wpedantic -Wall -Wextra -Wno-volatile -Wno-address -Wno-nonnull-compare -std=c++20 -Ofast -pipe -o includes/pch.hpp.gch -Iincludes -Isources -Ilibraries -Iexterns includes/pch.hpp
+//
 
 #ifndef ___INCLUDE_GUARD_INCLUDES_PCH_HPP___
 #define ___INCLUDE_GUARD_INCLUDES_PCH_HPP___

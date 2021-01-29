@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/BasicShapes/Cube
-** this is a default built-in cube
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/BasicShapes/Cube
+// this is a default built-in cube
+//
 
 #include "pch.hpp"
 #include "Cube.hpp"

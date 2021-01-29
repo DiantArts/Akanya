@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/Point
-** Light source illuminating in all direction from a point
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/Point
+// Light source illuminating in all direction from a point
+//
 
 #include "pch.hpp"
 

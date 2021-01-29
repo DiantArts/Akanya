@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Camera
-** Allow user to visualise the world through a point of view
-*/
+//
+// Akanya, Engine
+// sources/Engine/Camera
+// Allow user to visualise the world through a point of view
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
 
 
 namespace engine::graphic {
@@ -21,6 +21,7 @@ public:
     // ---------------------------------- *structors
 
     explicit Camera();
+
     ~Camera();
 
 
@@ -221,4 +222,4 @@ private:
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CAMERA_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___

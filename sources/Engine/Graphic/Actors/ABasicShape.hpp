@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/ABasicShape
-** Regroup every built-in shapes like Cube and Sphere
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/ABasicShape
+// Regroup every built-in shapes like Cube and Sphere
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ABASICSHAPE_HPP___

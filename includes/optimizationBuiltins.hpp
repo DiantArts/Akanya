@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** optimizationBuiltins
-** builtins
-*/
+//
+// Akanya, Engine
+// optimizationBuiltins
+// builtins
+//
 
 #ifndef OPTIMIZATIONBUILTINS_HPP
 #define OPTIMIZATIONBUILTINS_HPP

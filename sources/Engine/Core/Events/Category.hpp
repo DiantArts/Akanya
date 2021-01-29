@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/Category
-** Defines every event category that exist
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Events/Category
+// Defines every event category that exist
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_CATEGORY_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_CATEGORY_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_CATEGORY_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_CATEGORY_HPP___
 
 
 
@@ -30,4 +30,4 @@ enum Category {
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_CATEGORY_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_CATEGORY_HPP___

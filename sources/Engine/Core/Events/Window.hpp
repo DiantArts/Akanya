@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/Window
-** Every events of the window category
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Events/Window
+// Every events of the window category
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_WINDOW_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_WINDOW_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_WINDOW_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_WINDOW_HPP___
 
 #include "AEvent.hpp"
 
@@ -33,4 +33,4 @@ WINDOW_EVENT(Moved)
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_WINDOW_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_WINDOW_HPP___

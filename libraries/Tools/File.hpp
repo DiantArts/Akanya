@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** libraries/Tools/File
-** file tools to help easier code
-*/
+//
+// Akanya, Engine
+// libraries/Tools/File
+// file tools to help easier code
+//
 
 #ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_FILE_HPP___
 #define ___INCLUDE_GUARD_LIBRARIES_TOOLS_FILE_HPP___

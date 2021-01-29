@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/Type
-** Defines every event types that exist
-*/
+//
+// Akanya, Engine
+// sources/Engine/Core/Events/Type
+// Defines every event types that exist
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_TYPE_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_TYPE_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_TYPE_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_TYPE_HPP___
 
 
 
@@ -27,4 +27,4 @@ enum class Type {
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_TYPE_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_TYPE_HPP___

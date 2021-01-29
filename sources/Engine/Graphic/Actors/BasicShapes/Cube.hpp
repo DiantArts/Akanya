@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/BasicShapes/Cube
-** this is a default built-in cube
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/BasicShapes/Cube
+// this is a default built-in cube
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_BASICSHAPES_CUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_BASICSHAPES_CUBE_HPP___

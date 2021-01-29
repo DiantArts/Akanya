@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Positions
-** A vector of position that allow multiple draw from the same object
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Positions
+// A vector of position that allow multiple draw from the same object
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___

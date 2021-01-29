@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/Floor
-** Just a floor lol
-*/
+//
+// Akanya, Engine
+// sources/Game/Objects/Floor
+// Just a floor lol
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_FLOOR_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_FLOOR_HPP___

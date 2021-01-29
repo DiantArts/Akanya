@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/ATransformable
-** Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/ATransformable
+// Every class inheriting from this one should be able to be transformed. Must be inheriting with ADrawable
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___

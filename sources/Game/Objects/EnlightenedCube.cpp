@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/EnlightenedCube
-** An enlightened cube lol
-*/
+//
+// Akanya, Engine
+// sources/Objects/EnlightenedCube
+// An enlightened cube lol
+//
 
 #include "pch.hpp"
 #include "EnlightenedCube.hpp"

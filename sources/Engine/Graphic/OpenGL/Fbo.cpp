@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Fbo
-** FrameBuffer Object
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Fbo
+// FrameBuffer Object
+//
 
 #include "pch.hpp"
 

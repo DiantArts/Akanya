@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/CubeMap
-** allow sky or things like that
-*/
+//
+// Akanya, Engine
+// sources/Engine/CubeMap
+// allow sky or things like that
+//
 
 #include "pch.hpp"
 

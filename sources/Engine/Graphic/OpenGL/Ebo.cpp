@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Ebo
-** Element Buffer Object: help to determine which vertex to draw
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Ebo
+// Element Buffer Object: help to determine which vertex to draw
+//
 
 #include "pch.hpp"
 

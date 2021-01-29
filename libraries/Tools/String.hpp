@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** libraries/Tools/String
-** File tools to help easier and cleaner code
-*/
+//
+// Akanya, Engine
+// libraries/Tools/String
+// File tools to help easier and cleaner code
+//
 
 #ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_STRING_HPP___
 #define ___INCLUDE_GUARD_LIBRARIES_TOOLS_STRING_HPP___

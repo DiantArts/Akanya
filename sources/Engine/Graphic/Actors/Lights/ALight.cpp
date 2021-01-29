@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/ALight
-** Light base class
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/ALight
+// Light base class
+//
 
 #include "pch.hpp"
 

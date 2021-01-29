@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/Actors/Lights/Spot
-** Light source shooting in a specifique direction
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/Actors/Lights/Spot
+// Light source shooting in a specifique direction
+//
 
 #include "pch.hpp"
 

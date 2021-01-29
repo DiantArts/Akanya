@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Objects/EnlightenedCube
-** An enlightened cube lol
-*/
+//
+// Akanya, Engine
+// sources/Objects/EnlightenedCube
+// An enlightened cube lol
+//
 
 #ifndef ___INCLUDE_GUARD_SOURCES_OBJECTS_ENLIGHTENEDCUBE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_ENLIGHTENEDCUBE_HPP___

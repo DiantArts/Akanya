@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Window
-** Abstraction of GLFW
-*/
+//
+// Akanya, Engine
+// sources/Engine/Window
+// Abstraction of GLFW
+//
 
 #include "pch.hpp"
 

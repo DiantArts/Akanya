@@ -1,11 +1,11 @@
-/*
-** Akanya, Engine
-** sources/Engine/Events/DefinitionMacros
-** just an helper of .hpps
-*/
+//
+// Akanya, Engine
+// sources/Engine/Events/DefinitionMacros
+// just an helper of .hpps
+//
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_DEFINITIONMACROS_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_DEFINITIONMACROS_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_DEFINITIONMACROS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_DEFINITIONMACROS_HPP___
 
 
 
@@ -13,9 +13,9 @@
     { return ::engine::core::event::Category(value); }
 
 #define GET_TYPE(value) \
-    static inline ::engine::core::event::Type getStaticType() { return   ::engine::core::event::Type::value;  } \
+    static inline ::engine::core::event::Type getStaticType()   { return ::engine::core::event::Type::value;  } \
     inline ::engine::core::event::Type getType() const override { return ::engine::core::event::Type::value;  } \
-    inline std::string         getName() const override { return "::engine::core::event::"#value; }
+    inline std::string                 getName() const override { return "::engine::core::event::"#value; }
 
 
 
@@ -37,4 +37,4 @@
 
 
 
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_EVENTS_DEFINITIONMACROS_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_DEFINITIONMACROS_HPP___

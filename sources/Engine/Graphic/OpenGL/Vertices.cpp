@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** sources/Engine/Graphic/OpenGL/Vertices
-** Extract vertices from files and alloc buffers to binded ones
-*/
+//
+// Akanya, Engine
+// sources/Engine/Graphic/OpenGL/Vertices
+// Extract vertices from files and alloc buffers to binded ones
+//
 
 #include "pch.hpp"
 

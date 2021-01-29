@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** libraries/Tools/FuncAlias
-** Just a define
-*/
+//
+// Akanya, Engine
+// libraries/Tools/FuncAlias
+// Just a define
+//
 
 #ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_FUNCALIAS_HPP___
 #define ___INCLUDE_GUARD_LIBRARIES_TOOLS_FUNCALIAS_HPP___

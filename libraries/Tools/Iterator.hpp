@@ -1,8 +1,8 @@
-/*
-** Akanya, Engine
-** libraries/Tools/Iterator
-** help to create Iterators
-*/
+//
+// Akanya, Engine
+// libraries/Tools/Iterator
+// help to create Iterators
+//
 
 #ifndef ___INCLUDE_GUARD_LIBRARIES_TOOLS_ITERATOR_HPP___
 #define ___INCLUDE_GUARD_LIBRARIES_TOOLS_ITERATOR_HPP___
