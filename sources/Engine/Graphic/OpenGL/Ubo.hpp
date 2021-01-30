@@ -74,16 +74,6 @@ public:
         glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
     }
 
-    template <
-        typename DataType
-    > void setSubData(
-        DataType* dataptr,
-        GLintptr offset
-    ) const
-    {
-        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(*dataptr), dataptr);
-    }
-
 
 
 private:
