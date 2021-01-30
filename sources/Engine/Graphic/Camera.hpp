@@ -175,8 +175,22 @@ public:
 
     // ---------------------------------- View
 
+    void updateView() const;
+
     auto getView() const
-        -> ::glm::mat4;
+        -> const ::glm::mat4&;
+
+
+
+    // ---------------------------------- Config
+
+    struct Config {
+        bool gamma { false };
+        bool blinn { true };
+    };
+
+    auto getConfig() const
+        -> const Camera::Config&;
 
 
 
@@ -214,6 +228,14 @@ private:
     float m_yaw { -90.00F };
     float m_pitch { 0.00F };
 
+    Camera::Config m_config;
+
+    mutable ::glm::mat4 m_view;
+
+    friend void engine::graphic::Window::processInput(
+        ::engine::graphic::Camera& camera,
+        const float deltaTime
+    );
 };
 
 

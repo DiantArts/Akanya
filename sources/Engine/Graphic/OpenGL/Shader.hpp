@@ -67,6 +67,7 @@ public:
 
 
     // ---------------------------------- Set (must be used before)
+
     void set(
         const std::string& name,
         bool value
@@ -298,6 +299,16 @@ public:
         std::string&& name,
         std::span<glm::mat4> array
     ) const;
+
+
+
+    // ---------------------------------- SetBlockBinding (must be used before)
+
+    void setBlockBinding(
+        const std::string& name,
+        size_t index
+    ) const;
+
 
 
 
@@ -331,7 +342,7 @@ private:
 
 private:
 
-    GLint m_shaderId;
+    GLint m_id;
     mutable std::unordered_map<std::string, GLuint> m_uniformsLocationCache;
 
 };

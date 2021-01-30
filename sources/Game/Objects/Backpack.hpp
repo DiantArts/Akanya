@@ -20,6 +20,7 @@ public:
     // ---------------------------------- *structors
     explicit Backpack(
         ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
         const size_t numberOfPositions
     );
     ~Backpack();
@@ -27,7 +28,6 @@ public:
 
     // ---------------------------------- override
     void configureShader(
-        const ::engine::graphic::Window& window,
         const ::engine::graphic::Camera& camera
     ) const override final;
 

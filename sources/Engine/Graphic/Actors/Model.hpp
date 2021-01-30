@@ -24,6 +24,7 @@ public:
     // ---------------------------------- *structors
     explicit Model(
         ::engine::graphic::opengl::Shader&    shader,
+    const glm::mat4& projection,
         const std::string& filename,
         size_t numberOfPositions = 1,
         bool   gamma             = false
@@ -37,9 +38,7 @@ public:
         float deltaTime
     ) override;
 
-    virtual void drawModels(
-        const engine::graphic::Camera& camera
-    ) const override;
+    virtual void drawModels() const override;
 
 private:
     // ---------------------------------- Texture

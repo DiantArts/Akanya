@@ -7,19 +7,18 @@
 #include "pch.hpp"
 
 #include "Game/Scenes/Example.hpp"
-#include "Game/Scenes/AdvancedLight.hpp"
 
-#include "Engine/Core/Events/Keyboard.hpp"
+// #include "Engine/Core/Events/Keyboard.hpp"
 
-void keyPressedHandler(::engine::core::event::KeyPressed& event)
-{
-    std::cout << __FUNCTION__  << ": " << event.getName() << std::endl;
-}
+// void keyPressedHandler(::engine::core::event::KeyPressed& event)
+// {
+    // std::cout << __FUNCTION__  << ": " << event.getName() << std::endl;
+// }
 
-void keyReleasedHandler(::engine::core::event::KeyReleased& event)
-{
-    std::cout << __FUNCTION__  << ": " << event << std::endl;
-}
+// void keyReleasedHandler(::engine::core::event::KeyReleased& event)
+// {
+    // std::cout << __FUNCTION__  << ": " << event << std::endl;
+// }
 
 
 
@@ -34,7 +33,6 @@ int main()
     try {
         ::engine::graphic::Window window;
         ::game::scene::Example scene(window);
-        // game::scene::AdvancedLight scene;
 
         while (!scene.isOver()) {
             scene.manageEvents();

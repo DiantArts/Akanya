@@ -29,8 +29,8 @@ public:
 
     // ---------------------------------- Get
     virtual ::engine::core::event::Category getCategory() const = 0;
-    virtual ::engine::core::event::Type     getType() const     = 0;
-    virtual std::string             getName() const     = 0;
+    virtual ::engine::core::event::Type getType() const = 0;
+    virtual std::string getName() const = 0;
 
 
     // ---------------------------------- Dispatcher

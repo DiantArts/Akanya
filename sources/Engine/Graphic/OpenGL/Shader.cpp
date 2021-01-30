@@ -38,7 +38,7 @@ void checkLinkageStatus(
 ::engine::graphic::opengl::Shader::Shader(
     const std::string_view filepaths
 )
-    : m_shaderId(glCreateProgram())
+    : m_id(glCreateProgram())
 {
     std::string vertexFilepath;
     vertexFilepath.reserve(::engine::core::config::filepath::shader::vertexes.size() + filepaths.size() + 5);
@@ -70,7 +70,7 @@ void checkLinkageStatus(
     const std::string_view vertexFilename,
     const std::string_view fragmentFilename
 )
-    : m_shaderId(glCreateProgram())
+    : m_id(glCreateProgram())
 {
     std::string vertexFilepath;
     vertexFilepath.reserve(::engine::core::config::filepath::shader::vertexes.size() + vertexFilename.size() + 5);
@@ -93,7 +93,7 @@ void checkLinkageStatus(
                const std::string_view fragmentFilename,
                const std::string_view geometryFilename
             )
-    : m_shaderId(glCreateProgram())
+    : m_id(glCreateProgram())
 {
     std::string vertexFilepath;
     vertexFilepath.reserve(::engine::core::config::filepath::shader::vertexes.size() + vertexFilename.size() + 5);
@@ -118,7 +118,7 @@ void checkLinkageStatus(
 
 ::engine::graphic::opengl::Shader::~Shader()
 {
-    glDeleteProgram(m_shaderId);
+    glDeleteProgram(m_id);
 }
 
 
@@ -127,7 +127,7 @@ void checkLinkageStatus(
 
 void ::engine::graphic::opengl::Shader::use() const
 {
-    glUseProgram(m_shaderId);
+    glUseProgram(m_id);
 }
 
 
@@ -528,6 +528,18 @@ void ::engine::graphic::opengl::Shader::set(
 
 
 
+// ---------------------------------- Set
+
+void ::engine::graphic::opengl::Shader::setBlockBinding(
+    const std::string& name,
+    const size_t index
+) const
+{
+    glUniformBlockBinding(this->m_id, glGetUniformBlockIndex(this->m_id, name.c_str()), index);
+}
+
+
+
 // ---------------------------------- Compilation
 
 void ::engine::graphic::opengl::Shader::compile(
@@ -539,10 +551,10 @@ void ::engine::graphic::opengl::Shader::compile(
     auto fragment { compileShader(GL_FRAGMENT_SHADER, fragmentFilepath) };
 
     if (vertex && fragment) {
-        glAttachShader(m_shaderId, vertex);
-        glAttachShader(m_shaderId, fragment);
-        glLinkProgram(m_shaderId);
-        checkLinkageStatus(m_shaderId);
+        glAttachShader(m_id, vertex);
+        glAttachShader(m_id, fragment);
+        glLinkProgram(m_id);
+        checkLinkageStatus(m_id);
     }
 
     glDeleteShader(vertex);
@@ -561,11 +573,11 @@ void ::engine::graphic::opengl::Shader::compile(
 
 
     if (vertex && fragment && geometry) {
-        glAttachShader(m_shaderId, vertex);
-        glAttachShader(m_shaderId, fragment);
-        glAttachShader(m_shaderId, geometry);
-        glLinkProgram(m_shaderId);
-        checkLinkageStatus(m_shaderId);
+        glAttachShader(m_id, vertex);
+        glAttachShader(m_id, fragment);
+        glAttachShader(m_id, geometry);
+        glLinkProgram(m_id);
+        checkLinkageStatus(m_id);
     }
 
     glDeleteShader(vertex);
@@ -587,7 +599,7 @@ auto ::engine::graphic::opengl::Shader::getOrCacheUniformLocation(
 
     } catch (const std::exception&) {
         // cache it
-        return m_uniformsLocationCache.emplace(uniformId, glGetUniformLocation(m_shaderId, uniformId.c_str()))
+        return m_uniformsLocationCache.emplace(uniformId, glGetUniformLocation(m_id, uniformId.c_str()))
             .first->second;
     }
 }
@@ -603,7 +615,7 @@ auto ::engine::graphic::opengl::Shader::getOrCacheUniformLocation(
     } catch (const std::exception&) {
         // cache it
         return m_uniformsLocationCache
-            .emplace(std::move(uniformId), glGetUniformLocation(m_shaderId, uniformId.c_str()))
+            .emplace(std::move(uniformId), glGetUniformLocation(m_id, uniformId.c_str()))
             .first->second;
     }
 }

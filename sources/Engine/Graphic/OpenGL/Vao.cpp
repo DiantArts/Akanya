@@ -1,7 +1,7 @@
 //
 // Akanya, Engine
 // sources/Engine/Graphic/OpenGL/Vao
-// Vertex Array Object: Contains vertex attributes pointers to get a simple use of VBOs
+// Vertex Array Object : Contains vertex attributes pointers to get a simple use of VBOs
 //
 
 #include "pch.hpp"

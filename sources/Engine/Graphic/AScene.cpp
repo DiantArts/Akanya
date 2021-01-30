@@ -15,6 +15,7 @@
     ::engine::graphic::Window& window
 )
     : m_window(window)
+    , m_projection(glm::perspective(45.0f, m_window.getSize().width / m_window.getSize().height, 0.1f, 100.f))
 {
     m_camera.setSpeed(5);
     m_camera.setPosition(1.5, 3.0F, 7.5F);
@@ -54,11 +55,12 @@ void ::engine::graphic::AScene::draw() const
 
 void ::engine::graphic::AScene::drawActors() const
 {
+    m_camera.updateView();
     for (const auto& actor : m_vectorActors) {
-        actor->draw(m_window, m_camera);
+        actor->draw(m_camera);
     }
     for (const auto& cubeMap : m_vectorCubeMap) {
-        cubeMap.draw(m_window, m_camera);
+        cubeMap.draw(m_camera);
     }
 }
 
@@ -136,4 +138,47 @@ auto ::engine::graphic::AScene::ShaderMap::operator[](
         // cache it
         return m_shaderMap.emplace(filename, filename).first->second;
     }
+}
+
+
+
+// ---------------------------------- iterator
+
+
+auto ::engine::graphic::AScene::ShaderMap::begin()
+    -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator
+{
+    return m_shaderMap.begin();
+}
+
+auto ::engine::graphic::AScene::ShaderMap::begin()
+    const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator
+{
+    return m_shaderMap.begin();
+}
+
+auto ::engine::graphic::AScene::ShaderMap::cbegin()
+    const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator
+{
+    return m_shaderMap.cbegin();
+}
+
+
+
+auto ::engine::graphic::AScene::ShaderMap::end()
+    -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator
+{
+    return m_shaderMap.end();
+}
+
+auto ::engine::graphic::AScene::ShaderMap::end()
+    const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator
+{
+    return m_shaderMap.cend();
+}
+
+auto ::engine::graphic::AScene::ShaderMap::cend()
+    const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator
+{
+    return m_shaderMap.cend();
 }

@@ -10,18 +10,6 @@
 namespace {
 
 
-void mouseDirectionCallback(
-    GLFWwindow*,
-    double xPos,
-    double yPos
-);
-
-void mouseScrollcallback(
-    GLFWwindow*,
-    double,
-    double yOffset
-);
-
 void framebufferSizeCallback(
     GLFWwindow*,
     int width,
@@ -146,14 +134,14 @@ void Window::processInput(
     }
 
     if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS && !m_keyPressed.gamma) {
-        m_config.gamma = !m_config.gamma;
+        camera.m_config.gamma = !camera.m_config.gamma;
         m_keyPressed.gamma = true;
     } if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_RELEASE) {
         m_keyPressed.gamma = false;
     }
 
     if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_PRESS && !m_keyPressed.blinn) {
-        m_config.blinn = !m_config.blinn;
+        camera.m_config.blinn = !camera.m_config.blinn;
         m_keyPressed.blinn = true;
     } if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
         m_keyPressed.blinn = false;
@@ -172,16 +160,6 @@ auto Window::getSize() const
 
 
 
-// ---------------------------------- Config
-
-auto Window::getConfig() const
-    -> const Window::Config&
-{
-    return m_config;
-}
-
-
-
 // ---------------------------------- Configuration
 
 void Window::configureDefault()
@@ -193,8 +171,8 @@ void Window::configureDefault()
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
-    glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
+    // glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
+    // glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
 
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);

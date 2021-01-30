@@ -91,18 +91,6 @@ public:
         -> const Window::Size&;
 
 
-
-    // ---------------------------------- Size
-
-    struct Config {
-        bool gamma { false };
-        bool blinn { true };
-    };
-
-    auto getConfig() const
-        -> const Window::Config&;
-
-
 public:
 protected:
 protected:
@@ -136,7 +124,6 @@ private:
     std::unique_ptr<GLFWwindow, Window::Deleter> m_window;
 
     Window::Size m_size;
-    Window::Config m_config;
 
 
     struct KeyPressed {

@@ -61,6 +61,7 @@
 #include "Engine/Core/Config/Filepaths.hpp"
 #include "Engine/Graphic/Window.hpp"
 #include "Engine/Graphic/Camera.hpp"
+#include "Engine/Graphic/OpenGL/Shader.hpp"
 #include "Engine/Graphic/Actors/Lights/ALight.hpp"
 #include "Engine/Graphic/Actors/AActor.hpp"
 #include "Engine/Graphic/OpenGL/Vao.hpp"
@@ -68,7 +69,6 @@
 #include "Engine/Graphic/OpenGL/Ebo.hpp"
 #include "Engine/Graphic/OpenGL/Fbo.hpp"
 #include "Engine/Graphic/OpenGL/Vertices.hpp"
-#include "Engine/Graphic/OpenGL/Shader.hpp"
 
 using std::string_literals::operator""s;
 using std::literals::string_view_literals::operator""sv;

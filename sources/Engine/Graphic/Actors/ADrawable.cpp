@@ -12,42 +12,46 @@
 // ---------------------------------- *structors
 
 ::engine::graphic::actor::ADrawable::ADrawable(
-    ::engine::graphic::opengl::Shader& shader
+    ::engine::graphic::opengl::Shader& shader,
+    const glm::mat4& projection
 )
     : m_shader(shader)
-{}
+    , m_ubo(2 * sizeof(glm::mat4), 0)
+{
+    this->setBlockBindingIntoShader("CameraInformations", 0);
+    // this->setBlockBindingIntoShader("LightInformations", 1);
+
+    m_ubo.bind();
+    m_ubo.setSubData(glm::value_ptr(projection), 0);
+    m_ubo.unbind();
+}
 
 ::engine::graphic::actor::ADrawable::~ADrawable() = default;
 
 
 
 // ---------------------------------- Draw
+
 void ::engine::graphic::actor::ADrawable::draw(
-    const ::engine::graphic::Window& window,
     const ::engine::graphic::Camera& camera
 ) const
 {
     this->useShader();
-    this->configureShader(window, camera);
-    this->drawModels(camera);
+    m_ubo.bind();
+    m_ubo.setSubData(glm::value_ptr(camera.getView()), sizeof(glm::mat4));
+    m_ubo.unbind();
+    this->configureShader(camera);
+    this->drawModels();
 }
 
 
 
 // ---------------------------------- Update
+
 void ::engine::graphic::actor::ADrawable::configureShader(
-    const ::engine::graphic::Window& window,
-    const ::engine::graphic::Camera& camera
+    const ::engine::graphic::Camera&
 ) const
-{
-    this->setIntoShader("view", camera.getView());
-    this->setIntoShader("projection", glm::perspective(
-            glm::radians(camera.getZoom()),
-            window.getSize().width / window.getSize().height,
-            0.1F,
-            100.0F
-        ));
-}
+{}
 
 
 
@@ -69,4 +73,12 @@ void ::engine::graphic::actor::ADrawable::setIntoShader(
 ) const
 {
     light.setIntoEnlightenedShader(this->getShader());
+}
+
+void ::engine::graphic::actor::ADrawable::setBlockBindingIntoShader(
+    const std::string& name,
+    const size_t index
+) const
+{
+    m_shader.setBlockBinding(name, index);
 }

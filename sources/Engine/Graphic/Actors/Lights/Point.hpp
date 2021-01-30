@@ -44,8 +44,6 @@ protected:
     };
     Parameters m_parameters;
 
-
-private:
     static inline size_t m_nbLight { 0 };
 };
 

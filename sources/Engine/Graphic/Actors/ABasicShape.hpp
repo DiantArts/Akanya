@@ -20,6 +20,7 @@ public:
     // ---------------------------------- *structors
     ABasicShape(
         ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
         const std::function<void()>& setAttributesFunc,
         std::string_view verticesFilename,
         size_t numberOfPositions = 1,
@@ -29,7 +30,7 @@ public:
 
 
     // ---------------------------------- Model
-    virtual void drawModels(const engine::graphic::Camera& camera) const override;
+    virtual void drawModels() const override;
 
 
 public:

@@ -7,6 +7,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 
+#include "../OpenGL/Ubo.hpp"
 
 
 namespace engine::graphic::actor::light { class ALight; }
@@ -24,7 +25,8 @@ public:
     // ---------------------------------- *structors
 
     ADrawable(
-        ::engine::graphic::opengl::Shader& shader
+        ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection
     );
 
     virtual ~ADrawable() = 0;
@@ -34,13 +36,10 @@ public:
     // ---------------------------------- Draw
 
     virtual void draw(
-        const ::engine::graphic::Window& window,
         const ::engine::graphic::Camera& camera
     ) const;
 
-    virtual void drawModels(
-        const ::engine::graphic::Camera& camera
-    ) const = 0;
+    virtual void drawModels() const = 0;
 
 
 
@@ -52,9 +51,9 @@ public:
     void useShader() const;
 
     virtual void configureShader(
-        const ::engine::graphic::Window& window,
         const ::engine::graphic::Camera& camera
     ) const;
+
 
 
 public:
@@ -89,6 +88,13 @@ protected:
     ) const;
 
 
+
+    void setBlockBindingIntoShader(
+        const std::string& name,
+        const size_t index
+    ) const;
+
+
 protected:
 private:
 private:
@@ -96,6 +102,8 @@ private:
 
     static inline size_t idGiver { 0 };
     const size_t m_id { idGiver++ };
+
+    ::engine::graphic::opengl::Ubo m_ubo;
 
 };
 

@@ -22,6 +22,7 @@ public:
     // ---------------------------------- *structors
     CubeMap(
         ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
         const std::function<void()>& setAttributesFunc = []{
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
@@ -35,22 +36,10 @@ public:
 
     // ---------------------------------- Drawable
     void draw(
-        const ::engine::graphic::Window& window,
         const ::engine::graphic::Camera& camera
     ) const override;
 
-    void drawModels(
-        const engine::graphic::Camera& camera
-    ) const override;
-
-
-
-    // ---------------------------------- Shader
-
-    void configureShader(
-        const ::engine::graphic::Window& window,
-        const ::engine::graphic::Camera& camera
-    ) const override;
+    void drawModels() const override;
 
 
 

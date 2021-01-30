@@ -19,19 +19,30 @@ namespace engine::graphic::actor {
 class AActor
     : public engine::graphic::actor::ADrawable
     , public engine::graphic::actor::ATransformable {
+
 public:
+
     // ---------------------------------- *structors
-    AActor(::engine::graphic::opengl::Shader& shader, size_t numberOfPositions);
+
+    AActor(
+        ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
+        size_t numberOfPositions
+    );
+
     virtual ~AActor() = 0;
 
 
     // ---------------------------------- Drawable
+
     glm::mat4    getModel(const glm::vec3& position) const; // just apply transform model
-    virtual void drawModels(const engine::graphic::Camera& camera) const = 0;
+
+    virtual void drawModels() const = 0; // ADrawable method
 
 
     // ---------------------------------- Transformable
-    virtual void update(float deltaTime); // just an empty definition
+
+    virtual void update(float deltaTime); // = default
 
 
 private:

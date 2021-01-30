@@ -39,7 +39,7 @@ PCHEXT			:=	.gch
 ## wflags
 COMMON_WFLAGS	:=	pedantic all extra
 C_WFLAGS		:=	
-CPP_WFLAGS		:=	no-volatile no-address no-nonnull-compare invalid-pch
+CPP_WFLAGS		:=	no-volatile no-address no-nonnull-compare no-unused-variable
 CPPM_WFLAGS		:=
 
 ## flags
@@ -336,6 +336,9 @@ $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
 	$(SRCDIR)/Engine/Graphic/Window$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Camera$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/AActor$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/ADrawable$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/ATransformable$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/Positions$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/Lights/ALight$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vao$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vbo$(CPP_HDREXT) \

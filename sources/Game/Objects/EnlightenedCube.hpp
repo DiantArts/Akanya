@@ -22,6 +22,7 @@ public:
     // ---------------------------------- *structors
     explicit EnlightenedCube(
         ::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
         size_t numberOfPositions = 1,
         const std::function<void()>& setAttributesFunc = []{
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
@@ -42,7 +43,6 @@ public:
     // ---------------------------------- override
 
     void configureShader(
-        const ::engine::graphic::Window& window,
         const ::engine::graphic::Camera& camera
     ) const override;
 

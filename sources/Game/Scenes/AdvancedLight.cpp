@@ -26,9 +26,9 @@ AdvancedLight::AdvancedLight(
 )
     : ::engine::graphic::AScene(window)
 {
-    this->emplaceActor<game::object::LightSourceCube>(m_shaderMap["lightSource"]);
-    m_shaderMap["pointShadow"].use();
-    m_shaderMap["pointShadow"].set("depthMap", 1);
+    // this->emplaceActor<game::object::LightSourceCube>(m_shaderMap["lightSource"]);
+    // m_shaderMap["pointShadow"].use();
+    // m_shaderMap["pointShadow"].set("depthMap", 1);
 }
 
 AdvancedLight::~AdvancedLight()

@@ -81,11 +81,12 @@ TextureMap g_CachedTextures;
 
 ::engine::graphic::actor::CubeMap::CubeMap(
     ::engine::graphic::opengl::Shader& shader,
+    const glm::mat4& projection,
     const std::function<void()>& setAttributesFunc,
     const std::string_view verticesFilename,
     const std::string_view textureDirectory
 )
-    : engine::graphic::AActor(shader, 1), m_texture(textureDirectory.data())
+    : engine::graphic::AActor(shader, projection, 1), m_texture(textureDirectory.data())
 {
     m_vbo.bind();
     m_vao.bind();
@@ -106,37 +107,20 @@ TextureMap g_CachedTextures;
 // ---------------------------------- Drawable
 
 void ::engine::graphic::actor::CubeMap::draw(
-    const ::engine::graphic::Window& window,
     const ::engine::graphic::Camera& camera
 ) const
 {
     glDepthFunc(GL_LEQUAL); // change depth function so depth test passes when values are equal to depth
                             // buffer's content
-    ADrawable::draw(window, camera);
+    ADrawable::draw(camera);
     glDepthFunc(GL_LESS); // set depth function back to default
 }
 
-void ::engine::graphic::actor::CubeMap::drawModels(
-    const engine::graphic::Camera&
-) const
+void ::engine::graphic::actor::CubeMap::drawModels() const
 {
     m_vao.bind();
     m_texture.bind();
     glDrawArrays(GL_TRIANGLES, 0, m_numberOfArrayToDraw);
-}
-
-void ::engine::graphic::actor::CubeMap::configureShader(
-    const ::engine::graphic::Window& window,
-    const ::engine::graphic::Camera& camera
-) const
-{
-    this->setIntoShader("view", glm::mat4(glm::mat3(camera.getView())));
-    this->setIntoShader("projection", glm::perspective(
-            glm::radians(camera.getZoom()),
-            window.getSize().width / window.getSize().height,
-            0.1F,
-            100.0F
-        ));
 }
 
 

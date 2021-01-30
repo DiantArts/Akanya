@@ -225,9 +225,26 @@ float Camera::getZoom() const
 
 // ---------------------------------- view
 
-glm::mat4 Camera::getView() const
+void Camera::updateView() const
 {
-    return glm::lookAt(m_position, m_position + m_front, m_up);
+    m_view = glm::lookAt(m_position, m_position + m_front, m_up);
 }
+
+const glm::mat4& Camera::getView() const
+{
+    return m_view;
+}
+
+
+
+// ---------------------------------- Config
+
+auto Camera::getConfig() const
+    -> const Camera::Config&
+{
+    return m_config;
+}
+
+
 
 } // namespace engine::graphic

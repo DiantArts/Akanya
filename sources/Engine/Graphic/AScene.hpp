@@ -12,6 +12,9 @@
 #include "Actors/CubeMap.hpp"
 #include "Shadows.hpp"
 
+#include "Actors/Lights/Directional.hpp"
+#include "Actors/Lights/Point.hpp"
+#include "Actors/Lights/Spot.hpp"
 
 
 namespace engine::graphic {
@@ -90,16 +93,76 @@ public:
         std::unique_ptr<::engine::graphic::AActor>& actor
     );
 
+
     template <
-        typename ActorType,
-        typename... Args
+        typename ActorType
     > auto emplaceActor(
-        Args&&... args
+        engine::graphic::opengl::Shader& shader,
+        auto&&... args
     ) -> ActorType&
     {
-        m_vectorActors.push_back(std::make_unique<ActorType>(std::forward<Args>(args)...));
-        return static_cast<ActorType&>(*m_vectorActors.back());
+        static_assert(std::is_base_of_v<engine::graphic::AActor, ActorType>, "Only actors can be emplaced back");
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                shader,
+                m_projection,
+                std::forward<decltype(args)>(args)...)
+            ));
     }
+
+    template <
+        typename ActorType
+    > requires std::is_base_of_v<engine::graphic::actor::light::Directional, ActorType>
+    auto emplaceActor(
+        engine::graphic::opengl::Shader& shader,
+        auto&&... args
+    ) -> ActorType&
+    {
+        ++m_nbDirectionalLight;
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                shader,
+                m_projection,
+                std::forward<decltype(args)>(args)...)
+            ));
+    }
+
+    template <
+        typename ActorType
+    > requires std::is_base_of_v<engine::graphic::actor::light::Point, ActorType>
+    auto emplaceActor(
+        engine::graphic::opengl::Shader& shader,
+        size_t numberOfInstances,
+        auto&&... args
+    ) -> ActorType&
+    {
+        m_nbPointLight += numberOfInstances;
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                shader,
+                m_projection,
+                numberOfInstances,
+                std::forward<decltype(args)>(args)...)
+            ));
+    }
+
+    template <
+        typename ActorType
+    > requires std::is_base_of_v<engine::graphic::actor::light::Spot, ActorType>
+    auto emplaceActor(
+        engine::graphic::opengl::Shader& shader,
+        size_t numberOfInstances,
+        auto&&... args
+    ) -> ActorType&
+    {
+        m_nbSpotLight += numberOfInstances;
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                shader,
+                m_projection,
+                numberOfInstances,
+                std::forward<decltype(args)>(args)...)
+            ));
+    }
+
+
+
 
 public:
 protected:
@@ -144,6 +207,32 @@ protected:
             const std::string& filename
         );
 
+
+
+        // ---------------------------------- iterator
+
+        auto begin()
+            -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator;
+
+        auto begin()
+            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
+
+        auto cbegin()
+            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
+
+
+
+        auto end()
+            -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator;
+
+        auto end()
+            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
+
+        auto cend()
+            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
+
+
+
     public:
     protected:
     protected:
@@ -160,6 +249,10 @@ protected:
 
     std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
+
+    const ::glm::mat4 m_projection;
+
+
 
 
 
@@ -178,10 +271,25 @@ private:
     mutable float m_elapsed { 0 };
     mutable int m_fps { 0 };
 
+
+    size_t m_nbDirectionalLight { 0 };
+    size_t m_nbPointLight { 0 };
+    size_t m_nbSpotLight { 0 };
+
 };
 
 
 
+
 } // namespace engine::graphic
+
+
+// template <> auto ::engine::graphic::AScene::emplaceActor<engine::graphic::actor::light::Directional>(
+    // auto&&... args
+// ) -> engine::graphic::actor::light::Directional&;
+// {
+    // using DirectionalLight = engine::graphic::actor::light::Directional;
+    // return static_cast<DirectionalLight&>(*m_vectorActors.emplace_back(std::make_unique<DirectionalLight>(std::forward<decltype(args)>(args)...)));
+// }
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ASCENE_HPP___

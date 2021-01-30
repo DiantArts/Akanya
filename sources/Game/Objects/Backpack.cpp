@@ -12,8 +12,10 @@
 
 // ---------------------------------- *structors
 
-::game::object::Backpack::Backpack(::engine::graphic::opengl::Shader& shader, const size_t numberOfPositions)
-    : engine::graphic::actor::Model(shader, "backpack/backpack.obj", numberOfPositions)
+::game::object::Backpack::Backpack(::engine::graphic::opengl::Shader& shader,
+        const glm::mat4& projection,
+        const size_t numberOfPositions)
+    : engine::graphic::actor::Model(shader, projection, "backpack/backpack.obj", numberOfPositions)
 {}
 
 ::game::object::Backpack::~Backpack() = default;
@@ -23,11 +25,10 @@
 // ---------------------------------- override
 
 void ::game::object::Backpack::configureShader(
-    const ::engine::graphic::Window& window,
     const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ADrawable::configureShader(window, camera);
+    engine::graphic::actor::ADrawable::configureShader(camera);
 
     for (const auto& light : engine::graphic::actor::ALight::getAll()) {
         this->setIntoShader(light);

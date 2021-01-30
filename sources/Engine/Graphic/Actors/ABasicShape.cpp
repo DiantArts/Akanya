@@ -19,11 +19,12 @@ namespace engine::graphic::actor {
 // ---------------------------------- *structors
 
 ABasicShape::ABasicShape(::engine::graphic::opengl::Shader& shader,
+                         const glm::mat4& projection,
                          const std::function<void()>& setAttributesFunc,
                          const std::string_view       verticesFilename,
-                         const size_t                 numberOfPositions /* = 1 */,
-                         const size_t                 numberOfTexturesToReserve /*= 1 */)
-    : engine::graphic::AActor(shader, numberOfPositions)
+                         const size_t                 numberOfPositions,
+                         const size_t                 numberOfTexturesToReserve)
+    : engine::graphic::AActor(shader, projection, numberOfPositions)
 {
     m_textureVector.reserve(numberOfTexturesToReserve);
 
@@ -39,7 +40,7 @@ ABasicShape::~ABasicShape() = default;
 
 // ---------------------------------- *structors
 
-void ABasicShape::drawModels(const engine::graphic::Camera&) const
+void ABasicShape::drawModels() const
 {
     m_vao.bind();
     this->bindTextures();

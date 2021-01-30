@@ -11,13 +11,15 @@
 
 ::engine::graphic::actor::basicShape::Cube::Cube(
     ::engine::graphic::opengl::Shader& shader,
-   const size_t numberOfPositions,
-   const size_t numberOfTextures,
-   const std::function<void()>& setAttributesFunc,
-   const std::string_view verticesFilename
+    const glm::mat4& projection,
+    const size_t numberOfPositions,
+    const size_t numberOfTextures,
+    const std::function<void()>& setAttributesFunc,
+    const std::string_view verticesFilename
 )
     : engine::graphic::actor::ABasicShape(
         shader,
+        projection,
         setAttributesFunc,
         verticesFilename,
         numberOfPositions,

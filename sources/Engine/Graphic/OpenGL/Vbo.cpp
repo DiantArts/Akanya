@@ -1,7 +1,7 @@
 //
 // Akanya, Engine
 // sources/Engine/Graphic/OpenGL/Vbo
-// Vertex Buffer Object: stores a large number of vertices
+// Vertex Buffer Object : stores a large number of vertices
 //
 
 #include "pch.hpp"
