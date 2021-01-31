@@ -16,12 +16,12 @@
     const glm::mat4& projection
 )
     : m_shader(shader)
-    , m_ubo(2 * sizeof(glm::mat4), 0)
+    , m_cameraUbo(2 * sizeof(glm::mat4), 0)
 {
     this->setBlockBindingIntoShader("CameraInformations", 0);
     // this->setBlockBindingIntoShader("LightInformations", 1);
 
-    m_ubo.setOneSubData(projection, 0);
+    m_cameraUbo.setOneSubData(projection, 0);
 }
 
 ::engine::graphic::actor::ADrawable::~ADrawable() = default;
@@ -34,8 +34,8 @@ void ::engine::graphic::actor::ADrawable::draw(
     const ::engine::graphic::Camera& camera
 ) const
 {
+    m_cameraUbo.setOneSubData(camera.getView(), sizeof(glm::mat4));
     this->useShader();
-    m_ubo.setOneSubData(camera.getView(), sizeof(glm::mat4));
     this->configureShader(camera);
     this->drawModels();
 }

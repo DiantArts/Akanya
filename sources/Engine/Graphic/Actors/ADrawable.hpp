@@ -103,7 +103,7 @@ private:
     static inline size_t idGiver { 0 };
     const size_t m_id { idGiver++ };
 
-    ::engine::graphic::opengl::Ubo m_ubo;
+    ::engine::graphic::opengl::Ubo m_cameraUbo;
 
 };
 
