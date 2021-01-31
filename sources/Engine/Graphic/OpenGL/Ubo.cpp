@@ -25,7 +25,7 @@ Ubo::Ubo(
     glGenBuffers(1, &m_ubo);
 
     this->bind();
-    glBufferData(GL_UNIFORM_BUFFER, m_size, nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, m_size, nullptr, GL_DYNAMIC_DRAW);
     this->unbind();
 
     glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, 0, m_size);

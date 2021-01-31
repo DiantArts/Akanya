@@ -21,9 +21,7 @@
     this->setBlockBindingIntoShader("CameraInformations", 0);
     // this->setBlockBindingIntoShader("LightInformations", 1);
 
-    m_ubo.bind();
-    m_ubo.setSubData(projection, 0);
-    m_ubo.unbind();
+    m_ubo.setOneSubData(projection, 0);
 }
 
 ::engine::graphic::actor::ADrawable::~ADrawable() = default;
@@ -37,9 +35,7 @@ void ::engine::graphic::actor::ADrawable::draw(
 ) const
 {
     this->useShader();
-    m_ubo.bind();
-    m_ubo.setSubData(camera.getView(), sizeof(glm::mat4));
-    m_ubo.unbind();
+    m_ubo.setOneSubData(camera.getView(), sizeof(glm::mat4));
     this->configureShader(camera);
     this->drawModels();
 }

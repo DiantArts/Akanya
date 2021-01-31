@@ -75,6 +75,19 @@ public:
     }
 
 
+    template <
+        typename DataType
+    > void setOneSubData(
+        DataType& dataptr,
+        GLintptr offset
+    ) const
+    {
+        this->bind();
+        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
+        this->unbind();
+    }
+
+
 
 private:
     GLuint m_ubo;
