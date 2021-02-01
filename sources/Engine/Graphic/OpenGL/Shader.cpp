@@ -535,7 +535,11 @@ void ::engine::graphic::opengl::Shader::setBlockBinding(
     const size_t index
 ) const
 {
-    glUniformBlockBinding(this->m_id, glGetUniformBlockIndex(this->m_id, name.c_str()), index);
+    auto blockIndex { glGetUniformBlockIndex(this->m_id, name.c_str()) };
+    if (blockIndex == GL_INVALID_INDEX) {
+        throw std::runtime_error("invalid uniform block index");
+    }
+    glUniformBlockBinding(this->m_id, blockIndex, index);
 }
 
 

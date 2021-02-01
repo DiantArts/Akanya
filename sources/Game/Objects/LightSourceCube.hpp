@@ -26,8 +26,8 @@ public:
 
     // ---------------------------------- *structors
     explicit LightSourceCube(
+        std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
         ::engine::graphic::opengl::Shader& shaderProgram,
-        const glm::mat4& projection,
         size_t numberOfPositions = 1
     );
 

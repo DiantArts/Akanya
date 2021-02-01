@@ -16,8 +16,12 @@ namespace engine::graphic::actor::light {
 
 // ---------------------------------- *structors
 
-Directional::Directional(const std::string& name, glm::vec3 direction)
-    : ALight(name), m_parameters(direction)
+Directional::Directional(
+    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+    const std::string& name,
+    glm::vec3 direction
+)
+    : ALight(lights, name), m_parameters(std::move(direction))
 {
     ++m_nbLight;
 }
@@ -30,6 +34,9 @@ Directional::~Directional()
 
 
 // ---------------------------------- set
+
+void Directional::setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const
+{}
 
 void Directional::setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const
 {

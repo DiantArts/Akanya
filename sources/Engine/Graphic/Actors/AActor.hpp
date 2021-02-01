@@ -26,7 +26,6 @@ public:
 
     AActor(
         ::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection,
         size_t numberOfPositions
     );
 

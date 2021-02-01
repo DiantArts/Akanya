@@ -12,12 +12,12 @@
 // ---------------------------------- *structors
 
 ::game::object::LightSourceCube::LightSourceCube(
+        std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
     ::engine::graphic::opengl::Shader& shader,
-    const glm::mat4& projection,
     const size_t numberOfPositions
 )
-    : engine::graphic::actor::basicShape::Cube(shader, projection, numberOfPositions)
-    , engine::graphic::actor::light::Point("pointLights", this->instances)
+    : engine::graphic::actor::basicShape::Cube(shader, numberOfPositions)
+    , engine::graphic::actor::light::Point(lights, "pointLights", this->instances)
 {
     this->setScale(0.1F);
 }

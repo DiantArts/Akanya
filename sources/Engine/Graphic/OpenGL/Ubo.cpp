@@ -20,15 +20,14 @@ Ubo::Ubo(
     size_t size,
     int index
 )
-    : m_size(size)
 {
     glGenBuffers(1, &m_ubo);
 
     this->bind();
-    glBufferData(GL_UNIFORM_BUFFER, m_size, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
     this->unbind();
 
-    glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, 0, m_size);
+    glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, 0, size);
 }
 
 Ubo::~Ubo()

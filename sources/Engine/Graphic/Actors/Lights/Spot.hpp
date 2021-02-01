@@ -16,11 +16,18 @@ namespace engine::graphic::actor::light {
 class Spot : engine::graphic::actor::ALight {
 public:
     // ---------------------------------- *structors
-    Spot(const std::string& name, const engine::graphic::actor::Positions& positions, glm::vec3 direction);
+    Spot(
+        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        const std::string& name,
+        const engine::graphic::actor::Positions& positions,
+        glm::vec3 direction
+    );
+
     ~Spot();
 
 
     // ---------------------------------- set
+    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 

@@ -13,9 +13,8 @@
 // ---------------------------------- *structors
 
 ::game::object::Backpack::Backpack(::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection,
         const size_t numberOfPositions)
-    : engine::graphic::actor::Model(shader, projection, "backpack/backpack.obj", numberOfPositions)
+    : engine::graphic::actor::Model(shader, "backpack/backpack.obj", numberOfPositions)
 {}
 
 ::game::object::Backpack::~Backpack() = default;
@@ -30,9 +29,9 @@ void ::game::object::Backpack::configureShader(
 {
     engine::graphic::actor::ADrawable::configureShader(camera);
 
-    for (const auto& light : engine::graphic::actor::ALight::getAll()) {
-        this->setIntoShader(light);
-    }
+    // for (const auto& light : engine::graphic::actor::ALight::getAll()) {
+        // this->setIntoShader(light);
+    // }
 
     this->setIntoShader("material.shininess", 32.0F);
 }

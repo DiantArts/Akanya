@@ -16,8 +16,12 @@ namespace engine::graphic::actor::light {
 
 // ---------------------------------- *structors
 
-Point::Point(const std::string& name, const engine::graphic::actor::Positions& positions)
-    : ALight(name), m_parameters(positions)
+Point::Point(
+    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+    const std::string& name,
+    const engine::graphic::actor::Positions& positions
+)
+    : ALight(lights, name), m_parameters(positions)
 {
     m_nbLight += m_parameters.positions.size();
 }
@@ -31,12 +35,11 @@ Point::~Point()
 
 // ---------------------------------- set
 
+void Point::setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const
+{}
+
 void Point::setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const
 {
-    // shader.set("nrPointLight", m_nbLight);
-    // shader.set("nrDirLight", m_nbLight);
-    // shader.set("nrSpotLight", m_nbLight);
-
     size_t baseNameSize { this->getName().size() };
     std::string name;
 

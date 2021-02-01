@@ -16,6 +16,8 @@
 #include "Actors/Lights/Point.hpp"
 #include "Actors/Lights/Spot.hpp"
 
+#include "nbLights.hpp"
+
 
 namespace engine::graphic {
 
@@ -85,15 +87,6 @@ public:
 
     // ---------------------------------- Vector Actors
 
-    void pushActor(
-        std::unique_ptr<::engine::graphic::AActor>&& actor
-    );
-
-    void pushActor(
-        std::unique_ptr<::engine::graphic::AActor>& actor
-    );
-
-
     template <
         typename ActorType
     > auto emplaceActor(
@@ -104,62 +97,65 @@ public:
         static_assert(std::is_base_of_v<engine::graphic::AActor, ActorType>, "Only actors can be emplaced back");
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 shader,
-                m_projection,
                 std::forward<decltype(args)>(args)...)
             ));
     }
 
+#if MAX_NB_DIR_LIGHT > 0
     template <
-        typename ActorType
-    > requires std::is_base_of_v<engine::graphic::actor::light::Directional, ActorType>
-    auto emplaceActor(
+        std::derived_from<engine::graphic::actor::light::Directional> ActorType
+    > auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
     {
-        ++m_nbDirectionalLight;
+        ++m_lightInformations.nbDirectionalLight;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                m_lights,
                 shader,
-                m_projection,
                 std::forward<decltype(args)>(args)...)
             ));
     }
+#endif
 
+#if MAX_NB_POINT_LIGHT > 0
     template <
-        typename ActorType
-    > requires std::is_base_of_v<engine::graphic::actor::light::Point, ActorType>
+        std::derived_from<engine::graphic::actor::light::Point> ActorType
+    > auto emplaceActor(
+        engine::graphic::opengl::Shader& shader,
+        size_t numberOfInstances,
+        auto&&... args
+    ) -> ActorType&
+    {
+        m_lightInformations.nbPointLight += numberOfInstances;
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                m_lights,
+                shader,
+                numberOfInstances,
+                std::forward<decltype(args)>(args)...)
+            ));
+    }
+#endif
+
+#if MAX_NB_SPOT_LIGHT > 0
+    template <
+        std::derived_from<engine::graphic::actor::light::Spot> ActorType
+    >
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
         auto&&... args
     ) -> ActorType&
     {
-        m_nbPointLight += numberOfInstances;
+        m_lightInformations.nbSpotLight += numberOfInstances;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+                m_lights,
                 shader,
-                m_projection,
                 numberOfInstances,
                 std::forward<decltype(args)>(args)...)
             ));
     }
-
-    template <
-        typename ActorType
-    > requires std::is_base_of_v<engine::graphic::actor::light::Spot, ActorType>
-    auto emplaceActor(
-        engine::graphic::opengl::Shader& shader,
-        size_t numberOfInstances,
-        auto&&... args
-    ) -> ActorType&
-    {
-        m_nbSpotLight += numberOfInstances;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
-                shader,
-                m_projection,
-                numberOfInstances,
-                std::forward<decltype(args)>(args)...)
-            ));
-    }
+#endif
 
 
 
@@ -250,9 +246,6 @@ protected:
     std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
 
-    const ::glm::mat4 m_projection;
-
-
 
 
 
@@ -262,6 +255,32 @@ private:
 
     ::engine::graphic::Camera m_camera;
 
+
+
+    struct LightInformations {
+        bool gamma;
+        bool blinn;
+
+#if MAX_NB_DIRECTIONAL_LIGHT > 0
+        GLuint nbDirectionalLight;
+#endif
+
+#if MAX_NB_POINT_LIGHT > 0
+        uint nbPointLight;
+#endif
+
+#if MAX_NB_SPOT_LIGHT > 0
+        uint nbSpotLight;
+#endif
+    };
+    LightInformations m_lightInformations;
+
+    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
+
+    engine::graphic::opengl::Ubo m_lightInformationsUbo;
+
+
+
     bool m_isOver { false };
 
     mutable ::engine::core::Clock m_eventClock;
@@ -270,11 +289,6 @@ private:
     mutable ::engine::core::Clock m_fpsClock;
     mutable float m_elapsed { 0 };
     mutable int m_fps { 0 };
-
-
-    size_t m_nbDirectionalLight { 0 };
-    size_t m_nbPointLight { 0 };
-    size_t m_nbSpotLight { 0 };
 
 };
 

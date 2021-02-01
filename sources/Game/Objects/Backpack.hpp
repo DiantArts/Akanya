@@ -20,7 +20,6 @@ public:
     // ---------------------------------- *structors
     explicit Backpack(
         ::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection,
         const size_t numberOfPositions
     );
     ~Backpack();

@@ -7,15 +7,19 @@
 #include "pch.hpp"
 #include "AScene.hpp"
 
-
-
 // ---------------------------------- *structors
 
 ::engine::graphic::AScene::AScene(
     ::engine::graphic::Window& window
 )
     : m_window(window)
-    , m_projection(glm::perspective(45.0f, m_window.getSize().width / m_window.getSize().height, 0.1f, 100.f))
+    , m_camera(m_window.getSize())
+    , m_lightInformationsUbo(
+            sizeofLightType +
+            sizeofDirectionalLightTab + 4 +
+            sizeofPointLightTab + 4 +
+            sizeofSpotLightTab + 4,
+        2)
 {
     m_camera.setSpeed(5);
     m_camera.setPosition(1.5, 3.0F, 7.5F);
@@ -55,7 +59,39 @@ void ::engine::graphic::AScene::draw() const
 
 void ::engine::graphic::AScene::drawActors() const
 {
-    m_camera.updateView();
+    m_camera.configureUbo();
+
+    m_lightInformationsUbo.bind();
+
+    m_lightInformationsUbo.setSubData(0, m_camera.getConfig().gamma);
+    m_lightInformationsUbo.setSubData(sizeof(int), m_camera.getConfig().blinn);
+
+#if MAX_NB_DIRECTIONAL_LIGHT > 0
+    m_lightInformationsUbo.setSubData(
+        sizeofLightType,
+        ::engine::graphic::actor::light::Directional::getNbLight()
+    );
+#endif
+
+#if MAX_NB_POINT_LIGHT > 0
+    m_lightInformationsUbo.setSubData(
+        sizeofLightType + sizeofDirectionalLightTab,
+        ::engine::graphic::actor::light::Point::getNbLight()
+    );
+#endif
+
+#if MAX_NB_SPOT_LIGHT > 0
+    m_lightInformationsUbo.setSubData(
+        sizeofLightType + sizeofDirectionalLightTab + sizeofPointLightTab,
+        ::engine::graphic::actor::light:Spot::getNbLight()
+    );
+#endif
+    for (const auto& light : m_lights) {
+        light.get().setIntoUbo(m_lightInformationsUbo);
+    }
+
+    m_lightInformationsUbo.unbind();
+
     for (const auto& actor : m_vectorActors) {
         actor->draw(m_camera);
     }
@@ -85,20 +121,6 @@ void ::engine::graphic::AScene::update()
     for (auto& actor : m_vectorActors) {
         actor->update(m_updateClock.getElapsedTime());
     }
-}
-
-
-
-// ---------------------------------- Vector Drawables
-
-void ::engine::graphic::AScene::pushActor(std::unique_ptr<engine::graphic::actor::AActor>&& actor)
-{
-    m_vectorActors.push_back(std::move(actor));
-}
-
-void ::engine::graphic::AScene::pushActor(std::unique_ptr<engine::graphic::actor::AActor>& actor)
-{
-    m_vectorActors.push_back(std::move(actor));
 }
 
 

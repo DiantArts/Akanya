@@ -24,7 +24,6 @@ public:
     // ---------------------------------- *structors
     explicit Model(
         ::engine::graphic::opengl::Shader&    shader,
-    const glm::mat4& projection,
         const std::string& filename,
         size_t numberOfPositions = 1,
         bool   gamma             = false

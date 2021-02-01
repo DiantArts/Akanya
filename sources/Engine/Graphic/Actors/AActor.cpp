@@ -15,10 +15,9 @@ namespace engine::graphic::actor {
 
 AActor::AActor(
     ::engine::graphic::opengl::Shader& shader,
-    const glm::mat4& projection,
     const size_t numberOfPositions
 )
-    : engine::graphic::actor::ADrawable(shader, projection)
+    : engine::graphic::actor::ADrawable(shader)
     , engine::graphic::actor::ATransformable(numberOfPositions)
 {}
 

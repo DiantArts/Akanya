@@ -362,8 +362,8 @@ endif
 ## clean
 
 re :
-	$(MAKE) fclean
-	$(MAKE) all
+	$(MAKE) ffclean
+	$(MAKE) auto
 
 clean :
 	rm -rf $(OBJDIR) $(DEPDIR)
@@ -376,10 +376,14 @@ fclean : clean
 	$(PRINTF) "$(DARKGRAY)[FClean]$(NORMAL) done\n"
 
 ffclean : fclean
+	find . -name \*.gch -delete
+	$(PRINTF) "$(DARKGRAY)[FFClean]$(NORMAL) done\n"
+
+fffclean : ffclean
 	rm -rf $(BUILDDIR)
 	rm -rf $(BINDIR)
 	find . -name \*.gch -delete
-	$(PRINTF) "$(DARKGRAY)[FFClean]$(NORMAL) done\n"
+	$(PRINTF) "$(DARKGRAY)[FFFClean]$(NORMAL) done\n"
 
 ## auto
 

@@ -17,13 +17,14 @@
 
 ::game::object::Floor::Floor(
     ::engine::graphic::opengl::Shader& shader,
-    const glm::mat4& projection,
     const size_t numberOfPositions,
     const std::function<void()>& setAttributesFunc,
     const std::string_view verticesFilename
 )
-    : Cube(shader, projection, numberOfPositions, 1, setAttributesFunc, verticesFilename)
+    : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
+    this->setBlockBindingIntoShader("LightInformations", 2);
+
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");
     this->setIntoShader("material.shininess", 1000.0F);
@@ -41,14 +42,4 @@ void ::game::object::Floor::configureShader(
 {
     ::engine::graphic::actor::ADrawable::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
-
-    this->setIntoShader("gamma", camera.getConfig().gamma);
-    this->setIntoShader("blinn", camera.getConfig().blinn);
-
-    this->setIntoShader("nrDirLight", ::engine::graphic::actor::light::Directional::getNbLight());
-    this->setIntoShader("nrPointLight", ::engine::graphic::actor::light::Point::getNbLight());
-    this->setIntoShader("nrSpotLight", ::engine::graphic::actor::light::Spot::getNbLight());
-    for (const auto& light : ::engine::graphic::actor::ALight::getAll()) {
-        this->setIntoShader(light);
-    }
 }

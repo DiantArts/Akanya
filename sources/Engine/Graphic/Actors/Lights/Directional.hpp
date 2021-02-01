@@ -16,17 +16,24 @@ namespace engine::graphic::actor::light {
 class Directional : engine::graphic::actor::ALight {
 public:
     // ---------------------------------- *structors
-    Directional(const std::string& name, glm::vec3 direction);
+    Directional(
+        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        const std::string& name,
+        glm::vec3 direction
+    );
+
     ~Directional();
 
 
     // ---------------------------------- set
+    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 
 
     // ---------------------------------- get
     static size_t getNbLight();
+
 
 
 private:

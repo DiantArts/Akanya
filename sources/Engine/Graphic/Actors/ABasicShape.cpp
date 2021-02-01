@@ -19,12 +19,11 @@ namespace engine::graphic::actor {
 // ---------------------------------- *structors
 
 ABasicShape::ABasicShape(::engine::graphic::opengl::Shader& shader,
-                         const glm::mat4& projection,
                          const std::function<void()>& setAttributesFunc,
                          const std::string_view       verticesFilename,
                          const size_t                 numberOfPositions,
                          const size_t                 numberOfTexturesToReserve)
-    : engine::graphic::AActor(shader, projection, numberOfPositions)
+    : engine::graphic::AActor(shader, numberOfPositions)
 {
     m_textureVector.reserve(numberOfTexturesToReserve);
 

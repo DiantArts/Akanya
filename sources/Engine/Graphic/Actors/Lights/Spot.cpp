@@ -16,8 +16,13 @@ namespace engine::graphic::actor::light {
 
 // ---------------------------------- *structors
 
-Spot::Spot(const std::string& name, const engine::graphic::actor::Positions& positions, glm::vec3 direction)
-    : ALight(name), m_parameters(positions, direction)
+Spot::Spot(
+    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+    const std::string& name,
+    const engine::graphic::actor::Positions& positions,
+    glm::vec3 direction
+)
+    : ALight(lights, name), m_parameters(positions, std::move(direction))
 {
     m_nbLight += m_parameters.positions.size();
 }
@@ -30,6 +35,10 @@ Spot::~Spot()
 
 
 // ---------------------------------- set
+
+void Spot::setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const
+{}
+
 
 void Spot::setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const
 {

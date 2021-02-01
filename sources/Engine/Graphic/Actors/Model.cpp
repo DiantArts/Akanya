@@ -15,11 +15,10 @@ namespace engine::graphic::actor {
 // ---------------------------------- *structors
 
 Model::Model(::engine::graphic::opengl::Shader&    shader,
-    const glm::mat4& projection,
              const std::string& filename,
              const size_t       numberOfPositions /* = 1 */,
              const bool         gamma /* = false */)
-    : engine::graphic::AActor(shader, projection, numberOfPositions), m_gammaCorrection(gamma)
+    : engine::graphic::AActor(shader, numberOfPositions), m_gammaCorrection(gamma)
 {
     this->loadModel(filename);
 }

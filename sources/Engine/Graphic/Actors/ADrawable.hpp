@@ -7,7 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 
-#include "../OpenGL/Ubo.hpp"
 
 
 namespace engine::graphic::actor::light { class ALight; }
@@ -25,8 +24,7 @@ public:
     // ---------------------------------- *structors
 
     ADrawable(
-        ::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection
+        ::engine::graphic::opengl::Shader& shader
     );
 
     virtual ~ADrawable() = 0;
@@ -53,6 +51,13 @@ public:
     virtual void configureShader(
         const ::engine::graphic::Camera& camera
     ) const;
+
+
+
+    // ---------------------------------- ID
+
+    auto getId() const
+        -> size_t;
 
 
 
@@ -102,8 +107,6 @@ private:
 
     static inline size_t idGiver { 0 };
     const size_t m_id { idGiver++ };
-
-    ::engine::graphic::opengl::Ubo m_cameraUbo;
 
 };
 

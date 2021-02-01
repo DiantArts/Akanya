@@ -7,6 +7,9 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
 
+#include "OpenGL/Ubo.hpp"
+
+
 
 namespace engine::graphic {
 
@@ -20,7 +23,9 @@ public:
 
     // ---------------------------------- *structors
 
-    explicit Camera();
+    explicit Camera(
+        const ::engine::graphic::Window::Size& windowSize
+    );
 
     ~Camera();
 
@@ -173,15 +178,6 @@ public:
 
 
 
-    // ---------------------------------- View
-
-    void updateView() const;
-
-    auto getView() const
-        -> const ::glm::mat4&;
-
-
-
     // ---------------------------------- Config
 
     struct Config {
@@ -191,6 +187,12 @@ public:
 
     auto getConfig() const
         -> const Camera::Config&;
+
+
+
+    // ---------------------------------- configureUbo
+
+    void configureUbo() const;
 
 
 
@@ -230,12 +232,12 @@ private:
 
     Camera::Config m_config;
 
-    mutable ::glm::mat4 m_view;
-
     friend void engine::graphic::Window::processInput(
         ::engine::graphic::Camera& camera,
         const float deltaTime
     );
+
+    ::engine::graphic::opengl::Ubo m_ubo;
 };
 
 

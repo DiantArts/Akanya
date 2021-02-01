@@ -24,7 +24,6 @@ public:
     // ---------------------------------- *structors
     Cube(
         ::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection,
         size_t numberOfPositions = 1,
         size_t numberOfTextures  = 1,
         const std::function<void()>& setAttributesFunc = []{

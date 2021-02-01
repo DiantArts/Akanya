@@ -16,11 +16,17 @@ namespace engine::graphic::actor::light {
 class Point : engine::graphic::actor::ALight {
 public:
     // ---------------------------------- *structors
-    Point(const std::string& name, const engine::graphic::actor::Positions& positions);
+    Point(
+        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        const std::string& name,
+        const engine::graphic::actor::Positions& positions
+    );
+
     ~Point();
 
 
     // ---------------------------------- set
+    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 

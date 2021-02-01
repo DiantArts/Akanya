@@ -20,7 +20,6 @@ public:
     // ---------------------------------- *structors
     ABasicShape(
         ::engine::graphic::opengl::Shader& shader,
-        const glm::mat4& projection,
         const std::function<void()>& setAttributesFunc,
         std::string_view verticesFilename,
         size_t numberOfPositions = 1,

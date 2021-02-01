@@ -64,34 +64,57 @@ public:
 
     // ---------------------------------- SubData
 
+
+    template <
+        typename DataType
+    > void setOneSubData(
+        GLintptr offset,
+        DataType& dataptr
+    ) const
+    {
+        this->bind();
+        this->setSubData(offset, dataptr);
+        this->unbind();
+    }
+
+    template <
+        typename DataType
+    > void setOneSubData(
+        GLintptr offset,
+        DataType&& dataptr
+    ) const
+    {
+        this->bind();
+        this->setSubData(offset, dataptr);
+        this->unbind();
+    }
+
+
+
     template <
         typename DataType
     > void setSubData(
-        DataType& dataptr,
-        GLintptr offset
+        GLintptr offset,
+        DataType& dataptr
     ) const
     {
         glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
     }
 
-
     template <
         typename DataType
-    > void setOneSubData(
-        DataType& dataptr,
-        GLintptr offset
+    > void setSubData(
+        GLintptr offset,
+        DataType&& dataptr
     ) const
     {
-        this->bind();
         glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
-        this->unbind();
     }
 
 
 
 private:
     GLuint m_ubo;
-    const size_t m_size;
 
 };
 
