@@ -59,6 +59,20 @@ private:
 
 
 
+
 } // namespace engine::graphic::actor::light
+
+
+
+namespace engine::graphic::actor {
+
+template<typename ActorType>
+concept SpotLightActorType =
+    std::derived_from<ActorType, engine::graphic::AActor> &&
+    std::derived_from<ActorType, engine::graphic::actor::light::Spot>;
+
+} // namespace engine::graphic::actor
+
+
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___

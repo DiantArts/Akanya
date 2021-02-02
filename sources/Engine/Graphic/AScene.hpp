@@ -88,22 +88,22 @@ public:
     // ---------------------------------- Vector Actors
 
     template <
-        typename ActorType
+        std::derived_from<engine::graphic::AActor> ActorType
     > auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
     {
-        static_assert(std::is_base_of_v<engine::graphic::AActor, ActorType>, "Only actors can be emplaced back");
+        std::cout << "actor" << std::endl;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 shader,
                 std::forward<decltype(args)>(args)...)
             ));
     }
 
-#if MAX_NB_DIR_LIGHT > 0
+#if MAX_NB_DIRECTIONAL_LIGHT > 0
     template <
-        std::derived_from<engine::graphic::actor::light::Directional> ActorType
+        ::engine::graphic::actor::DirectionalLightActorType ActorType
     > auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
@@ -120,7 +120,7 @@ public:
 
 #if MAX_NB_POINT_LIGHT > 0
     template <
-        std::derived_from<engine::graphic::actor::light::Point> ActorType
+        ::engine::graphic::actor::PointLightActorType ActorType
     > auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
@@ -139,7 +139,7 @@ public:
 
 #if MAX_NB_SPOT_LIGHT > 0
     template <
-        std::derived_from<engine::graphic::actor::light::Spot> ActorType
+        ::engine::graphic::actor::SpotLightActorType ActorType
     >
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,

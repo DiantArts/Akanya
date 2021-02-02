@@ -53,6 +53,20 @@ private:
 
 
 
+
 } // namespace engine::graphic::actor::light
+
+
+
+namespace engine::graphic::actor {
+
+template<typename ActorType>
+concept DirectionalLightType =
+    std::derived_from<ActorType, engine::graphic::AActor> &&
+    std::derived_from<ActorType, engine::graphic::actor::light::Directional>;
+
+} // namespace engine::graphic::actor
+
+
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_DIRECTIONAL_HPP___

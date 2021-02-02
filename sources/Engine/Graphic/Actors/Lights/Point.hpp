@@ -57,4 +57,17 @@ protected:
 
 } // namespace engine::graphic::actor::light
 
+
+
+namespace engine::graphic::actor {
+
+template<typename ActorType>
+concept PointLightActorType =
+    std::derived_from<ActorType, engine::graphic::AActor> &&
+    std::derived_from<ActorType, engine::graphic::actor::light::Point>;
+
+} // namespace engine::graphic::actor
+
+
+
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
