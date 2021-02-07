@@ -35,7 +35,12 @@ Directional::~Directional()
 
 // ---------------------------------- set
 
-void Directional::setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const
+void Directional::setIntoUbo(
+    const ::engine::graphic::opengl::Ubo& ubo,
+    int& i,
+    int&,
+    int&
+) const
 {}
 
 void Directional::setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const

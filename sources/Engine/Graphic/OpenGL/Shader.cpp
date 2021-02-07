@@ -14,7 +14,7 @@ namespace {
 
 auto compileShader(
     GLenum shaderType,
-    const std::string filepath
+    const std::string& filepath
 ) -> GLint;
 
 void checkCompilationStatus(
@@ -123,6 +123,19 @@ void checkLinkageStatus(
 
 
 
+// ---------------------------------- Move sementic
+
+::engine::graphic::opengl::Shader::Shader(
+    Shader&&
+) noexcept = default;
+
+auto ::engine::graphic::opengl::Shader::operator=(
+    Shader&&
+) noexcept -> Shader& = default;
+
+
+
+
 // ---------------------------------- Use
 
 void ::engine::graphic::opengl::Shader::use() const
@@ -215,8 +228,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::vec2&& value
+) const
+{
+    glUniform2f(this->getOrCacheUniformLocation(name), value.x, value.y);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::vec2& value
+) const
+{
+    glUniform2f(getOrCacheUniformLocation(std::move(name)), value.x, value.y);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::vec2&& value
 ) const
 {
     glUniform2f(getOrCacheUniformLocation(std::move(name)), value.x, value.y);
@@ -253,8 +282,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::vec3&& value
+) const
+{
+    glUniform3f(this->getOrCacheUniformLocation(name), value.x, value.y, value.z);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::vec3& value
+) const
+{
+    glUniform3f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::vec3&& value
 ) const
 {
     glUniform3f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z);
@@ -293,8 +338,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::vec4&& value
+) const
+{
+    glUniform4f(this->getOrCacheUniformLocation(name), value.x, value.y, value.z, value.w);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::vec4& value
+) const
+{
+    glUniform4f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z, value.w);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::vec4&& value
 ) const
 {
     glUniform4f(this->getOrCacheUniformLocation(std::move(name)), value.x, value.y, value.z, value.w);
@@ -335,8 +396,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::mat2&& mat
+) const
+{
+    glUniformMatrix2fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::mat2& mat
+) const
+{
+    glUniformMatrix2fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::mat2&& mat
 ) const
 {
     glUniformMatrix2fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
@@ -353,8 +430,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::mat3&& mat
+) const
+{
+    glUniformMatrix3fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::mat3& mat
+) const
+{
+    glUniformMatrix3fv(getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::mat3&& mat
 ) const
 {
     glUniformMatrix3fv(getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
@@ -371,8 +464,24 @@ void ::engine::graphic::opengl::Shader::set(
 }
 
 void ::engine::graphic::opengl::Shader::set(
+    const std::string& name,
+    glm::mat4&& mat
+) const
+{
+    glUniformMatrix4fv(this->getOrCacheUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
     std::string&& name,
     const glm::mat4& mat
+) const
+{
+    glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
+}
+
+void ::engine::graphic::opengl::Shader::set(
+    std::string&& name,
+    glm::mat4&& mat
 ) const
 {
     glUniformMatrix4fv(this->getOrCacheUniformLocation(std::move(name)), 1, GL_FALSE, &mat[0][0]);
@@ -629,17 +738,37 @@ auto ::engine::graphic::opengl::Shader::getOrCacheUniformLocation(
 namespace {
 
 
+auto readShaderFile(
+    const std::string& filepath
+) -> std::string
+{
+    std::stringstream ss { tool::file::read(filepath) };
+    std::string readFile;
+    for (std::string line; std::getline(ss, line); ) {
+        if (line.rfind("#include ") == 0) {
+            try {
+                readFile += readShaderFile(line.substr(10, line.size() - 11));
+            } catch (...) {
+                readFile += line;
+            }
+        } else {
+            readFile += line;
+        }
+        readFile += '\n';
+    }
+    return readFile;
+}
 
 auto compileShader(
     GLenum shaderType,
-    const std::string filepath
+    const std::string& filepath
 ) -> GLint
 {
     GLuint vertex { glCreateShader(shaderType) };
 
     try {
-        const std::string readenFile { tool::file::read(filepath) };
-        const char*       shaderCode { readenFile.c_str() };
+        const std::string readFile { readShaderFile(filepath) };
+        const char* shaderCode { readFile.c_str() };
         glShaderSource(vertex, 1, &shaderCode, nullptr);
     } catch (const std::ifstream::failure& e) {
         std::clog << "Shader file '" << filepath << "' unsuccesfully read (" << e.what() << ")" << std::endl;

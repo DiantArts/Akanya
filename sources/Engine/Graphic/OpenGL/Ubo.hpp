@@ -69,11 +69,11 @@ public:
         typename DataType
     > void setOneSubData(
         GLintptr offset,
-        DataType& dataptr
+        DataType& data
     ) const
     {
         this->bind();
-        this->setSubData(offset, dataptr);
+        this->setSubData(offset, data);
         this->unbind();
     }
 
@@ -81,11 +81,11 @@ public:
         typename DataType
     > void setOneSubData(
         GLintptr offset,
-        DataType&& dataptr
+        DataType&& data
     ) const
     {
         this->bind();
-        this->setSubData(offset, dataptr);
+        this->setSubData(offset, data);
         this->unbind();
     }
 
@@ -95,20 +95,22 @@ public:
         typename DataType
     > void setSubData(
         GLintptr offset,
-        DataType& dataptr
+        DataType& data
     ) const
     {
-        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
+        std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
+        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(data), &data);
     }
 
     template <
         typename DataType
     > void setSubData(
         GLintptr offset,
-        DataType&& dataptr
+        DataType&& data
     ) const
     {
-        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(dataptr), &dataptr);
+        std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
+        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(data), &data);
     }
 
 

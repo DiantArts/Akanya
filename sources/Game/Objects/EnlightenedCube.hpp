@@ -18,8 +18,11 @@ namespace game::object {
 class EnlightenedCube
     : public ::engine::graphic::actor::basicShape::Cube
 {
+
 public:
+
     // ---------------------------------- *structors
+
     explicit EnlightenedCube(
         ::engine::graphic::opengl::Shader& shader,
         size_t numberOfPositions = 1,
@@ -31,11 +34,35 @@ public:
             glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
             glEnableVertexAttribArray(2);
         },
-        const std::string_view verticesFilename  = "lightningMap"
+        const std::string& verticesFilename  = "lightningMap"
     );
 
 
     ~EnlightenedCube();
+
+
+
+    // ---------------------------------- Copy sementic
+
+    EnlightenedCube(
+        const EnlightenedCube&
+    ) noexcept;
+
+    auto operator=(
+        const EnlightenedCube&
+    ) noexcept -> EnlightenedCube&;
+
+
+
+    // ---------------------------------- Move sementic
+
+    EnlightenedCube(
+        EnlightenedCube&&
+    ) noexcept;
+
+    auto operator=(
+        EnlightenedCube&&
+    ) noexcept -> EnlightenedCube&;
 
 
 

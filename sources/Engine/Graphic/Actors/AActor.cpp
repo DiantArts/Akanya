@@ -7,13 +7,9 @@
 #include "pch.hpp"
 
 
-namespace engine::graphic::actor {
-
-
-
 // ---------------------------------- *structors
 
-AActor::AActor(
+::engine::graphic::actor::AActor::AActor(
     ::engine::graphic::opengl::Shader& shader,
     const size_t numberOfPositions
 )
@@ -21,14 +17,15 @@ AActor::AActor(
     , engine::graphic::actor::ATransformable(numberOfPositions)
 {}
 
-AActor::~AActor()
+::engine::graphic::actor::AActor::~AActor()
 {}
 
 
 
 // ---------------------------------- Drawable
 
-glm::mat4 AActor::getModel(const glm::vec3& position) const
+auto ::engine::graphic::actor::AActor::getModel(const glm::vec3& position) const
+    -> glm::mat4
 {
     return this->transformModel(position);
 }
@@ -37,9 +34,5 @@ glm::mat4 AActor::getModel(const glm::vec3& position) const
 
 // ---------------------------------- Transformable
 
-void AActor::update(float)
+void ::engine::graphic::actor::AActor::update(float)
 {}
-
-
-
-} // namespace engine::graphic::actor

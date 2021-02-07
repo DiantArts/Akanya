@@ -13,7 +13,7 @@ namespace engine::graphic::actor::light {
 
 
 
-class Spot : engine::graphic::actor::ALight {
+class Spot : public engine::graphic::actor::ALight {
 public:
     // ---------------------------------- *structors
     Spot(
@@ -27,7 +27,13 @@ public:
 
 
     // ---------------------------------- set
-    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
+    void setIntoUbo(
+        const ::engine::graphic::opengl::Ubo& ubo,
+        int&,
+        int&,
+        int& i
+    ) const override final;
+
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 
@@ -61,17 +67,6 @@ private:
 
 
 } // namespace engine::graphic::actor::light
-
-
-
-namespace engine::graphic::actor {
-
-template<typename ActorType>
-concept SpotLightActorType =
-    std::derived_from<ActorType, engine::graphic::AActor> &&
-    std::derived_from<ActorType, engine::graphic::actor::light::Spot>;
-
-} // namespace engine::graphic::actor
 
 
 

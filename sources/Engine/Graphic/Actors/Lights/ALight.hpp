@@ -36,7 +36,13 @@ public:
 
     // ---------------------------------- Name
 
-    virtual void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const = 0;
+    virtual void setIntoUbo(
+        const ::engine::graphic::opengl::Ubo& ubo,
+        int& iDirectionalLight,
+        int& iPointLight,
+        int& iSpotLight
+    ) const = 0;
+
     virtual void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const = 0;
     virtual void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const = 0;
 

@@ -116,11 +116,21 @@ public:
     ) const;
 
     void set(
+        const std::string& name,
+        glm::vec2&& value
+    ) const;
+
+    void set(
         std::string&& name,
         const glm::vec2& value
     ) const;
 
     void set(
+        std::string&& name,
+        glm::vec2&& value
+    ) const;
+
+    void set(
         const std::string& name,
         float x,
         float y
@@ -138,8 +148,18 @@ public:
     ) const;
 
     void set(
+        const std::string& name,
+        glm::vec3&& value
+    ) const;
+
+    void set(
         std::string&& name,
         const glm::vec3& value
+    ) const;
+
+    void set(
+        std::string&& name,
+        glm::vec3&& value
     ) const;
 
     void set(
@@ -162,8 +182,18 @@ public:
     ) const;
 
     void set(
+        const std::string& name,
+        glm::vec4&& value
+    ) const;
+
+    void set(
         std::string&& name,
         const glm::vec4& value
+    ) const;
+
+    void set(
+        std::string&& name,
+        glm::vec4&& value
     ) const;
 
     void set(
@@ -190,13 +220,28 @@ public:
     ) const;
 
     void set(
+        const std::string& name,
+        glm::mat2&& mat
+    ) const;
+
+    void set(
         std::string&& name,
         const glm::mat2& mat
     ) const;
 
     void set(
+        std::string&& name,
+        glm::mat2&& mat
+    ) const;
+
+    void set(
         const std::string& name,
         const glm::mat3& mat
+    ) const;
+
+    void set(
+        const std::string& name,
+        glm::mat3&& mat
     ) const;
 
     void set(
@@ -205,13 +250,28 @@ public:
     ) const;
 
     void set(
+        std::string&& name,
+        glm::mat3&& mat
+    ) const;
+
+    void set(
         const std::string& name,
         const glm::mat4& mat
     ) const;
 
     void set(
+        const std::string& name,
+        glm::mat4&& mat
+    ) const;
+
+    void set(
         std::string&& name,
         const glm::mat4& mat
+    ) const;
+
+    void set(
+        std::string&& name,
+        glm::mat4&& mat
     ) const;
 
 

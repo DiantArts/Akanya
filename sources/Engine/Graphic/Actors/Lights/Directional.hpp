@@ -13,7 +13,7 @@ namespace engine::graphic::actor::light {
 
 
 
-class Directional : engine::graphic::actor::ALight {
+class Directional : public engine::graphic::actor::ALight {
 public:
     // ---------------------------------- *structors
     Directional(
@@ -26,7 +26,13 @@ public:
 
 
     // ---------------------------------- set
-    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
+    void setIntoUbo(
+        const ::engine::graphic::opengl::Ubo& ubo,
+        int& i,
+        int&,
+        int&
+    ) const override final;
+
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 
@@ -53,19 +59,7 @@ private:
 
 
 
-
 } // namespace engine::graphic::actor::light
-
-
-
-namespace engine::graphic::actor {
-
-template<typename ActorType>
-concept DirectionalLightType =
-    std::derived_from<ActorType, engine::graphic::AActor> &&
-    std::derived_from<ActorType, engine::graphic::actor::light::Directional>;
-
-} // namespace engine::graphic::actor
 
 
 

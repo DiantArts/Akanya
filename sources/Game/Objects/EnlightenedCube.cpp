@@ -19,7 +19,7 @@
     ::engine::graphic::opengl::Shader& shader,
     const size_t numberOfPositions,
     const std::function<void()>& setAttributesFunc,
-    const std::string_view verticesFilename
+    const std::string& verticesFilename
 )
     : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {

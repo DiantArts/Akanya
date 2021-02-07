@@ -82,8 +82,8 @@ TextureMap g_CachedTextures;
 ::engine::graphic::actor::CubeMap::CubeMap(
     ::engine::graphic::opengl::Shader& shader,
     const std::function<void()>& setAttributesFunc,
-    const std::string_view verticesFilename,
-    const std::string_view textureDirectory
+    const std::string& verticesFilename,
+    const std::string& textureDirectory
 )
     : engine::graphic::AActor(shader, 1), m_texture(textureDirectory.data())
 {

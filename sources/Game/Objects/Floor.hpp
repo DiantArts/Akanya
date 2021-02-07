@@ -34,7 +34,7 @@ public:
             glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
             glEnableVertexAttribArray(2);
         },
-        const std::string_view verticesFilename  = "floor"
+        const std::string& verticesFilename  = "floor"
     );
 
     ~Floor();

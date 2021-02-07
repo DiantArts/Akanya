@@ -7,6 +7,18 @@
 #include "pch.hpp"
 #include "AScene.hpp"
 
+#ifndef MAX_NB_DIRECTIONAL_LIGHT
+    #error "any light type must have their max nb defined (directional light doesn't)"
+#endif
+#ifndef MAX_NB_POINT_LIGHT
+    #error "any light type must have their max nb defined (point light doesn't)"
+#endif
+#ifndef MAX_NB_SPOT_LIGHT
+    #error "any light type must have their max nb defined (spot light doesn't)"
+#endif
+
+
+
 // ---------------------------------- *structors
 
 ::engine::graphic::AScene::AScene(
@@ -15,10 +27,16 @@
     : m_window(window)
     , m_camera(m_window.getSize())
     , m_lightInformationsUbo(
-            sizeofLightType +
-            sizeofDirectionalLightTab + 4 +
-            sizeofPointLightTab + 4 +
-            sizeofSpotLightTab + 4,
+#if MAX_NB_DIRECTIONAL_LIGHT > 0
+        sizeofDirectionalLightTab + sizeof(float) +
+#endif
+#if MAX_NB_POINT_LIGHT > 0
+        sizeofPointLightTab + sizeof(float) +
+#endif
+#if MAX_NB_SPOT_LIGHT > 0
+        sizeofSpotLightTab + sizeof(float) +
+#endif
+        sizeofLightType,
         2)
 {
     m_camera.setSpeed(5);
@@ -63,31 +81,33 @@ void ::engine::graphic::AScene::drawActors() const
 
     m_lightInformationsUbo.bind();
 
-    m_lightInformationsUbo.setSubData(0, m_camera.getConfig().gamma);
-    m_lightInformationsUbo.setSubData(sizeof(int), m_camera.getConfig().blinn);
+    size_t offset { 0 };
+
+    m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().gamma);
+    offset += 4;
+    m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().blinn);
+    offset += 4;
 
 #if MAX_NB_DIRECTIONAL_LIGHT > 0
-    m_lightInformationsUbo.setSubData(
-        sizeofLightType,
-        ::engine::graphic::actor::light::Directional::getNbLight()
-    );
+    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbDirectionalLight);
+    offset += 4 + MAX_NB_DIRECTIONAL_LIGHT * sizeofDirectionalLightTab;
 #endif
 
 #if MAX_NB_POINT_LIGHT > 0
-    m_lightInformationsUbo.setSubData(
-        sizeofLightType + sizeofDirectionalLightTab,
-        ::engine::graphic::actor::light::Point::getNbLight()
-    );
+    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbPointLight);
+    offset += 4 + MAX_NB_POINT_LIGHT * sizeofDirectionalLightTab;
 #endif
 
 #if MAX_NB_SPOT_LIGHT > 0
-    m_lightInformationsUbo.setSubData(
-        sizeofLightType + sizeofDirectionalLightTab + sizeofPointLightTab,
-        ::engine::graphic::actor::light:Spot::getNbLight()
-    );
+    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbSpotLight);
+    offset += 4 + MAX_NB_SPOT_LIGHT * sizeofSpotLightTab;
 #endif
+
+    auto iDirectionalLight { 0 };
+    auto iPointLight { 0 };
+    auto iSpotLight { 0 };
     for (const auto& light : m_lights) {
-        light.get().setIntoUbo(m_lightInformationsUbo);
+        light.get().setIntoUbo(m_lightInformationsUbo, iDirectionalLight, iPointLight, iSpotLight);
     }
 
     m_lightInformationsUbo.unbind();
@@ -98,6 +118,8 @@ void ::engine::graphic::AScene::drawActors() const
     for (const auto& cubeMap : m_vectorCubeMap) {
         cubeMap.draw(m_camera);
     }
+
+    std::cout << "end of drawing\n" << std::endl;
 }
 
 void ::engine::graphic::AScene::drawFps() const

@@ -19,8 +19,12 @@ namespace engine::graphic::actor {
 
 
 
-class Model : public engine::graphic::AActor {
+class Model
+    : public engine::graphic::AActor
+{
+
 public:
+
     // ---------------------------------- *structors
     explicit Model(
         ::engine::graphic::opengl::Shader&    shader,
@@ -32,17 +36,50 @@ public:
     ~Model();
 
 
+
+    // ---------------------------------- Copy sementic
+
+    Model(
+        const Model&
+    ) noexcept = delete;
+
+    auto operator=(
+        const Model&
+    ) noexcept -> Model& = delete;
+
+
+
+    // ---------------------------------- Move sementic
+
+    Model(
+        Model&&
+    ) noexcept = delete;
+
+    auto operator=(
+        Model&&
+    ) noexcept -> Model& = delete;
+
+
+
     // ---------------------------------- Overrides
+
     virtual void update(
         float deltaTime
     ) override;
 
     virtual void drawModels() const override;
 
-private:
-    // ---------------------------------- Texture
-    class Texture : public engine::graphic::actor::Texture {
+
+
+protected:
+protected:
+
+    class Texture
+        : public engine::graphic::actor::Texture
+    {
+
     public:
+
         // ------------------------------------------------ *structors
         Texture(
             const std::string& filename,
@@ -51,16 +88,40 @@ private:
             size_t             i
         );
 
+
+
+        // ---------------------------------- Copy sementic
+
+        Texture(
+            const Texture&
+        ) noexcept;
+
+        auto operator=(
+            const Texture&
+        ) noexcept -> Texture&;
+
+
+
+        // ---------------------------------- Move sementic
+
+        Texture(
+            Texture&&
+        ) noexcept;
+
+        auto operator=(
+            Texture&&
+        ) noexcept -> Texture&;
+
         ~Texture();
 
         const std::string& getName() const;
 
     private:
         std::string m_name;
+
     };
 
 
-    // ---------------------------------- Vertex
     struct Vertex {
         glm::vec3 Position;
         glm::vec3 Normal;
@@ -70,9 +131,10 @@ private:
     };
 
 
-    // ---------------------------------- Mesh
     class Mesh {
+
     public:
+
         // ---------------------------------------------------------- *structors
         explicit Mesh(
             const ::engine::graphic::opengl::Shader&         shader,
@@ -83,6 +145,32 @@ private:
 
         ~Mesh();
 
+
+
+        // ---------------------------------- Copy sementic
+
+        Mesh(
+            const Mesh&
+        ) noexcept;
+
+        auto operator=(
+            const Mesh&
+        ) noexcept -> Mesh&;
+
+
+
+        // ---------------------------------- Move sementic
+
+        Mesh(
+            Mesh&&
+        ) noexcept;
+
+        auto operator=(
+            Mesh&&
+        ) noexcept -> Mesh&;
+
+
+
         // ---------------------------------------------------------- Draw
         void draw() const;
 
@@ -90,7 +178,14 @@ private:
             float deltaTime
         );
 
+
+
+    public:
+    protected:
+    protected:
     private:
+    private:
+
         const ::engine::graphic::opengl::Shader& m_shader;
 
         ::engine::graphic::opengl::Vao m_vao;
@@ -100,15 +195,19 @@ private:
         std::vector<Model::Vertex>  m_vertices;
         std::vector<GLuint>         m_indices;
         std::vector<Model::Texture> m_textures;
+
     };
 
 
-private:
+
     // ---------------------------------- assimp lib
+
     void                         processNode(aiNode* node, const aiScene* scene);
+
     std::unique_ptr<Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
 
     void loadModel(const std::string& filename);
+
     void loadMaterialTextures(std::vector<Model::Texture>& textures,
                               aiMaterial*                  material,
                               const aiTextureType          type,
@@ -116,10 +215,12 @@ private:
 
 
 private:
+
     std::vector<Model::Texture>               m_textures;
     std::vector<std::unique_ptr<Model::Mesh>> m_meshes;
     std::string                               m_directoryName;
     bool                                      m_gammaCorrection;
+
 };
 
 

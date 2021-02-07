@@ -25,6 +25,7 @@ class LightSourceCube
 public:
 
     // ---------------------------------- *structors
+
     explicit LightSourceCube(
         std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
         ::engine::graphic::opengl::Shader& shaderProgram,
@@ -34,12 +35,40 @@ public:
     ~LightSourceCube();
 
 
+
+    // ---------------------------------- Copy sementic
+
+    LightSourceCube(
+        const LightSourceCube&
+    ) noexcept;
+
+    auto operator=(
+        const LightSourceCube&
+    ) noexcept -> LightSourceCube&;
+
+
+
+    // ---------------------------------- Move sementic
+
+    LightSourceCube(
+        LightSourceCube&&
+    ) noexcept;
+
+    auto operator=(
+        LightSourceCube&&
+    ) noexcept -> LightSourceCube&;
+
+
+
     // ---------------------------------- override
+
     void configureShader(
         const ::engine::graphic::Camera& camera
     ) const override;
 
     void update(float deltaTime) override;
+
+
 
 public:
 protected:

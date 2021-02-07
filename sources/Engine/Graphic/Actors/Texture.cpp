@@ -69,30 +69,47 @@ TextureContainer g_CachedTextures;
 
 
 
-namespace engine::graphic::actor {
-
-
-
 // ---------------------------------- *structors
 
-Texture::Texture(const std::string& filename)
+::engine::graphic::actor::Texture::Texture(const std::string& filename)
     : m_id(g_CachedTextures[filename])
 {}
 
-Texture::Texture(std::string&& filename)
+::engine::graphic::actor::Texture::Texture(std::string&& filename)
     : m_id(g_CachedTextures[std::move(filename)])
 {}
 
-Texture::~Texture()
-{}
+::engine::graphic::actor::Texture::~Texture() = default;
 
 
 
-GLuint Texture::get() const
+// ---------------------------------- Copy sementic
+
+::engine::graphic::actor::Texture::Texture(
+    const Texture&
+) noexcept = default;
+
+auto ::engine::graphic::actor::Texture::operator=(
+    const Texture&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Move sementic
+
+::engine::graphic::actor::Texture::Texture(
+    Texture&&
+) noexcept = default;
+
+auto ::engine::graphic::actor::Texture::operator=(
+    Texture&&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Get
+
+GLuint ::engine::graphic::actor::Texture::get() const
 {
     return *m_id;
 }
-
-
-
-} // namespace engine::graphic::actor

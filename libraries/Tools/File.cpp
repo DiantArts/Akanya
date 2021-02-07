@@ -21,11 +21,11 @@ namespace tool::file {
 
 
 
-std::string read(const std::string_view filepath)
+std::stringstream read(const std::string_view filepath)
 {
     using std::string_literals::operator""s;
 
-    std::stringstream shaderStream;
+    std::stringstream shaderSs;
     {
         std::ifstream shaderFile;
         shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -38,9 +38,9 @@ std::string read(const std::string_view filepath)
         }
 
 
-        shaderStream << shaderFile.rdbuf();
+        shaderSs << shaderFile.rdbuf();
     }
-    return shaderStream.str();
+    return shaderSs;
 }
 
 bool exists(const std::string& filepath)

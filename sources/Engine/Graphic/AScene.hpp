@@ -88,13 +88,15 @@ public:
     // ---------------------------------- Vector Actors
 
     template <
-        std::derived_from<engine::graphic::AActor> ActorType
-    > auto emplaceActor(
+        typename ActorType
+    > requires
+        std::is_base_of_v<engine::graphic::AActor, ActorType> &&
+        (!std::is_base_of_v<engine::graphic::actor::ALight, ActorType>)
+    auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
     {
-        std::cout << "actor" << std::endl;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 shader,
                 std::forward<decltype(args)>(args)...)
@@ -103,8 +105,11 @@ public:
 
 #if MAX_NB_DIRECTIONAL_LIGHT > 0
     template <
-        ::engine::graphic::actor::DirectionalLightActorType ActorType
-    > auto emplaceActor(
+        typename ActorType
+    > requires
+        std::is_base_of_v<engine::graphic::AActor, ActorType> &&
+        std::is_base_of_v<engine::graphic::actor::light::Directional, ActorType>
+    auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
@@ -120,13 +125,17 @@ public:
 
 #if MAX_NB_POINT_LIGHT > 0
     template <
-        ::engine::graphic::actor::PointLightActorType ActorType
-    > auto emplaceActor(
+        typename ActorType
+    > requires
+        std::is_base_of_v<engine::graphic::AActor, ActorType> &&
+        std::is_base_of_v<engine::graphic::actor::light::Point, ActorType>
+    auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
         auto&&... args
     ) -> ActorType&
     {
+        std::cout << "test" << std::endl;
         m_lightInformations.nbPointLight += numberOfInstances;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 m_lights,
@@ -139,8 +148,10 @@ public:
 
 #if MAX_NB_SPOT_LIGHT > 0
     template <
-        ::engine::graphic::actor::SpotLightActorType ActorType
-    >
+        typename ActorType
+    > requires
+        std::is_base_of_v<engine::graphic::AActor, ActorType> &&
+        std::is_base_of_v<engine::graphic::actor::light::Spot, ActorType>
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,

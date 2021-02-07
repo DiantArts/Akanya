@@ -26,7 +26,13 @@ public:
 
 
     // ---------------------------------- set
-    void setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const override final;
+    void setIntoUbo(
+        const ::engine::graphic::opengl::Ubo& ubo,
+        int&,
+        int& i,
+        int&
+    ) const override final;
+
     void setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const override final;
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 
@@ -56,17 +62,6 @@ protected:
 
 
 } // namespace engine::graphic::actor::light
-
-
-
-namespace engine::graphic::actor {
-
-template<typename ActorType>
-concept PointLightActorType =
-    std::derived_from<ActorType, engine::graphic::AActor> &&
-    std::derived_from<ActorType, engine::graphic::actor::light::Point>;
-
-} // namespace engine::graphic::actor
 
 
 

@@ -18,7 +18,8 @@ namespace engine::graphic::actor {
 
 class AActor
     : public engine::graphic::actor::ADrawable
-    , public engine::graphic::actor::ATransformable {
+    , public engine::graphic::actor::ATransformable
+{
 
 public:
 
@@ -32,19 +33,59 @@ public:
     virtual ~AActor() = 0;
 
 
-    // ---------------------------------- Drawable
 
-    glm::mat4    getModel(const glm::vec3& position) const; // just apply transform model
+    // ---------------------------------- Copy sementic
 
-    virtual void drawModels() const = 0; // ADrawable method
+    AActor(
+        const AActor&
+    ) noexcept = delete;
+
+    auto operator=(
+        const AActor&
+    ) noexcept -> AActor& = delete;
+
+
+
+    // ---------------------------------- Move sementic
+
+    AActor(
+        AActor&&
+    ) noexcept = delete;
+
+    auto operator=(
+        AActor&&
+    ) noexcept -> AActor& = delete;
+
+
+
+    // ---------------------------------- ADrawable
+
+    // just apply transform model
+    auto getModel(
+        const glm::vec3& position
+    ) const
+        -> glm::mat4;
+
+    // ADrawable method
+    virtual void drawModels() const = 0;
+
 
 
     // ---------------------------------- Transformable
 
-    virtual void update(float deltaTime); // = default
+    // = default
+    virtual void update(
+        float deltaTime
+    );
 
 
+
+public:
+protected:
+protected:
 private:
+private:
+
 };
 
 

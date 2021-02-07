@@ -18,11 +18,9 @@ namespace engine::graphic::opengl {
 
 // ---------------------------------- *structors
 
-Vertices::Vertices(const std::string_view filepath, size_t& numberOfArrayToDraw)
+Vertices::Vertices(const std::string& filepath, size_t& numberOfArrayToDraw)
 {
-    std::string str { ::engine::core::config::filepath::vertices };
-    str += filepath;
-    str = tool::file::read(str);
+    std::string str { tool::file::read(::engine::core::config::filepath::vertices + filepath).str() };
 
     m_vertices.reserve(std::count(str.begin(), str.end(), '\n'));
     std::istringstream iss(str);

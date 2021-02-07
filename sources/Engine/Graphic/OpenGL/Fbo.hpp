@@ -14,9 +14,13 @@ namespace engine::graphic::opengl {
 
 
 class Fbo {
+
 public:
+
     // ---------------------------------- *structors
+
     Fbo();
+
     ~Fbo();
 
 
@@ -44,16 +48,29 @@ public:
     ) noexcept -> Fbo&;
 
 
+
     // ---------------------------------- get
+
     GLuint get() const;
 
 
+
     // ---------------------------------- bind
+
     void bind() const;
+
     void unbind() const;
 
+
+
+public:
+protected:
+protected:
 private:
+private:
+
     GLuint m_fbo;
+
 };
 
 

@@ -18,16 +18,52 @@ namespace game::scene {
 
 
 
-class Example : public engine::graphic::AScene {
+class Example
+    : public engine::graphic::AScene
+{
+
 public:
+
     // ---------------------------------- *structors
+
     Example(
         ::engine::graphic::Window& window
     );
 
     ~Example();
 
+
+
+    // ---------------------------------- Copy sementic
+
+    Example(
+        const Example&
+    ) noexcept;
+
+    auto operator=(
+        const Example&
+    ) noexcept -> Example&;
+
+
+
+    // ---------------------------------- Move sementic
+
+    Example(
+        Example&&
+    ) noexcept;
+
+    auto operator=(
+        Example&&
+    ) noexcept -> Example&;
+
+
+
+public:
+protected:
+protected:
 private:
+private:
+
 };
 
 

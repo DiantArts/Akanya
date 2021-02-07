@@ -32,7 +32,7 @@ public:
             glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
             glEnableVertexAttribArray(1);
         },
-        const std::string_view verticesFilename  = "cube");
+        const std::string& verticesFilename = "cube");
 
     virtual ~Cube();
 

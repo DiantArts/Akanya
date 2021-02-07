@@ -16,7 +16,7 @@ namespace engine::graphic::opengl {
 class Vertices {
 public:
     // ---------------------------------- *structors
-    explicit Vertices(std::string_view filepath, size_t& numberOfArrayToDraw);
+    explicit Vertices(const std::string& filepath, size_t& numberOfArrayToDraw);
 
 
     // ---------------------------------- buffer

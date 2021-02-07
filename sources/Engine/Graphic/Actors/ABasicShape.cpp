@@ -7,22 +7,17 @@
 #include "pch.hpp"
 #include "ABasicShape.hpp"
 
-#include "../OpenGL/Vertices.hpp"
-
-extern bool gammaEnabled;
-
-
-namespace engine::graphic::actor {
-
 
 
 // ---------------------------------- *structors
 
-ABasicShape::ABasicShape(::engine::graphic::opengl::Shader& shader,
-                         const std::function<void()>& setAttributesFunc,
-                         const std::string_view       verticesFilename,
-                         const size_t                 numberOfPositions,
-                         const size_t                 numberOfTexturesToReserve)
+::engine::graphic::actor::ABasicShape::ABasicShape(
+    ::engine::graphic::opengl::Shader& shader,
+    const std::function<void()>& setAttributesFunc,
+    const std::string& verticesFilename,
+    const size_t numberOfPositions,
+    const size_t numberOfTexturesToReserve
+)
     : engine::graphic::AActor(shader, numberOfPositions)
 {
     m_textureVector.reserve(numberOfTexturesToReserve);
@@ -33,13 +28,13 @@ ABasicShape::ABasicShape(::engine::graphic::opengl::Shader& shader,
     engine::graphic::opengl::Vertices(verticesFilename, m_numberOfArrayToDraw).createBuffer();
 }
 
-ABasicShape::~ABasicShape() = default;
+::engine::graphic::actor::ABasicShape::~ABasicShape() = default;
 
 
 
-// ---------------------------------- *structors
+// ---------------------------------- ADrawable
 
-void ABasicShape::drawModels() const
+void ::engine::graphic::actor::ABasicShape::drawModels() const
 {
     m_vao.bind();
     this->bindTextures();
@@ -53,7 +48,10 @@ void ABasicShape::drawModels() const
 
 // ---------------------------------- Texture
 
-ABasicShape::Texture::Texture(const std::string& filename, bool gammaCorrection)
+::engine::graphic::actor::ABasicShape::Texture::Texture(
+    const std::string& filename,
+    const bool gammaCorrection
+)
     : engine::graphic::actor::Texture(filename)
 {
     if (m_id.use_count() == 1) { // if need initialisation
@@ -99,23 +97,51 @@ ABasicShape::Texture::Texture(const std::string& filename, bool gammaCorrection)
     }
 }
 
-ABasicShape::Texture::~Texture()
+::engine::graphic::actor::ABasicShape::Texture::~Texture()
 {}
 
-void ABasicShape::addTexture(const std::string& filename, const std::string& name, const bool gammaCorrection)
+
+
+// ---------------------------------- Copy sementic
+
+::engine::graphic::actor::ABasicShape::Texture::Texture(
+    const Texture&
+) noexcept = default;
+
+auto ::engine::graphic::actor::ABasicShape::Texture::operator=(
+    const Texture&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Move sementic
+
+::engine::graphic::actor::ABasicShape::Texture::Texture(
+    Texture&&
+) noexcept = default;
+
+auto ::engine::graphic::actor::ABasicShape::Texture::operator=(
+    Texture&&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Texture
+
+void ::engine::graphic::actor::ABasicShape::addTexture(
+    const std::string& filename,
+    const std::string& name,
+    const bool gammaCorrection
+)
 {
     this->setIntoShader(name.c_str(), static_cast<int>(m_textureVector.size()));
     m_textureVector.emplace_back(filename, gammaCorrection);
 }
 
-void ABasicShape::bindTextures() const
+void ::engine::graphic::actor::ABasicShape::bindTextures() const
 {
     for (size_t i { 0 }; i < m_textureVector.size(); i++) {
         glActiveTexture(i + GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, m_textureVector[i].get());
     }
 }
-
-
-
-} // namespace engine::graphic::actor

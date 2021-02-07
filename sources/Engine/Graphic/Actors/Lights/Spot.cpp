@@ -36,7 +36,12 @@ Spot::~Spot()
 
 // ---------------------------------- set
 
-void Spot::setIntoUbo(const ::engine::graphic::opengl::Ubo& ubo) const
+void Spot::setIntoUbo(
+    const ::engine::graphic::opengl::Ubo& ubo,
+    int&,
+    int&,
+    int& i
+) const
 {}
 
 

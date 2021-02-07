@@ -19,13 +19,42 @@ namespace game::scene {
 class AdvancedLight
     : public ::engine::graphic::AScene
 {
+
 public:
+
     // ---------------------------------- *structors
+
     AdvancedLight(
         ::engine::graphic::Window& window
     );
 
     ~AdvancedLight();
+
+
+
+    // ---------------------------------- Copy sementic
+
+    AdvancedLight(
+        const AdvancedLight&
+    ) noexcept;
+
+    auto operator=(
+        const AdvancedLight&
+    ) noexcept -> AdvancedLight&;
+
+
+
+    // ---------------------------------- Move sementic
+
+    AdvancedLight(
+        AdvancedLight&&
+    ) noexcept;
+
+    auto operator=(
+        AdvancedLight&&
+    ) noexcept -> AdvancedLight&;
+
+
 
 public:
 protected:

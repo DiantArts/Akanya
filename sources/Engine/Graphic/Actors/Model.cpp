@@ -99,10 +99,10 @@ Model::Mesh::Mesh(const ::engine::graphic::opengl::Shader&         shader,
                           reinterpret_cast<void*>(offsetof(Model::Vertex, Bitangent)));
 }
 
-Model::Mesh::~Mesh()
-{}
+Model::Mesh::~Mesh() = default;
 
 
+// ---------------------------------- Move sementic
 
 void Model::Mesh::draw() const
 {
@@ -123,6 +123,7 @@ void Model::Mesh::update(float)
 
 
 // ---------------------------------- assimp lib
+
 void Model::loadModel(const std::string& filename)
 {
     Assimp::Importer importer;
@@ -270,8 +271,35 @@ Model::Texture::Texture(const std::string&     filename,
     m_name += std::to_string(i);
 }
 
-Model::Texture::~Texture()
-{}
+Model::Texture::~Texture() = default;
+
+
+
+// ---------------------------------- Copy sementic
+
+Model::Texture::Texture(
+    const Texture&
+) noexcept = default;
+
+auto Model::Texture::operator=(
+    const Texture&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Move sementic
+
+Model::Texture::Texture(
+    Texture&&
+) noexcept = default;
+
+auto Model::Texture::operator=(
+    Texture&&
+) noexcept -> Texture& = default;
+
+
+
+// ---------------------------------- Name
 
 const std::string& Model::Texture::getName() const
 {

@@ -15,9 +15,14 @@ namespace game::object {
 
 
 
-class Backpack : public engine::graphic::actor::Model {
+class Backpack
+    : public engine::graphic::actor::Model
+{
+
 public:
+
     // ---------------------------------- *structors
+
     explicit Backpack(
         ::engine::graphic::opengl::Shader& shader,
         const size_t numberOfPositions
@@ -25,13 +30,44 @@ public:
     ~Backpack();
 
 
+
+    // ---------------------------------- Copy sementic
+
+    Backpack(
+        const Backpack&
+    ) noexcept;
+
+    auto operator=(
+        const Backpack&
+    ) noexcept -> Backpack&;
+
+
+
+    // ---------------------------------- Move sementic
+
+    Backpack(
+        Backpack&&
+    ) noexcept;
+
+    auto operator=(
+        Backpack&&
+    ) noexcept -> Backpack&;
+
+
     // ---------------------------------- override
+
     void configureShader(
         const ::engine::graphic::Camera& camera
     ) const override final;
 
 
+
+public:
+protected:
+protected:
 private:
+private:
+
 };
 
 
