@@ -83,9 +83,9 @@ void ::engine::graphic::AScene::drawActors() const
 
     size_t offset { 0 };
 
-    m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().gamma);
+    // m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().gamma);
     offset += 4;
-    m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().blinn);
+    // m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().blinn);
     offset += 4;
 
 #if MAX_NB_DIRECTIONAL_LIGHT > 0
@@ -94,8 +94,8 @@ void ::engine::graphic::AScene::drawActors() const
 #endif
 
 #if MAX_NB_POINT_LIGHT > 0
-    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbPointLight);
-    offset += 4 + MAX_NB_POINT_LIGHT * sizeofDirectionalLightTab;
+    // m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbPointLight);
+    // offset += 4 + MAX_NB_POINT_LIGHT * sizeofDirectionalLightTab;
 #endif
 
 #if MAX_NB_SPOT_LIGHT > 0
@@ -103,11 +103,18 @@ void ::engine::graphic::AScene::drawActors() const
     offset += 4 + MAX_NB_SPOT_LIGHT * sizeofSpotLightTab;
 #endif
 
-    auto iDirectionalLight { 0 };
-    auto iPointLight { 0 };
-    auto iSpotLight { 0 };
-    for (const auto& light : m_lights) {
-        light.get().setIntoUbo(m_lightInformationsUbo, iDirectionalLight, iPointLight, iSpotLight);
+    // auto iDirectionalLight { 0 };
+    // auto iPointLight { 0 };
+    // auto iSpotLight { 0 };
+
+    m_shaderMap["floor"].use();
+    m_shaderMap["floor"].set("gamma", m_camera.getConfig().gamma);
+    m_shaderMap["floor"].set("blinn", m_camera.getConfig().blinn);
+    m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
+    m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
+    for (auto& light : m_lights) {
+        // light.get().setIntoUbo(m_lightInformationsUbo, iDirectionalLight, iPointLight, iSpotLight);
+        light.get().setIntoEnlightenedShader(m_shaderMap["floor"]);
     }
 
     m_lightInformationsUbo.unbind();

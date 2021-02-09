@@ -80,7 +80,8 @@ using std::literals::string_view_literals::operator""sv;
 
 constexpr auto sizeofLightType { 2 * 4 };
 constexpr auto sizeofDirectionalLightTab { MAX_NB_DIRECTIONAL_LIGHT * (5 * 16) };
-constexpr auto sizeofPointLightTab { MAX_NB_POINT_LIGHT * ((5 * 16) + (3 * 4)) };
+// constexpr auto sizeofPointLightTab { MAX_NB_POINT_LIGHT * ((5 * 16) + (3 * 4)) };
+constexpr auto sizeofPointLightTab { MAX_NB_POINT_LIGHT * ((2 * 16) + (0 * 4)) };
 constexpr auto sizeofSpotLightTab { MAX_NB_SPOT_LIGHT * ((6 * 16) + (5 * 4)) };
 
 

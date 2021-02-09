@@ -249,10 +249,9 @@ protected:
         std::unordered_map<std::string, ::engine::graphic::opengl::Shader> m_shaderMap;
 
     };
+    mutable AScene::ShaderMap m_shaderMap;
 
     ::engine::graphic::Window& m_window;
-
-    AScene::ShaderMap m_shaderMap;
 
     std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
