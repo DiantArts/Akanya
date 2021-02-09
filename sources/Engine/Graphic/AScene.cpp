@@ -111,7 +111,6 @@ void ::engine::graphic::AScene::drawActors() const
     m_shaderMap["floor"].set("gamma", m_camera.getConfig().gamma);
     m_shaderMap["floor"].set("blinn", m_camera.getConfig().blinn);
     m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
-    m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
     for (auto& light : m_lights) {
         // light.get().setIntoUbo(m_lightInformationsUbo, iDirectionalLight, iPointLight, iSpotLight);
         light.get().setIntoEnlightenedShader(m_shaderMap["floor"]);

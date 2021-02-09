@@ -45,6 +45,5 @@ void ::game::object::EnlightenedCube::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    ::engine::graphic::actor::ADrawable::configureShader(camera);
     this->setIntoShader("viewPos", camera.getPosition());
 }

@@ -27,8 +27,6 @@ void ::game::object::Backpack::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    engine::graphic::actor::ADrawable::configureShader(camera);
-
     // for (const auto& light : engine::graphic::actor::ALight::getAll()) {
         // this->setIntoShader(light);
     // }
