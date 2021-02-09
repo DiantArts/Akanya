@@ -27,15 +27,15 @@
     : m_window(window)
     , m_camera(m_window.getSize())
     , m_lightInformationsUbo(
-#if MAX_NB_DIRECTIONAL_LIGHT > 0
-        sizeofDirectionalLightTab + sizeof(float) +
-#endif
-#if MAX_NB_POINT_LIGHT > 0
-        sizeofPointLightTab + sizeof(float) +
-#endif
-#if MAX_NB_SPOT_LIGHT > 0
-        sizeofSpotLightTab + sizeof(float) +
-#endif
+// #if MAX_NB_DIRECTIONAL_LIGHT > 0
+        // sizeofDirectionalLightTab + sizeof(float) +
+// #endif
+// #if MAX_NB_POINT_LIGHT > 0
+        // sizeofPointLightTab + sizeof(float) +
+// #endif
+// #if MAX_NB_SPOT_LIGHT > 0
+        // sizeofSpotLightTab + sizeof(float) +
+// #endif
         sizeofLightType,
         2)
 {
@@ -83,33 +83,33 @@ void ::engine::graphic::AScene::drawActors() const
 
     size_t offset { 0 };
 
-    // m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().gamma);
+    m_lightInformationsUbo.setSubData(offset, (int)m_camera.getConfig().gamma);
     offset += 4;
-    // m_lightInformationsUbo.setSubData(offset, m_camera.getConfig().blinn);
+    m_lightInformationsUbo.setSubData(offset, (int)m_camera.getConfig().blinn);
     offset += 4;
 
-#if MAX_NB_DIRECTIONAL_LIGHT > 0
-    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbDirectionalLight);
-    offset += 4 + MAX_NB_DIRECTIONAL_LIGHT * sizeofDirectionalLightTab;
-#endif
+// #if MAX_NB_DIRECTIONAL_LIGHT > 0
+    // m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbDirectionalLight);
+    // offset += 4 + MAX_NB_DIRECTIONAL_LIGHT * sizeofDirectionalLightTab;
+// #endif
 
-#if MAX_NB_POINT_LIGHT > 0
+// #if MAX_NB_POINT_LIGHT > 0
     // m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbPointLight);
     // offset += 4 + MAX_NB_POINT_LIGHT * sizeofDirectionalLightTab;
-#endif
+// #endif
 
-#if MAX_NB_SPOT_LIGHT > 0
-    m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbSpotLight);
-    offset += 4 + MAX_NB_SPOT_LIGHT * sizeofSpotLightTab;
-#endif
+// #if MAX_NB_SPOT_LIGHT > 0
+    // m_lightInformationsUbo.setSubData(offset, m_lightInformations.nbSpotLight);
+    // offset += 4 + MAX_NB_SPOT_LIGHT * sizeofSpotLightTab;
+// #endif
 
     // auto iDirectionalLight { 0 };
     // auto iPointLight { 0 };
     // auto iSpotLight { 0 };
 
     m_shaderMap["floor"].use();
-    m_shaderMap["floor"].set("gamma", m_camera.getConfig().gamma);
-    m_shaderMap["floor"].set("blinn", m_camera.getConfig().blinn);
+    // m_shaderMap["floor"].set("gamma", m_camera.getConfig().gamma);
+    // m_shaderMap["floor"].set("blinn", m_camera.getConfig().blinn);
     m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
     m_shaderMap["floor"].set("nrPointLight", (size_t)m_lightInformations.nbPointLight);
     for (auto& light : m_lights) {
