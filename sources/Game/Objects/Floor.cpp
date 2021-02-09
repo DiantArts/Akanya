@@ -23,7 +23,7 @@
 )
     : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
-    this->setBlockBindingIntoShader("LightInformations", 2);
+    // this->setBlockBindingIntoShader("LightInformations", 2);
 
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");

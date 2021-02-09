@@ -287,7 +287,7 @@ private:
 
     std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
 
-    engine::graphic::opengl::Ubo m_lightInformationsUbo;
+    // engine::graphic::opengl::Ubo m_lightInformationsUbo;
 
 
 
