@@ -123,11 +123,11 @@ void PropertyTree::addValue(const std::string& path, const std::vector< std::vec
 {
     pt::ptree matrix_node;
     auto sizeI = matrix.size();
-    for (int i = 0; i < sizeI; i++)
+    for (size_t i = 0; i < sizeI; i++)
     {
         pt::ptree row;
         auto sizeJ = matrix[i].size();
-        for (int j = 0; j < sizeJ; j++)
+        for (size_t j = 0; j < sizeJ; j++)
         {
             // Create an unnamed value
             pt::ptree cell;
