@@ -23,11 +23,11 @@
 )
     : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
-    // this->setBlockBindingIntoShader("LightInformations", 2);
-
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");
     this->setIntoShader("material.shininess", 1000.0F);
+
+    // this->setBlockBindingIntoShader("LightInformations", 1);
 }
 
 ::game::object::Floor::~Floor() = default;

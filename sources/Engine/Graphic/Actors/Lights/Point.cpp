@@ -42,34 +42,34 @@ void Point::setIntoUbo(
     int&
 ) const
 {
-    size_t offset {
-        sizeofLightType +
+    // size_t offset {
+        // sizeofLightType +
 // #if MAX_NB_DIRECTIONAL_LIGHT > 0
         // 4 + MAX_NB_DIRECTIONAL_LIGHT * sizeofDirectionalLightTab +
 // #endif
-        4 + (size_t)i * sizeofPointLightTab
-    };
-    i++;
+        // 4 + (size_t)i * sizeofPointLightTab
+    // };
+    // i++;
 
-    std::cout << "start point" << std::endl;
-    for (auto position : m_parameters.positions) {
-        ubo.setSubData(offset, glm::vec4(position, 0));
-        offset += 16;
-        ubo.setSubData(offset, m_parameters.constant);
-        offset += 4;
-        ubo.setSubData(offset, m_parameters.linear);
-        offset += 4;
-        ubo.setSubData(offset, m_parameters.quadratic);
-        offset += 4;
-        ubo.setSubData(offset, glm::vec4(m_parameters.ambient, 0));
-        offset += 16;
-        ubo.setSubData(offset, glm::vec4(m_parameters.diffuse, 0));
-        offset += 16;
-        ubo.setSubData(offset, glm::vec4(m_parameters.specular, 0));
-        offset += 16;
-        ubo.setSubData(offset, glm::vec4(m_parameters.color, 0));
-        offset += 16;
-    }
+    // std::cout << "start point" << std::endl;
+    // for (auto position : m_parameters.positions) {
+        // ubo.setSubData(offset, glm::vec4(position, 0));
+        // offset += 16;
+        // ubo.setSubData(offset, m_parameters.constant);
+        // offset += 4;
+        // ubo.setSubData(offset, m_parameters.linear);
+        // offset += 4;
+        // ubo.setSubData(offset, m_parameters.quadratic);
+        // offset += 4;
+        // ubo.setSubData(offset, glm::vec4(m_parameters.ambient, 0));
+        // offset += 16;
+        // ubo.setSubData(offset, glm::vec4(m_parameters.diffuse, 0));
+        // offset += 16;
+        // ubo.setSubData(offset, glm::vec4(m_parameters.specular, 0));
+        // offset += 16;
+        // ubo.setSubData(offset, glm::vec4(m_parameters.color, 0));
+        // offset += 16;
+    // }
 }
 
 void Point::setIntoEnlightenedShader(const ::engine::graphic::opengl::Shader& shader) const

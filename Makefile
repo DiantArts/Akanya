@@ -344,6 +344,7 @@ $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vbo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Ebo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Fbo$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/OpenGL/Ubo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vertices$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Shader$(CPP_HDREXT)
 

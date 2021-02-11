@@ -16,7 +16,7 @@
 )
     : m_shader(shader)
 {
-    this->setBlockBindingIntoShader("CameraInformations", 1);
+    this->setBlockBindingIntoShader("CameraInformations", 0);
 }
 
 ::engine::graphic::actor::ADrawable::~ADrawable() = default;

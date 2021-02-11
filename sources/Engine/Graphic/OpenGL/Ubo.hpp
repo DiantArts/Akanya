@@ -18,6 +18,7 @@ public:
     // ---------------------------------- *structors
 
     Ubo(
+        size_t offset,
         size_t size,
         int index
     );

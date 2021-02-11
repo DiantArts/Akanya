@@ -27,6 +27,7 @@
     : m_window(window)
     , m_camera(m_window.getSize())
     // , m_lightInformationsUbo(
+        // 2 * sizeof(glm::mat4),
 // #if MAX_NB_DIRECTIONAL_LIGHT > 0
         // sizeofDirectionalLightTab + sizeof(float) +
 // #endif
@@ -36,8 +37,8 @@
 // #if MAX_NB_SPOT_LIGHT > 0
         // sizeofSpotLightTab + sizeof(float) +
 // #endif
-        // sizeofLightType,
-        // 2)
+        // 8,
+        // 1)
 {
     m_camera.setSpeed(5);
     m_camera.setPosition(1.5, 3.0F, 7.5F);
@@ -83,9 +84,9 @@ void ::engine::graphic::AScene::drawActors() const
 
     // size_t offset { 0 };
 
-    // m_lightInformationsUbo.setSubData(offset, (int)m_camera.getConfig().gamma);
+    // m_lightInformationsUbo.setOneSubData(offset, (int)m_camera.getConfig().gamma);
     // offset += 4;
-    // m_lightInformationsUbo.setSubData(offset, (int)m_camera.getConfig().blinn);
+    // m_lightInformationsUbo.setOneSubData(offset, (int)m_camera.getConfig().blinn);
     // offset += 4;
 
 // #if MAX_NB_DIRECTIONAL_LIGHT > 0
@@ -137,6 +138,7 @@ void ::engine::graphic::AScene::drawFps() const
         std::cout << "FPS: " << m_fps << '\n';
         m_elapsed -= 1;
         m_fps = 0;
+
     }
 }
 

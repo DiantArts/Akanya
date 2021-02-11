@@ -17,7 +17,7 @@ namespace engine::graphic {
 Camera::Camera(
     const ::engine::graphic::Window::Size& windowSize
 )
-    : m_ubo(2 * sizeof(glm::mat4), 1)
+    : m_ubo(0, 2 * sizeof(glm::mat4), 0)
 {
     m_ubo.setOneSubData(
         0,
