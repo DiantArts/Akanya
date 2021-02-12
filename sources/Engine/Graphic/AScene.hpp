@@ -215,30 +215,6 @@ protected:
 
 
 
-        // ---------------------------------- iterator
-
-        auto begin()
-            -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator;
-
-        auto begin()
-            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
-
-        auto cbegin()
-            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
-
-
-
-        auto end()
-            -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::iterator;
-
-        auto end()
-            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
-
-        auto cend()
-            const -> std::unordered_map<std::string, ::engine::graphic::opengl::Shader>::const_iterator;
-
-
-
     public:
     protected:
     protected:
@@ -286,7 +262,10 @@ private:
 
     std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
 
-    // engine::graphic::opengl::Ubo m_lightInformationsUbo;
+    engine::graphic::opengl::Ubo m_lightInformationsUbo;
+
+    // unsigned int cameraUbo;
+    // unsigned int lightUbo;
 
 
 

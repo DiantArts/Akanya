@@ -646,7 +646,7 @@ void ::engine::graphic::opengl::Shader::setBlockBinding(
 {
     auto blockIndex { glGetUniformBlockIndex(this->m_id, name.c_str()) };
     if (blockIndex == GL_INVALID_INDEX) {
-        throw std::runtime_error("invalid uniform block index");
+        throw std::runtime_error("invalid uniform block index ("s + name + ":" + std::to_string(index) + ')');
     }
     glUniformBlockBinding(this->m_id, blockIndex, index);
 }

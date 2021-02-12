@@ -7,7 +7,6 @@
 #ifndef ___INCLUDE_GUARD_INCLUDES_PCH_HPP___
 #define ___INCLUDE_GUARD_INCLUDES_PCH_HPP___
 
-
 #include <algorithm>
 #include <chrono>
 #include <fstream>

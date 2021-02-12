@@ -17,7 +17,7 @@ namespace engine::graphic {
 Camera::Camera(
     const ::engine::graphic::Window::Size& windowSize
 )
-    : m_ubo(0, 2 * sizeof(glm::mat4), 0)
+    : m_ubo(2 * sizeof(glm::mat4), 0)
 {
     m_ubo.setOneSubData(
         0,
@@ -246,6 +246,11 @@ auto Camera::getConfig() const
 void Camera::configureUbo() const
 {
     m_ubo.setOneSubData(sizeof(glm::mat4), glm::lookAt(m_position, m_position + m_front, m_up));
+}
+
+glm::mat4 Camera::getView() const
+{
+    return glm::lookAt(m_position, m_position + m_front, m_up);
 }
 
 

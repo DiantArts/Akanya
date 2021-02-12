@@ -6,8 +6,6 @@
 
 #include "pch.hpp"
 
-#include "Ubo.hpp"
-
 
 
 namespace engine::graphic::opengl {
@@ -17,7 +15,6 @@ namespace engine::graphic::opengl {
 // ---------------------------------- *structors
 
 Ubo::Ubo(
-    size_t offset,
     size_t size,
     int index
 )
@@ -25,9 +22,9 @@ Ubo::Ubo(
     glGenBuffers(1, &m_ubo);
 
     this->bind();
-    std::cout << "buffer" << index << ": " << size << std::endl;
-    glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
-    glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, offset, size);
+    std::cout << "ubo(" << size << ", " << index << ")" << std::endl;
+    glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_STREAM_DRAW);
+    glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, 0, size);
     this->unbind();
 }
 

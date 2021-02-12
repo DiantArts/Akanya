@@ -18,7 +18,6 @@ public:
     // ---------------------------------- *structors
 
     Ubo(
-        size_t offset,
         size_t size,
         int index
     );
@@ -86,7 +85,7 @@ public:
     ) const
     {
         this->bind();
-        this->setSubData(offset, data);
+        this->setSubData(offset, std::move(data));
         this->unbind();
     }
 

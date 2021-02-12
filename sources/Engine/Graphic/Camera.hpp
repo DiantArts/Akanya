@@ -194,6 +194,8 @@ public:
 
     void configureUbo() const;
 
+    glm::mat4 getView() const;
+
 
 
 public:
