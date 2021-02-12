@@ -12,7 +12,7 @@
 // ---------------------------------- *structors
 
 ::game::object::LightSourceCube::LightSourceCube(
-        std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
+    std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
     ::engine::graphic::opengl::Shader& shader,
     const size_t numberOfPositions
 )

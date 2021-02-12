@@ -123,7 +123,7 @@ void checkLinkageStatus(
 
 
 
-// ---------------------------------- Move sementic
+// -------------------------------------------------------------------------------- Move sementic
 
 ::engine::graphic::opengl::Shader::Shader(
     Shader&&

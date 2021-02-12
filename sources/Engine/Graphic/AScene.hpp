@@ -135,7 +135,6 @@ public:
         auto&&... args
     ) -> ActorType&
     {
-        std::cout << "test" << std::endl;
         m_lightInformations.nbPointLight += numberOfInstances;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 m_lights,

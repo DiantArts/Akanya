@@ -8,6 +8,7 @@
 #include "Clock.hpp"
 
 
+
 // ---------------------------------- *structors
 
 ::engine::core::Clock::Clock() = default;
