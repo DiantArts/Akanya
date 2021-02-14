@@ -19,10 +19,7 @@ Camera::Camera(
 )
     : m_ubo(2 * sizeof(glm::mat4), 0)
 {
-    m_ubo.setOneSubData(
-        0,
-        glm::perspective(45.0f, windowSize.width / windowSize.height, 0.1f, 100.f)
-    );
+    m_ubo.setOneSubData(0, glm::perspective(45.0f, windowSize.width / windowSize.height, 0.1f, 100.f));
 }
 
 Camera::~Camera()

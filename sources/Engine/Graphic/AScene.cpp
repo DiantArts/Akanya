@@ -28,7 +28,6 @@
     : m_window(window)
     , m_camera(m_window.getSize())
     , m_lightInformationsUbo(1 * sizeof(glm::vec4) + sizeofPointLightTab, 1)
-
 {
     m_camera.setSpeed(5);
     m_camera.setPosition(1.5, 3.0F, 7.5F);

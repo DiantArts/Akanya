@@ -259,9 +259,10 @@ private:
 #endif
     };
     LightInformations m_lightInformations;
-    engine::graphic::opengl::Ubo m_lightInformationsUbo;
 
     std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
+
+
 
     bool m_isOver { false };
 
@@ -272,6 +273,7 @@ private:
     mutable float m_elapsed { 0 };
     mutable int m_fps { 0 };
 
+    engine::graphic::opengl::Ubo m_lightInformationsUbo;
 };
 
 

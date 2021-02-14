@@ -27,13 +27,13 @@ Example::Example(
 )
     : ::engine::graphic::AScene(window)
 {
-    // this->emplaceActor<game::object::Floor>(m_shaderMap["floor"]);
-
     auto& lightSource { this->emplaceActor<game::object::LightSourceCube>(m_shaderMap["lightSource"], 4) };
     lightSource.instances[0] = glm::vec3(-3.0F, 0.0F, 0.0F);
     lightSource.instances[1] = glm::vec3(-1.0F, 0.0F, 0.0F);
     lightSource.instances[2] = glm::vec3( 1.0F, 0.0F, 0.0F);
     lightSource.instances[3] = glm::vec3( 3.0F, 0.0F, 0.0F);
+
+    this->emplaceActor<game::object::Floor>(m_shaderMap["floor"]);
 }
 
 Example::~Example()

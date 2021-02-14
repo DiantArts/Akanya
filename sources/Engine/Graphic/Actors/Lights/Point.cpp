@@ -38,7 +38,7 @@ void Point::setIntoUbo(
     int&
 ) const
 {
-    size_t offset { (sizeof(glm::vec4) * 1) + (size_t)i * ((5 * sizeof(glm::vec4)) + (4 * sizeof(float))) };
+    size_t offset { (1 * sizeof(glm::vec4)) + (size_t)i * ((5 * sizeof(glm::vec4)) + (4 * sizeof(float))) };
 
     for (auto position : m_parameters.positions) {
         ubo.setSubData(offset, glm::vec4(position, 0));

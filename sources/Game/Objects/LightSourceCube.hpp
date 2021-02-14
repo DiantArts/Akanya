@@ -66,9 +66,7 @@ public:
         const ::engine::graphic::Camera& camera
     ) const override;
 
-    void update(
-        float deltaTime
-    ) override;
+    void update(float deltaTime) override;
 
 
 
@@ -83,5 +81,7 @@ private:
 
 
 } // namespace game::object
+
+
 
 #endif // ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___

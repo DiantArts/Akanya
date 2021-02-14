@@ -85,7 +85,7 @@ public:
     ) const
     {
         this->bind();
-        this->setSubData(offset, std::move(data));
+        this->setSubData(offset, data);
         this->unbind();
     }
 
@@ -98,7 +98,7 @@ public:
         DataType& data
     ) const
     {
-        std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
+        // std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
         glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(data), &data);
     }
 
@@ -109,7 +109,7 @@ public:
         DataType&& data
     ) const
     {
-        std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
+        // std::cout << "subdata: " << sizeof(data) << " (" << offset << ")" << std::endl;
         glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(data), &data);
     }
 
