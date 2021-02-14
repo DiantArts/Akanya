@@ -1,6 +1,6 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/Point
+// sources/Engine/Graphic/Lights/Point
 // Light source illuminating in all direction from a point
 //
 
@@ -10,14 +10,14 @@
 
 
 
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
 // ---------------------------------- *structors
 
 Point::Point(
-    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+    std::vector<std::reference_wrapper<engine::graphic::ALight>>& lights,
     const std::string& name,
     const engine::graphic::actor::Positions& positions
 )
@@ -103,4 +103,4 @@ void Point::setIntoLightSourceShader(const ::engine::graphic::opengl::Shader&) c
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light

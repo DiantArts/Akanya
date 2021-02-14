@@ -9,7 +9,7 @@
 
 
 
-namespace engine::graphic::actor::light { class ALight; }
+namespace engine::graphic::light { class ALight; }
 
 
 
@@ -89,7 +89,7 @@ protected:
     }
 
     void setIntoShader(
-        const engine::graphic::actor::light::ALight& light
+        const engine::graphic::light::ALight& light
     ) const;
 
 

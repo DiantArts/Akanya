@@ -1,6 +1,6 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/ALight
+// sources/Engine/Graphic/Lights/ALight
 // Light base class
 //
 
@@ -9,7 +9,7 @@
 
 
 
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
@@ -62,9 +62,9 @@ private:
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light
 
-namespace engine::graphic::actor { using ALight = engine::graphic::actor::light::ALight; }
+namespace engine::graphic { using ALight = engine::graphic::light::ALight; }
 
 
 

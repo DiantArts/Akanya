@@ -7,9 +7,9 @@
 #include "pch.hpp"
 #include "Floor.hpp"
 
-#include "Engine/Graphic/Actors/Lights/Directional.hpp"
-#include "Engine/Graphic/Actors/Lights/Point.hpp"
-#include "Engine/Graphic/Actors/Lights/Spot.hpp"
+#include "Engine/Graphic/Lights/Directional.hpp"
+#include "Engine/Graphic/Lights/Point.hpp"
+#include "Engine/Graphic/Lights/Spot.hpp"
 
 
 

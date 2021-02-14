@@ -8,8 +8,9 @@
 #define ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___
 
 #include "Engine/Graphic/Actors/BasicShapes/Cube.hpp"
-#include "Engine/Graphic/Actors/Lights/Point.hpp"
-#include "Engine/Graphic/Actors/Lights/Spot.hpp"
+#include "Engine/Graphic/Lights/Directional.hpp"
+#include "Engine/Graphic/Lights/Point.hpp"
+#include "Engine/Graphic/Lights/Spot.hpp"
 
 
 
@@ -19,7 +20,7 @@ namespace game::object {
 
 class LightSourceCube
     : public engine::graphic::actor::basicShape::Cube
-    , public engine::graphic::actor::light::Point
+    , public engine::graphic::light::Point
 {
 
 public:
@@ -27,7 +28,7 @@ public:
     // ---------------------------------- *structors
 
     explicit LightSourceCube(
-        std::vector<std::reference_wrapper<::engine::graphic::actor::ALight>>& lights,
+        std::vector<std::reference_wrapper<::engine::graphic::ALight>>& lights,
         ::engine::graphic::opengl::Shader& shaderProgram,
         size_t numberOfPositions = 1
     );

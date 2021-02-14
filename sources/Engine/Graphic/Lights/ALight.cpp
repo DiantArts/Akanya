@@ -1,6 +1,6 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/ALight
+// sources/Engine/Graphic/Lights/ALight
 // Light base class
 //
 
@@ -11,7 +11,7 @@
 
 
 
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
@@ -43,4 +43,4 @@ const std::string& ALight::getName() const
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light

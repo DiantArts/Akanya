@@ -7,10 +7,6 @@
 #include "pch.hpp"
 #include "EnlightenedCube.hpp"
 
-#include "Engine/Graphic/Actors/Lights/Directional.hpp"
-#include "Engine/Graphic/Actors/Lights/Point.hpp"
-#include "Engine/Graphic/Actors/Lights/Spot.hpp"
-
 
 
 // ---------------------------------- *structors

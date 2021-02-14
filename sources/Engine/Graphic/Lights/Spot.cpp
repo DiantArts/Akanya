@@ -1,6 +1,6 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/Spot
+// sources/Engine/Graphic/Lights/Spot
 // Light source shooting in a specifique direction
 //
 
@@ -10,14 +10,14 @@
 
 
 
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
 // ---------------------------------- *structors
 
 Spot::Spot(
-    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+    std::vector<std::reference_wrapper<engine::graphic::ALight>>& lights,
     const std::string& name,
     const engine::graphic::actor::Positions& positions,
     glm::vec3 direction
@@ -127,4 +127,4 @@ size_t Spot::getNbLight()
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light

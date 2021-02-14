@@ -12,9 +12,9 @@
 #include "Actors/CubeMap.hpp"
 #include "Shadows.hpp"
 
-#include "Actors/Lights/Directional.hpp"
-#include "Actors/Lights/Point.hpp"
-#include "Actors/Lights/Spot.hpp"
+#include "Lights/Directional.hpp"
+#include "Lights/Point.hpp"
+#include "Lights/Spot.hpp"
 
 #include "nbLights.hpp"
 
@@ -91,7 +91,7 @@ public:
         typename ActorType
     > requires
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
-        (!std::is_base_of_v<engine::graphic::actor::ALight, ActorType>)
+        (!std::is_base_of_v<engine::graphic::ALight, ActorType>)
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
@@ -108,7 +108,7 @@ public:
         typename ActorType
     > requires
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
-        std::is_base_of_v<engine::graphic::actor::light::Directional, ActorType>
+        std::is_base_of_v<engine::graphic::light::Directional, ActorType>
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         auto&&... args
@@ -128,14 +128,13 @@ public:
         typename ActorType
     > requires
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
-        std::is_base_of_v<engine::graphic::actor::light::Point, ActorType>
+        std::is_base_of_v<engine::graphic::light::Point, ActorType>
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
         auto&&... args
     ) -> ActorType&
     {
-        std::cout << "test" << std::endl;
         m_lightInformations.nbPointLight += numberOfInstances;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 m_lights,
@@ -151,7 +150,7 @@ public:
         typename ActorType
     > requires
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
-        std::is_base_of_v<engine::graphic::actor::light::Spot, ActorType>
+        std::is_base_of_v<engine::graphic::light::Spot, ActorType>
     auto emplaceActor(
         engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
@@ -260,7 +259,7 @@ private:
     };
     LightInformations m_lightInformations;
 
-    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
+    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
 
 
 

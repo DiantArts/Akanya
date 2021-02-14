@@ -1,23 +1,21 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/Point
+// sources/Engine/Graphic/Lights/Point
 // Light source illuminating in all direction from a point
 //
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_POINT_HPP___
 
-
-
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
-class Point : engine::graphic::actor::ALight {
+class Point : engine::graphic::ALight {
 public:
     // ---------------------------------- *structors
     Point(
-        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        std::vector<std::reference_wrapper<engine::graphic::ALight>>& lights,
         const std::string& name,
         const engine::graphic::actor::Positions& positions
     );
@@ -55,7 +53,7 @@ protected:
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light
 
 
 

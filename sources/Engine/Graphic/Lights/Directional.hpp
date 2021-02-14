@@ -1,6 +1,6 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/Directional
+// sources/Engine/Graphic/Lights/Directional
 // Light source comming from infinitly far away
 //
 
@@ -9,15 +9,15 @@
 
 
 
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
-class Directional : public engine::graphic::actor::ALight {
+class Directional : public engine::graphic::ALight {
 public:
     // ---------------------------------- *structors
     Directional(
-        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        std::vector<std::reference_wrapper<engine::graphic::ALight>>& lights,
         const std::string& name,
         glm::vec3 direction
     );
@@ -59,7 +59,7 @@ private:
 
 
 
-} // namespace engine::graphic::actor::light
+} // namespace engine::graphic::light
 
 
 

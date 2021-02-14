@@ -24,7 +24,7 @@ Ubo::Ubo(
     glGenBuffers(1, &m_ubo);
 
     this->bind();
-    std::cout << "buffer" << index << ": " << size << std::endl;
+    // std::cout << "buffer" << index << ": " << size << std::endl;
     glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_STREAM_DRAW);
     glBindBufferRange(GL_UNIFORM_BUFFER, index, m_ubo, 0, size);
     this->unbind();

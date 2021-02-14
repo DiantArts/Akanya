@@ -339,7 +339,7 @@ $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
 	$(SRCDIR)/Engine/Graphic/Actors/ADrawable$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/ATransformable$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/Positions$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Actors/Lights/ALight$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Lights/ALight$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vao$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vbo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Ebo$(CPP_HDREXT) \

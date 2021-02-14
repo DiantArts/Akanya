@@ -1,23 +1,21 @@
 //
 // Akanya, Engine
-// sources/Engine/Graphic/Actors/Lights/Spot
+// sources/Engine/Graphic/Lights/Spot
 // Light source shooting in a specifique direction
 //
 
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___
 
-
-
-namespace engine::graphic::actor::light {
+namespace engine::graphic::light {
 
 
 
-class Spot : public engine::graphic::actor::ALight {
+class Spot : public engine::graphic::ALight {
 public:
     // ---------------------------------- *structors
     Spot(
-        std::vector<std::reference_wrapper<engine::graphic::actor::ALight>>& lights,
+        std::vector<std::reference_wrapper<engine::graphic::ALight>>& lights,
         const std::string& name,
         const engine::graphic::actor::Positions& positions,
         glm::vec3 direction
@@ -66,8 +64,6 @@ private:
 
 
 
-} // namespace engine::graphic::actor::light
-
-
+} // namespace engine::graphic::light
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_SPOT_HPP___

@@ -59,7 +59,7 @@ void ::engine::graphic::actor::ADrawable::useShader() const
 }
 
 void ::engine::graphic::actor::ADrawable::setIntoShader(
-    const engine::graphic::actor::light::ALight& light
+    const engine::graphic::light::ALight& light
 ) const
 {
     light.setIntoEnlightenedShader(this->getShader());
