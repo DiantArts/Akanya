@@ -13,10 +13,10 @@ int main()
             scene.update();
             scene.draw();
         }
-        return 0;
-    } catch (const std::exception& e) {
-        std::cerr << "ERROR: " << e.what() << std::endl;
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
+    // } catch (const std::exception& e) {
+        // std::cerr << "ERROR: " << e.what() << std::endl;
+        // return EXIT_FAILURE;
 
     } catch (...) {
         std::cerr << "ERROR: unknown" << std::endl;
