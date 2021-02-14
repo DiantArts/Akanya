@@ -32,7 +32,7 @@ void ::game::object::LightSourceCube::configureShader(
     const ::engine::graphic::Camera& camera
 ) const
 {
-    // this->setIntoShader("lightColor", m_parameters.color);
+    this->setIntoShader("lightColor", m_parameters.color);
 }
 
 void ::game::object::LightSourceCube::update(

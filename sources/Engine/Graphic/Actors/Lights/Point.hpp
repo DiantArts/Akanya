@@ -37,10 +37,6 @@ public:
     void setIntoLightSourceShader(const ::engine::graphic::opengl::Shader& shader) const override final;
 
 
-    // ---------------------------------- get
-    static size_t getNbLight();
-
-
 protected:
     struct Parameters {
         const engine::graphic::actor::Positions& positions;
@@ -54,9 +50,7 @@ protected:
 
         glm::vec3 color { 1.0F, 1.0F, 1.0F };
     };
-    Parameters m_parameters;
-
-    static inline size_t m_nbLight { 0 };
+    mutable Parameters m_parameters;
 };
 
 

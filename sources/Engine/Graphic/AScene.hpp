@@ -135,6 +135,7 @@ public:
         auto&&... args
     ) -> ActorType&
     {
+        std::cout << "test" << std::endl;
         m_lightInformations.nbPointLight += numberOfInstances;
         return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
                 m_lights,
@@ -226,8 +227,6 @@ protected:
     };
     mutable AScene::ShaderMap m_shaderMap;
 
-    ::engine::graphic::Window& m_window;
-
     std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
 
@@ -238,6 +237,7 @@ protected:
 private:
 private:
 
+    ::engine::graphic::Window& m_window;
     ::engine::graphic::Camera m_camera;
 
 
@@ -259,15 +259,9 @@ private:
 #endif
     };
     LightInformations m_lightInformations;
-
-    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
-
     engine::graphic::opengl::Ubo m_lightInformationsUbo;
 
-    // unsigned int cameraUbo;
-    // unsigned int lightUbo;
-
-
+    std::vector<std::reference_wrapper<engine::graphic::actor::ALight>> m_lights;
 
     bool m_isOver { false };
 
@@ -284,14 +278,5 @@ private:
 
 
 } // namespace engine::graphic
-
-
-// template <> auto ::engine::graphic::AScene::emplaceActor<engine::graphic::actor::light::Directional>(
-    // auto&&... args
-// ) -> engine::graphic::actor::light::Directional&;
-// {
-    // using DirectionalLight = engine::graphic::actor::light::Directional;
-    // return static_cast<DirectionalLight&>(*m_vectorActors.emplace_back(std::make_unique<DirectionalLight>(std::forward<decltype(args)>(args)...)));
-// }
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ASCENE_HPP___
