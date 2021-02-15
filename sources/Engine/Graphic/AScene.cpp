@@ -46,9 +46,16 @@ auto ::engine::graphic::AScene::isOver() const
     return m_window.shouldClose() || m_isOver;
 }
 
+void ::engine::graphic::AScene::setToOver()
+{
+    m_isOver = true;
+}
+
+
+
 void ::engine::graphic::AScene::manageEvents()
 {
-    m_window.processInput(m_camera, m_eventClock.getElapsedTime());
+    m_window.processInput(*this);
 }
 
 
@@ -110,9 +117,29 @@ void ::engine::graphic::AScene::drawFps() const
 
 void ::engine::graphic::AScene::update()
 {
+    auto deltaTime { m_updateClock.getElapsedTime() };
+    m_camera.update(deltaTime);
     for (auto& actor : m_vectorActors) {
-        actor->update(m_updateClock.getElapsedTime());
+        actor->update(deltaTime);
     }
+}
+
+
+
+// ---------------------------------- Camera
+
+void ::engine::graphic::AScene::addCameraMovementState(
+    Camera::MovementState state
+)
+{
+    m_camera.addMovementState(state);
+}
+
+void ::engine::graphic::AScene::removeCameraMovementState(
+    Camera::MovementState state
+)
+{
+    m_camera.removeMovementState(state);
 }
 
 

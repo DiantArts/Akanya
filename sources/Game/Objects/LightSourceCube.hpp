@@ -83,6 +83,4 @@ private:
 
 } // namespace game::object
 
-
-
 #endif // ___INCLUDE_GUARD_SOURCES_OBJECTS_LIGHTSOURCECUBE_HPP___

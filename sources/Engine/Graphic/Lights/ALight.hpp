@@ -7,8 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___
 
-
-
 namespace engine::graphic::light {
 
 
@@ -64,8 +62,8 @@ private:
 
 } // namespace engine::graphic::light
 
+
+
 namespace engine::graphic { using ALight = engine::graphic::light::ALight; }
-
-
 
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_LIGHTS_ALIGHT_HPP___

@@ -5,7 +5,6 @@
 //
 
 #include "pch.hpp"
-
 #include "Directional.hpp"
 
 

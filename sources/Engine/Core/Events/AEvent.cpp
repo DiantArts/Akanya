@@ -1,34 +1,40 @@
 //
-// Akanya, Engine
-// sources/Engine/Events/AEvent
-// Event main class that defines what an event is and that should be inherient from every events
+// Akanya
+// sources/Engine/Core/Events/AEvent
+// Base class of every event
 //
 
 #include "pch.hpp"
-
 #include "AEvent.hpp"
-
-
-
-namespace engine::core::event {
 
 
 
 // ---------------------------------- *structors
 
-AEvent::~AEvent()
-{}
+::engine::core::event::AEvent::AEvent() = default;
+
+::engine::core::event::AEvent::~AEvent() = default;
 
 
 
-// ---------------------------------- Category
+// ---------------------------------- Copy sementic
 
-bool AEvent::isOfCategory(::engine::core::event::Category category) const
-{
-    return this->getCategory() & category;
-}
+::engine::core::event::AEvent::AEvent(
+    const AEvent&
+) noexcept = default;
+
+auto ::engine::core::event::AEvent::operator=(
+    const AEvent&
+) noexcept -> AEvent& = default;
 
 
 
+// ---------------------------------- Move sementic
 
-} // namespace engine::core::event
+::engine::core::event::AEvent::AEvent(
+    AEvent&&
+) noexcept = default;
+
+auto ::engine::core::event::AEvent::operator=(
+    AEvent&&
+) noexcept -> AEvent& = default;

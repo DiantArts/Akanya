@@ -6,6 +6,10 @@
 
 #include "pch.hpp"
 
+#include "../Core/Events/KeyPressed.hpp"
+#include "../Core/Events/KeyReleased.hpp"
+
+
 
 namespace {
 
@@ -24,6 +28,14 @@ void GLAPIENTRY messageCallback(
     GLsizei,
     const GLchar* message,
     const void*
+);
+
+void keyCallback(
+    GLFWwindow* window,
+    int keyCode,
+    int,
+    int action,
+    int mods
 );
 
 
@@ -66,6 +78,8 @@ Window::Window()
     }
 
     this->configureDefault();
+
+    glfwSetWindowUserPointer(m_window.get(), reinterpret_cast<void*>(&m_eventContainer));
 }
 
 Window::~Window()
@@ -95,57 +109,16 @@ void Window::swapBuffers() const
     glfwSwapBuffers(m_window.get());
 }
 
-void Window::pollEvents()
-{
-    glfwPollEvents();
-}
-
 
 
 // ---------------------------------- input
 
 void Window::processInput(
-    ::engine::graphic::Camera& camera,
-    const float deltaTime
+    engine::graphic::AScene& scene
 )
 {
-    this->pollEvents();
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(m_window.get(), true);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_W) == GLFW_PRESS) {
-        camera.moveForward(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_S) == GLFW_PRESS) {
-        camera.moveBackward(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_A) == GLFW_PRESS) {
-        camera.moveLeft(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_D) == GLFW_PRESS) {
-        camera.moveRight(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_SPACE) == GLFW_PRESS) {
-        camera.moveTop(deltaTime);
-    }
-    if (glfwGetKey(m_window.get(), GLFW_KEY_X) == GLFW_PRESS) {
-        camera.moveBot(deltaTime);
-    }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS && !m_keyPressed.gamma) {
-        camera.m_config.gamma = !camera.m_config.gamma;
-        m_keyPressed.gamma = true;
-    } if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_RELEASE) {
-        m_keyPressed.gamma = false;
-    }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_PRESS && !m_keyPressed.blinn) {
-        camera.m_config.blinn = !camera.m_config.blinn;
-        m_keyPressed.blinn = true;
-    } if (glfwGetKey(m_window.get(), GLFW_KEY_B) == GLFW_RELEASE) {
-        m_keyPressed.blinn = false;
-    }
+    glfwPollEvents();
+    m_eventContainer.resolve(scene);
 }
 
 
@@ -173,6 +146,7 @@ void Window::configureDefault()
     glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     // glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
     // glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
+    glfwSetKeyCallback(m_window.get(), keyCallback);
 
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -201,6 +175,7 @@ void Window::configureDefault()
 #ifdef DEBUG
     glfwSwapInterval(0); // disable vsync
 #endif
+
 }
 
 void Window::configureClearColor(
@@ -265,6 +240,24 @@ class OpenglMemoryManager {
 const OpenglMemoryManager OpenglMemoryManager::_;
 
 
+
+
+void keyCallback(
+    GLFWwindow* window,
+    int keyCode,
+    int,
+    int action,
+    int mods [[ gnu::unused ]]
+)
+{
+    auto& events = *reinterpret_cast<::engine::core::event::Container*>(glfwGetWindowUserPointer(window));
+    if (action == GLFW_PRESS) {
+        events.emplace<::engine::core::event::KeyPressed>(std::move(keyCode));
+    } else if (action == GLFW_RELEASE) {
+        events.emplace<::engine::core::event::KeyReleased>(std::move(keyCode));
+    }
+}
+
 void mouseDirectionCallback(
     GLFWwindow*,
     double xPos,
@@ -299,6 +292,8 @@ void mouseScrollcallback(
 {
     // engine::graphic::Window::camera.zoom(yOffset);
 }
+
+
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 void framebufferSizeCallback(

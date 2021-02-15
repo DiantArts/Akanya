@@ -27,12 +27,55 @@ Camera::~Camera()
 
 
 
-// ---------------------------------- speed
+// ---------------------------------- update
 
-void Camera::adjustLocalSpeed(const float deltaTime)
+enum class MovementState {
+    Forward = 0,
+    Backward = 1,
+    Left = 2,
+    Right = 3,
+    Up = 4,
+    Down = 5,
+};
+
+void Camera::update(const float deltaTime)
 {
-    m_velocity = m_speed * deltaTime;
+    auto velocity = m_speed * deltaTime;
+
+    if (m_movementState[Camera::MovementState::Forward]) {
+        if (!m_movementState[Camera::MovementState::Backward]) {
+            m_position += velocity * m_front;
+        }
+    } else {
+        if (m_movementState[Camera::MovementState::Backward]) {
+            m_position -= velocity * m_front;
+        }
+    }
+
+    if (m_movementState[Camera::MovementState::Right]) {
+        if (!m_movementState[Camera::MovementState::Left]) {
+            m_position += glm::normalize(glm::cross(m_front, m_up)) * velocity;
+        }
+    } else {
+        if (m_movementState[Camera::MovementState::Left]) {
+            m_position -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
+        }
+    }
+
+    if (m_movementState[Camera::MovementState::Up]) {
+        if (!m_movementState[Camera::MovementState::Down]) {
+            m_position.y += velocity;
+        }
+    } else {
+        if (m_movementState[Camera::MovementState::Down]) {
+            m_position.y -= velocity;
+        }
+    }
 }
+
+
+
+// ---------------------------------- speed
 
 void Camera::setSpeed(const float value)
 {
@@ -60,46 +103,19 @@ void Camera::move(const glm::vec3& offset)
     m_position += offset;
 }
 
-
-
-void Camera::moveForward(const float deltaTime)
+void Camera::addMovementState(
+    Camera::MovementState state
+)
 {
-    this->adjustLocalSpeed(deltaTime);
-    m_position += m_velocity * m_front;
+    m_movementState[state] = true;
 }
 
-void Camera::moveBackward(const float deltaTime)
+void Camera::removeMovementState(
+    Camera::MovementState state
+)
 {
-    this->adjustLocalSpeed(deltaTime);
-    m_position -= m_velocity * m_front;
+    m_movementState[state] = false;
 }
-
-
-void Camera::moveLeft(const float deltaTime)
-{
-    this->adjustLocalSpeed(deltaTime);
-    m_position -= glm::normalize(glm::cross(m_front, m_up)) * m_velocity;
-}
-
-void Camera::moveRight(const float deltaTime)
-{
-    this->adjustLocalSpeed(deltaTime);
-    m_position += glm::normalize(glm::cross(m_front, m_up)) * m_velocity;
-}
-
-
-void Camera::moveTop(const float deltaTime)
-{
-    this->adjustLocalSpeed(deltaTime);
-    m_position.y += m_velocity;
-}
-
-void Camera::moveBot(const float deltaTime)
-{
-    this->adjustLocalSpeed(deltaTime);
-    m_position.y -= m_velocity;
-}
-
 
 
 // ---------------------------------- Position

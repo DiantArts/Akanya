@@ -8,9 +8,6 @@
 
 
 
-
-
-
 namespace engine::graphic::light {
 
 

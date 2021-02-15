@@ -65,6 +65,10 @@ public:
 
     bool isOver() const;
 
+    void setToOver();
+
+
+
     void manageEvents();
 
 
@@ -82,6 +86,18 @@ public:
     // ---------------------------------- Update
 
     virtual void update();
+
+
+
+    // ---------------------------------- Camera
+
+    void addCameraMovementState(
+        Camera::MovementState state
+    );
+
+    void removeCameraMovementState(
+        Camera::MovementState state
+    );
 
 
 
@@ -265,7 +281,6 @@ private:
 
     bool m_isOver { false };
 
-    mutable ::engine::core::Clock m_eventClock;
     mutable ::engine::core::Clock m_updateClock;
 
     mutable ::engine::core::Clock m_fpsClock;

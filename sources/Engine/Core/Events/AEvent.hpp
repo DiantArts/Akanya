@@ -1,15 +1,17 @@
 //
-// Akanya, Engine
+// Akanya
 // sources/Engine/Core/Events/AEvent
-// Event main class that defines what an event is and that should be inherient from every events
+// Base class of every event
 //
 
-#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___
-#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___
+#ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENT_AEVENTS_HPP___
+#define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENT_AEVENTS_HPP___
 
-#include "../Events/Category.hpp"
-#include "../Events/DefinitionMacros.hpp"
-#include "../Events/Type.hpp"
+#include "Type.hpp"
+
+
+
+namespace engine::graphic { class AScene; }
 
 
 
@@ -18,45 +20,63 @@ namespace engine::core::event {
 
 
 class AEvent {
+
 public:
+
     // ---------------------------------- *structors
+
+    explicit AEvent();
+
     virtual ~AEvent() = 0;
 
 
-    // ---------------------------------- Category
-    bool isOfCategory(::engine::core::event::Category category) const;
+
+    // ---------------------------------- Copy sementic
+
+    AEvent(
+        const AEvent&
+    ) noexcept;
+
+    auto operator=(
+        const AEvent&
+    ) noexcept -> AEvent&;
 
 
-    // ---------------------------------- Get
-    virtual ::engine::core::event::Category getCategory() const = 0;
-    virtual ::engine::core::event::Type getType() const = 0;
-    virtual std::string getName() const = 0;
+
+    // ---------------------------------- Copy sementic
+
+    AEvent(
+        AEvent&&
+    ) noexcept;
+
+    auto operator=(
+        AEvent&&
+    ) noexcept -> AEvent&;
 
 
-    // ---------------------------------- Dispatcher
-    template <typename EventType>
-    bool handleWith(std::function<void(EventType&)>& func)
-    {
-        if (this->getType() == EventType::getStaticType()) {
-            func(*(EventType*)this);
-            return true;
-        }
-        return false;
-    }
 
-    friend std::ostream& operator<<(std::ostream& os, const AEvent& event)
-    {
-        os << event.getName();
-        return os;
-    }
+    // ---------------------------------- Resolver
+
+    virtual void resolve(
+        engine::graphic::AScene& scene
+    ) = 0;
+
+
+
+public:
+protected:
+protected:
+private:
+private:
+
 };
 
 
 
 } // namespace engine::core::event
 
+
+
 namespace engine::core { using AEvent = ::engine::core::event::AEvent; }
 
-
-
-#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENT_HPP___
+#endif // ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_AEVENTS_HPP___

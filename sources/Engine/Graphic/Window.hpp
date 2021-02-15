@@ -7,6 +7,7 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 
+#include "../Core/Events/Container.hpp"
 
 
 struct GLFWwindow;
@@ -17,7 +18,7 @@ namespace engine::graphic {
 
 
 
-class Camera;
+class AScene;
 
 
 
@@ -67,15 +68,12 @@ public:
 
     void swapBuffers() const;
 
-    void pollEvents();
-
 
 
     // ---------------------------------- Input
 
     void processInput(
-        ::engine::graphic::Camera& camera,
-        float deltaTime
+        ::engine::graphic::AScene& scene
     );
 
 
@@ -125,6 +123,7 @@ private:
 
     Window::Size m_size;
 
+    ::engine::core::event::Container m_eventContainer;
 
     struct KeyPressed {
         bool gamma { false };

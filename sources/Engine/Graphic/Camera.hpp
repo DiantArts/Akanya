@@ -18,9 +18,6 @@ class Camera {
 
 public:
 
-    using type = int;
-
-
     // ---------------------------------- *structors
 
     explicit Camera(
@@ -55,6 +52,14 @@ public:
 
 
 
+    // ---------------------------------- update
+
+    void update(
+        float deltaTime
+    );
+
+
+
     // ---------------------------------- Speed
 
     auto getSpeed() const
@@ -64,10 +69,6 @@ public:
 
     void setSpeed(
         float value
-    );
-
-    void adjustLocalSpeed(
-        float deltaTime
     );
 
 
@@ -84,28 +85,21 @@ public:
         const ::glm::vec3& offset
     );
 
-    void moveForward(
-        float deltaTime
+    enum MovementState {
+        Forward = 0,
+        Backward = 1,
+        Left = 2,
+        Right = 3,
+        Up = 4,
+        Down = 5,
+    };
+
+    void addMovementState(
+        MovementState state
     );
 
-    void moveBackward(
-        float deltaTime
-    );
-
-    void moveLeft(
-        float deltaTime
-    );
-
-    void moveRight(
-        float deltaTime
-    );
-
-    void moveTop(
-        float deltaTime
-    );
-
-    void moveBot(
-        float deltaTime
+    void removeMovementState(
+        MovementState state
     );
 
 
@@ -218,7 +212,7 @@ private:
 private:
 
     float m_speed { 2.5F };
-    float m_velocity; // speed taking in count deltaTime
+    ::std::bitset<6> m_movementState;
 
     ::glm::vec3 m_orientation { 0.5F, 0.5F, 0.5F };
     ::glm::vec3 m_position { 0.0F, 0.0F, 3.0F };
@@ -233,11 +227,6 @@ private:
     float m_pitch { 0.00F };
 
     Camera::Config m_config;
-
-    friend void engine::graphic::Window::processInput(
-        ::engine::graphic::Camera& camera,
-        const float deltaTime
-    );
 
     ::engine::graphic::opengl::Ubo m_ubo;
 };
