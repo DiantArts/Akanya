@@ -24,12 +24,8 @@
 // ---------------------------------- override
 
 void ::game::object::Backpack::configureShader(
-    const ::engine::graphic::Camera& camera
+    const ::engine::graphic::Camera&
 ) const
 {
-    // for (const auto& light : engine::graphic::actor::ALight::getAll()) {
-        // this->setIntoShader(light);
-    // }
-
     this->setIntoShader("material.shininess", 32.0F);
 }
