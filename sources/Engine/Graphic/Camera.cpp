@@ -217,6 +217,48 @@ const glm::vec3& Camera::getFront() const
 
 
 
+// ---------------------------------- Cursor
+
+void Camera::setCursorPosition(
+    const glm::vec2& newCursorPosition
+)
+{
+    m_cursorPosition = std::move(newCursorPosition);
+}
+
+void Camera::setCursorPosition(
+    glm::vec2&& newCursorPosition
+)
+{
+    m_cursorPosition = std::move(newCursorPosition);
+}
+
+
+
+void Camera::orienteFromCursorPosition(
+    const glm::vec2& newCursorPosition
+)
+{
+    float xOffset = newCursorPosition.x - m_cursorPosition.x;
+    float yOffset = m_cursorPosition.y - newCursorPosition.y;
+    m_cursorPosition = newCursorPosition;
+
+    this->oriente(xOffset, yOffset);
+}
+
+void Camera::orienteFromCursorPosition(
+    glm::vec2&& newCursorPosition
+)
+{
+    float xOffset = newCursorPosition.x - m_cursorPosition.x;
+    float yOffset = m_cursorPosition.y - newCursorPosition.y;
+    m_cursorPosition = std::move(newCursorPosition);
+
+    this->oriente(xOffset, yOffset);
+}
+
+
+
 // ---------------------------------- Zoom
 
 void Camera::zoom(const float value)

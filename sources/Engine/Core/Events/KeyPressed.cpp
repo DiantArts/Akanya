@@ -47,7 +47,7 @@ auto ::engine::core::event::KeyPressed::operator=(
 
 
 
-// ---------------------------------- Move sementic
+// ---------------------------------- Resolver
 
 void ::engine::core::event::KeyPressed::resolve(
     engine::graphic::AScene& scene

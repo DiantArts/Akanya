@@ -29,6 +29,7 @@
     , m_camera(m_window.getSize())
     , m_lightInformationsUbo(1 * sizeof(glm::vec4) + sizeofPointLightTab, 1)
 {
+    m_camera.setCursorPosition(std::move(m_window.getCursorPosition()));
     m_camera.setSpeed(5);
     m_camera.setPosition(1.5, 3.0F, 7.5F);
     m_camera.setOrientation(-98, -15);
@@ -140,6 +141,22 @@ void ::engine::graphic::AScene::removeCameraMovementState(
 )
 {
     m_camera.removeMovementState(state);
+}
+
+
+
+void ::engine::graphic::AScene::orienteCameraFromCursorPosition(
+    const glm::vec2& position
+)
+{
+    m_camera.orienteFromCursorPosition(position);
+}
+
+void ::engine::graphic::AScene::orienteCameraFromCursorPosition(
+    glm::vec2&& position
+)
+{
+    m_camera.orienteFromCursorPosition(std::move(position));
 }
 
 

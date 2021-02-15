@@ -48,7 +48,7 @@ auto ::engine::core::event::KeyReleased::operator=(
 
 
 
-// ---------------------------------- Move sementic
+// ---------------------------------- Resolver
 
 void ::engine::core::event::KeyReleased::resolve(
     engine::graphic::AScene& scene

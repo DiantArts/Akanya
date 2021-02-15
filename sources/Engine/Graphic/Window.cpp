@@ -8,6 +8,7 @@
 
 #include "../Core/Events/KeyPressed.hpp"
 #include "../Core/Events/KeyReleased.hpp"
+#include "../Core/Events/MousePosition.hpp"
 
 
 
@@ -36,6 +37,12 @@ void keyCallback(
     int,
     int action,
     int mods
+);
+
+void mousePositionCallback(
+    GLFWwindow* window,
+    double xPos,
+    double yPos
 );
 
 
@@ -80,6 +87,8 @@ Window::Window()
     this->configureDefault();
 
     glfwSetWindowUserPointer(m_window.get(), reinterpret_cast<void*>(&m_eventContainer));
+
+    this->centerCursor();
 }
 
 Window::~Window()
@@ -121,6 +130,19 @@ void Window::processInput(
     m_eventContainer.resolve(scene);
 }
 
+void Window::centerCursor() const
+{
+    glfwSetCursorPos(m_window.get(), m_size.width / 2, m_size.height / 2);
+}
+
+auto Window::getCursorPosition() const
+    -> ::glm::vec2
+{
+    double xPos, yPos;
+    glfwGetCursorPos(m_window.get(), &xPos, &yPos);
+    return ::glm::vec2 { xPos, yPos };
+}
+
 
 
 // ---------------------------------- Size
@@ -144,7 +166,7 @@ void Window::configureDefault()
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    // glfwSetCursorPosCallback(m_window.get(), mouseDirectionCallback);
+    glfwSetCursorPosCallback(m_window.get(), mousePositionCallback);
     // glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
     glfwSetKeyCallback(m_window.get(), keyCallback);
 
@@ -258,36 +280,20 @@ void keyCallback(
     }
 }
 
-void mouseDirectionCallback(
-    GLFWwindow*,
+void mousePositionCallback(
+    GLFWwindow* window,
     double xPos,
     double yPos
 )
 {
-    static float lastX;
-    static float lastY;
-    static short numberOfEmptyCAll = 2;
-
-    if (numberOfEmptyCAll) {
-        lastX = xPos;
-        lastY = yPos;
-        numberOfEmptyCAll--;
-        // engine::graphic::Window::camera.oriente(0, 0);
-    }
-
-    float xOffset = xPos - lastX;
-    float yOffset = lastY - yPos; // reversed since y-coordinates go from bottom to top
-    lastX         = xPos;
-    lastY         = yPos;
-
-
-    // engine::graphic::Window::camera.oriente(xOffset, yOffset);
+    auto& events = *reinterpret_cast<::engine::core::event::Container*>(glfwGetWindowUserPointer(window));
+    events.emplace<::engine::core::event::MousePosition>(std::move(xPos), std::move(yPos));
 }
 
 void mouseScrollcallback(
     GLFWwindow*,
     double,
-    double yOffset
+    double yOffset [[ gnu::unused ]]
 )
 {
     // engine::graphic::Window::camera.zoom(yOffset);

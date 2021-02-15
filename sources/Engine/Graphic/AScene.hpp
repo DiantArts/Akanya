@@ -101,6 +101,16 @@ public:
 
 
 
+    void orienteCameraFromCursorPosition(
+        const glm::vec2& position
+    );
+
+    void orienteCameraFromCursorPosition(
+        glm::vec2&& position
+    );
+
+
+
     // ---------------------------------- Vector Actors
 
     template <

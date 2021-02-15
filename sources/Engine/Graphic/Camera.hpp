@@ -155,6 +155,28 @@ public:
 
 
 
+    // ---------------------------------- Cursor
+
+    void setCursorPosition(
+        const glm::vec2& position
+    );
+
+    void setCursorPosition(
+        glm::vec2&& position
+    );
+
+
+
+    void orienteFromCursorPosition(
+        const glm::vec2& position
+    );
+
+    void orienteFromCursorPosition(
+        glm::vec2&& position
+    );
+
+
+
     // ---------------------------------- Zoom
 
     auto getZoom() const
@@ -221,6 +243,8 @@ private:
     ::glm::vec3 m_up { 0.0F, 1.0F, 0.0F };
 
     ::glm::vec3 m_sensitivity { 0.1F, 0.1F, 1.0F };
+
+    ::glm::vec2 m_cursorPosition;
 
     float m_zoom { 45.05F };
     float m_yaw { -90.00F };

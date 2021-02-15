@@ -76,6 +76,11 @@ public:
         ::engine::graphic::AScene& scene
     );
 
+    void centerCursor() const;
+
+    auto getCursorPosition() const
+        -> ::glm::vec2;
+
 
 
     // ---------------------------------- Size
