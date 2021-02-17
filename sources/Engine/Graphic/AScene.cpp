@@ -156,10 +156,30 @@ void ::engine::graphic::AScene::orienteCameraFromCursorPosition(
     glm::vec2&& position
 )
 {
+    if (m_state < 0) {
+        m_state++;
+        return;
+    } else if (!m_state) {
+        m_state++;
+        centerCursorWindow();
+        return;
+    }
     m_camera.orienteFromCursorPosition(std::move(position));
 }
 
+void ::engine::graphic::AScene::zoomCamera(
+    float value
+)
+{
+    m_camera.zoom(value);
+}
 
+// ---------------------------------- Window
+
+void ::engine::graphic::AScene::centerCursorWindow() const
+{
+    m_window.centerCursor();
+}
 
 // ---------------------------------- ShaderMap *structors
 

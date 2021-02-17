@@ -8,7 +8,10 @@
 
 #include "../Core/Events/KeyPressed.hpp"
 #include "../Core/Events/KeyReleased.hpp"
+#include "../Core/Events/MouseButtonPressed.hpp"
+#include "../Core/Events/MouseButtonReleased.hpp"
 #include "../Core/Events/MousePosition.hpp"
+#include "../Core/Events/MouseScroll.hpp"
 
 
 
@@ -45,6 +48,18 @@ void mousePositionCallback(
     double yPos
 );
 
+void mouseButtoncallback(
+    GLFWwindow* window,
+    int button,
+    int action,
+    int mods
+);
+
+void mouseScrollcallback(
+    GLFWwindow* window,
+    double xoffset,
+    double yoffset
+);
 
 
 } // namespace
@@ -88,7 +103,7 @@ Window::Window()
 
     glfwSetWindowUserPointer(m_window.get(), reinterpret_cast<void*>(&m_eventContainer));
 
-    this->centerCursor();
+    //this->centerCursor();
 }
 
 Window::~Window()
@@ -167,7 +182,8 @@ void Window::configureDefault()
 
     glfwSetInputMode(m_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(m_window.get(), mousePositionCallback);
-    // glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
+    glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
+    glfwSetMouseButtonCallback(m_window.get(), mouseButtoncallback);
     glfwSetKeyCallback(m_window.get(), keyCallback);
 
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
@@ -290,13 +306,31 @@ void mousePositionCallback(
     events.emplace<::engine::core::event::MousePosition>(std::move(xPos), std::move(yPos));
 }
 
+void mouseButtoncallback(
+    GLFWwindow* window,
+    int button,
+    int action,
+    int mods [[ gnu::unused ]]
+)
+{
+    auto& events = *reinterpret_cast<::engine::core::event::Container*>(glfwGetWindowUserPointer(window));
+    if (action == GLFW_PRESS) {
+        events.emplace<::engine::core::event::MouseButtonPressed>(std::move(button));
+    } else if (action == GLFW_RELEASE) {
+        events.emplace<::engine::core::event::MouseButtonReleased>(std::move(button));
+    }
+}
+
 void mouseScrollcallback(
-    GLFWwindow*,
-    double,
-    double yOffset [[ gnu::unused ]]
+    GLFWwindow* window,
+    double xoffset,
+    double yoffset [[ gnu::unused ]]
 )
 {
     // engine::graphic::Window::camera.zoom(yOffset);
+    std::cout << "yo" << std::endl;
+    auto& events = *reinterpret_cast<::engine::core::event::Container*>(glfwGetWindowUserPointer(window));
+    events.emplace<::engine::core::event::MouseScroll>(std::move(xoffset), std::move(yoffset));
 }
 
 

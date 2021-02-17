@@ -109,6 +109,15 @@ public:
         glm::vec2&& position
     );
 
+    void zoomCamera(
+        float value
+    );
+
+
+
+    // ---------------------------------- Camera
+
+    void centerCursorWindow() const;
 
 
     // ---------------------------------- Vector Actors
@@ -288,6 +297,7 @@ private:
     std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
 
 
+    short m_state { -2 };
 
     bool m_isOver { false };
 
