@@ -7,8 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_EBO_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_OPENGL_EBO_HPP___
 
-
-
 namespace engine::graphic::opengl {
 
 

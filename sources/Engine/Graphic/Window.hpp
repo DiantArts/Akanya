@@ -7,9 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_WINDOW_HPP___
 
-#include "../Core/Events/Container.hpp"
-
-
 struct GLFWwindow;
 
 
@@ -129,12 +126,6 @@ private:
     Window::Size m_size;
 
     ::engine::core::event::Container m_eventContainer;
-
-    struct KeyPressed {
-        bool gamma { false };
-        bool blinn { false };
-    };
-    Window::KeyPressed m_keyPressed;
 };
 
 

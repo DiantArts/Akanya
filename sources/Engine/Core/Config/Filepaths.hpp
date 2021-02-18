@@ -7,9 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CONFIG_FILEPATHS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_CONFIG_FILEPATHS_HPP___
 
-#include <string>
-using std::string_literals::operator""s;
-
 
 
 namespace engine::core::config::filepath {

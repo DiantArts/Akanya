@@ -8,29 +8,27 @@
 #include "Model.hpp"
 
 
-namespace engine::graphic::actor {
-
-
 
 // ---------------------------------- *structors
 
-Model::Model(::engine::graphic::opengl::Shader&    shader,
-             const std::string& filename,
-             const size_t       numberOfPositions /* = 1 */,
-             const bool         gamma /* = false */)
-    : engine::graphic::AActor(shader, numberOfPositions), m_gammaCorrection(gamma)
+::engine::graphic::actor::Model::Model(
+    const std::string& shaderFilepath,
+    const std::string& filename,
+    const size_t numberOfPositions,
+    const bool gamma
+)
+    : engine::graphic::AActor(shaderFilepath, numberOfPositions), m_gammaCorrection(gamma)
 {
     this->loadModel(filename);
 }
 
-Model::~Model()
-{}
+::engine::graphic::actor::Model::~Model() = default;
 
 
 
 // ---------------------------------- overrides
 
-void Model::drawModels() const
+void ::engine::graphic::actor::Model::drawModels() const
 {
     for (const auto& position : this->instances) {
         this->setIntoShader("model", this->getModel(position));
@@ -42,7 +40,7 @@ void Model::drawModels() const
 
 
 
-void Model::update(float deltaTime)
+void ::engine::graphic::actor::Model::update(float deltaTime)
 {
     this->useShader();
     for (auto& mesh : m_meshes) {
@@ -55,7 +53,7 @@ void Model::update(float deltaTime)
 
 // ---------------------------------- Mesh
 
-Model::Mesh::Mesh(const ::engine::graphic::opengl::Shader&         shader,
+::engine::graphic::actor::Model::Mesh::Mesh(const ::engine::graphic::opengl::Shader&         shader,
                   std::vector<Model::Vertex>&&  vertices,
                   std::vector<GLuint>&&         indices,
                   std::vector<Model::Texture>&& textures)
@@ -99,12 +97,12 @@ Model::Mesh::Mesh(const ::engine::graphic::opengl::Shader&         shader,
                           reinterpret_cast<void*>(offsetof(Model::Vertex, Bitangent)));
 }
 
-Model::Mesh::~Mesh() = default;
+::engine::graphic::actor::Model::Mesh::~Mesh() = default;
 
 
 // ---------------------------------- Move sementic
 
-void Model::Mesh::draw() const
+void ::engine::graphic::actor::Model::Mesh::draw() const
 {
     for (size_t i = 0; i < m_textures.size(); ++i) {
         glActiveTexture(GL_TEXTURE0 + i);
@@ -117,14 +115,14 @@ void Model::Mesh::draw() const
 
 
 
-void Model::Mesh::update(float)
+void ::engine::graphic::actor::Model::Mesh::update(float)
 {}
 
 
 
 // ---------------------------------- assimp lib
 
-void Model::loadModel(const std::string& filename)
+void ::engine::graphic::actor::Model::loadModel(const std::string& filename)
 {
     Assimp::Importer importer;
 
@@ -151,7 +149,7 @@ void Model::loadModel(const std::string& filename)
     processNode(scene->mRootNode, scene);
 }
 
-void Model::processNode(aiNode* node, const aiScene* scene)
+void ::engine::graphic::actor::Model::processNode(aiNode* node, const aiScene* scene)
 {
     for (size_t i = 0; i < node->mNumMeshes; ++i) {
         m_meshes.push_back(processMesh(scene->mMeshes[node->mMeshes[i]], scene));
@@ -162,7 +160,8 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     }
 }
 
-std::unique_ptr<Model::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
+auto ::engine::graphic::actor::Model::processMesh(aiMesh* mesh, const aiScene* scene)
+    -> std::unique_ptr<::engine::graphic::actor::Model::Mesh>
 {
     std::vector<Model::Vertex> vertices;
     for (size_t i = 0; i < mesh->mNumVertices; ++i) {
@@ -209,7 +208,7 @@ std::unique_ptr<Model::Mesh> Model::processMesh(aiMesh* mesh, const aiScene* sce
                                          std::move(textures));
 }
 
-void Model::loadMaterialTextures(std::vector<Model::Texture>& textures,
+void ::engine::graphic::actor::Model::loadMaterialTextures(std::vector<Model::Texture>& textures,
                                  aiMaterial*                  material,
                                  const aiTextureType          type,
                                  const std::string_view       typeName)
@@ -221,7 +220,7 @@ void Model::loadMaterialTextures(std::vector<Model::Texture>& textures,
     }
 }
 
-Model::Texture::Texture(const std::string&     filename,
+::engine::graphic::actor::Model::Texture::Texture(const std::string&     filename,
                         const std::string&     directoryName,
                         const std::string_view typeName,
                         const size_t           i)
@@ -271,17 +270,17 @@ Model::Texture::Texture(const std::string&     filename,
     m_name += std::to_string(i);
 }
 
-Model::Texture::~Texture() = default;
+::engine::graphic::actor::Model::Texture::~Texture() = default;
 
 
 
 // ---------------------------------- Copy sementic
 
-Model::Texture::Texture(
+::engine::graphic::actor::Model::Texture::Texture(
     const Texture&
 ) noexcept = default;
 
-auto Model::Texture::operator=(
+auto ::engine::graphic::actor::Model::Texture::operator=(
     const Texture&
 ) noexcept -> Texture& = default;
 
@@ -289,11 +288,11 @@ auto Model::Texture::operator=(
 
 // ---------------------------------- Move sementic
 
-Model::Texture::Texture(
+::engine::graphic::actor::Model::Texture::Texture(
     Texture&&
 ) noexcept = default;
 
-auto Model::Texture::operator=(
+auto ::engine::graphic::actor::Model::Texture::operator=(
     Texture&&
 ) noexcept -> Texture& = default;
 
@@ -301,11 +300,7 @@ auto Model::Texture::operator=(
 
 // ---------------------------------- Name
 
-const std::string& Model::Texture::getName() const
+const std::string& ::engine::graphic::actor::Model::Texture::getName() const
 {
     return m_name;
 }
-
-
-
-} // namespace engine::graphic::actor

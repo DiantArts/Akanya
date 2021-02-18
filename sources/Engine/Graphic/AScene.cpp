@@ -89,14 +89,15 @@ void ::engine::graphic::AScene::drawActors() const
     }
     m_lightInformationsUbo.unbind();
 
+    // m_player->draw();
+
     for (const auto& actor : m_vectorActors) {
-        actor->draw(m_camera);
-    }
-    for (const auto& cubeMap : m_vectorCubeMap) {
-        cubeMap.draw(m_camera);
+        actor->draw();
     }
 
-    // std::cout << "end of draw" << std::endl;
+    for (const auto& cubeMap : m_vectorCubeMap) {
+        cubeMap.draw();
+    }
 }
 
 void ::engine::graphic::AScene::drawFps() const
@@ -161,39 +162,7 @@ void ::engine::graphic::AScene::orienteCameraFromCursorPosition(
 
 
 
-// ---------------------------------- ShaderMap *structors
-
-::engine::graphic::AScene::ShaderMap::ShaderMap() = default;
-
-::engine::graphic::AScene::ShaderMap::~ShaderMap() = default;
-
-
-
-// ---------------------------------- ShaderMap Move sementic
-
-::engine::graphic::AScene::ShaderMap::ShaderMap(
-    ShaderMap&&
-) noexcept = default;
-
-auto ::engine::graphic::AScene::ShaderMap::operator=(
-    ShaderMap&&
-) noexcept -> ShaderMap& = default;
-
-
-
-// ---------------------------------- ShaderMap Operators
-
-
-auto ::engine::graphic::AScene::ShaderMap::operator[](
-    const std::string& filename
-) -> ::engine::graphic::opengl::Shader&
+void ::engine::graphic::AScene::attachCameraToPlayer()
 {
-    try {
-        // return it if already cached
-        return m_shaderMap.at(filename);
-
-    } catch (const std::exception&) {
-        // cache it
-        return m_shaderMap.emplace(filename, filename).first->second;
-    }
+    m_camera.attach(m_player);
 }

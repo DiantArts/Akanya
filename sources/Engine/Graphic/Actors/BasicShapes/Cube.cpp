@@ -10,14 +10,14 @@
 
 
 ::engine::graphic::actor::basicShape::Cube::Cube(
-    ::engine::graphic::opengl::Shader& shader,
+    const std::string& shaderFilepath,
     const size_t numberOfPositions,
     const size_t numberOfTextures,
     const std::function<void()>& setAttributesFunc,
     const std::string&     verticesFilename
 )
     : engine::graphic::actor::ABasicShape(
-        shader,
+        shaderFilepath,
         setAttributesFunc,
         verticesFilename,
         numberOfPositions,

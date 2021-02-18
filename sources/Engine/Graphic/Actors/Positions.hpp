@@ -7,9 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_POSITIONS_HPP___
 
-#include "Tools/FuncAlias.hpp"
-#include "Tools/Iterator.hpp"
-
 namespace engine::graphic::actor {
 
 

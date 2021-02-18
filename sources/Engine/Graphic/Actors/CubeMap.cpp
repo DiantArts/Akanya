@@ -80,12 +80,12 @@ TextureMap g_CachedTextures;
 // ---------------------------------- *structors
 
 ::engine::graphic::actor::CubeMap::CubeMap(
-    ::engine::graphic::opengl::Shader& shader,
+    const std::string& shaderFilepath,
     const std::function<void()>& setAttributesFunc,
     const std::string& verticesFilename,
     const std::string& textureDirectory
 )
-    : engine::graphic::AActor(shader, 1), m_texture(textureDirectory.data())
+    : engine::graphic::AActor(shaderFilepath, 1), m_texture(textureDirectory.data())
 {
     m_vbo.bind();
     m_vao.bind();
@@ -105,13 +105,11 @@ TextureMap g_CachedTextures;
 
 // ---------------------------------- Drawable
 
-void ::engine::graphic::actor::CubeMap::draw(
-    const ::engine::graphic::Camera& camera
-) const
+void ::engine::graphic::actor::CubeMap::draw() const
 {
     glDepthFunc(GL_LEQUAL); // change depth function so depth test passes when values are equal to depth
                             // buffer's content
-    ADrawable::draw(camera);
+    ADrawable::draw();
     glDepthFunc(GL_LESS); // set depth function back to default
 }
 

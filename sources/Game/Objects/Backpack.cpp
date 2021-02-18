@@ -12,9 +12,11 @@
 
 // ---------------------------------- *structors
 
-::game::object::Backpack::Backpack(::engine::graphic::opengl::Shader& shader,
-        const size_t numberOfPositions)
-    : engine::graphic::actor::Model(shader, "backpack/backpack.obj", numberOfPositions)
+::game::object::Backpack::Backpack(
+    const std::string& shaderFilepath,
+    const size_t numberOfPositions
+)
+    : engine::graphic::actor::Model(shaderFilepath, "backpack/backpack.obj", numberOfPositions)
 {}
 
 ::game::object::Backpack::~Backpack() = default;
@@ -23,9 +25,7 @@
 
 // ---------------------------------- override
 
-void ::game::object::Backpack::configureShader(
-    const ::engine::graphic::Camera&
-) const
+void ::game::object::Backpack::configureShader() const
 {
     this->setIntoShader("material.shininess", 32.0F);
 }

@@ -5,16 +5,16 @@
 //
 
 #include "pch.hpp"
-#include "debugMacros.hpp"
+#include "Engine/Graphic/Camera.hpp"
 
 
 
 // ---------------------------------- *structors
 
 ::engine::graphic::actor::ADrawable::ADrawable(
-    ::engine::graphic::opengl::Shader& shader
+    const std::string& shaderFilepath
 )
-    : m_shader(shader)
+    : m_shader(shaderFilepath)
 {
     this->setBlockBindingIntoShader("CameraInformations", 0);
 }
@@ -25,12 +25,10 @@
 
 // ---------------------------------- Draw
 
-void ::engine::graphic::actor::ADrawable::draw(
-    const ::engine::graphic::Camera& camera
-) const
+void ::engine::graphic::actor::ADrawable::draw() const
 {
     this->useShader();
-    this->configureShader(camera);
+    this->configureShader();
     this->drawModels();
 }
 
@@ -38,9 +36,7 @@ void ::engine::graphic::actor::ADrawable::draw(
 
 // ---------------------------------- Update
 
-void ::engine::graphic::actor::ADrawable::configureShader(
-    const ::engine::graphic::Camera&
-) const
+void ::engine::graphic::actor::ADrawable::configureShader() const
 {}
 
 

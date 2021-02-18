@@ -24,7 +24,7 @@ public:
     // ---------------------------------- *structors
 
     explicit Backpack(
-        ::engine::graphic::opengl::Shader& shader,
+        const std::string& shaderFilepath,
         const size_t numberOfPositions
     );
     ~Backpack();
@@ -56,9 +56,7 @@ public:
 
     // ---------------------------------- override
 
-    void configureShader(
-        const ::engine::graphic::Camera& camera
-    ) const override final;
+    void configureShader() const override final;
 
 
 

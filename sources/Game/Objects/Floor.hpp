@@ -24,8 +24,8 @@ public:
     // ---------------------------------- *structors
 
     explicit Floor(
-        ::engine::graphic::opengl::Shader& shader,
         size_t numberOfPositions = 1,
+        const std::string& shaderFilepath = "floor",
         const std::function<void()>& setAttributesFunc = []{
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
             glEnableVertexAttribArray(0);
@@ -67,9 +67,7 @@ public:
 
     // ---------------------------------- override
 
-    void configureShader(
-        const ::engine::graphic::Camera& camera
-    ) const override final;
+    void configureShader() const override final;
 
 
 

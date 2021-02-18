@@ -24,7 +24,7 @@ public:
     // ---------------------------------- *structors
 
     explicit EnlightenedCube(
-        ::engine::graphic::opengl::Shader& shader,
+        const std::string& shaderFilepath,
         size_t numberOfPositions = 1,
         const std::function<void()>& setAttributesFunc = []{
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
@@ -46,11 +46,11 @@ public:
 
     EnlightenedCube(
         const EnlightenedCube&
-    ) noexcept;
+    ) noexcept = delete;
 
     auto operator=(
         const EnlightenedCube&
-    ) noexcept -> EnlightenedCube&;
+    ) noexcept -> EnlightenedCube& = delete;
 
 
 
@@ -58,19 +58,17 @@ public:
 
     EnlightenedCube(
         EnlightenedCube&&
-    ) noexcept;
+    ) noexcept = delete;
 
     auto operator=(
         EnlightenedCube&&
-    ) noexcept -> EnlightenedCube&;
+    ) noexcept -> EnlightenedCube& = delete;
 
 
 
     // ---------------------------------- override
 
-    void configureShader(
-        const ::engine::graphic::Camera& camera
-    ) const override;
+    void configureShader() const override;
 
 
 

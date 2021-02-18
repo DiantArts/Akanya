@@ -12,13 +12,13 @@
 // ---------------------------------- *structors
 
 ::engine::graphic::actor::ABasicShape::ABasicShape(
-    ::engine::graphic::opengl::Shader& shader,
+    const std::string& shaderFilepath,
     const std::function<void()>& setAttributesFunc,
     const std::string& verticesFilename,
     const size_t numberOfPositions,
     const size_t numberOfTexturesToReserve
 )
-    : engine::graphic::AActor(shader, numberOfPositions)
+    : engine::graphic::AActor(shaderFilepath, numberOfPositions)
 {
     m_textureVector.reserve(numberOfTexturesToReserve);
 

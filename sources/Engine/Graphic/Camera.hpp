@@ -7,11 +7,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_CAMERA_HPP___
 
-#include "OpenGL/Ubo.hpp"
-
-
-
 namespace engine::graphic {
+
 
 
 class Camera {
@@ -119,6 +116,14 @@ public:
 
     void setPosition(
         const ::glm::vec3& offset
+    );
+
+
+
+    // ---------------------------------- Attach
+
+    void attach(
+        std::shared_ptr<::engine::graphic::AActor>& actor
     );
 
 
@@ -236,6 +241,8 @@ private:
     float m_speed { 2.5F };
     ::std::bitset<6> m_movementState;
 
+    std::weak_ptr<::engine::graphic::AActor> m_attachedActor;
+
     ::glm::vec3 m_orientation { 0.5F, 0.5F, 0.5F };
     ::glm::vec3 m_position { 0.0F, 0.0F, 3.0F };
 
@@ -252,7 +259,8 @@ private:
 
     Camera::Config m_config;
 
-    ::engine::graphic::opengl::Ubo m_ubo;
+    ::engine::graphic::opengl::Ubo m_informationsUbo;
+    ::engine::graphic::opengl::Ubo m_positionUbo;
 };
 
 

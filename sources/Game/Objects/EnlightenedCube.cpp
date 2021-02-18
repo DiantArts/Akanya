@@ -12,15 +12,13 @@
 // ---------------------------------- *structors
 
 ::game::object::EnlightenedCube::EnlightenedCube(
-    ::engine::graphic::opengl::Shader& shader,
+    const std::string& shaderFilepath,
     const size_t numberOfPositions,
     const std::function<void()>& setAttributesFunc,
     const std::string& verticesFilename
 )
-    : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
+    : Cube(shaderFilepath, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
-    this->setBlockBindingIntoShader("LightInformations", 2);
-
     this->useShader();
 
     this->addTexture("container.png", "material.diffuse");
@@ -37,9 +35,5 @@
 
 // ---------------------------------- override
 
-void ::game::object::EnlightenedCube::configureShader(
-    const ::engine::graphic::Camera& camera
-) const
-{
-    this->setIntoShader("viewPos", camera.getPosition());
-}
+void ::game::object::EnlightenedCube::configureShader() const
+{}

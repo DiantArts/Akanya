@@ -10,10 +10,10 @@
 // ---------------------------------- *structors
 
 ::engine::graphic::actor::AActor::AActor(
-    ::engine::graphic::opengl::Shader& shader,
+    const std::string& shaderFilepath,
     const size_t numberOfPositions
 )
-    : engine::graphic::actor::ADrawable(shader)
+    : engine::graphic::actor::ADrawable(shaderFilepath)
     , engine::graphic::actor::ATransformable(numberOfPositions)
 {}
 

@@ -16,12 +16,12 @@
 // ---------------------------------- *structors
 
 ::game::object::Floor::Floor(
-    ::engine::graphic::opengl::Shader& shader,
     const size_t numberOfPositions,
+    const std::string& shaderFilepath,
     const std::function<void()>& setAttributesFunc,
     const std::string& verticesFilename
 )
-    : Cube(shader, numberOfPositions, 1, setAttributesFunc, verticesFilename)
+    : Cube(shaderFilepath, numberOfPositions, 1, setAttributesFunc, verticesFilename)
 {
     this->useShader();
     this->addTexture("woodFloor.jpg", "material.texture");
@@ -34,9 +34,5 @@
 
 // ---------------------------------- override
 
-void ::game::object::Floor::configureShader(
-    const ::engine::graphic::Camera& camera
-) const
-{
-    this->setIntoShader("viewPos", camera.getPosition());
-}
+void ::game::object::Floor::configureShader() const
+{}

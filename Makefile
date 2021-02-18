@@ -333,20 +333,25 @@ $(OBJDIR)/%$(OBJEXT): %$(CPPM_SRCEXT) | precompilation
 .PRECIOUS: %$(C_HDREXT)$(PCHEXT)
 
 $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
-	$(SRCDIR)/Engine/Graphic/Window$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Camera$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Actors/AActor$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Actors/ADrawable$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Actors/ATransformable$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Actors/Positions$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/Lights/ALight$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vao$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vbo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Ebo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Fbo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Ubo$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/OpenGL/Vertices$(CPP_HDREXT) \
-	$(SRCDIR)/Engine/Graphic/OpenGL/Shader$(CPP_HDREXT)
+	$(SRCDIR)/Engine/Graphic/OpenGL/Shader$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Core/Config/Filepaths$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Core/Events/Type$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Core/Events/AEvent$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Core/Events/Container$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Window$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Camera$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/Positions$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/ADrawable$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/ATransformable$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/AControlable$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/AActor$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Lights/ALight$(CPP_HDREXT)
 
 
 %$(CPP_HDREXT)$(PCHEXT): %$(CPP_HDREXT)

@@ -24,7 +24,7 @@ public:
     // ---------------------------------- *structors
 
     ABasicShape(
-        ::engine::graphic::opengl::Shader& shader,
+        const std::string& shaderFilepath,
         const std::function<void()>& setAttributesFunc,
         const std::string& verticesFilename,
         size_t numberOfPositions = 1,

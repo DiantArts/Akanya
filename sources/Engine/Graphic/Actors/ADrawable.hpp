@@ -7,10 +7,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 
-
-
 namespace engine::graphic::light { class ALight; }
-
+namespace engine::graphic { class Camera; }
 
 
 namespace engine::graphic::actor {
@@ -24,7 +22,7 @@ public:
     // ---------------------------------- *structors
 
     ADrawable(
-        ::engine::graphic::opengl::Shader& shader
+        const std::string& shaderFilepath
     );
 
     virtual ~ADrawable() = 0;
@@ -33,9 +31,7 @@ public:
 
     // ---------------------------------- Draw
 
-    virtual void draw(
-        const ::engine::graphic::Camera& camera
-    ) const;
+    virtual void draw() const;
 
     virtual void drawModels() const = 0;
 
@@ -48,9 +44,7 @@ public:
 
     void useShader() const;
 
-    virtual void configureShader(
-        const ::engine::graphic::Camera& camera
-    ) const;
+    virtual void configureShader() const;
 
 
 
@@ -103,7 +97,7 @@ protected:
 protected:
 private:
 private:
-    const ::engine::graphic::opengl::Shader& m_shader;
+    ::engine::graphic::opengl::Shader m_shader;
 
     static inline size_t idGiver { 0 };
     const size_t m_id { idGiver++ };

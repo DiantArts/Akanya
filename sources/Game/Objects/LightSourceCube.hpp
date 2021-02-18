@@ -29,8 +29,8 @@ public:
 
     explicit LightSourceCube(
         std::vector<std::reference_wrapper<::engine::graphic::ALight>>& lights,
-        ::engine::graphic::opengl::Shader& shaderProgram,
-        size_t numberOfPositions = 1
+        size_t numberOfPositions = 1,
+        const std::string& shaderFilepath = "lightSource"
     );
 
     ~LightSourceCube();
@@ -63,9 +63,7 @@ public:
 
     // ---------------------------------- override
 
-    void configureShader(
-        const ::engine::graphic::Camera& camera
-    ) const override;
+    void configureShader() const override;
 
     void update(float deltaTime) override;
 

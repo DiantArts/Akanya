@@ -7,11 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___
 
-#include "ADrawable.hpp"
-#include "ATransformable.hpp"
-
-
-
 namespace engine::graphic::actor {
 
 
@@ -26,7 +21,7 @@ public:
     // ---------------------------------- *structors
 
     AActor(
-        ::engine::graphic::opengl::Shader& shader,
+        const std::string& shaderFilepath,
         size_t numberOfPositions
     );
 

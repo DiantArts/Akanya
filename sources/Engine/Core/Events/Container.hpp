@@ -7,10 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_CONTAINER_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_CORE_EVENTS_CONTAINER_HPP___
 
-#include "AEvent.hpp"
-
-
-
 namespace engine::graphic { class AScene; }
 
 

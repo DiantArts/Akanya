@@ -6,7 +6,6 @@
 
 #include "pch.hpp"
 
-#include "Positions.hpp"
 
 
 namespace engine::graphic::actor {
@@ -41,7 +40,7 @@ glm::vec3& Positions::operator[](size_t index)
     } else {
         auto& positions { std::get<MultiplePositions>(m_variant) };
         if (positions.size() <= index) {
-            throw std::out_of_range("trying to access a greater index the vector size");
+            throw std::out_of_range("trying to access a greater index than the vector size");
         }
         return positions[index];
     }
@@ -57,7 +56,7 @@ const glm::vec3& Positions::operator[](size_t index) const
     } else {
         const auto& positions { std::get<MultiplePositions>(m_variant) };
         if (positions.size() <= index) {
-            throw std::out_of_range("trying to access a greater index the vector size");
+            throw std::out_of_range("trying to access a greater index than the vector size");
         }
         return positions[index];
     }

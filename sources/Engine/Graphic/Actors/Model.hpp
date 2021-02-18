@@ -27,10 +27,10 @@ public:
 
     // ---------------------------------- *structors
     explicit Model(
-        ::engine::graphic::opengl::Shader&    shader,
+        const std::string& shaderFilepath,
         const std::string& filename,
         size_t numberOfPositions = 1,
-        bool   gamma             = false
+        bool gamma = false
     );
 
     ~Model();
@@ -202,9 +202,9 @@ protected:
 
     // ---------------------------------- assimp lib
 
-    void                         processNode(aiNode* node, const aiScene* scene);
+    void processNode(aiNode* node, const aiScene* scene);
 
-    std::unique_ptr<Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
+    std::unique_ptr<::engine::graphic::actor::Model::Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
 
     void loadModel(const std::string& filename);
 

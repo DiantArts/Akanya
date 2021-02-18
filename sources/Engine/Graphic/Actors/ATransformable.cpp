@@ -6,8 +6,6 @@
 
 #include "pch.hpp"
 
-#include "ATransformable.hpp"
-
 
 
 namespace engine::graphic::actor {
@@ -294,6 +292,15 @@ void ATransformable::setRotationZ(const float rotation)
 const glm::vec3& ATransformable::getRotation() const
 {
     return m_rotation;
+}
+
+
+
+// ---------------------------------- Rotation
+
+float ATransformable::getSpeed() const
+{
+    return m_speed;
 }
 
 

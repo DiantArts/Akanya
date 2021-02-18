@@ -12,11 +12,11 @@
 // ---------------------------------- *structors
 
 ::game::object::LightSourceCube::LightSourceCube(
-        std::vector<std::reference_wrapper<::engine::graphic::ALight>>& lights,
-    ::engine::graphic::opengl::Shader& shader,
-    const size_t numberOfPositions
+    std::vector<std::reference_wrapper<::engine::graphic::ALight>>& lights,
+    const size_t numberOfPositions,
+    const std::string& shaderFilepath
 )
-    : engine::graphic::actor::basicShape::Cube(shader, numberOfPositions)
+    : engine::graphic::actor::basicShape::Cube(shaderFilepath, numberOfPositions)
     , engine::graphic::light::Point(lights, "pointLights", this->instances)
 {
     this->setScale(0.1F);
@@ -28,9 +28,7 @@
 
 // ---------------------------------- override
 
-void ::game::object::LightSourceCube::configureShader(
-    const ::engine::graphic::Camera&
-) const
+void ::game::object::LightSourceCube::configureShader() const
 {
     this->setIntoShader("lightColor", m_parameters.color);
 }

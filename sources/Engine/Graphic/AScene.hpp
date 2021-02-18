@@ -111,6 +111,10 @@ public:
 
 
 
+    void attachCameraToPlayer();
+
+
+
     // ---------------------------------- Vector Actors
 
     template <
@@ -119,12 +123,10 @@ public:
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
         (!std::is_base_of_v<engine::graphic::ALight, ActorType>)
     auto emplaceActor(
-        engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
     {
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
-                shader,
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
                 std::forward<decltype(args)>(args)...)
             ));
     }
@@ -136,14 +138,12 @@ public:
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
         std::is_base_of_v<engine::graphic::light::Directional, ActorType>
     auto emplaceActor(
-        engine::graphic::opengl::Shader& shader,
         auto&&... args
     ) -> ActorType&
     {
         ++m_lightInformations.nbDirectionalLight;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
-                shader,
                 std::forward<decltype(args)>(args)...)
             ));
     }
@@ -156,15 +156,13 @@ public:
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
         std::is_base_of_v<engine::graphic::light::Point, ActorType>
     auto emplaceActor(
-        engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
         auto&&... args
     ) -> ActorType&
     {
         m_lightInformations.nbPointLight += numberOfInstances;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
-                shader,
                 numberOfInstances,
                 std::forward<decltype(args)>(args)...)
             ));
@@ -178,81 +176,41 @@ public:
         std::is_base_of_v<engine::graphic::AActor, ActorType> &&
         std::is_base_of_v<engine::graphic::light::Spot, ActorType>
     auto emplaceActor(
-        engine::graphic::opengl::Shader& shader,
         size_t numberOfInstances,
         auto&&... args
     ) -> ActorType&
     {
         m_lightInformations.nbSpotLight += numberOfInstances;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_unique<ActorType>(
+        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
-                shader,
                 numberOfInstances,
                 std::forward<decltype(args)>(args)...)
             ));
     }
 #endif
 
+    template <
+        typename ActorType
+    > requires
+        std::is_base_of_v<engine::graphic::AActor, ActorType> &&
+        std::is_base_of_v<engine::graphic::actor::AControlable, ActorType> &&
+        (!std::is_base_of_v<engine::graphic::ALight, ActorType>)
+    auto emplacePlayer(
+        const std::string& shaderFilepath,
+        auto&&... args
+    ) -> ActorType&
+    {
+        m_player = std::make_shared<ActorType>(shaderFilepath, std::forward<decltype(args)>(args)...);
+        // this->attachCameraToPlayer();
+        return static_cast<ActorType&>(*m_player);
+    }
 
 
 
 public:
 protected:
-
-    class ShaderMap {
-
-    public:
-
-        // ---------------------------------- *structors
-
-        ShaderMap();
-
-        ~ShaderMap();
-
-        // ---------------------------------- Copy sementic
-
-        ShaderMap(
-            const ShaderMap&
-        ) noexcept = delete;
-
-        auto operator=(
-            const ShaderMap&
-        ) noexcept -> ShaderMap& = delete;
-
-
-
-        // ---------------------------------- Move sementic
-
-        ShaderMap(
-            ShaderMap&&
-        ) noexcept;
-
-        auto operator=(
-            ShaderMap&&
-        ) noexcept -> ShaderMap&;
-
-
-
-        // ---------------------------------- Operators
-
-        ::engine::graphic::opengl::Shader& operator[](
-            const std::string& filename
-        );
-
-
-
-    public:
-    protected:
-    protected:
-    private:
-    private:
-
-        std::unordered_map<std::string, ::engine::graphic::opengl::Shader> m_shaderMap;
-
-    };
-    mutable AScene::ShaderMap m_shaderMap;
-
-    std::vector<std::unique_ptr<::engine::graphic::AActor>> m_vectorActors;
+    std::shared_ptr<::engine::graphic::AActor> m_player;
+    std::vector<std::shared_ptr<::engine::graphic::AActor>> m_vectorActors;
     std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
 
 

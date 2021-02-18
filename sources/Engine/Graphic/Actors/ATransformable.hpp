@@ -7,10 +7,6 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ATRANSFORMABLE_HPP___
 
-#include "Positions.hpp"
-
-
-
 namespace engine::graphic::actor {
 
 
@@ -22,9 +18,11 @@ public:
     virtual ~ATransformable() = 0;
 
 
+
     // ---------------------------------- transformModel
     virtual glm::mat4 transformModel(const glm::vec3& position) const;
-    virtual void      update(float deltaTime) = 0;
+    virtual void update(float deltaTime) = 0;
+
 
 
     // ---------------------------------- Scale
@@ -46,6 +44,7 @@ public:
     const glm::vec3& getScale() const;
 
 
+
     // ---------------------------------- Rotation
     void rotate(float rotation);
     void rotate(float rotationX, float rotationY, float rotationZ);
@@ -64,6 +63,13 @@ public:
 
     const glm::vec3& getRotation() const;
 
+
+
+    // ---------------------------------- Rotation
+    float getSpeed() const;
+
+
+
 public:
     engine::graphic::actor::Positions instances;
 
@@ -71,6 +77,7 @@ public:
 private:
     glm::vec3 m_scale { 1.0F, 1.0F, 1.0F };
     glm::vec3 m_rotation { 0.0F, 0.0F, 0.0F };
+    float m_speed { 2.5F };
 };
 
 
