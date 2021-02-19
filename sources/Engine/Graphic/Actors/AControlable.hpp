@@ -47,11 +47,90 @@ public:
 
 
 
+    // ---------------------------------- Speed
+
+    auto getSpeed() const
+        -> float;
+
+    void setSpeed(
+        float speed
+    );
+
+
+
+    // ---------------------------------- Movement State
+
+    void startMovingForward();
+
+    void startMovingBackward();
+
+    void startMovingRight();
+
+    void startMovingLeft();
+
+    void startMovingUp();
+
+    void startMovingDown();
+
+
+
+    void stopMovingForward();
+
+    void stopMovingBackward();
+
+    void stopMovingRight();
+
+    void stopMovingLeft();
+
+    void stopMovingUp();
+
+    void stopMovingDown();
+
+
+
+    void stopMoving();
+
+    void immobilize();
+
+
+
+    auto isMovingForward()
+        -> bool;
+
+    auto isMovingBackward()
+        -> bool;
+
+    auto isMovingRight()
+        -> bool;
+
+    auto isMovingLeft()
+        -> bool;
+
+    auto isMovingUp()
+        -> bool;
+
+    auto isMovingDown()
+        -> bool;
+
+
+
 public:
 protected:
 protected:
 private:
 private:
+
+    float m_speed { 2.5F };
+
+    enum MovementState {
+        Forward = 0,
+        Backward = 1,
+        Left = 2,
+        Right = 3,
+        Up = 4,
+        Down = 5,
+    };
+    ::std::bitset<6> m_movementState;
 
 };
 

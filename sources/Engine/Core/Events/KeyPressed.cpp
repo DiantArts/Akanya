@@ -53,28 +53,26 @@ void ::engine::core::event::KeyPressed::resolve(
     engine::graphic::AScene& scene
 )
 {
-    switch (m_keyCode) {
-    case GLFW_KEY_W:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Forward);
-        break;
-    case GLFW_KEY_S:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Backward);
-        break;
-    case GLFW_KEY_D:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Right);
-        break;
-    case GLFW_KEY_A:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Left);
-        break;
-    case GLFW_KEY_SPACE:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Up);
-        break;
-    case GLFW_KEY_X:
-        scene.addCameraMovementState(engine::graphic::Camera::MovementState::Down);
-        break;
-    case GLFW_KEY_ESCAPE:
-        scene.setToOver();
-        break;
+    if (scene.m_camera.isAttached()) {
+        switch (m_keyCode) {
+        case GLFW_KEY_W: scene.m_camera.startMovingForward(); break;
+        case GLFW_KEY_S: scene.m_camera.startMovingBackward(); break;
+        case GLFW_KEY_D: scene.m_camera.startMovingRight(); break;
+        case GLFW_KEY_A: scene.m_camera.startMovingLeft(); break;
+        case GLFW_KEY_SPACE: scene.m_camera.startMovingUp(); break;
+        case GLFW_KEY_X: scene.m_camera.startMovingDown(); break;
+        case GLFW_KEY_ESCAPE: scene.setToOver(); break;
+        }
+    } else {
+        // switch (m_keyCode) {
+        // case GLFW_KEY_W: scene.m_player->startMovingForward(); break;
+        // case GLFW_KEY_S: scene.m_player->startMovingBackward(); break;
+        // case GLFW_KEY_D: scene.m_player->startMovingRight(); break;
+        // case GLFW_KEY_A: scene.m_player->startMovingLeft(); break;
+        // case GLFW_KEY_SPACE: scene.m_player->startMovingUp(); break;
+        // case GLFW_KEY_X: scene.m_player->startMovingDown(); break;
+        // case GLFW_KEY_ESCAPE: scene.setToOver(); break;
+        // }
     }
 
 }

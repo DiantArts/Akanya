@@ -388,7 +388,6 @@ ffclean : fclean
 fffclean : ffclean
 	rm -rf $(BUILDDIR)
 	rm -rf $(BINDIR)
-	find . -name \*.gch -delete
 	$(PRINTF) "$(DARKGRAY)[FFFClean]$(NORMAL) done\n"
 
 ## auto

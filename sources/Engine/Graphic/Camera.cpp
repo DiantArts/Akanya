@@ -28,60 +28,60 @@
 void ::engine::graphic::Camera::update(const float deltaTime)
 {
     if (m_attachedActor.expired()) {
-        auto velocity = m_speed * deltaTime;
+        auto velocity = this->getSpeed() * deltaTime;
 
-        if (m_movementState[Camera::MovementState::Forward]) {
-            if (!m_movementState[Camera::MovementState::Backward]) {
+        if (this->isMovingForward()) {
+            if (!this->isMovingBackward()) {
                 m_position += velocity * m_front;
             }
         } else {
-            if (m_movementState[Camera::MovementState::Backward]) {
+            if (this->isMovingBackward()) {
                 m_position -= velocity * m_front;
             }
         }
 
-        if (m_movementState[Camera::MovementState::Right]) {
-            if (!m_movementState[Camera::MovementState::Left]) {
+        if (this->isMovingRight()) {
+            if (!this->isMovingLeft()) {
                 m_position += glm::normalize(glm::cross(m_front, m_up)) * velocity;
             }
         } else {
-            if (m_movementState[Camera::MovementState::Left]) {
+            if (this->isMovingLeft()) {
                 m_position -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
             }
         }
 
-        if (m_movementState[Camera::MovementState::Up]) {
-            if (!m_movementState[Camera::MovementState::Down]) {
+        if (this->isMovingUp()) {
+            if (!this->isMovingDown()) {
                 m_position.y += velocity;
             }
         } else {
-            if (m_movementState[Camera::MovementState::Down]) {
+            if (this->isMovingDown()) {
                 m_position.y -= velocity;
             }
         }
     } else {
-        auto attachedActor { m_attachedActor.lock() };
-        auto velocity = attachedActor->getSpeed() * deltaTime;
+        // auto attachedActor { m_attachedActor.lock() };
+        // auto velocity = attachedActor->getSpeed() * deltaTime;
 
-        if (m_movementState[Camera::MovementState::Forward]) {
-            if (!m_movementState[Camera::MovementState::Backward]) {
-                attachedActor->instances[0] += velocity * m_front;
-            }
-        } else {
-            if (m_movementState[Camera::MovementState::Backward]) {
-                attachedActor->instances[0] -= velocity * m_front;
-            }
-        }
+        // if (m_movementState[Camera::MovementState::Forward]) {
+            // if (!m_movementState[Camera::MovementState::Backward]) {
+                // attachedActor->instances[0] += velocity * m_front;
+            // }
+        // } else {
+            // if (m_movementState[Camera::MovementState::Backward]) {
+                // attachedActor->instances[0] -= velocity * m_front;
+            // }
+        // }
 
-        if (m_movementState[Camera::MovementState::Right]) {
-            if (!m_movementState[Camera::MovementState::Left]) {
-                attachedActor->instances[0] += glm::normalize(glm::cross(m_front, m_up)) * velocity;
-            }
-        } else {
-            if (m_movementState[Camera::MovementState::Left]) {
-                attachedActor->instances[0] -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
-            }
-        }
+        // if (m_movementState[Camera::MovementState::Right]) {
+            // if (!m_movementState[Camera::MovementState::Left]) {
+                // attachedActor->instances[0] += glm::normalize(glm::cross(m_front, m_up)) * velocity;
+            // }
+        // } else {
+            // if (m_movementState[Camera::MovementState::Left]) {
+                // attachedActor->instances[0] -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
+            // }
+        // }
 
         // if (m_movementState[Camera::MovementState::Up]) {
             // if (!m_movementState[Camera::MovementState::Down]) {
@@ -93,20 +93,6 @@ void ::engine::graphic::Camera::update(const float deltaTime)
             // }
         // }
     }
-}
-
-
-
-// ---------------------------------- speed
-
-void ::engine::graphic::Camera::setSpeed(const float value)
-{
-    m_speed = value;
-}
-
-float ::engine::graphic::Camera::getSpeed() const
-{
-    return m_speed;
 }
 
 
@@ -125,19 +111,7 @@ void ::engine::graphic::Camera::move(const glm::vec3& offset)
     m_position += offset;
 }
 
-void ::engine::graphic::Camera::addMovementState(
-    Camera::MovementState state
-)
-{
-    m_movementState[state] = true;
-}
 
-void ::engine::graphic::Camera::removeMovementState(
-    Camera::MovementState state
-)
-{
-    m_movementState[state] = false;
-}
 
 
 // ---------------------------------- Position
@@ -168,6 +142,12 @@ void ::engine::graphic::Camera::attach(
 )
 {
     m_attachedActor = actor;
+}
+
+auto ::engine::graphic::Camera::isAttached() const
+    -> bool
+{
+    return m_attachedActor.expired();
 }
 
 

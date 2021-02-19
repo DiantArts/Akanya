@@ -11,7 +11,9 @@ namespace engine::graphic {
 
 
 
-class Camera {
+class Camera
+    : public engine::graphic::actor::AControlable
+{
 
 public:
 
@@ -57,19 +59,6 @@ public:
 
 
 
-    // ---------------------------------- Speed
-
-    auto getSpeed() const
-        -> float;
-
-
-
-    void setSpeed(
-        float value
-    );
-
-
-
     // ---------------------------------- Move
 
     void move(
@@ -80,23 +69,6 @@ public:
 
     void move(
         const ::glm::vec3& offset
-    );
-
-    enum MovementState {
-        Forward = 0,
-        Backward = 1,
-        Left = 2,
-        Right = 3,
-        Up = 4,
-        Down = 5,
-    };
-
-    void addMovementState(
-        MovementState state
-    );
-
-    void removeMovementState(
-        MovementState state
     );
 
 
@@ -125,6 +97,9 @@ public:
     void attach(
         std::shared_ptr<::engine::graphic::AActor>& actor
     );
+
+    auto isAttached() const
+        -> bool;
 
 
 
@@ -237,9 +212,6 @@ private:
 
 
 private:
-
-    float m_speed { 2.5F };
-    ::std::bitset<6> m_movementState;
 
     std::weak_ptr<::engine::graphic::AActor> m_attachedActor;
 

@@ -19,6 +19,14 @@
 #include "nbLights.hpp"
 
 
+
+namespace engine::core::event { class AEvent; }
+namespace engine::core::event { class KeyPressed; }
+namespace engine::core::event { class KeyReleased; }
+namespace engine::core::event { class MousePosition; }
+
+
+
 namespace engine::graphic {
 
 
@@ -86,30 +94,6 @@ public:
     // ---------------------------------- Update
 
     virtual void update();
-
-
-
-    // ---------------------------------- Camera
-
-    void addCameraMovementState(
-        Camera::MovementState state
-    );
-
-    void removeCameraMovementState(
-        Camera::MovementState state
-    );
-
-
-
-    void orienteCameraFromCursorPosition(
-        const glm::vec2& position
-    );
-
-    void orienteCameraFromCursorPosition(
-        glm::vec2&& position
-    );
-
-
 
     void attachCameraToPlayer();
 
@@ -201,7 +185,7 @@ public:
     ) -> ActorType&
     {
         m_player = std::make_shared<ActorType>(shaderFilepath, std::forward<decltype(args)>(args)...);
-        // this->attachCameraToPlayer();
+        m_camera.attach(m_player);
         return static_cast<ActorType&>(*m_player);
     }
 
@@ -256,6 +240,11 @@ private:
     mutable int m_fps { 0 };
 
     engine::graphic::opengl::Ubo m_lightInformationsUbo;
+
+    friend ::engine::core::event::AEvent;
+    friend ::engine::core::event::KeyPressed;
+    friend ::engine::core::event::KeyReleased;
+    friend ::engine::core::event::MousePosition;
 };
 
 

@@ -53,5 +53,5 @@ void ::engine::core::event::MousePosition::resolve(
     engine::graphic::AScene& scene
 )
 {
-    scene.orienteCameraFromCursorPosition(std::move(m_position));
+    scene.m_camera.orienteFromCursorPosition(std::move(m_position));
 }
