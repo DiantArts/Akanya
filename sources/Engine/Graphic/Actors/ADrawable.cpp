@@ -15,9 +15,7 @@
     const std::string& shaderFilepath
 )
     : m_shader(shaderFilepath)
-{
-    this->setBlockBindingIntoShader("CameraInformations", 0);
-}
+{}
 
 ::engine::graphic::actor::ADrawable::~ADrawable() = default;
 
