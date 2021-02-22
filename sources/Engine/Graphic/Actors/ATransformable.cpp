@@ -296,12 +296,4 @@ const glm::vec3& ATransformable::getRotation() const
 
 
 
-// ---------------------------------- Rotation
-
-float ATransformable::getSpeed() const
-{
-    return m_speed;
-}
-
-
 } // namespace engine::graphic::actor

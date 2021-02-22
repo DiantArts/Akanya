@@ -16,11 +16,11 @@
     const std::function<void()>& setAttributesFunc,
     const std::string& verticesFilename,
     const size_t numberOfPositions,
-    const size_t numberOfTexturesToReserve
+    size_t numberOfTextures
 )
     : engine::graphic::AActor(shaderFilepath, numberOfPositions)
 {
-    m_textureVector.reserve(numberOfTexturesToReserve);
+    m_textureVector.reserve(numberOfTextures);
 
     m_vbo.bind();
     m_vao.bind();

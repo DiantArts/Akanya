@@ -126,9 +126,8 @@ protected:
 private:
 
     std::vector<ABasicShape::Texture> m_textureVector;
-    std::vector<ABasicShape::Texture> m_textureGammaCorrectedVector;
 
-    size_t      m_numberOfArrayToDraw;
+    size_t m_numberOfArrayToDraw;
     ::engine::graphic::opengl::Vao m_vao;
     ::engine::graphic::opengl::Vbo m_vbo;
 };

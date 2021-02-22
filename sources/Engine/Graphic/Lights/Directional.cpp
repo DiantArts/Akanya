@@ -35,8 +35,8 @@ Directional::~Directional()
 // ---------------------------------- set
 
 void Directional::setIntoUbo(
-    const ::engine::graphic::opengl::Ubo& ubo,
-    int& i,
+    const ::engine::graphic::opengl::Ubo&,
+    int&,
     int&,
     int&
 ) const

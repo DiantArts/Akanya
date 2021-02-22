@@ -7,8 +7,8 @@
 #ifndef ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 #define ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_ADRAWABLE_HPP___
 
-namespace engine::graphic::light { class ALight; }
 namespace engine::graphic { class Camera; }
+namespace engine::graphic::light { class ALight; }
 
 
 namespace engine::graphic::actor {

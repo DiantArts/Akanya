@@ -65,11 +65,6 @@ public:
 
 
 
-    // ---------------------------------- Rotation
-    float getSpeed() const;
-
-
-
 public:
     engine::graphic::actor::Positions instances;
 
@@ -77,7 +72,6 @@ public:
 private:
     glm::vec3 m_scale { 1.0F, 1.0F, 1.0F };
     glm::vec3 m_rotation { 0.0F, 0.0F, 0.0F };
-    float m_speed { 2.5F };
 };
 
 
