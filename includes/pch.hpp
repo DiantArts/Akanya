@@ -37,6 +37,7 @@
 #include <utility>
 #include <concepts>
 #include <bitset>
+#include <any>
 
 #include "optimizationBuiltins.hpp"
 
@@ -60,14 +61,8 @@
 using std::string_literals::operator""s;
 using std::literals::string_view_literals::operator""sv;
 
-#define BIT_SHIFT(x) (1 << x)
-
-#define BIT_SET(a,b) ((a) |= (1ULL<<(b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b))))
-
-
+template<typename T>
+using OptionalReferenceWrapper = ::std::optional<::std::reference_wrapper<T>>;
 
 #include "nbLights.hpp"
 
@@ -96,6 +91,7 @@ constexpr auto sizeofPointLightTab { MAX_NB_POINT_LIGHT * ((5 * 16) + (4 * 4)) }
 #include "Engine/Graphic/Actors/ATransformable.hpp"
 #include "Engine/Graphic/Actors/AControlable.hpp"
 #include "Engine/Graphic/Actors/AActor.hpp"
+#include "Engine/Graphic/Actors/ControlableActor.hpp"
 #include "Engine/Core/Config/Filepaths.hpp"
 #include "Engine/Core/Events/Type.hpp"
 #include "Engine/Core/Events/AEvent.hpp"

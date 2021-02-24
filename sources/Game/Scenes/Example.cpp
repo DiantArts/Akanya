@@ -30,8 +30,8 @@
 
     this->emplaceActor<game::object::Floor>();
 
-    // auto& player { this->emplacePlayer<game::entity::Player>("multiEnlightened") };
-    // player.instances[0] = glm::vec3{ 1.0f, 0.0f, 4.0f };
+    auto& player { this->emplacePlayer<game::entity::Player>("multiEnlightened") };
+    player.instances[0] = glm::vec3{ 1.0f, 0.0f, 4.0f };
 }
 
 ::game::scene::Example::~Example()

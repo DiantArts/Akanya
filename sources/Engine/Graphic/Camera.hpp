@@ -95,43 +95,11 @@ public:
     // ---------------------------------- Attach
 
     void attach(
-        std::shared_ptr<::engine::graphic::AActor>& actor
+        ::engine::graphic::ControlableActor& actor
     );
 
     auto isAttached() const
         -> bool;
-
-
-
-    // ---------------------------------- Orientation
-
-    auto getOrientation() const
-        -> const ::glm::vec3&;
-
-    auto getFront() const
-        -> const ::glm::vec3&;
-
-
-
-    void oriente(
-        float xOffset,
-        float yOffset
-    );
-
-    void oriente(
-        const ::glm::vec2& offset
-    );
-
-
-
-    void setOrientation(
-        float xOffset,
-        float yOffset
-    );
-
-    void setOrientation(
-        const ::glm::vec2& offset
-    );
 
 
 
@@ -190,49 +158,30 @@ public:
 
     void configureUbo() const;
 
-    glm::mat4 getView() const;
-
 
 
 public:
-
-    static constexpr float minPitch { -89.999F };
-    static constexpr float maxPitch { 89.999F };
-    static constexpr float minZoom { 1.000F };
-    static constexpr float maxZoom { 45.000F };
-
-
-
 protected:
 protected:
 private:
-
-    void adjustOrientation();
-
-
-
 private:
 
-    std::weak_ptr<::engine::graphic::AActor> m_attachedActor;
+    OptionalReferenceWrapper<::engine::graphic::ControlableActor> m_attachedActor { ::std::nullopt };
 
-    ::glm::vec3 m_orientation { 0.5F, 0.5F, 0.5F };
     ::glm::vec3 m_position { 0.0F, 0.0F, 3.0F };
 
-    ::glm::vec3 m_front { 0.0F, 0.0F, -1.0F };
-    ::glm::vec3 m_up { 0.0F, 1.0F, 0.0F };
-
-    ::glm::vec3 m_sensitivity { 0.1F, 0.1F, 1.0F };
-
     ::glm::vec2 m_cursorPosition;
-
-    float m_zoom { 45.05F };
-    float m_yaw { -90.00F };
-    float m_pitch { 0.00F };
 
     Camera::Config m_config;
 
     ::engine::graphic::opengl::Ubo m_informationsUbo;
     ::engine::graphic::opengl::Ubo m_positionUbo;
+
+    float m_zoom { 45.05F };
+
+    static constexpr float minZoom { 1.000F };
+    static constexpr float maxZoom { 45.000F };
+
 };
 
 

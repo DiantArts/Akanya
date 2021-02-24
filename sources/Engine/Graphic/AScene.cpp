@@ -89,13 +89,15 @@ void ::engine::graphic::AScene::drawActors() const
     }
     m_lightInformationsUbo.unbind();
 
-    // m_player->draw();
+    for (const auto& controlableActor : m_controlableActors) {
+        controlableActor.getActorPart().draw();
+    }
 
-    for (const auto& actor : m_vectorActors) {
+    for (const auto& actor : m_actors) {
         actor->draw();
     }
 
-    for (const auto& cubeMap : m_vectorCubeMap) {
+    for (const auto& cubeMap : m_cubeMap) {
         cubeMap.draw();
     }
 }
@@ -121,7 +123,10 @@ void ::engine::graphic::AScene::update()
 {
     auto deltaTime { m_updateClock.getElapsedTime() };
     m_camera.update(deltaTime);
-    for (auto& actor : m_vectorActors) {
+    for (auto& controlableActor : m_controlableActors) {
+        controlableActor.getActorPart().update(deltaTime);
+    }
+    for (auto& actor : m_actors) {
         actor->update(deltaTime);
     }
 }

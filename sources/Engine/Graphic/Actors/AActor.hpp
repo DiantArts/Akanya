@@ -91,6 +91,4 @@ private:
 
 namespace engine::graphic { using AActor = engine::graphic::actor::AActor; }
 
-
-
 #endif // ___INCLUDE_GUARD_SOURCES_ENGINE_GRAPHIC_ACTORS_AACTOR_HPP___

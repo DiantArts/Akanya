@@ -60,6 +60,10 @@ public:
 
     void configureShader() const override;
 
+    void update(
+        float deltaTime
+    ) override;
+
 
 
 public:

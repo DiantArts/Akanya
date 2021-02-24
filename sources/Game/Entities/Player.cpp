@@ -34,3 +34,12 @@
 
 void ::game::entity::Player::configureShader() const
 {}
+
+void ::game::entity::Player::update(
+    float deltaTime
+)
+{
+    for (auto& position : this->instances) {
+        this->updatePosition(deltaTime, position);
+    }
+}

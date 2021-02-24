@@ -27,69 +27,37 @@
 
 void ::engine::graphic::Camera::update(const float deltaTime)
 {
-    if (m_attachedActor.expired()) {
-        auto velocity = this->getSpeed() * deltaTime;
+    if (this->isAttached()) {
+        this->updatePosition(deltaTime, m_position);
+        // auto velocity = this->getSpeed() * deltaTime;
 
-        if (this->isMovingForward()) {
-            if (!this->isMovingBackward()) {
-                m_position += velocity * m_front;
-            }
-        } else {
-            if (this->isMovingBackward()) {
-                m_position -= velocity * m_front;
-            }
-        }
-
-        if (this->isMovingRight()) {
-            if (!this->isMovingLeft()) {
-                m_position += glm::normalize(glm::cross(m_front, m_up)) * velocity;
-            }
-        } else {
-            if (this->isMovingLeft()) {
-                m_position -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
-            }
-        }
-
-        if (this->isMovingUp()) {
-            if (!this->isMovingDown()) {
-                m_position.y += velocity;
-            }
-        } else {
-            if (this->isMovingDown()) {
-                m_position.y -= velocity;
-            }
-        }
-    } else {
-        // auto attachedActor { m_attachedActor.lock() };
-        // auto velocity = attachedActor->getSpeed() * deltaTime;
-
-        // if (m_movementState[Camera::MovementState::Forward]) {
-            // if (!m_movementState[Camera::MovementState::Backward]) {
-                // attachedActor->instances[0] += velocity * m_front;
+        // if (this->isMovingForward()) {
+            // if (!this->isMovingBackward()) {
+                // m_position += velocity * m_front;
             // }
         // } else {
-            // if (m_movementState[Camera::MovementState::Backward]) {
-                // attachedActor->instances[0] -= velocity * m_front;
+            // if (this->isMovingBackward()) {
+                // m_position -= velocity * m_front;
             // }
         // }
 
-        // if (m_movementState[Camera::MovementState::Right]) {
-            // if (!m_movementState[Camera::MovementState::Left]) {
-                // attachedActor->instances[0] += glm::normalize(glm::cross(m_front, m_up)) * velocity;
+        // if (this->isMovingRight()) {
+            // if (!this->isMovingLeft()) {
+                // m_position += glm::normalize(glm::cross(m_front, m_up)) * velocity;
             // }
         // } else {
-            // if (m_movementState[Camera::MovementState::Left]) {
-                // attachedActor->instances[0] -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
+            // if (this->isMovingLeft()) {
+                // m_position -= glm::normalize(glm::cross(m_front, m_up)) * velocity;
             // }
         // }
 
-        // if (m_movementState[Camera::MovementState::Up]) {
-            // if (!m_movementState[Camera::MovementState::Down]) {
-                // attachedActor->instances[0].y += velocity;
+        // if (this->isMovingUp()) {
+            // if (!this->isMovingDown()) {
+                // m_position.y += velocity;
             // }
         // } else {
-            // if (m_movementState[Camera::MovementState::Down]) {
-                // attachedActor->instances[0].y -= velocity;
+            // if (this->isMovingDown()) {
+                // m_position.y -= velocity;
             // }
         // }
     }
@@ -138,7 +106,7 @@ const glm::vec3& ::engine::graphic::Camera::getPosition() const
 // ---------------------------------- Attach
 
 void ::engine::graphic::Camera::attach(
-    std::shared_ptr<::engine::graphic::AActor>& actor
+    ::engine::graphic::ControlableActor& actor
 )
 {
     m_attachedActor = actor;
@@ -147,85 +115,7 @@ void ::engine::graphic::Camera::attach(
 auto ::engine::graphic::Camera::isAttached() const
     -> bool
 {
-    return m_attachedActor.expired();
-}
-
-
-
-// ---------------------------------- Orientation
-
-void ::engine::graphic::Camera::oriente(const float xOffset, const float yOffset)
-{
-    m_yaw += xOffset * m_sensitivity.x;
-    m_pitch += yOffset * m_sensitivity.y;
-
-    if (m_yaw >= 360) {
-        m_yaw -= 360;
-    }
-    if (m_pitch > this->maxPitch) {
-        m_pitch = this->maxPitch;
-    } else if (m_pitch < this->minPitch) {
-        m_pitch = this->minPitch;
-    }
-    this->adjustOrientation();
-}
-
-void ::engine::graphic::Camera::oriente(const glm::vec2& offset)
-{
-    m_yaw += offset.x * m_sensitivity.x;
-    m_pitch += offset.y * m_sensitivity.y;
-
-    if (m_yaw >= 360) {
-        m_yaw -= 360;
-    }
-    if (m_pitch > this->maxPitch) {
-        m_pitch = this->maxPitch;
-    } else if (m_pitch < this->minPitch) {
-        m_pitch = this->minPitch;
-    }
-    this->adjustOrientation();
-}
-
-
-void ::engine::graphic::Camera::setOrientation(const float xOffset, const float yOffset)
-{
-    if (unlikely(xOffset >= 360 || yOffset > this->maxPitch || yOffset < this->minPitch)) {
-        throw std::logic_error("invalid orientation");
-    }
-    m_yaw   = xOffset;
-    m_pitch = yOffset;
-    this->adjustOrientation();
-}
-
-void ::engine::graphic::Camera::setOrientation(const glm::vec2& offset)
-{
-    if (unlikely(offset.x >= 360 || offset.y > this->maxPitch || offset.y < this->minPitch)) {
-        throw std::logic_error("invalid orientation");
-    }
-    m_yaw   = offset.x;
-    m_pitch = offset.y;
-    this->adjustOrientation();
-}
-
-
-void ::engine::graphic::Camera::adjustOrientation()
-{
-    m_orientation.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-    m_orientation.y = sin(glm::radians(m_pitch));
-    m_orientation.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-    m_front         = glm::normalize(m_orientation);
-}
-
-
-
-const glm::vec3& ::engine::graphic::Camera::getOrientation() const
-{
-    return m_orientation;
-}
-
-const glm::vec3& ::engine::graphic::Camera::getFront() const
-{
-    return m_front;
+    return m_attachedActor == ::std::nullopt;
 }
 
 
@@ -313,12 +203,6 @@ auto ::engine::graphic::Camera::getConfig() const
 
 void ::engine::graphic::Camera::configureUbo() const
 {
-    m_informationsUbo.setOneSubData(sizeof(glm::mat4), glm::lookAt(m_position, m_position + m_front, m_up));
+    m_informationsUbo.setOneSubData(sizeof(glm::mat4), this->getView(m_position));
     m_positionUbo.setOneSubData(0, m_position);
-}
-
-auto ::engine::graphic::Camera::getView() const
-    -> ::glm::mat4
-{
-    return glm::lookAt(m_position, m_position + m_front, m_up);
 }

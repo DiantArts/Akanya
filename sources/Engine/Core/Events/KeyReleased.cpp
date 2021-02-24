@@ -54,6 +54,7 @@ void ::engine::core::event::KeyReleased::resolve(
     engine::graphic::AScene& scene
 )
 {
+
     if (scene.m_camera.isAttached()) {
         switch (m_keyCode) {
         case GLFW_KEY_W: scene.m_camera.stopMovingForward(); break;
@@ -64,14 +65,14 @@ void ::engine::core::event::KeyReleased::resolve(
         case GLFW_KEY_X: scene.m_camera.stopMovingDown(); break;
         }
     } else {
-        // switch (m_keyCode) {
-        // case GLFW_KEY_W: scene.m_player->stopMovingForward(); break;
-        // case GLFW_KEY_S: scene.m_player->stopMovingBackward(); break;
-        // case GLFW_KEY_D: scene.m_player->stopMovingRight(); break;
-        // case GLFW_KEY_A: scene.m_player->stopMovingLeft(); break;
-        // case GLFW_KEY_SPACE: scene.m_player->stopMovingUp(); break;
-        // case GLFW_KEY_X: scene.m_player->stopMovingDown(); break;
-        // }
+        switch (m_keyCode) {
+        case GLFW_KEY_W: scene.m_player->get().control().stopMovingForward(); break;
+        case GLFW_KEY_S: scene.m_player->get().control().stopMovingBackward(); break;
+        case GLFW_KEY_D: scene.m_player->get().control().stopMovingRight(); break;
+        case GLFW_KEY_A: scene.m_player->get().control().stopMovingLeft(); break;
+        case GLFW_KEY_SPACE: scene.m_player->get().control().stopMovingUp(); break;
+        case GLFW_KEY_X: scene.m_player->get().control().stopMovingDown(); break;
+        }
     }
 
 }

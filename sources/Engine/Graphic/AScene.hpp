@@ -110,7 +110,7 @@ public:
         auto&&... args
     ) -> ActorType&
     {
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
+        return static_cast<ActorType&>(*m_actors.emplace_back(std::make_shared<ActorType>(
                 std::forward<decltype(args)>(args)...)
             ));
     }
@@ -126,7 +126,7 @@ public:
     ) -> ActorType&
     {
         ++m_lightInformations.nbDirectionalLight;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
+        return static_cast<ActorType&>(*m_actors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
                 std::forward<decltype(args)>(args)...)
             ));
@@ -145,7 +145,7 @@ public:
     ) -> ActorType&
     {
         m_lightInformations.nbPointLight += numberOfInstances;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
+        return static_cast<ActorType&>(*m_actors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
                 numberOfInstances,
                 std::forward<decltype(args)>(args)...)
@@ -165,7 +165,7 @@ public:
     ) -> ActorType&
     {
         m_lightInformations.nbSpotLight += numberOfInstances;
-        return static_cast<ActorType&>(*m_vectorActors.emplace_back(std::make_shared<ActorType>(
+        return static_cast<ActorType&>(*m_actors.emplace_back(std::make_shared<ActorType>(
                 m_lights,
                 numberOfInstances,
                 std::forward<decltype(args)>(args)...)
@@ -184,18 +184,25 @@ public:
         auto&&... args
     ) -> ActorType&
     {
-        m_player = std::make_shared<ActorType>(shaderFilepath, std::forward<decltype(args)>(args)...);
-        m_camera.attach(m_player);
-        return static_cast<ActorType&>(*m_player);
+        ::engine::graphic::actor::ControlableActor tmp;
+        auto& player { tmp.emplace<ActorType>(
+            shaderFilepath,
+            std::forward<decltype(args)>(args)...
+        ) };
+        m_controlableActors.emplace_back(std::move(tmp));
+        m_player = { m_controlableActors.back() };
+        m_camera.attach(m_player->get());
+        return player;
     }
 
 
 
 public:
 protected:
-    std::shared_ptr<::engine::graphic::AActor> m_player;
-    std::vector<std::shared_ptr<::engine::graphic::AActor>> m_vectorActors;
-    std::vector<::engine::graphic::actor::CubeMap> m_vectorCubeMap;
+    OptionalReferenceWrapper<::engine::graphic::actor::ControlableActor> m_player;
+    std::vector<::engine::graphic::actor::ControlableActor> m_controlableActors;
+    std::vector<std::shared_ptr<::engine::graphic::AActor>> m_actors;
+    std::vector<::engine::graphic::actor::CubeMap> m_cubeMap;
 
 
 

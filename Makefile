@@ -351,6 +351,7 @@ $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
 	$(SRCDIR)/Engine/Graphic/Actors/ATransformable$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/AControlable$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/AActor$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Graphic/Actors/ControlableActor$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Lights/ALight$(CPP_HDREXT)
 
 

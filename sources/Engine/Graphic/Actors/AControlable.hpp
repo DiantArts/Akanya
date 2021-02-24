@@ -60,6 +60,13 @@ public:
 
     // ---------------------------------- Movement State
 
+    virtual void updatePosition(
+        float deltaTime,
+        ::glm::vec3& position
+    );
+
+
+
     void startMovingForward();
 
     void startMovingBackward();
@@ -114,13 +121,56 @@ public:
 
 
 
+    // ---------------------------------- Orientation
+
+    auto getOrientation() const
+        -> const ::glm::vec3&;
+
+    auto getFront() const
+        -> const ::glm::vec3&;
+
+
+
+    void oriente(
+        float xOffset,
+        float yOffset
+    );
+
+    void oriente(
+        const ::glm::vec2& offset
+    );
+
+
+
+    void setOrientation(
+        float xOffset,
+        float yOffset
+    );
+
+    void setOrientation(
+        const ::glm::vec2& offset
+    );
+
+
+
+    // ---------------------------------- View
+
+    auto getView(
+        const ::glm::vec3& position
+    ) const -> glm::mat4;
+
+
+
 public:
 protected:
 protected:
 private:
-private:
 
-    float m_speed { 2.5F };
+    void adjustOrientation();
+
+
+
+private:
 
     enum MovementState {
         Forward = 0,
@@ -131,6 +181,19 @@ private:
         Down = 5,
     };
     ::std::bitset<6> m_movementState;
+
+    float m_speed { 2.5F };
+
+    float m_yaw { -90.00F };
+    float m_pitch { 0.00F };
+
+    float minPitch { -89.999F };
+    float maxPitch { 89.999F };
+
+    ::glm::vec3 m_orientation { 0.5F, 0.5F, 0.5F };
+
+    ::glm::vec3 m_front { 0.0F, 0.0F, -1.0F };
+    ::glm::vec3 m_up { 0.0F, 1.0F, 0.0F };
 
 };
 

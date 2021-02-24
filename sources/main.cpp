@@ -4,7 +4,7 @@
 
 int main()
 {
-    try {
+    // try {
         ::engine::graphic::Window window;
         ::game::scene::Example scene(window);
 
@@ -14,13 +14,13 @@ int main()
             scene.draw();
         }
         return EXIT_SUCCESS;
-    } catch (const std::exception& e) {
-        std::cerr << "ERROR: " << e.what() << std::endl;
-        return EXIT_FAILURE;
+    // } catch (const std::exception& e) {
+        // std::cerr << "ERROR: " << e.what() << std::endl;
+        // return EXIT_FAILURE;
 
-    } catch (...) {
-        std::cerr << "ERROR: unknown" << std::endl;
-        return EXIT_FAILURE;
+    // } catch (...) {
+        // std::cerr << "ERROR: unknown" << std::endl;
+        // return EXIT_FAILURE;
 
-    }
+    // }
 }
