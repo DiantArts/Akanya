@@ -75,11 +75,17 @@ public:
 
 
 
+    // ---------------------------------- Hitbox
+
+
+
 public:
 protected:
 protected:
 private:
 private:
+
+    ::engine::physic::Hitbox m_hitbox;
 
 };
 

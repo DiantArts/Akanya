@@ -86,6 +86,7 @@ constexpr auto sizeofPointLightTab { MAX_NB_POINT_LIGHT * ((5 * 16) + (4 * 4)) }
 #include "Engine/Graphic/OpenGL/Ubo.hpp"
 #include "Engine/Graphic/OpenGL/Vertices.hpp"
 #include "Engine/Graphic/OpenGL/Shader.hpp"
+#include "Engine/Physic/Hitbox.hpp"
 #include "Engine/Graphic/Actors/Positions.hpp"
 #include "Engine/Graphic/Actors/ADrawable.hpp"
 #include "Engine/Graphic/Actors/ATransformable.hpp"

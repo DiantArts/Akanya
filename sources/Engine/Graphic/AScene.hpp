@@ -95,7 +95,11 @@ public:
 
     virtual void update();
 
-    void attachCameraToPlayer();
+    void applyPhysic();
+
+    void applyGravity();
+
+    void resolveCollision();
 
 
 
@@ -199,7 +203,12 @@ public:
 
 public:
 protected:
+
+    // refs
     OptionalReferenceWrapper<::engine::graphic::actor::ControlableActor> m_player;
+    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
+
+    // containers
     std::vector<::engine::graphic::actor::ControlableActor> m_controlableActors;
     std::vector<std::shared_ptr<::engine::graphic::AActor>> m_actors;
     std::vector<::engine::graphic::actor::CubeMap> m_cubeMap;
@@ -234,10 +243,6 @@ private:
     };
     LightInformations m_lightInformations;
 
-    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
-
-
-
     bool m_isOver { false };
 
     mutable ::engine::core::Clock m_updateClock;
@@ -247,6 +252,9 @@ private:
     mutable int m_fps { 0 };
 
     engine::graphic::opengl::Ubo m_lightInformationsUbo;
+
+
+// friends
 
     friend ::engine::core::event::AEvent;
     friend ::engine::core::event::KeyPressed;

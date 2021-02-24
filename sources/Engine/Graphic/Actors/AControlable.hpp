@@ -60,7 +60,7 @@ public:
 
     // ---------------------------------- Movement State
 
-    virtual void updatePosition(
+    void updatePosition(
         float deltaTime,
         ::glm::vec3& position
     );

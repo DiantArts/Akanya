@@ -344,6 +344,7 @@ $(INCDIR)/pch$(CPP_HDREXT)$(PCHEXT): \
 	$(SRCDIR)/Engine/Core/Events/Type$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Core/Events/AEvent$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Core/Events/Container$(CPP_HDREXT) \
+	$(SRCDIR)/Engine/Physic/Hitbox$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Window$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Camera$(CPP_HDREXT) \
 	$(SRCDIR)/Engine/Graphic/Actors/Positions$(CPP_HDREXT) \

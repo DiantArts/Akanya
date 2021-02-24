@@ -129,4 +129,17 @@ void ::engine::graphic::AScene::update()
     for (auto& actor : m_actors) {
         actor->update(deltaTime);
     }
+    this->applyPhysic();
 }
+
+void ::engine::graphic::AScene::applyPhysic()
+{
+    this->applyGravity();
+    this->resolveCollision();
+}
+
+void ::engine::graphic::AScene::applyGravity()
+{}
+
+void ::engine::graphic::AScene::resolveCollision()
+{}
