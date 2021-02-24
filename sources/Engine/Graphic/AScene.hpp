@@ -204,15 +204,14 @@ public:
 public:
 protected:
 
-    // refs
-    OptionalReferenceWrapper<::engine::graphic::actor::ControlableActor> m_player;
-    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
-
     // containers
     std::vector<::engine::graphic::actor::ControlableActor> m_controlableActors;
     std::vector<std::shared_ptr<::engine::graphic::AActor>> m_actors;
     std::vector<::engine::graphic::actor::CubeMap> m_cubeMap;
 
+    // refs
+    OptionalReferenceWrapper<::engine::graphic::actor::ControlableActor> m_player;
+    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
 
 
 

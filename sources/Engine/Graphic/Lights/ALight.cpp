@@ -26,7 +26,7 @@ ALight::ALight(
 
 ALight::~ALight()
 {
-    std::erase_if(m_lights, [this](const auto& elem) { return &elem.get() == this; });
+    // std::erase_if(m_lights, [this](const auto& elem) { return &elem.get() == this; });
 }
 
 
