@@ -211,7 +211,6 @@ protected:
 
     // refs
     OptionalReferenceWrapper<::engine::graphic::actor::ControlableActor> m_player;
-    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
 
 
 
@@ -241,6 +240,7 @@ private:
 #endif
     };
     LightInformations m_lightInformations;
+    std::vector<std::reference_wrapper<engine::graphic::ALight>> m_lights;
 
     bool m_isOver { false };
 
