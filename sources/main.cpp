@@ -13,6 +13,7 @@ int main()
             scene.update();
             scene.draw();
         }
+
         return EXIT_SUCCESS;
     // } catch (const std::exception& e) {
         // std::cerr << "ERROR: " << e.what() << std::endl;
