@@ -24,7 +24,8 @@ public:
     // ---------------------------------- *structors
 
     explicit KeyModifier(
-        int keyCode
+        unsigned int codepoint,
+        int mods
     );
 
     ~KeyModifier();
@@ -69,8 +70,8 @@ protected:
 private:
 private:
 
-    int m_keyCode;
-
+    unsigned int m_codepoint;
+    int m_mods;
 };
 
 

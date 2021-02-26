@@ -88,6 +88,11 @@ public:
     virtual void update();
 
 
+    // ---------------------------------- Toogle
+
+    bool triggerToogle(
+        int keycode
+    );
 
     // ---------------------------------- Camera
 
@@ -300,6 +305,7 @@ private:
     short m_state { -2 };
 
     bool m_isOver { false };
+    std::unordered_map<int, bool> m_toogle;
 
     mutable ::engine::core::Clock m_updateClock;
 
@@ -308,6 +314,7 @@ private:
     mutable int m_fps { 0 };
 
     engine::graphic::opengl::Ubo m_lightInformationsUbo;
+
 };
 
 

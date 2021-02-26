@@ -129,6 +129,20 @@ void ::engine::graphic::AScene::update()
 
 // ---------------------------------- Camera
 
+bool ::engine::graphic::AScene::triggerToogle(
+    int keycode
+)
+{
+    if (!m_toogle[keycode]) {
+        m_toogle[keycode] = true;
+    } else {
+        m_toogle[keycode] = false;
+    }
+    return m_toogle[keycode];
+}
+
+
+
 void ::engine::graphic::AScene::addCameraMovementState(
     Camera::MovementState state
 )

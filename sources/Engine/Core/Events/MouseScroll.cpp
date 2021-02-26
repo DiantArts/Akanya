@@ -58,7 +58,8 @@ void ::engine::core::event::MouseScroll::resolve(
 )
 {
     static double offset = 1;
-    offset += 0.3;
+    offset /= 2;  
     std::cout << "ZOOM" << offset << std::endl;
+    std::cout << "ZOOM" << m_yoffset << std::endl;
     scene.zoomCamera(offset);
 }

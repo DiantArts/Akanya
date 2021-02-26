@@ -14,9 +14,11 @@
 // ---------------------------------- *structors
 
 ::engine::core::event::KeyModifier::KeyModifier(
-    int keyCode
+    unsigned int codepoint,
+    int mods
 )
-    : m_keyCode(keyCode)
+    : m_codepoint(codepoint)
+    , m_mods(mods)
 {
 }
 
@@ -54,7 +56,7 @@ void ::engine::core::event::KeyModifier::resolve(
     engine::graphic::AScene& scene
 )
 {
-    switch (m_keyCode) {
+    switch (m_codepoint) {
     case GLFW_KEY_W:
         scene.removeCameraMovementState(engine::graphic::Camera::MovementState::Forward);
         break;

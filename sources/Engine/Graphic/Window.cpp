@@ -12,11 +12,17 @@
 #include "../Core/Events/MouseButtonReleased.hpp"
 #include "../Core/Events/MousePosition.hpp"
 #include "../Core/Events/MouseScroll.hpp"
+#include "../Core/Events/KeyModifier.hpp"
 
 
 
 namespace {
 
+void keyModifierCallback(
+    GLFWwindow* window,
+    unsigned int codepoint,
+    int mods
+);
 
 void framebufferSizeCallback(
     GLFWwindow*,
@@ -184,6 +190,7 @@ void Window::configureDefault()
     glfwSetCursorPosCallback(m_window.get(), mousePositionCallback);
     glfwSetScrollCallback(m_window.get(), mouseScrollcallback);
     glfwSetMouseButtonCallback(m_window.get(), mouseButtoncallback);
+    //glfwSetCharModsCallback(m_window.get(), keyModifierCallback);
     glfwSetKeyCallback(m_window.get(), keyCallback);
 
 #ifdef __APPLE__ // even if apple will soon not support OpenGL anymore
@@ -278,7 +285,15 @@ class OpenglMemoryManager {
 const OpenglMemoryManager OpenglMemoryManager::_;
 
 
-
+void keyModifierCallback(
+    GLFWwindow* window,
+    unsigned int codepoint,
+    int mods
+)
+{
+    auto& events = *reinterpret_cast<::engine::core::event::Container*>(glfwGetWindowUserPointer(window));
+    events.emplace<::engine::core::event::KeyModifier>(std::move(codepoint), std::move(mods));
+}
 
 void keyCallback(
     GLFWwindow* window,

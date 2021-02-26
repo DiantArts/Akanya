@@ -54,6 +54,13 @@ void ::engine::core::event::KeyPressed::resolve(
 )
 {
     switch (m_keyCode) {
+    case GLFW_KEY_LEFT_SHIFT:
+        if (scene.triggerToogle(m_keyCode)) {
+            scene.addCameraMovementState(engine::graphic::Camera::MovementState::Up);
+        } else {
+            scene.removeCameraMovementState(engine::graphic::Camera::MovementState::Up);
+        }
+        break;
     case GLFW_KEY_W:
         scene.addCameraMovementState(engine::graphic::Camera::MovementState::Forward);
         break;
