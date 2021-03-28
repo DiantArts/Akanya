@@ -58,7 +58,7 @@ CXX_CPPFLAGS	:=
 LIBLOCATION		:=
 
 ## -l
-LIBBIN			:=	glfw dl assimp z
+LIBBIN			:=	glfw dl assimp z pthread
 
 ## exclude pch dir
 NO_PCH_SRC		:=	Engine
@@ -109,9 +109,9 @@ CC				:=	gcc
 CXX				:=	g++
 
 # find
-C_SRC			!=	find $(SRCDIR) -type f -name \*$(C_SRCEXT)
-CPP_SRC			!=	find $(SRCDIR) -type f -name \*$(CPP_SRCEXT)
-CPPM_SRC		!=	find $(SRCDIR) -type f -name \*$(CPPM_SRCEXT)
+C_SRC			!=	find $(SRCDIR)/{client*,*/} -type f -name \*$(C_SRCEXT)
+CPP_SRC			!=	find $(SRCDIR)/{client*,*/} -type f -name \*$(CPP_SRCEXT)
+CPPM_SRC		!=	find $(SRCDIR)/{client*,*/} -type f -name \*$(CPPM_SRCEXT)
 FOUNDLIBS		!=	find $(LIBDIR) -maxdepth 1 -type d ! -path $(LIBDIR)
 FOUNDEXTERN		!=	find $(EXTERNDIR) -maxdepth 1 -type d ! -path $(EXTERNDIR)
 
@@ -228,7 +228,10 @@ endif
 
 ## ============================================================================
 
-all: linkage
+all: linkage $(BINDIR)/server$(MODE_EXT)
+
+$(BINDIR)/server$(MODE_EXT) : $(SRCDIR)/server$(CPP_SRCEXT) ./$(BINDIR)/libCommunication.a
+	$(CXX) $(OUTPUT_OPTION) -Ilibraries -std=c++20 $< -L$(BINDIR) -lCommunication$(MODE_EXT) -lpthread
 
 precompilation : $(C_PCH_OBJ) $(CPP_PCH_OBJ)
 	$(PRINTF) "$(LCYAN)[Precompilation]$(NORMAL) done\n"

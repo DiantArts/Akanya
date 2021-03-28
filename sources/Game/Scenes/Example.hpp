@@ -10,8 +10,9 @@
 #include "Engine/Graphic/AScene.hpp"
 #include "Engine/Graphic/Actors/Model.hpp"
 
-
 #include "Game/Objects/Floor.hpp"
+
+#include "Communication/Client.hpp"
 
 
 namespace game::scene {
@@ -58,12 +59,24 @@ public:
 
 
 
-public:
-protected:
-protected:
-private:
-private:
+    // ---------------------------------- Update
 
+    void update() override;
+
+
+
+public:
+    static constexpr auto world_size { 20. };
+
+
+
+protected:
+protected:
+private:
+private:
+    ::OptionalReferenceWrapper<const ::glm::vec3> m_player_pos;
+    ::OptionalReferenceWrapper<::glm::vec3> m_mate_pos;
+    ::communication::Client m_client;
 };
 
 
