@@ -257,7 +257,7 @@ class OpenglMemoryManager {
         glfwTerminate();
     }
 
-    static constinit const OpenglMemoryManager _;
+    static const OpenglMemoryManager _;
 };
 const OpenglMemoryManager OpenglMemoryManager::_;
 
